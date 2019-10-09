@@ -22,6 +22,12 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 ![newbee-mall-info](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/store/newbee-mall-info-2.png)
 
+## 项目演示
+
+- [视频1：商城项目总览](https://edu.csdn.net/course/play/26258/326466)
+- [视频2：商城系统介绍](https://edu.csdn.net/course/play/26258/326467)
+- [视频3：商城后台管理系统介绍](https://edu.csdn.net/course/play/26258/328801)
+
 ## 联系作者
 
 > 大家有任何问题或者建议都可以在 [issues](https://github.com/newbee-ltd/newbee-mall/issues) 中反馈给我，我会慢慢完善这个项目。

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.NewBeeMallShoppingCartItemMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.NewBeeMallShoppingCartItem">
+        <id column="cart_item_id" jdbcType="BIGINT" property="cartItemId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    cart_item_id, user_id, goods_id, goods_count, is_deleted, create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_shopping_cart_item
+        where cart_item_id = #{cartItemId,jdbcType=BIGINT} and is_deleted = 0
+    </select>
+    <select id="selectByUserIdAndGoodsId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_shopping_cart_item
+        where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and goods_id=#{goodsId,jdbcType=BIGINT} and is_deleted = 0
+        limit 1
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_shopping_cart_item
+        where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and is_deleted = 0
+        limit #{number}
+    </select>
+    <select id="selectCountByUserId" resultType="int">
+    select
+    count(*)
+    from tb_newbee_mall_shopping_cart_item
+    where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and is_deleted = 0
+  </select>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    update tb_newbee_mall_shopping_cart_item set is_deleted = 1
+    where cart_item_id = #{cartItemId,jdbcType=BIGINT} and is_deleted = 0
+  </update>
+    <update id="deleteBatch">
+        update tb_newbee_mall_shopping_cart_item
+        set is_deleted=1 where cart_item_id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallShoppingCartItem">
+    insert into tb_newbee_mall_shopping_cart_item (cart_item_id, user_id, goods_id, 
+      goods_count, is_deleted, create_time, 
+      update_time)
+    values (#{cartItemId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
+      #{goodsCount,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallShoppingCartItem">
+        insert into tb_newbee_mall_shopping_cart_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                cart_item_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsCount != null">
+                goods_count,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                #{cartItemId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsCount != null">
+                #{goodsCount,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallShoppingCartItem">
+        update tb_newbee_mall_shopping_cart_item
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsCount != null">
+                goods_count = #{goodsCount,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where cart_item_id = #{cartItemId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallShoppingCartItem">
+    update tb_newbee_mall_shopping_cart_item
+    set user_id = #{userId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where cart_item_id = #{cartItemId,jdbcType=BIGINT}
+  </update>
+</mapper>

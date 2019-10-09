@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment"></header>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">首页</h3>
+                </div> <!-- /.card-body -->
+                <div class="card-body">
+                    <div class="panel panel-default">
+                        <div style="padding: 10px 0 20px 10px;">
+                            <a href="https://gitee.com/newbee-ltd/newbee-mall" target="_blank">
+                                <img th:src="@{/admin/dist/img/newbee-logo.png}" style="width: 480px;height: 240px;">
+                                <p>newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot
+                                    2.X
+                                    及相关技术栈开发。
+                                    前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。
+                                    后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。</p>
+                                <ul>
+                                    <li>newbee-mall 对新手开发者十分友好，无需复杂的操作步骤，仅需 2 秒就可以启动这个完整的商城项目；</li>
+                                    <li>newbee-mall 也是一个企业级别的 Spring Boot 大型项目，对于各个阶段的 Java 开发者都是极佳的选择；</li>
+                                    <li>你可以把它作为 Spring Boot 技术栈的综合实践项目，newbee-mall 足够符合要求，且代码开源、功能完备、流程完整、页面交互美观；</li>
+                                    <li>技术栈新颖且知识点丰富，学习后可以提升大家对于知识的理解和掌握，可以进一步提升你的市场竞争力；</li>
+                                    <li>对于部分求职中的 Java 开发者，你也可以将该项目放入求职简历中以丰富你的工作履历；</li>
+                                    <li>newbee-mall 还有一些不完善的地方，鄙人才疏学浅，望见谅；</li>
+                                    <li>有任何问题都可以反馈给我，我会尽量完善该项目。</li>
+                                </ul>
+                            </a>
+                            <h3>联系作者</h3>
+                            <ul>
+                                <li>我的邮箱：2449207463@qq.com</li>
+                                <li>QQ技术交流群：796794009 <a target="_blank"
+                                                         href="//shang.qq.com/wpa/qunwpa?idkey=dc0e028f177932aee2c212a2dd60e0b8342042ac205305803ea801c4eea6727c"><img
+                                        border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="SpringBoot技术交流"
+                                        title="SpringBoot技术交流"></a>
+                                </li>
+                            </ul>
+                            <p>newbee-mall 在 GitHub 和国内的码云都创建了代码仓库，如果有人访问 GitHub 比较慢的话，建议在 Gitee 上查看该项目，两个仓库会保持同步更新。</p>
+                            <ul>
+                                <li><a href="https://github.com/newbee-ltd/newbee-mall" target="_blank">newbee-mall in GitHub</a></li>
+                                <li><a href="https://gitee.com/newbee-ltd/newbee-mall" target="_blank">newbee-mall in Gitee</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

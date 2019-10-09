@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment">
+</header>
+<style>
+    .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height: auto;
+        vertical-align: text-top;
+        padding-top: 2px;
+    }
+</style>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains 图标content -->
+    <div class="content-wrapper">
+        <!-- Content Header (图标header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">会员管理</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="lockUser(0)"><i
+                                    class="fa fa-plus"></i>&nbsp;解除禁用
+                            </button>
+                            <button class="btn btn-danger" onclick="lockUser(1)"><i
+                                    class="fa fa-trash-o"></i>&nbsp;禁用账户
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <table id="jqGrid" class="table table-bordered">
+                            </table>
+                            <div id="jqGridPager"></div>
+                        </div><!-- /.card-body -->
+                    </div>
+                </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
+        <!-- /.content-wrapper -->
+        <!-- 引入页脚footer-fragment -->
+        <div th:replace="admin/footer::footer-fragment"></div>
+    </div>
+    <!-- jQuery -->
+    <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+    <!-- Bootstrap 4 -->
+    <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+    <!-- jqgrid -->
+    <script th:src="@{/admin/plugins/jqgrid-5.3.0/jquery.jqGrid.min.js}"></script>
+    <script th:src="@{/admin/plugins/jqgrid-5.3.0/grid.locale-cn.js}"></script>
+    <!-- sweetalert -->
+    <script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+    <script th:src="@{/admin/dist/js/public.js}"></script>
+    <script th:src="@{/admin/dist/js/newbee_mall_user.js}"></script>
+</body>
+</html>

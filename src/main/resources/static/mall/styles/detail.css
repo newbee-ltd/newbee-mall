@@ -1,0 +1,210 @@
+/*detail*/
+#detail .dc {
+    width: 100%;
+    height: 58px;
+    background: #f0f0f0;
+}
+
+#detail .dc .content {
+    height: 58px;
+    width: 1226px;
+}
+
+#detail .dc .content .title {
+    width: 300px;
+    height: 58px;
+    line-height: 58px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#detail .dc .content nav {
+    display: inline-block;
+    width: 170px;
+    height: 58px;
+    line-height: 58px;
+}
+
+#detail .dc .content nav li {
+    font-size: 14px;
+    float: left;
+    display: block;
+    margin: 0px 5px;
+}
+
+#detail .dc .content nav li a {
+    color: #333;
+    font-size: 14px;
+}
+
+#detail .dc .content nav li a:hover {
+    color: #ff6700;
+}
+
+#detail .intro .left {
+    width: 560px;
+}
+
+#detail .intro .left > img {
+    width: 100%;
+    height: 100%;
+}
+
+#detail .intro .left .smallbox {
+    display: none;
+    background-color: rgba(0, 255, 0, 0.3);
+    width: 280px;
+    height: 280px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#detail .intro .left .swiper-container {
+    width: 100%;
+    height: 100%;
+    margin: 20px auto;
+    padding: 0 34px;
+    box-sizing: border-box;
+}
+
+#detail .intro .left .swiper-container .swiper-button-prev {
+    left: 0;
+    background-position: left;
+}
+
+#detail .intro .left .swiper-container .swiper-button-next {
+    right: 0;
+    background-position: right;
+}
+
+#detail .intro .right {
+    width: 620px;
+    background: #f8f8f8;
+    padding-bottom: 50px;
+}
+
+#detail .intro .right .sub_title {
+    font-size: 16px;
+    color: #b0b0b0;
+    line-height: 20px;
+    height: 100px;
+    margin-top: 44px;
+}
+
+#detail .intro .right .item_price {
+    width: 180px;
+    font-size: 18px;
+    color: #1baeae;
+    height: 100px;
+    font-weight: bold;
+    float: right;
+}
+
+#detail .intro .right .item_price del {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #b0b0b0;
+    text-decoration: line-through;
+}
+
+#detail .intro .right .order {
+    height: 50px;
+    line-height: 50px;
+    float: right;
+}
+
+#detail .intro .right .order .car {
+    height: 50px;
+    width: 156px;
+    border: none;
+    background: #1baeae;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+#detail .intro .right .order .car:hover {
+    border: 1px solid #fff;
+}
+
+.swiper-container {
+    width: 300px;
+    height: 100%;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide img {
+    width: 100%;
+    height: 100%;
+}
+
+.pro-policy {
+    height: 100px;
+    line-height: 50px;
+    float: right;
+    margin-top: 80px;
+}
+
+.pro-policy a {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    cursor: default;
+    white-space: nowrap;
+    color: #b0b0b0;
+}
+
+.pro-policy span i {
+    font-size: 20px;
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+.pro-policy span em {
+    font-style: normal;
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+.tb-extra {
+    font-size: 13px;
+    margin-top: 40px;
+    height: 70px;
+    width: 55%;
+    float: left;
+}
+
+.tb-extra dl {
+    overflow: hidden;
+    *zoom: 1;
+}
+
+.tb-extra dl dt {
+    float: left;
+    width: 60px;
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 4px;
+    color: #6C6C6C;
+}
+
+.tb-extra dl dd a {
+    float: left;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    height: 22px;
+    line-height: 22px;
+    color: #6C6C6C;
+}
+
+.goods img {
+    width: 100%;
+    margin-top: 2px;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>Multi Editor.md - Editor.md examples</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="../css/editormd.css" />
+        <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+        <style>            
+            h3 {
+                width : 90%;
+                margin: 0 auto 15px;
+            }
+            
+            .editormd {
+                margin: 20px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="layout">
+            <header>
+                <h1>Multi Editor.md</h1>
+                <p>多个 Editor.md 并存</p>
+                <br/>
+            </header>
+            <h3>Editor.md A</h3>
+            <div id="test-editormd"></div>
+            <h3>Editor.md B</h3>
+            <div id="test-editormd2"></div>
+            <h3>Editor.md C</h3>
+            <div id="test-editormd3"></div>
+        </div>
+        
+        <script src="js/jquery.min.js"></script> 
+        <script src="../editormd.js"></script> 
+        <script type="text/javascript">
+            var testEditormd, testEditormd2;
+            
+            $(function() {                        
+                testEditormd = editormd("test-editormd", {
+                    width: "90%",
+                    height: 480,
+                    markdown : "#### Editor.md A",
+                    path : '../lib/'
+                });
+
+                testEditormd2 = editormd("test-editormd2", {
+                    width: "90%",
+                    height: 480,
+                    markdown : "#### Editor.md B",
+                    path : '../lib/'
+                });
+
+                testEditormd3 = editormd("test-editormd3", {
+                    width: "90%",
+                    height: 480,
+                    markdown : "#### Editor.md C",
+                    path : '../lib/'
+                });
+            });
+        </script>
+    </body>
+</html>

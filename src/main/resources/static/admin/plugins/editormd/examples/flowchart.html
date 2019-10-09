@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>FlowChart - Editor.md examples</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="../css/editormd.css" />
+        <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <div id="layout">
+            <header>
+                <h1>FlowChart 流程图</h1>
+                <p>Based on flowchart.js：<a href="http://adrai.github.io/flowchart.js/" target="_blank">http://adrai.github.io/flowchart.js/</a></p>        
+            </header>
+            <div id="test-editormd">
+                <textarea style="display:none;">#### Using FlowChart
+
+setting:
+
+    {
+        flowChart : true
+    }
+
+#### Example
+
+```flow
+st=>start: User login
+op=>operation: Operation
+cond=>condition: Successful Yes or No?
+e=>end: Into admin
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```</textarea>
+            </div>
+        </div>
+        
+        <script src="js/jquery.min.js"></script>
+        <script src="../editormd.js"></script>   
+        <script type="text/javascript">
+            $(function() {       
+                var testEditor = editormd("test-editormd", {
+					width: "90%",
+					height: 640,
+					path : '../lib/',
+					flowChart : true
+				});
+            });
+        </script>
+    </body>
+</html>
