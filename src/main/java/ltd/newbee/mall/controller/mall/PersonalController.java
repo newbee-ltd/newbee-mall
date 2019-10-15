@@ -85,8 +85,6 @@ public class PersonalController {
                            @RequestParam("verifyCode") String verifyCode,
                            @RequestParam("password") String password,
                            HttpSession httpSession) {
-        return ResultGenerator.genFailResult("未开放，请联系作者获得测试账号");
-/*
         if (StringUtils.isEmpty(loginName)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
         }
@@ -107,7 +105,7 @@ public class PersonalController {
             return ResultGenerator.genSuccessResult();
         }
         //注册失败
-        return ResultGenerator.genFailResult(registerResult);*/
+        return ResultGenerator.genFailResult(registerResult);
     }
 
     @PostMapping("/personal/updateInfo")
