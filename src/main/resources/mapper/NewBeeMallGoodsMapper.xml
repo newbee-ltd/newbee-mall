@@ -67,7 +67,7 @@
         from tb_newbee_mall_goods_info
         <where>
             <if test="goodsName!=null and goodsName!=''">
-                and goods_name like CONCAT('%','${goodsName}','%')
+                and goods_name like CONCAT('%','#{goodsName}','%')
             </if>
             <if test="goodsSellStatus!=null and goodsSellStatus!=''">
                 and goods_sell_status = #{goodsSellStatus}
@@ -91,7 +91,7 @@
         from tb_newbee_mall_goods_info
         <where>
             <if test="keyword!=null and keyword!=''">
-                and (goods_name like CONCAT('%','${keyword}','%') or goods_intro like CONCAT('%','${keyword}','%'))
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
             </if>
             <if test="goodsCategoryId!=null and goodsCategoryId!=''">
                 and goods_category_id = #{goodsCategoryId}
@@ -122,7 +122,7 @@
         select count(*) from tb_newbee_mall_goods_info
         <where>
             <if test="keyword!=null and keyword!=''">
-                and (goods_name like CONCAT('%','${keyword}','%') or goods_intro like CONCAT('%','${keyword}','%'))
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
             </if>
             <if test="goodsCategoryId!=null and goodsCategoryId!=''">
                 and goods_category_id = #{goodsCategoryId}
@@ -148,7 +148,7 @@
         select count(*) from tb_newbee_mall_goods_info
         <where>
             <if test="goodsName!=null and goodsName!=''">
-                and goods_name like CONCAT('%','${goodsName}','%')
+                and goods_name like CONCAT('%','#{goodsName}','%')
             </if>
             <if test="goodsSellStatus!=null and goodsSellStatus!=''">
                 and goods_sell_status = #{goodsSellStatus}
