@@ -138,7 +138,6 @@ function carouselEdit() {
     if (id == null) {
         return;
     }
-    reset();
     //请求数据
     $.get("/admin/carousels/info/" + id, function (r) {
         if (r.resultCode == 200 && r.data != null) {

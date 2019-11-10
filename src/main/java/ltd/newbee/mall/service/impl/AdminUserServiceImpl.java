@@ -50,7 +50,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         AdminUser adminUser = adminUserMapper.selectByPrimaryKey(loginUserId);
         //当前用户非空才可以进行更改
         if (adminUser != null) {
-            //设置新密码并修改
+            //设置新名称并修改
             adminUser.setLoginUserName(loginUserName);
             adminUser.setNickName(nickName);
             if (adminUserMapper.updateByPrimaryKeySelective(adminUser) > 0) {
