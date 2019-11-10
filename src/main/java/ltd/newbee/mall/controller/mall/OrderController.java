@@ -1,6 +1,7 @@
 package ltd.newbee.mall.controller.mall;
 
 import ltd.newbee.mall.common.Constants;
+import ltd.newbee.mall.common.NewBeeMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallOrderDetailVO;
 import ltd.newbee.mall.controller.vo.NewBeeMallShoppingCartItemVO;
@@ -62,25 +63,16 @@ public class OrderController {
         List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (StringUtils.isEmpty(user.getAddress().trim())) {
             //无收货地址
-            return "error/error_5xx";
+            NewBeeMallException.fail(ServiceResultEnum.NULL_ADDRESS_ERROR.getResult());
         }
         if (CollectionUtils.isEmpty(myShoppingCartItems)) {
             //购物车中无数据则跳转至错误页
-            return "error/error_5xx";
-        } else {
-            //保存订单并返回订单号
-            String saveOrderResult = newBeeMallOrderService.saveOrder(user, myShoppingCartItems);
-            if (ServiceResultEnum.ORDER_PRICE_ERROR.getResult().equals(saveOrderResult)
-                    || ServiceResultEnum.ORDER_PRICE_ERROR.getResult().equals(saveOrderResult)
-                    || ServiceResultEnum.DB_ERROR.getResult().equals(saveOrderResult)
-                    || ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult().equals(saveOrderResult)
-                    || ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult().equals(saveOrderResult)) {
-                //订单生成失败
-                return "error/error_5xx";
-            }
-            //跳转到订单详情页
-            return "redirect:/orders/" + saveOrderResult;
+            NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
         }
+        //保存订单并返回订单号
+        String saveOrderResult = newBeeMallOrderService.saveOrder(user, myShoppingCartItems);
+        //跳转到订单详情页
+        return "redirect:/orders/" + saveOrderResult;
     }
 
     @PutMapping("/orders/{orderNo}/cancel")

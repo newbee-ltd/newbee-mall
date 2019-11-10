@@ -1,9 +1,6 @@
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.common.NewBeeMallOrderStatusEnum;
-import ltd.newbee.mall.common.PayStatusEnum;
-import ltd.newbee.mall.common.PayTypeEnum;
-import ltd.newbee.mall.common.ServiceResultEnum;
+import ltd.newbee.mall.common.*;
 import ltd.newbee.mall.controller.vo.*;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.dao.NewBeeMallOrderItemMapper;
@@ -188,11 +185,11 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
         for (NewBeeMallShoppingCartItemVO shoppingCartItemVO : myShoppingCartItems) {
             //查出的商品中不存在购物车中的这条关联商品数据，直接返回错误提醒
             if (!newBeeMallGoodsMap.containsKey(shoppingCartItemVO.getGoodsId())) {
-                return ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult();
+                NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
             }
             //存在数量大于库存的情况，直接返回错误提醒
             if (shoppingCartItemVO.getGoodsCount() > newBeeMallGoodsMap.get(shoppingCartItemVO.getGoodsId()).getStockNum()) {
-                return ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult();
+                NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
             }
         }
         //删除购物项
@@ -201,7 +198,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                 List<StockNumDTO> stockNumDTOS = BeanUtil.copyList(myShoppingCartItems, StockNumDTO.class);
                 int updateStockNumResult = newBeeMallGoodsMapper.updateStockNum(stockNumDTOS);
                 if (updateStockNumResult < 1) {
-                    return ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult();
+                    NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_COUNT_ERROR.getResult());
                 }
                 //生成订单号
                 String orderNo = NumberUtil.genOrderNo();
@@ -216,7 +213,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                     priceTotal += newBeeMallShoppingCartItemVO.getGoodsCount() * newBeeMallShoppingCartItemVO.getSellingPrice();
                 }
                 if (priceTotal < 1) {
-                    return ServiceResultEnum.ORDER_PRICE_ERROR.getResult();
+                    NewBeeMallException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
                 }
                 newBeeMallOrder.setTotalPrice(priceTotal);
                 //todo 订单body字段，用来作为生成支付单描述信息，暂时未接入第三方支付接口，故该字段暂时设为空字符串
@@ -239,12 +236,13 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
                         //所有操作成功后，将订单号返回，以供Controller方法跳转到订单详情
                         return orderNo;
                     }
-                    return ServiceResultEnum.ORDER_GENERATE_ERROR.getResult();
+                    NewBeeMallException.fail(ServiceResultEnum.ORDER_PRICE_ERROR.getResult());
                 }
-                return ServiceResultEnum.DB_ERROR.getResult();
+                NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
             }
-            return ServiceResultEnum.DB_ERROR.getResult();
+            NewBeeMallException.fail(ServiceResultEnum.DB_ERROR.getResult());
         }
+        NewBeeMallException.fail(ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult());
         return ServiceResultEnum.SHOPPING_ITEM_ERROR.getResult();
     }
 
