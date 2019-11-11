@@ -28,6 +28,27 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [视频2：商城系统介绍](https://edu.csdn.net/course/play/26258/326467)
 - [视频3：商城后台管理系统介绍](https://edu.csdn.net/course/play/26258/328801)
 
+## 开发及部署文档
+
+- [**Spring Boot 大型线上商城项目实战教程**](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [技术选型之 Spring Boot](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [前期准备工作及基础环境搭建](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 项目初体验--项目搭建及启动](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 核心详解及源码分析](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 之 DispatchServlet 自动配置源码解读](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 之 Web 开发及 MVC 自动配置分析](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Thymeleaf 模板引擎技术介绍及整合](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Thymeleaf 语法详解及编码实践](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 实践之数据源自动配置及数据库操作](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 实践之整合 Mybatis 操作数据库](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [项目初体验：启动和使用新蜂商城](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [新蜂商城功能模块和流程设计详解](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [前端页面设计及技术选型](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [页面布局制作及跳转逻辑实现](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [Spring Boot 整合 kaptcha 实现验证码功能](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- [后台管理系统登录功能实现](https://juejin.im/book/5da2f9d4f265da5b81794d48)
+- ......
+
 ## 联系作者
 
 > 大家有任何问题或者建议都可以在 [issues](https://github.com/newbee-ltd/newbee-mall/issues) 中反馈给我，我会慢慢完善这个项目。
