@@ -70,7 +70,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 商城首页 1
 
-	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01.png)
+	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01.gif)
 
 - 商城首页 2
 
