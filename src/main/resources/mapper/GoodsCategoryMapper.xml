@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ltd.newbee.mall.dao.GoodsCategoryMapper">
+
     <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.GoodsCategory">
         <id column="category_id" jdbcType="BIGINT" property="categoryId"/>
         <result column="category_level" jdbcType="TINYINT" property="categoryLevel"/>
@@ -13,10 +14,12 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     category_id, category_level, parent_id, category_name, category_rank, is_deleted, 
     create_time, create_user, update_time, update_user
   </sql>
+
     <select id="findGoodsCategoryList" parameterType="Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -60,11 +63,24 @@
         where category_name = #{categoryName,jdbcType=VARCHAR} and category_level = #{categoryLevel,jdbcType=TINYINT}
         and is_deleted = 0 limit 1
     </select>
+
     <select id="selectByLevelAndParentIdsAndNumber" resultMap="BaseResultMap">
+        <!-- select * from tb_newbee_mall_goods_category where parent_id in (0, 1, 2) and category_level = 1 and is_deleted = 0
+            order by category_rank desc limit 5
+        -->
         select
         <include refid="Base_Column_List"/>
         from tb_newbee_mall_goods_category
         where parent_id in
+        <!--
+            collection:集合,写集合属性
+            item:遍历接收变量
+            open:遍历开始
+            close：遍历结束
+            separator:拼接格式
+            for(Integer id : ids){
+            }
+        -->
         <foreach item="parentId" collection="parentIds" open="(" separator="," close=")">
             #{parentId,jdbcType=BIGINT}
         </foreach>
@@ -75,10 +91,13 @@
             limit #{number}
         </if>
     </select>
+
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
     update tb_newbee_mall_goods_category set is_deleted=1
     where category_id = #{categoryId,jdbcType=BIGINT} and is_deleted=0
   </update>
+
+    <!-- 删除商品分类 -->
     <update id="deleteBatch">
         update tb_newbee_mall_goods_category
         set is_deleted=1 where category_id in
@@ -86,6 +105,7 @@
             #{id}
         </foreach>
     </update>
+
     <insert id="insert" parameterType="ltd.newbee.mall.entity.GoodsCategory">
     insert into tb_newbee_mall_goods_category (category_id, category_level, parent_id, 
       category_name, category_rank, is_deleted, 

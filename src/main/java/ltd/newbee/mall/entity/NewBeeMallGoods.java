@@ -4,39 +4,59 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * 商品信息entity
+ */
 public class NewBeeMallGoods {
+
+    /** 商品id */
     private Long goodsId;
 
+    /** 商品名称 */
     private String goodsName;
 
+    /** 商品介绍*/
     private String goodsIntro;
 
+    /** 商品类型id */
     private Long goodsCategoryId;
 
+    /** 商品封面图片 */
     private String goodsCoverImg;
 
+    /** 商品轮播图片 */
     private String goodsCarousel;
 
+    /**商品原始图片 */
     private Integer originalPrice;
 
+    /** 商品价格 */
     private Integer sellingPrice;
 
+    /** 商品存货数量 */
     private Integer stockNum;
 
+    /** 商品标记 */
     private String tag;
 
+    /** 商品销售状态 */
     private Byte goodsSellStatus;
 
+    /** 创建用户 */
     private Integer createUser;
 
+    /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    /** 修改用户 */
     private Integer updateUser;
 
+    /** 修改时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    /** 商品详细介绍 */
     private String goodsDetailContent;
 
     public Long getGoodsId() {

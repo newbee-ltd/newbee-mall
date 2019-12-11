@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class NewBeeMallApplication {
     public static void main(String[] args) {
+        // 入口地址：http://localhost:28089/  http://localhost:28089/index.html  http://localhost:28089/index
         SpringApplication.run(NewBeeMallApplication.class, args);
     }
 }

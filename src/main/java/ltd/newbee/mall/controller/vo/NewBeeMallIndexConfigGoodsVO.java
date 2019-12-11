@@ -7,16 +7,22 @@ import java.io.Serializable;
  */
 public class NewBeeMallIndexConfigGoodsVO implements Serializable {
 
+    /** 商品id */
     private Long goodsId;
 
+    /** 商品名字 */
     private String goodsName;
 
+    /** 商品介绍 */
     private String goodsIntro;
 
+    /** 商品封面图片 */
     private String goodsCoverImg;
 
+    /** 商品价格 */
     private Integer sellingPrice;
 
+    /** 商品tag */
     private String tag;
 
     public Long getGoodsId() {

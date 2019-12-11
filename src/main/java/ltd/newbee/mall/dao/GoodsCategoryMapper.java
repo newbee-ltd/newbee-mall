@@ -25,7 +25,9 @@ public interface GoodsCategoryMapper {
 
     int getTotalGoodsCategories(PageQueryUtil pageUtil);
 
+    /** 删除商品分类 */
     int deleteBatch(Integer[] ids);
 
-    List<GoodsCategory> selectByLevelAndParentIdsAndNumber(@Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
+    List<GoodsCategory> selectByLevelAndParentIdsAndNumber(
+            @Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
 }

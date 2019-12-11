@@ -7,8 +7,10 @@ import java.io.Serializable;
  */
 public class NewBeeMallIndexCarouselVO implements Serializable {
 
+    /** 轮播图url */
     private String carouselUrl;
 
+    /** 点击轮播图跳转到的url */
     private String redirectUrl;
 
     public String getCarouselUrl() {

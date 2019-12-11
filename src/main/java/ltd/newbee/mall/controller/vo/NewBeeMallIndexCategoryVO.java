@@ -8,10 +8,13 @@ import java.util.List;
  */
 public class NewBeeMallIndexCategoryVO implements Serializable {
 
+    /** 商品分类id */
     private Long categoryId;
 
+    /** 商品分类等级 现在最多三级 */
     private Byte categoryLevel;
 
+    /** 商品分类名称 */
     private String categoryName;
 
     private List<SecondLevelCategoryVO> secondLevelCategoryVOS;

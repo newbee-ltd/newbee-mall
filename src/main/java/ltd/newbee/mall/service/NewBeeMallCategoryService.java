@@ -8,6 +8,9 @@ import ltd.newbee.mall.util.PageResult;
 
 import java.util.List;
 
+/**
+ * 分类操作方法接口
+ */
 public interface NewBeeMallCategoryService {
     /**
      * 后台分页
@@ -27,7 +30,6 @@ public interface NewBeeMallCategoryService {
 
     /**
      * 返回分类数据(首页调用)
-     *
      * @return
      */
     List<NewBeeMallIndexCategoryVO> getCategoriesForIndex();

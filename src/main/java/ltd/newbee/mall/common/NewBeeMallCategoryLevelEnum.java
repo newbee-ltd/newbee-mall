@@ -9,9 +9,13 @@ package ltd.newbee.mall.common;
  */
 public enum NewBeeMallCategoryLevelEnum {
 
+    /** 错误分类 */
     DEFAULT(0, "ERROR"),
+    /** 一级分类  */
     LEVEL_ONE(1, "一级分类"),
+    /** 二级分类 */
     LEVEL_TWO(2, "二级分类"),
+    /** 三级分类 */
     LEVEL_THREE(3, "三级分类");
 
     private int level;

@@ -5,28 +5,40 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class IndexConfig {
+
+    /** 首页配置项id */
     private Long configId;
 
+    /** 首页配置项 的名字 */
     private String configName;
 
+    /** 首页配置项类型 */
     private Byte configType;
 
+    /** 商品id */
     private Long goodsId;
 
+    /** 跳转链接 */
     private String redirectUrl;
 
+    /**  */
     private Integer configRank;
 
+    /** 是否删除id 1删除 */
     private Byte isDeleted;
 
+    /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    /** 创建的用户id */
     private Integer createUser;
 
+    /** 修改时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    /** 修改的用户id */
     private Integer updateUser;
 
     public Long getConfigId() {

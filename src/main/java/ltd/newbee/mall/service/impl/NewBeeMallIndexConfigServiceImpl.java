@@ -62,15 +62,25 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
         return null;
     }
 
+    /**
+     * 返回固定数量的首页配置商品对象(首页调用)
+     * @param configType
+     * @param number
+     * @return
+     */
     @Override
     public List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number) {
+
         List<NewBeeMallIndexConfigGoodsVO> newBeeMallIndexConfigGoodsVOS = new ArrayList<>(number);
         List<IndexConfig> indexConfigs = indexConfigMapper.findIndexConfigsByTypeAndNum(configType, number);
+
         if (!CollectionUtils.isEmpty(indexConfigs)) {
             //取出所有的goodsId
             List<Long> goodsIds = indexConfigs.stream().map(IndexConfig::getGoodsId).collect(Collectors.toList());
+
             List<NewBeeMallGoods> newBeeMallGoods = goodsMapper.selectByPrimaryKeys(goodsIds);
             newBeeMallIndexConfigGoodsVOS = BeanUtil.copyList(newBeeMallGoods, NewBeeMallIndexConfigGoodsVO.class);
+
             for (NewBeeMallIndexConfigGoodsVO newBeeMallIndexConfigGoodsVO : newBeeMallIndexConfigGoodsVOS) {
                 String goodsName = newBeeMallIndexConfigGoodsVO.getGoodsName();
                 String goodsIntro = newBeeMallIndexConfigGoodsVO.getGoodsIntro();

@@ -80,21 +80,37 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
         return goodsCategoryMapper.deleteBatch(ids) > 0;
     }
 
+    /**
+     * 返回分类数据(首页调用)
+     * @return
+     */
     @Override
     public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
         List<NewBeeMallIndexCategoryVO> newBeeMallIndexCategoryVOS = new ArrayList<>();
         //获取一级分类的固定数量的数据
-        List<GoodsCategory> firstLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(0L), NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel(), Constants.INDEX_CATEGORY_NUMBER);
+        // Collections.singletonList(0L) 返回一个list列表
+        // 一级商品分类List
+        List<GoodsCategory> firstLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(
+                Collections.singletonList(0L), NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel(), Constants.INDEX_CATEGORY_NUMBER);
+
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
+            // 得到一级商品分类的id   stream().map().collect()看https://www.cnblogs.com/fengli9998/p/9002377.html  :: 通过 `::` 关键字来访问类的构造方法，对象方法，静态方法。
             List<Long> firstLevelCategoryIds = firstLevelCategories.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
             //获取二级分类的数据
-            List<GoodsCategory> secondLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(firstLevelCategoryIds, NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel(), 0);
+            List<GoodsCategory> secondLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(firstLevelCategoryIds,
+                    NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel(), 0);
+
             if (!CollectionUtils.isEmpty(secondLevelCategories)) {
+                // 得到二级商品分类的id
                 List<Long> secondLevelCategoryIds = secondLevelCategories.stream().map(GoodsCategory::getCategoryId).collect(Collectors.toList());
                 //获取三级分类的数据
-                List<GoodsCategory> thirdLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(secondLevelCategoryIds, NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel(), 0);
+                List<GoodsCategory> thirdLevelCategories = goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(
+                        secondLevelCategoryIds, NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel(), 0);
+
+                // TODO 以下逻辑太难了，未认真看
                 if (!CollectionUtils.isEmpty(thirdLevelCategories)) {
-                    //根据 parentId 将 thirdLevelCategories 分组
+                    //根据 parentId 将 thirdLevelCategories 分组  二级分类下包括所有三级分类商品
+                    // groupingBy用于分组  按三级商品的父类id为key，value为GoodsCategory  https://blog.csdn.net/u012326462/article/details/81139824
                     Map<Long, List<GoodsCategory>> thirdLevelCategoryMap = thirdLevelCategories.stream().collect(groupingBy(GoodsCategory::getParentId));
                     List<SecondLevelCategoryVO> secondLevelCategoryVOS = new ArrayList<>();
                     //处理二级分类

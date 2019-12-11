@@ -4,27 +4,41 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * 商品分类entity
+ */
 public class GoodsCategory {
+
+    /** 商品分类id */
     private Long categoryId;
 
+    /** 商品分类等级 现在最多三级 */
     private Byte categoryLevel;
 
+    /** 商品分类等级父等级  第一级为0 */
     private Long parentId;
 
+    /** 商品分类名称 */
     private String categoryName;
 
+    /**  */
     private Integer categoryRank;
 
+    /** 是否删除 1 删除了 */
     private Byte isDeleted;
 
+    /** 创建时间  */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    /** 谁创建的userId */
     private Integer createUser;
 
+    /** 更新时间  */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    /** 谁更新的userId */
     private Integer updateUser;
 
     public Long getCategoryId() {

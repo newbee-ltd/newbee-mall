@@ -1,0 +1,2 @@
+newbee_mall_schema_old.sql适合mysql5.7以下的版本导入
+newbee_mall_schema.sql适合mysql5.7以上的版本导入

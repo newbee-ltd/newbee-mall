@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 轮播图操作接口impl
+ */
 @Service
 public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService {
 
@@ -68,6 +71,11 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
         return carouselMapper.deleteBatch(ids) > 0;
     }
 
+    /**
+     * 返回固定数量的轮播图对象(首页调用)
+     * @param number 轮播图个数
+     * @return
+     */
     @Override
     public List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number) {
         List<NewBeeMallIndexCarouselVO> newBeeMallIndexCarouselVOS = new ArrayList<>(number);

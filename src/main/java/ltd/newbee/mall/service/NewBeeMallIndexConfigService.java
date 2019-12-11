@@ -24,7 +24,7 @@ public interface NewBeeMallIndexConfigService {
 
     /**
      * 返回固定数量的首页配置商品对象(首页调用)
-     *
+     * @param  configType
      * @param number
      * @return
      */
