@@ -20,7 +20,9 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 > 更多 Spring Boot 实战项目可以关注十三的另一个代码仓库 [spring-boot-projects](https://github.com/ZHENFENG13/spring-boot-projects)，该仓库中主要是 Spring Boot 的入门学习教程以及一些常用的 Spring Boot 实战项目教程，包括 Spring Boot 使用的各种示例代码，同时也包括一些实战项目的项目源码和效果展示，实战项目包括基本的 web 开发以及目前大家普遍使用的前后端分离实践项目等，后续会根据大家的反馈继续增加一些实战项目源码，摆脱各种 hello world 入门案例的束缚，真正的掌握 Spring Boot 开发。
 
-![newbee-mall-info](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/store/newbee-mall-info-2.png)
+关注公众号：**程序员的小故事**，回复"勾搭"进群交流。
+
+![wx-gzh](https://newbee-mall.oss-cn-beijing.aliyuncs.com/wx-gzh/%E6%89%AB%E7%A0%81%E5%85%B3%E6%B3%A8.png)
 
 ## 项目演示
 
