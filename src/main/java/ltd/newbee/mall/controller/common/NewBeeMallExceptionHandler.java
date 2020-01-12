@@ -22,6 +22,7 @@ public class NewBeeMallExceptionHandler {
         if (e instanceof NewBeeMallException) {
             result.setMessage(e.getMessage());
         } else {
+            e.printStackTrace();
             result.setMessage("未知异常，请联系管理员");
         }
         //检查请求是否为ajax, 如果是 ajax 请求则返回 Result json串, 如果不是 ajax 请求则返回 error 视图
