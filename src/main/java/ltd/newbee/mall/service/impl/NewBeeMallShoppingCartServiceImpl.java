@@ -68,7 +68,7 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
         //todo userId不同不能修改
         newBeeMallShoppingCartItemUpdate.setGoodsCount(newBeeMallShoppingCartItem.getGoodsCount());
         newBeeMallShoppingCartItemUpdate.setUpdateTime(new Date());
-        //保存记录
+        //修改记录
         if (newBeeMallShoppingCartItemMapper.updateByPrimaryKeySelective(newBeeMallShoppingCartItemUpdate) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }

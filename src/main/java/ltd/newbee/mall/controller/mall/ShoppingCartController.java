@@ -32,7 +32,7 @@ public class ShoppingCartController {
         int priceTotal = 0;
         List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
         if (!CollectionUtils.isEmpty(myShoppingCartItems)) {
-            //订单项总数
+            //购物项总数
             itemsTotal = myShoppingCartItems.stream().mapToInt(NewBeeMallShoppingCartItemVO::getGoodsCount).sum();
             if (itemsTotal < 1) {
                 return "error/error_5xx";
@@ -74,13 +74,13 @@ public class ShoppingCartController {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         newBeeMallShoppingCartItem.setUserId(user.getUserId());
         //todo 判断数量
-        String saveResult = newBeeMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
+        String updateResult = newBeeMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
         //修改成功
-        if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
+        if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
             return ResultGenerator.genSuccessResult();
         }
         //修改失败
-        return ResultGenerator.genFailResult(saveResult);
+        return ResultGenerator.genFailResult(updateResult);
     }
 
     @DeleteMapping("/shop-cart/{newBeeMallShoppingCartItemId}")
