@@ -42,10 +42,14 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
         if (newBeeMallGoods == null) {
             return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
         }
-        int totalItem = newBeeMallShoppingCartItemMapper.selectCountByUserId(newBeeMallShoppingCartItem.getUserId());
-        //超出最大数量
-        if (totalItem > Constants.SHOPPING_CART_ITEM_LIMIT_NUMBER) {
+        int totalItem = newBeeMallShoppingCartItemMapper.selectCountByUserId(newBeeMallShoppingCartItem.getUserId()) + 1;
+        //超出单个商品的最大数量
+        if (newBeeMallShoppingCartItem.getGoodsCount() > Constants.SHOPPING_CART_ITEM_LIMIT_NUMBER) {
             return ServiceResultEnum.SHOPPING_CART_ITEM_LIMIT_NUMBER_ERROR.getResult();
+        }
+        //超出最大数量
+        if (totalItem > Constants.SHOPPING_CART_ITEM_TOTAL_NUMBER) {
+            return ServiceResultEnum.SHOPPING_CART_ITEM_TOTAL_NUMBER_ERROR.getResult();
         }
         //保存记录
         if (newBeeMallShoppingCartItemMapper.insertSelective(newBeeMallShoppingCartItem) > 0) {
@@ -60,7 +64,7 @@ public class NewBeeMallShoppingCartServiceImpl implements NewBeeMallShoppingCart
         if (newBeeMallShoppingCartItemUpdate == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
-        //超出最大数量
+        //超出单个商品的最大数量
         if (newBeeMallShoppingCartItem.getGoodsCount() > Constants.SHOPPING_CART_ITEM_LIMIT_NUMBER) {
             return ServiceResultEnum.SHOPPING_CART_ITEM_LIMIT_NUMBER_ERROR.getResult();
         }
