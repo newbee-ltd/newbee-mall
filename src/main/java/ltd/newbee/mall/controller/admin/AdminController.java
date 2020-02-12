@@ -39,12 +39,6 @@ public class AdminController {
     @GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
-        request.setAttribute("categoryCount", 0);
-        request.setAttribute("blogCount", 0);
-        request.setAttribute("linkCount", 0);
-        request.setAttribute("tagCount", 0);
-        request.setAttribute("commentCount", 0);
-        request.setAttribute("path", "index");
         return "admin/index";
     }
 
