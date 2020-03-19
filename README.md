@@ -79,7 +79,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 > 大家有任何问题或者建议都可以在 [issues](https://github.com/newbee-ltd/newbee-mall/issues) 中反馈给我，我会慢慢完善这个项目。
 
 - 我的邮箱：2449207463@qq.com
-- QQ技术交流群：796794009
+- QQ技术交流群：719099151
 
 > newbee-mall 在 GitHub 和国内的码云都创建了代码仓库，如果有人访问 GitHub 比较慢的话，建议在 Gitee 上查看该项目，两个仓库会保持同步更新。
 
