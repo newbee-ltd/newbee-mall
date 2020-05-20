@@ -1,3 +1,7 @@
+-- ----------------------------
+-- Copyright (c) 2019-2020 十三 all rights reserved.
+-- ----------------------------
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
