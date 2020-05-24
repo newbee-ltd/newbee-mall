@@ -96,6 +96,9 @@
             <if test="goodsCategoryId!=null and goodsCategoryId!=''">
                 and goods_category_id = #{goodsCategoryId}
             </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
         </where>
         <if test="orderBy!=null and orderBy!=''">
             <choose>
@@ -126,6 +129,9 @@
             </if>
             <if test="goodsCategoryId!=null and goodsCategoryId!=''">
                 and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
             </if>
         </where>
     </select>
