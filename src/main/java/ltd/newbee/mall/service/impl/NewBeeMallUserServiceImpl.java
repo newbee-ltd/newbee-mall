@@ -78,15 +78,16 @@ public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
 
     @Override
     public NewBeeMallUserVO updateUserInfo(MallUser mallUser, HttpSession httpSession) {
-        MallUser user = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
-        if (user != null) {
-            user.setNickName(mallUser.getNickName());
-            user.setAddress(mallUser.getAddress());
-            user.setIntroduceSign(mallUser.getIntroduceSign());
-            if (mallUserMapper.updateByPrimaryKeySelective(user) > 0) {
+        NewBeeMallUserVO userTemp = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
+        if (userFromDB != null) {
+            userFromDB.setNickName(mallUser.getNickName());
+            userFromDB.setAddress(mallUser.getAddress());
+            userFromDB.setIntroduceSign(mallUser.getIntroduceSign());
+            if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
                 NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();
-                user = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
-                BeanUtil.copyProperties(user, newBeeMallUserVO);
+                userFromDB = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
+                BeanUtil.copyProperties(userFromDB, newBeeMallUserVO);
                 httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, newBeeMallUserVO);
                 return newBeeMallUserVO;
             }
