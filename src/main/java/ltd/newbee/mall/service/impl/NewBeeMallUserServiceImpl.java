@@ -12,13 +12,9 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.dao.MallUserMapper;
-import ltd.newbee.mall.dao.NewBeeMallShoppingCartItemMapper;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.service.NewBeeMallUserService;
-import ltd.newbee.mall.util.BeanUtil;
-import ltd.newbee.mall.util.MD5Util;
-import ltd.newbee.mall.util.PageQueryUtil;
-import ltd.newbee.mall.util.PageResult;
+import ltd.newbee.mall.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,9 +77,9 @@ public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
         NewBeeMallUserVO userTemp = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
         if (userFromDB != null) {
-            userFromDB.setNickName(mallUser.getNickName());
-            userFromDB.setAddress(mallUser.getAddress());
-            userFromDB.setIntroduceSign(mallUser.getIntroduceSign());
+            userFromDB.setNickName(NewBeeMallUtils.cleanString(mallUser.getNickName()));
+            userFromDB.setAddress(NewBeeMallUtils.cleanString(mallUser.getAddress()));
+            userFromDB.setIntroduceSign(NewBeeMallUtils.cleanString(mallUser.getIntroduceSign()));
             if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
                 NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();
                 userFromDB = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
