@@ -12,6 +12,7 @@ $(function () {
                 url: "/admin/profile/name",
                 data: params,
                 success: function (r) {
+                    $("#updateUserNameButton").attr("disabled",false);
                     console.log(r);
                     if (r == 'success') {
                         alert('修改成功');
@@ -20,7 +21,10 @@ $(function () {
                     }
                 }
             });
+        }else{
+            $("#updateUserNameButton").attr("disabled",false);
         }
+
     });
     //修改密码
     $('#updatePasswordButton').click(function () {
@@ -34,6 +38,7 @@ $(function () {
                 url: "/admin/profile/password",
                 data: params,
                 success: function (r) {
+                    $("#updatePasswordButton").attr("disabled",false);
                     console.log(r);
                     if (r == 'success') {
                         alert('修改成功');
@@ -43,7 +48,10 @@ $(function () {
                     }
                 }
             });
+        }else {
+            $("#updatePasswordButton").attr("disabled",false);
         }
+
     });
 })
 
