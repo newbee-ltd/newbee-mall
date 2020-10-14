@@ -108,36 +108,6 @@
                                        th:checked="${null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==1} ?true:false"/>&nbsp;下架&nbsp;
                             </div>
                             <div class="form-group">
-                                <textarea id="editor" style="width: 100%; height: 750px;"
-                                          th:utext="${goods!=null and goods.goodsDetailContent !=null}?${goods.goodsDetailContent}: ''"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <!-- 按钮 -->
-                                &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                              id="confirmButton">保存商品
-                            </button>&nbsp;
-                                &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
-                                              id="cancelButton">返回商品列表
-                            </button>&nbsp;
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div><!-- /.container-fluid -->
-        </div>
-        <div class="content">
-            <!-- 模态框（Modal） -->
-            <div class="modal fade" id="goodsModal" tabindex="-1" role="dialog" aria-labelledby="goodsModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h6 class="modal-title" id="goodsModalLabel">信息完善</h6>
-                        </div>
-                        <div class="modal-body">
-                            <form onsubmit="return false;">
                                 <div class="form-group">
                                     <div class="col-sm-4">
                                         <th:block th:if="${null == goods}">
@@ -159,16 +129,23 @@
                                         </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary" id="saveButton">确认</button>
-                        </div>
+                            </div>
+                            <div class="form-group" id="wangEditor" th:utext="${goods!=null and goods.goodsDetailContent !=null}?${goods.goodsDetailContent}: ''">
+                            </div>
+                            <div class="form-group">
+                                <!-- 按钮 -->
+                                &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
+                                              id="saveButton">保存商品
+                            </button>&nbsp;
+                                &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
+                                              id="cancelButton">返回商品列表
+                            </button>&nbsp;
+                            </div>
+                        </form>
                     </div>
+
                 </div>
-            </div>
-            <!-- /.modal -->
+            </div><!-- /.container-fluid -->
         </div>
     </div>
     <!-- /.content-wrapper -->
@@ -187,9 +164,9 @@
 <script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
 <!-- ajaxupload -->
 <script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
+<!-- wangEditor -->
+<script type="text/javascript" src="//unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
 <!-- kindeditor -->
-<script th:src="@{/admin/plugins/kindeditor-4.1.10/kindeditor-all.js}"></script>
-<script th:src="@{/admin/plugins/kindeditor-4.1.10/lang/zh_CN.js}"></script>
 <script th:src="@{/admin/dist/js/public.js}"></script>
 <script th:src="@{/admin/dist/js/newbee_mall_goods_edit.js}"></script>
 </body>
