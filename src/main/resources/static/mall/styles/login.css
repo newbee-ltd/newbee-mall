@@ -10,12 +10,10 @@ body {
 
 .top .logo {
     width: 1130px;
-    height: 100px;
+    height: 160px;
 }
 
 .top .logo img {
-    width: 360px;
-    height: 160px;
     border: none;
     margin-top: -15px;
 }
