@@ -110,7 +110,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 商城首页 1
 
-	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01.gif)
+	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01-2020.gif)
 
 - 商城首页 2
 
@@ -161,7 +161,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 商品编辑
 
-	![edit](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-goods-edit.png)
+	![edit](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-goods-edit-new.png)
 
 - 订单管理
 
@@ -178,3 +178,4 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [tonytomov](https://github.com/tonytomov/jqGrid)
 - [t4t5](https://github.com/t4t5/sweetalert)
 - [skytotwo](https://github.com/skytotwo/Alipay-WeChat-HTML)
+- [wangeditor-team](https://github.com/wangeditor-team/wangEditor)
