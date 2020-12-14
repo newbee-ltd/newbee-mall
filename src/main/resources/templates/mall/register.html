@@ -58,13 +58,6 @@
 <script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
 <script type="text/javascript">
 
-    //部署时未开发注册方法
-    function register2() {
-        swal('未开放，请联系作者获得测试账号', {
-            icon: "error",
-        });
-    }
-
     //注册按钮onclick事件改为register()即可
     function register() {
         var loginName = $("#loginName").val();
@@ -82,7 +75,7 @@
             return false;
         }
         var verifyCode = $("#verifyCode").val();
-        if (!validLength(verifyCode, 7)) {
+        if (!validLength(verifyCode, 5)) {
             swal('请输入正确的验证码', {
                 icon: "error",
             });

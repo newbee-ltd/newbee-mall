@@ -167,15 +167,12 @@ function categoryEdit() {
 }
 
 /**
- * 分类的删除会牵涉到多级分类的修改和商品数据的修改，因此暂时就不开放删除功能了，
+ * 分类的删除会牵涉到多级分类的修改和商品数据的修改，请谨慎删除分类数据，
  * 如果在商城页面不想显示相关分类可以通过调整rank值来调整显示顺序，
  * 不过代码我也写了一部分，如果想保留删除功能的话可以在此代码的基础上进行修改。
  */
 function deleteCagegory() {
-    swal("未开放", {
-        icon: "warning",
-    });
-    return;
+
     var ids = getSelectedRows();
     if (ids == null) {
         return;
