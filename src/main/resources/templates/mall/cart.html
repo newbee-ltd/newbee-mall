@@ -28,8 +28,7 @@
     <div class="cart_bg">
         <th:block th:if="${#lists.isEmpty(myShoppingCartItems)}">
             <div class="list center">
-                <!-- todo 无购物项时 换背景图 -->
-                无数据
+                <img style="position: absolute;margin-top: 16px;left: 45%;" th:src="@{/mall/image/null-content.png}">
             </div>
         </th:block>
         <th:block th:unless="${#lists.isEmpty(myShoppingCartItems)}">

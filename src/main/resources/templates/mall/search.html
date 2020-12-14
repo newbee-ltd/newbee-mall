@@ -58,7 +58,7 @@
 <div class="goods_item center">
     <div class="main center">
         <th:block th:if="${#lists.isEmpty(pageResult.list)}">
-            未查询到商品
+            <img style="margin-top: 16px;padding: 16px 20px;" th:src="@{/mall/image/null-content.png}">
         </th:block>
         <th:block th:unless="${#lists.isEmpty(pageResult.list)}">
             <th:block th:each="goods : ${pageResult.list}">
