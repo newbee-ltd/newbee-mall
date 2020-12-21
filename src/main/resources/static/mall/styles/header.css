@@ -170,14 +170,6 @@
     background-position: center;
 }
 
-#nav .banner_x .gif {
-    width: 180px;
-    text-indent: -10000px;
-    background: url(../image/new-bee2.gif) no-repeat;
-    background-size: 100%;
-    background-position: center;
-}
-
 #nav .banner_x .list {
     display: flex;
     height: 100%;
