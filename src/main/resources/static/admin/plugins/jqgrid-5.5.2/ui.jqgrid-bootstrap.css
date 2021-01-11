@@ -30,7 +30,9 @@
 .ui-jqgrid .ui-jqgrid-title { 
 	padding-top: 5px; 
 	vertical-align: middle;
+	position: absolute;
 }
+
 .ui-jqgrid .ui-jqgrid-titlebar-close { 
 	color: inherit; 
 	position: absolute;
@@ -63,7 +65,7 @@
 }
 .ui-jqgrid .ui-jqgrid-htable thead th {
 	overflow : hidden; 
-	/*border-bottom : none;*/
+	border-bottom : none;
 	padding-right: 2px;
 }
 .ui-jqgrid .ui-jqgrid-htable thead th div {
@@ -101,7 +103,6 @@
 
 .ui-jqgrid .ui-th-div-ie {
 	white-space: nowrap; 
-	zoom :1; 
 	height:17px;
 }
 .ui-jqgrid .ui-jqgrid-resize {
@@ -142,6 +143,14 @@
 .ui-jqgrid .ui-search-table td.ui-search-clear { }
 .ui-jqgrid tr.ui-search-toolbar td > input { }
 .ui-jqgrid tr.ui-search-toolbar select {}
+
+.ui-jqgrid .ui-th-column > .ui-th-div  {
+	padding-left: 14px;
+}
+.ui-jqgrid .ui-icon-left .ui-grid-ico-sort {
+	margin-left: -14px;
+}
+
 
 /* Body */ 
 .ui-jqgrid .table-bordered,
@@ -422,7 +431,8 @@ div.tablediv > .table-bordered {
 .ui-jqgrid .ui-th-subgrid {height:20px;}
 .tablediv > .row { margin: 0 0}
 /* loading */
-.ui-jqgrid .loading {
+.ui-jqgrid .loading,
+.loading_pivot {
 	position: absolute; 
 	top: 45%;
 	left: 45%;
@@ -438,7 +448,6 @@ div.tablediv > .table-bordered {
 }
 .ui-jqgrid .jqgrid-overlay { 
 	display:none;
-	z-index:100;
 }
 /* IE * html .jqgrid-overlay {width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');} */
 * .jqgrid-overlay iframe {
@@ -475,7 +484,7 @@ div.tablediv > .table-bordered {
 }
 .ui-jqdialog .ui-jqdialog-titlebar {
 	padding: .1em .1em; 
-	min-height: 45px; 
+	min-height: 35px; 
 }
 .ui-jqdialog .ui-jqdialog-title { 
 	margin: .3em 0 .2em;  
@@ -770,7 +779,7 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 }
 .ui-resizable-handle {
 	/*position: absolute;*/
-	display: none;
+	display: block;
 	left :97%;
 }
 .ui-jqdialog .ui-resizable-se {
@@ -888,8 +897,8 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
 }
 
 .ui-jqgrid .ui-jqgrid-htable .ui-th-div {
-	/*height:17px;
-	margin-top:5px;*/
+	height:17px;
+	margin-top:5px;
 }
 .column-menu, .ui-search-menu {
 	padding: 10px 15px;
@@ -929,11 +938,6 @@ td.menu_text {
 }
 .search_buttons #bs_search {
 	margin-left: 3px;
-}
-div[id^='searchcnt'] .fm-button .oi,
-div[id^='searchcnt'] .fm-button .octicon
-{
-	padding-right:  4px;
 }
 /*menubar*/
 .ui-jqgrid .ui-jqgrid-menubar {
@@ -980,4 +984,19 @@ div[id^='searchcnt'] .fm-button .octicon
 	border-bottom-width: 0px ;
 	border-top: 2px solid #333333 ;
 	padding-top: 20px ;
+}
+.ui-jqgrid .jqgrid-caption-menu 
+{ 
+	left:0;
+	top:30px;
+	position:absolute;
+	display:none;
+	font-size: inherit;
+	width : auto;
+}
+.ui-jqgrid .jqgrid-column-menu
+{
+	font-size:inherit;
+	width:auto;
+	position :absolute;
 }
