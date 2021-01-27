@@ -12,6 +12,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.util.NewBeeMallUtils;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -39,6 +40,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin")
 public class UploadController {
+
+    @Autowired
+    private StandardServletMultipartResolver standardServletMultipartResolver;
 
     @PostMapping({"/upload/file"})
     @ResponseBody
@@ -74,8 +78,7 @@ public class UploadController {
     @ResponseBody
     public Result uploadV2(HttpServletRequest httpServletRequest) throws URISyntaxException {
         List<MultipartFile> multipartFiles = new ArrayList<>(8);
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(httpServletRequest.getSession().getServletContext());
-        if (multipartResolver.isMultipart(httpServletRequest)) {
+        if (standardServletMultipartResolver.isMultipart(httpServletRequest)) {
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) httpServletRequest;
             Iterator<String> iter = multiRequest.getFileNames();
             int total = 0;

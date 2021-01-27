@@ -207,7 +207,6 @@ $('#saveButton').click(function () {
         data: JSON.stringify(data),
         success: function (result) {
             if (result.resultCode == 200) {
-                $('#goodsModal').modal('hide');
                 swal({
                     title: swlMessage,
                     type: 'success',
@@ -220,7 +219,6 @@ $('#saveButton').click(function () {
                     window.location.href = "/admin/goods";
                 })
             } else {
-                $('#goodsModal').modal('hide');
                 swal(result.message, {
                     icon: "error",
                 });
