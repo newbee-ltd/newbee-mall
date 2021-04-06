@@ -22,11 +22,12 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 ![](https://raw.githubusercontent.com/newbee-ltd/newbee-mall-vue-app/master/static-files/newbee-mall.png)
 
-**新蜂商城前后端分离版本已开源：**
+**新蜂商城前后端分离版本已开，包括四个仓库：**
 
-- [后端 API 源码 newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)
-- [前端 Vue2 版本源码 newbee-mall-vue-app](https://github.com/newbee-ltd/newbee-mall-vue-app)
-- [前端 Vue3 版本源码 newbee-mall-vue3-app](https://github.com/newbee-ltd/newbee-mall-vue3-app)
+- [新蜂商城后端接口 newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)
+- [新蜂商城 Vue2 版本 newbee-mall-vue-app](https://github.com/newbee-ltd/newbee-mall-vue-app)
+- [新蜂商城 Vue3 版本 newbee-mall-vue3-app](https://github.com/newbee-ltd/newbee-mall-vue3-app)
+- [新蜂商城后台管理系统 Vue3 版本 vue3-admin](https://github.com/newbee-ltd/vue3-admin)
 
 **新蜂商城升级版本 [newbee-mall-plus](https://github.com/newbee-ltd/newbee-mall-plus)：**
 
