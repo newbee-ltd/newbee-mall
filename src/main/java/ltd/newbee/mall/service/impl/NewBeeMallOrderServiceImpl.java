@@ -355,7 +355,7 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
         NewBeeMallOrder newBeeMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
         if (newBeeMallOrder != null) {
             //todo 订单状态判断 非待支付状态下不进行修改操作
-            newBeeMallOrder.setOrderStatus((byte) NewBeeMallOrderStatusEnum.OREDER_PAID.getOrderStatus());
+            newBeeMallOrder.setOrderStatus((byte) NewBeeMallOrderStatusEnum.ORDER_PAID.getOrderStatus());
             newBeeMallOrder.setPayType((byte) payType);
             newBeeMallOrder.setPayStatus((byte) PayStatusEnum.PAY_SUCCESS.getPayStatus());
             newBeeMallOrder.setPayTime(new Date());
