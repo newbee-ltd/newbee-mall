@@ -49,6 +49,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 ## 开发及部署文档
 
+申请了 7 折优惠码：zWVmNW8M，只有50枚，手慢无。
 
 - [**Spring Boot 大型线上商城项目实战教程**](https://juejin.im/book/5da2f9d4f265da5b81794d48?referrer=59199e22a22b9d0058279886)
 - [技术选型之 Spring Boot](https://juejin.im/book/5da2f9d4f265da5b81794d48?referrer=59199e22a22b9d0058279886)
