@@ -48,6 +48,14 @@
         from tb_newbee_mall_goods_info
         where goods_id = #{goodsId,jdbcType=BIGINT}
     </select>
+    <select id="selectByCategoryIdAndName" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_newbee_mall_goods_info
+        where goods_name = #{goodsName,jdbcType=VARCHAR} and goods_category_id = #{goodsCategoryId,jdbcType=BIGINT}
+    </select>
     <update id="updateStockNum">
         <foreach collection="stockNumDTOS" item="stockNumDTO">
             update tb_newbee_mall_goods_info set stock_num = stock_num-#{stockNumDTO.goodsCount}

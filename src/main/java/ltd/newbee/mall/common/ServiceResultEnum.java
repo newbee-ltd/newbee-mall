@@ -21,7 +21,7 @@ public enum ServiceResultEnum {
 
     DATA_NOT_EXIST("未查询到记录！"),
 
-    SAME_CATEGORY_EXIST("有同级同名的分类！"),
+    SAME_CATEGORY_EXIST("已存在同级同名的分类！"),
 
     SAME_LOGIN_NAME_EXIST("用户名已存在！"),
 
@@ -32,6 +32,12 @@ public enum ServiceResultEnum {
     LOGIN_VERIFY_CODE_NULL("请输入验证码！"),
 
     LOGIN_VERIFY_CODE_ERROR("验证码错误！"),
+
+    SAME_INDEX_CONFIG_EXIST("已存在相同的首页配置项！"),
+
+    GOODS_CATEGORY_ERROR("分类数据异常！"),
+
+    SAME_GOODS_EXIST("已存在相同的商品信息！"),
 
     GOODS_NOT_EXIST("商品不存在！"),
 

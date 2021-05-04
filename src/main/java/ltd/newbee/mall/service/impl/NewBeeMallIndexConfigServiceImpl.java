@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,12 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
 
     @Override
     public String saveIndexConfig(IndexConfig indexConfig) {
-        //todo 判断是否存在该商品
+        if (goodsMapper.selectByPrimaryKey(indexConfig.getGoodsId()) == null) {
+            return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
+        }
+        if (indexConfigMapper.selectByTypeAndGoodsId(indexConfig.getConfigType(), indexConfig.getGoodsId()) != null) {
+            return ServiceResultEnum.SAME_INDEX_CONFIG_EXIST.getResult();
+        }
         if (indexConfigMapper.insertSelective(indexConfig) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
@@ -54,11 +60,19 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
 
     @Override
     public String updateIndexConfig(IndexConfig indexConfig) {
-        //todo 判断是否存在该商品
+        if (goodsMapper.selectByPrimaryKey(indexConfig.getGoodsId()) == null) {
+            return ServiceResultEnum.GOODS_NOT_EXIST.getResult();
+        }
         IndexConfig temp = indexConfigMapper.selectByPrimaryKey(indexConfig.getConfigId());
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
+        IndexConfig temp2 = indexConfigMapper.selectByTypeAndGoodsId(indexConfig.getConfigType(), indexConfig.getGoodsId());
+        if (temp2 != null && !temp2.getConfigId().equals(indexConfig.getConfigId())) {
+            //goodsId相同且不同id 不能继续修改
+            return ServiceResultEnum.SAME_INDEX_CONFIG_EXIST.getResult();
+        }
+        indexConfig.setUpdateTime(new Date());
         if (indexConfigMapper.updateByPrimaryKeySelective(indexConfig) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }

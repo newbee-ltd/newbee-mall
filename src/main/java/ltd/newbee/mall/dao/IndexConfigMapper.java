@@ -23,6 +23,8 @@ public interface IndexConfigMapper {
 
     IndexConfig selectByPrimaryKey(Long configId);
 
+    IndexConfig selectByTypeAndGoodsId(@Param("configType") int configType, @Param("goodsId") Long goodsId);
+
     int updateByPrimaryKeySelective(IndexConfig record);
 
     int updateByPrimaryKey(IndexConfig record);

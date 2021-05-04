@@ -57,6 +57,12 @@
         from tb_newbee_mall_index_config
         where config_id = #{configId,jdbcType=BIGINT} and is_deleted=0
     </select>
+    <select id="selectByTypeAndGoodsId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_index_config
+        where config_type = #{configType,jdbcType=BIGINT} and goods_id=#{goodsId,jdbcType=BIGINT} and is_deleted=0 limit 1
+    </select>
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
     update tb_newbee_mall_index_config set is_deleted=1
     where config_id = #{configId,jdbcType=BIGINT} and is_deleted=0
