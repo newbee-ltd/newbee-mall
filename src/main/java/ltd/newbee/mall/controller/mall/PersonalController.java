@@ -77,10 +77,11 @@ public class PersonalController {
         if (StringUtils.isEmpty(kaptchaCode) || !verifyCode.toLowerCase().equals(kaptchaCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_ERROR.getResult());
         }
-        //todo 清verifyCode
         String loginResult = newBeeMallUserService.login(loginName, MD5Util.MD5Encode(password, "UTF-8"), httpSession);
         //登录成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(loginResult)) {
+            //删除session中的verifyCode
+            httpSession.removeAttribute(Constants.MALL_VERIFY_CODE_KEY);
             return ResultGenerator.genSuccessResult();
         }
         //登录失败
@@ -106,10 +107,11 @@ public class PersonalController {
         if (StringUtils.isEmpty(kaptchaCode) || !verifyCode.toLowerCase().equals(kaptchaCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_ERROR.getResult());
         }
-        //todo 清verifyCode
         String registerResult = newBeeMallUserService.register(loginName, password);
         //注册成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
+            //删除session中的verifyCode
+            httpSession.removeAttribute(Constants.MALL_VERIFY_CODE_KEY);
             return ResultGenerator.genSuccessResult();
         }
         //注册失败
@@ -119,7 +121,7 @@ public class PersonalController {
     @PostMapping("/personal/updateInfo")
     @ResponseBody
     public Result updateInfo(@RequestBody MallUser mallUser, HttpSession httpSession) {
-        NewBeeMallUserVO mallUserTemp = newBeeMallUserService.updateUserInfo(mallUser,httpSession);
+        NewBeeMallUserVO mallUserTemp = newBeeMallUserService.updateUserInfo(mallUser, httpSession);
         if (mallUserTemp == null) {
             Result result = ResultGenerator.genFailResult("修改失败");
             return result;

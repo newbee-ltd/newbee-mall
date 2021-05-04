@@ -67,6 +67,8 @@ public enum ServiceResultEnum {
 
     OPERATE_ERROR("操作失败！"),
 
+    NO_PERMISSION_ERROR("无权限！"),
+
     DB_ERROR("database error");
 
     private String result;

@@ -65,7 +65,6 @@ public class ShoppingCartController {
                                                  HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        //todo 判断数量
         String saveResult = newBeeMallShoppingCartService.saveNewBeeMallCartItem(newBeeMallShoppingCartItem);
         //添加成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(saveResult)) {
@@ -81,7 +80,6 @@ public class ShoppingCartController {
                                                    HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         newBeeMallShoppingCartItem.setUserId(user.getUserId());
-        //todo 判断数量
         String updateResult = newBeeMallShoppingCartService.updateNewBeeMallCartItem(newBeeMallShoppingCartItem);
         //修改成功
         if (ServiceResultEnum.SUCCESS.getResult().equals(updateResult)) {
@@ -96,7 +94,7 @@ public class ShoppingCartController {
     public Result updateNewBeeMallShoppingCartItem(@PathVariable("newBeeMallShoppingCartItemId") Long newBeeMallShoppingCartItemId,
                                                    HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        Boolean deleteResult = newBeeMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId);
+        Boolean deleteResult = newBeeMallShoppingCartService.deleteById(newBeeMallShoppingCartItemId,user.getUserId());
         //删除成功
         if (deleteResult) {
             return ResultGenerator.genSuccessResult();

@@ -42,10 +42,12 @@ public interface NewBeeMallShoppingCartService {
     /**
      * 删除购物车中的商品
      *
-     * @param newBeeMallShoppingCartItemId
+     *
+     * @param shoppingCartItemId
+     * @param userId
      * @return
      */
-    Boolean deleteById(Long newBeeMallShoppingCartItemId);
+    Boolean deleteById(Long shoppingCartItemId, Long userId);
 
     /**
      * 获取我的购物车中的列表数据
