@@ -13,7 +13,6 @@
     <p th:text="'请求地址：'+${url}"></p>
     <h2>报告问题</h2>
     <a href="https://github.com/newbee-ltd/newbee-mall/issues/new" target="_blank" style="color: #1baeae">提交issue</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="//shang.qq.com/wpa/qunwpa?idkey=dc0e028f177932aee2c212a2dd60e0b8342042ac205305803ea801c4eea6727c" target="_blank" style="color: #1baeae">QQ交流群</a>
     <h2>异常堆栈跟踪日志</h2>
     <div th:each="string:${stackTrace}">
         <small><th:block th:text="${string}"></th:block></small>
