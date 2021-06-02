@@ -8,7 +8,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 新蜂商城线上预览地址：[http://mall.newbee.ltd](http://mall.newbee.ltd?from=github)，账号可自行注册。
 
-**坚持不易，如果觉得项目还不错的话可以给项目一个 Star 吧，也是对我一直更新代码的一种鼓励啦，谢谢各位的支持。**
+**坚持不易，如果觉得项目还不错的话可以给项目一个 Star 吧，也是对我自 2019 年开始一直更新这个项目的一种鼓励啦，谢谢各位的支持。**
 
 ![newbee-mall-info](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/store/newbee-mall-star.png)
 
@@ -22,18 +22,17 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 ![](https://raw.githubusercontent.com/newbee-ltd/newbee-mall-vue-app/master/static-files/newbee-mall.png)
 
-**新蜂商城前后端分离版本已开，包括四个仓库：**
+**新蜂商城有两个仓库：**
+
+- [新蜂商城 newbee-mall](https://github.com/newbee-ltd/newbee-mall)
+- [新蜂商城升级版 newbee-mall-plus](https://github.com/newbee-ltd/newbee-mall-plus)
+
+**新蜂商城前后端分离版本也已经开源，包括四个仓库：**
 
 - [新蜂商城后端接口 newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)
 - [新蜂商城 Vue2 版本 newbee-mall-vue-app](https://github.com/newbee-ltd/newbee-mall-vue-app)
 - [新蜂商城 Vue3 版本 newbee-mall-vue3-app](https://github.com/newbee-ltd/newbee-mall-vue3-app)
 - [新蜂商城后台管理系统 Vue3 版本 vue3-admin](https://github.com/newbee-ltd/vue3-admin)
-
-**新蜂商城升级版本 [newbee-mall-plus](https://github.com/newbee-ltd/newbee-mall-plus)：**
-
-![](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/newbee-mall-plus-logo-mini.png?x-oss-process=image/resize,h_128,w_128)
-
-计划新增优惠券模块、商品秒杀模块、支付宝支付，优化了搜索功能，正在开发中。
 
 > 更多 Spring Boot 实战项目可以关注十三的另一个代码仓库 [spring-boot-projects](https://github.com/ZHENFENG13/spring-boot-projects)，该仓库中主要是 Spring Boot 的入门学习教程以及一些常用的 Spring Boot 实战项目教程，包括 Spring Boot 使用的各种示例代码，同时也包括一些实战项目的项目源码和效果展示，实战项目包括基本的 web 开发以及目前大家普遍使用的前后端分离实践项目等，后续会根据大家的反馈继续增加一些实战项目源码，摆脱各种 hello world 入门案例的束缚，真正的掌握 Spring Boot 开发。
 
@@ -48,8 +47,6 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [视频3：商城后台管理系统介绍](https://edu.csdn.net/course/play/26258/328801)
 
 ## 开发及部署文档
-
-申请了 7 折优惠码：zWVmNW8M，只有50枚，手慢无。
 
 - [**Spring Boot 大型线上商城项目实战教程**](https://juejin.im/book/5da2f9d4f265da5b81794d48?referrer=59199e22a22b9d0058279886)
 - [技术选型之 Spring Boot](https://juejin.im/book/5da2f9d4f265da5b81794d48?referrer=59199e22a22b9d0058279886)
