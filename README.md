@@ -1,6 +1,7 @@
 ![newbee-logo](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/newbee-logo.png?x-oss-process=image/resize,h_240,w_480)
 
 - [《newbee-mall开源项目被慕课网拿去做课程，然后我毫不知情，这又是什么骚操作？》](https://mp.weixin.qq.com/s/oXr6O7u7vqQQi8mzTkoTDg)
+- [《花费3680元买了一个慕课网的Java就业班课程，里面竟然有自己写的开源项目！》](https://mp.weixin.qq.com/s/TLZbAEjRi0YT1t8xoFv4dQ)
 - [《newbee-mall开源项目被慕课网拿去做课程，项目详细对比记录，更多实锤看这里》](https://mp.weixin.qq.com/s/JTt0r_t8qhfUwkhpdUjrTg)
 - [《一个被慕课网拿去做Java就业班终极项目的开源商城项目，推荐给大家》](https://mp.weixin.qq.com/s/BKIETwgEPBprWYhQZJDLIA)
 
