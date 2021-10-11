@@ -79,7 +79,7 @@ public class ErrorPageController implements ErrorController {
 
     protected Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
         WebRequest webRequest = new ServletWebRequest(request);
-        return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
+       return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {
