@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.MallUserMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.MallUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="password_md5" jdbcType="VARCHAR" property="passwordMd5"/>
+        <result column="introduce_sign" jdbcType="VARCHAR" property="introduceSign"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="locked_flag" jdbcType="TINYINT" property="lockedFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, nick_name, login_name, password_md5, introduce_sign, address, is_deleted, 
+    locked_flag, create_time
+  </sql>
+
+    <select id="findMallUserList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where 1=1
+        <if test="loginName!=null and loginName!=''">
+            and login_name = #{loginName}
+        </if>
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalMallUsers" parameterType="Map" resultType="int">
+        select count(*) from tb_newbee_mall_user
+        where 1=1
+        <if test="loginName!=null and loginName!=''">
+            and login_name = #{loginName}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+    </select>
+    <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where login_name = #{loginName} and is_deleted = 0
+    </select>
+    <select id="selectByLoginNameAndPasswd" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user
+        where login_name = #{loginName} and password_md5 = #{password} and is_deleted = 0
+    </select>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    update tb_newbee_mall_user set is_deleted = 1
+    where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+  </update>
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.MallUser">
+    insert into tb_newbee_mall_user (user_id, nick_name, login_name, 
+      password_md5, introduce_sign, address, 
+      is_deleted, locked_flag, create_time
+      )
+    values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{passwordMd5,jdbcType=VARCHAR}, #{introduceSign,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=TINYINT}, #{lockedFlag,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.MallUser">
+        insert into tb_newbee_mall_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="passwordMd5 != null">
+                password_md5,
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="passwordMd5 != null">
+                #{passwordMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceSign != null">
+                #{introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="lockedFlag != null">
+                #{lockedFlag,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.MallUser">
+        update tb_newbee_mall_user
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="passwordMd5 != null">
+                password_md5 = #{passwordMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag = #{lockedFlag,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.MallUser">
+    update tb_newbee_mall_user
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      password_md5 = #{passwordMd5,jdbcType=VARCHAR},
+      introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      locked_flag = #{lockedFlag,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+    <update id="lockUserBatch">
+        update tb_newbee_mall_user
+        set locked_flag=#{lockStatus} where user_id in
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

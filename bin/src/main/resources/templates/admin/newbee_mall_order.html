@@ -1,0 +1,176 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment">
+</header>
+<style>
+    .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height: auto;
+        vertical-align: text-top;
+        padding-top: 2px;
+    }
+
+    a {
+        color: #1baeae;
+        text-decoration: none;
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
+
+    a:hover {
+        color: white;
+        background-color: #1baeae;
+    }
+</style>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains 图标content -->
+    <div class="content-wrapper">
+        <!-- Content Header (图标header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">订单管理</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="orderEdit()"><i
+                                    class="fa fa-pencil-square-o"></i>&nbsp;修改订单
+                            </button>
+                            <button class="btn btn-info" onclick="orderCheckDone()"><i
+                                    class="fa fa-truck"></i>&nbsp;配货完成
+                            </button>
+                            <button class="btn btn-info" onclick="orderCheckOut()"><i
+                                    class="fa fa-truck"></i>&nbsp;出库
+                            </button>
+                            <button class="btn btn-danger" onclick="closeOrder()"><i
+                                    class="fa fa-trash-o"></i>&nbsp;关闭订单
+                            </button>
+                        </div>
+                        <table id="jqGrid" class="table table-bordered">
+                        </table>
+                        <div id="jqGridPager"></div>
+                    </div><!-- /.card-body -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <div class="content">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="orderInfoModal" tabindex="-1" role="dialog"
+                 aria-labelledby="orderInfoModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="orderInfoModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="##">
+                                <div class="form-group">
+                                    <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
+                                        错误信息展示栏。
+                                    </div>
+                                </div>
+                                <input type="hidden" id="orderId">
+                                <div class="form-group">
+                                    <label for="totalPrice" class="control-label">订单价格:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input type="number" class="form-control" id="totalPrice" name="totalPrice"
+                                           placeholder="请输入改价金额" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="userAddress"
+                                           class="control-label">收件人信息:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input type="text" class="form-control" id="userAddress" name="userAddress"
+                                           placeholder="请输入收件人地址" value="##">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+        <div class="content">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="expressInfoModal" tabindex="-1" role="dialog"
+                 aria-labelledby="expressInfoModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="expressInfoModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="##">
+                                <div class="form-group">
+                                    <label class="control-label">收件信息:</label>
+                                    <label id="userAddressInfo" class="control-label"></label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+        <div class="content">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="orderItemModal" tabindex="-1" role="dialog"
+                 aria-labelledby="orderItemModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="orderItemModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="##">
+                                <div class="form-group">
+                                    <label id="orderItemString" class="control-label"></label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/grid.locale-cn.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/newbee_mall_order.js}"></script>
+</body>
+</html>

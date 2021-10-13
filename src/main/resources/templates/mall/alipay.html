@@ -1,0 +1,97 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>newbee-mall 支付</title>
+    <link th:href="@{/mall/styles/pay.css}" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="body">
+    <h1 class="mod-title">
+        <span class="ico_log icon-ali-pay"></span>
+    </h1>
+
+    <div class="mod-ct">
+        <div class="order">
+        </div>
+        <div class="amount" id="money">￥
+            <th:block th:text="${totalPrice+'.00'}"></th:block>
+        </div>
+        <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
+            <div data-role="qrPayImg" class="qrcode-img-area">
+                <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading"></div>
+                <div style="position: relative;display: inline-block;">
+                    <img width="300" height="300"
+                         th:src="@{/mall/image/pay/alipay_qrcode.png}"
+                         title="请尽快支付~"
+                         style="display: block;">
+                </div>
+            </div>
+        </div>
+
+        <div class="time-item" style="padding-top: 10px">
+            <div class="time-item" id="msg">
+                <h1>支付完成后，将跳转至订单详情</h1>
+            </div>
+            <div class="time-item">
+                <h1>订单:
+                    <th:block th:text="${orderNo}"></th:block>
+                </h1>
+            </div>
+            <input type="hidden" id="orderNoValue" th:value="${orderNo}">
+        </div>
+
+        <div class="tip">
+            <div class="ico-scan-ali"></div>
+            <div class="tip-text">
+                <p id="showtext">打开支付宝 [扫一扫]</p>
+            </div>
+            <div class="tip-text">
+                <a onclick="payOrderSuccess()"
+                   class="btn btn-small btn-success" title="支付成功">支付成功</a>
+            </div>
+        </div>
+
+        <div class="tip-text">
+        </div>
+
+    </div>
+    <div class="foot">
+    </div>
+</div>
+<script type="text/javascript">
+    function payOrderSuccess() {
+        var orderNo = $("#orderNoValue").val();
+        $.ajax({
+            type: 'GET',
+            url: '/paySuccess?payType=1&orderNo=' + orderNo,
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    window.location.href = '/orders/' + orderNo;
+                } else {
+                    alert(result.message);
+                }
+            },
+            error: function () {
+                alert("操作失败");
+            }
+        });
+    }
+</script>
+</body>
+</html>

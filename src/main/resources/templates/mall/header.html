@@ -1,0 +1,86 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head-fragment(title,path)">
+    <meta charset="UTF-8">
+    <title>新蜂商城 NewBee商城 newbee-mall</title>
+    <link rel="stylesheet" th:href="@{/mall/css/swiper-bundle.min.css}">
+    <link rel="stylesheet" th:href="@{/mall/css/iconfont.css}">
+    <link rel="stylesheet" th:href="@{/mall/css/common.css}">
+    <link rel="stylesheet" th:href="@{/mall/styles/header.css}">
+    <link rel="stylesheet" th:href="@{'/mall/styles/'+${path}+'.css'}">
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+    <meta name="keywords" content="新蜂商城,newbee-mall,新蜂,商城,开源商城,newbee,企业级商城,大型商城项目,Java商城,springboot商城,SpringBoot商城项目,Spring Boot 大型线上商城项目实战教程" />
+    <meta name="description" content="newbee-mall 项目（新蜂商城）是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot 2.X 及相关技术栈开发。前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。Spring Boot 大型线上商城项目实战教程"/>
+</head>
+<nav id="nav" th:fragment="nav-fragment">
+    <div class="banner_x center">
+        <a th:href="@{/index}" class="logo"><h1>新蜂商城</h1></a>
+        <div class="fr">
+            <div class="search">
+                <input class="text" type="text" id="keyword" autocomplete="off">
+                <div class="search_hot">
+                </div>
+            </div>
+            <div class="button iconfont icon-search" onclick="search()"></div>
+        </div>
+    </div>
+</nav>
+<header id="header" th:fragment="header-fragment">
+    <div class="center">
+        <ul class="fl">
+            <li><a th:href="@{/index}">新蜂商城</a></li>
+            <li><a th:href="@{/admin}">后台管理系统</a></li>
+            <li><a href="https://edu.csdn.net/course/detail/26258">课程视频</a></li>
+            <li><a href="https://juejin.im/book/5da2f9d4f265da5b81794d48?referrer=59199e22a22b9d0058279886">课程文档</a></li>
+            <li><a href="https://gitee.com/newbee-ltd/newbee-donate">捐赠</a></li>
+            <li><a href="https://github.com/newbee-ltd/newbee-mall/issues">问题反馈</a></li>
+            <li><a href="https://github.com/newbee-ltd/newbee-mall">GitHub 地址</a></li>
+            <li><a href="https://gitee.com/newbee-ltd/newbee-mall">码云Gitee 地址</a></li>
+        </ul>
+        <div class="fr">
+            <th:block th:unless="${session.newBeeMallUser==null}">
+                <div class="user">
+                    <ul class="selector">
+                        <li>
+                            <a th:href="@{/personal}">
+                                个人中心
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/orders}">
+                                我的订单
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/logout}">
+                                退出登录
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="##" class="username">
+                        <th:block th:text="${session.newBeeMallUser.nickName}"></th:block>
+                        <i class="iconfont icon-down"></i>
+                    </a>
+                </div>
+                <div class="shopcart">
+                    <a th:href="@{/shop-cart}" style="color: white;"><i class="iconfont icon-cart"></i>
+                        购物车(
+                        <th:block th:text="${session.newBeeMallUser.shopCartItemCount}"></th:block>
+                        )</a>
+                </div>
+            </th:block>
+            <th:block th:if="${session.newBeeMallUser==null}">
+                <ul class="login">
+                    <li><a th:href="@{/login}">登录</a></li>
+                    <li><a th:href="@{/register}">注册</a></li>
+                </ul>
+                <div class="shopcart">
+                    <a href="##" style="color: white;"><i class="iconfont icon-cart"></i>
+                        购物车(0)</a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</header>
+</html>

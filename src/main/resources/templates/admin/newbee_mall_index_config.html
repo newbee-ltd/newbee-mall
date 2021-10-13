@@ -1,0 +1,126 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment">
+</header>
+<style>
+    .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height: auto;
+        vertical-align: text-top;
+        padding-top: 2px;
+    }
+</style>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains 图标content -->
+    <div class="content-wrapper">
+        <!-- Content Header (图标header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">首页配置管理</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="configAdd()"><i
+                                    class="fa fa-plus"></i>&nbsp;新增
+                            </button>
+                            <button class="btn btn-info" onclick="configEdit()"><i
+                                    class="fa fa-pencil-square-o"></i>&nbsp;修改
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteConfig()"><i
+                                    class="fa fa-trash-o"></i>&nbsp;删除
+                            </button>
+                        </div>
+                        <br>
+                        <table id="jqGrid" class="table table-bordered">
+                        </table>
+                        <div id="jqGridPager"></div>
+                    </div><!-- /.card-body -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+        <div class="content">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="indexConfigModal" tabindex="-1" role="dialog"
+                 aria-labelledby="indexConfigModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="indexConfigForm">
+                                <div class="form-group">
+                                    <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
+                                        错误信息展示栏。
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" id="indexConfigModaconfigId" name="indexConfigModaconfigId">
+                                <input type="hidden" id="configType" th:value="${configType}">
+                                <div class="form-group">
+                                    <label for="configName" class="control-label">配置项显示字符:</label>
+                                    <input type="text" class="form-control" id="configName" name="configName"
+                                           placeholder="请输入配置项显示字符" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="redirectUrl" class="control-label">跳转链接:</label>
+                                    <input type="text" class="form-control" id="redirectUrl" name="redirectUrl"
+                                           placeholder="请输入跳转链接" value="##">
+                                </div>
+                                <div class="form-group">
+                                    <label for="goodsId" class="control-label">关联商品编号:</label>
+                                    <input type="number" class="form-control" id="goodsId" name="goodsId"
+                                           placeholder="关联商品编号" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="configRank" class="control-label">排序值:</label>
+                                    <input type="number" class="form-control" id="configRank" name="configRank"
+                                           placeholder="请输入排序值">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.5.2/grid.locale-cn.js}"></script>
+
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/newbee_mall_index_config.js}"></script>
+</body>
+</html>

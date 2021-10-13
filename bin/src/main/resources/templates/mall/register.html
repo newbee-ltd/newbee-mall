@@ -1,0 +1,121 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NewBee商城-注册</title>
+    <link rel="stylesheet" th:href="@{mall/css/common.css}">
+    <link rel="stylesheet" th:href="@{mall/styles/login.css}">
+    <link rel="stylesheet" th:href="@{mall/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+</head>
+<body>
+<div class="top center">
+    <div class="logo center">
+        <a href="./index.html" target="_blank"><img src="mall/image/login-logo-2.png" alt=""></a>
+    </div>
+</div>
+
+<div class="form center">
+    <div class="login">
+        <div class="login_center">
+            <div class="login_top">
+                <div class="left fl">会员注册</div>
+                <div class="right fr">您已有账号？<a href="login.html" target="_self">请登录</a></div>
+                <div class="clear"></div>
+                <div class="under-line center"></div>
+            </div>
+            <form id="registerForm" onsubmit="return false;" action="##">
+                <div class="login_main center">
+                    <div class="login-info">手机号:&nbsp;<input class="login-info-input" type="text" name="loginName"
+                                                             placeholder="请输入你的手机号" id="loginName"/>
+                    </div>
+                    <div class="login-info">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input class="login-info-input"
+                                                                                    type="password"
+                                                                                    name="password"
+                                                                                    id="password"
+                                                                                    placeholder="请输入你的密码"/>
+                    </div>
+                    <div class="login-info">
+                        验证码:&nbsp;
+                        <input class="login-info-input verify-code" type="text" name="verifyCode" id="verifyCode"
+                               placeholder="请输入验证码"/>
+                        <img alt="单击图片刷新！" style="top: 16px;position: relative;" th:src="@{/common/mall/kaptcha}"
+                             onclick="this.src='/common/mall/kaptcha?d='+new Date()*1">
+                    </div>
+                </div>
+                <div class="login_submit">
+                    <input class="submit" type="button" onclick="register()" value="立即注册">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script type="text/javascript">
+
+    //注册按钮onclick事件改为register()即可
+    function register() {
+        var loginName = $("#loginName").val();
+        if (!validPhoneNumber(loginName)) {
+            swal('请输入正确的登录名(即手机号)', {
+                icon: "error",
+            });
+            return false;
+        }
+        var password = $("#password").val();
+        if (!validPassword(password)) {
+            swal('请输入正确的密码格式(6-20位字符和数字组合)', {
+                icon: "error",
+            });
+            return false;
+        }
+        var verifyCode = $("#verifyCode").val();
+        if (!validLength(verifyCode, 5)) {
+            swal('请输入正确的验证码', {
+                icon: "error",
+            });
+            return false;
+        }
+        //验证
+        var params = $("#registerForm").serialize();
+        var url = '/register';
+        $.ajax({
+            type: 'POST',//方法类型
+            url: url,
+            data: params,
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    swal({
+                        title: "注册成功",
+                        text: "是否跳转至登录页?",
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((flag) => {
+                            if (flag) {
+                                window.location.href = '/login';
+                            }
+                        }
+                    )
+                    ;
+                } else {
+                    swal(result.message, {
+                        icon: "error",
+                    });
+                }
+                ;
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+</script>
+</html>

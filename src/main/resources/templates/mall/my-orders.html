@@ -1,0 +1,146 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="mall/header::head-fragment('NewBee商城-订单列表','my-orders')">
+</head>
+<body>
+<header th:replace="mall/header::header-fragment"></header>
+<!-- nav -->
+<nav th:replace="mall/header::nav-fragment"></nav>
+
+<!-- personal -->
+<div id="personal">
+    <div class="self-info center">
+
+        <!-- sidebar -->
+        <div th:replace="mall/personal-sidebar::sidebar-fragment"></div>
+
+        <div class="intro fr">
+            <div class="uc-box uc-main-box">
+                <div class="uc-content-box order-list-box">
+                    <div class="box-hd">
+                        <h1 class="title">我的订单
+                            <small>请谨防钓鱼链接或诈骗电话，<a href="##">了解更多&gt;</a>
+                            </small>
+                        </h1>
+                    </div>
+                    <div class="box-bd">
+                        <div id="J_orderList">
+                            <ul class="order-list">
+                                <th:block th:if="${#lists.isEmpty(orderPageResult.list)}">
+                                    <img style="margin-top: 16px;"
+                                         th:src="@{/mall/image/null-content.png}">
+                                    <small><a th:href="@{/index}">&nbsp;&nbsp;&nbsp;&nbsp;去购物&gt;</a>
+                                    </small>
+                                </th:block>
+                                <th:block th:unless="${#lists.isEmpty(orderPageResult.list)}">
+                                    <th:block th:each="order : ${orderPageResult.list}">
+
+                                        <li class="uc-order-item uc-order-item-list">
+                                            <div class="order-detail">
+                                                <div class="order-summary">
+                                                    <th:block th:if="${order.orderStatus<0}">
+                                                        <div class="order-status-closed">
+                                                    </th:block>
+                                                    <th:block th:if="${order.orderStatus==0}">
+                                                        <div class="order-status-need-pay">
+                                                    </th:block>
+                                                    <th:block th:if="${order.orderStatus>0}">
+                                                        <div class="order-status-success">
+                                                    </th:block>
+                                                    <th:block th:text="${' '+order.orderStatusString}"></th:block>
+                                                </div>
+                                            </div>
+                                            <table class="order-detail-table">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-main"><p class="caption-info"
+                                                                            th:text="${#dates.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}">
+                                                        02月07日<span
+                                                            class="sep">|</span>订单号：<a
+                                                            href="##"
+                                                            th:text="${order.orderNo}">201908121807</a><span
+                                                            class="sep">|</span>在线支付</p></th>
+                                                    <th class="col-sub"><p class="caption-price">应付金额：<span
+                                                            class="num"
+                                                            th:text="${order.totalPrice+'.00'}">1299.00</span>元
+                                                    </p></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="order-items">
+                                                        <ul class="goods-list">
+                                                            <th:block
+                                                                    th:each="item : ${order.newBeeMallOrderItemVOS}">
+                                                                <li>
+                                                                    <div class="figure figure-thumb">
+                                                                        <a target="_blank"
+                                                                           th:href="@{'/goods/detail/'+${item.goodsId}}">
+                                                                            <img th:src="@{${item.goodsCoverImg}}"
+                                                                                 width="80" height="80" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                    <p class="name"><a target="_blank"
+                                                                                       th:href="@{'/goods/detail/'+${item.goodsId}}"
+                                                                                       th:text="${item.goodsName}">newbee</a>
+                                                                    </p>
+                                                                    <p class="price"
+                                                                       th:text="${item.sellingPrice+'元 x '+item.goodsCount}">
+                                                                        13元 × 1</p></li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </td>
+                                                    <td class="order-actions"><a class="btn btn-small btn-line-gray"
+                                                                                 th:href="@{${'/orders/'+order.orderNo}}">订单详情</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                        </div>
+                        </li>
+                        </th:block>
+                        </th:block>
+                        </ul>
+                    </div>
+                    <th:block th:unless="${#lists.isEmpty(orderPageResult.list)}">
+                        <div id="J_orderListPages">
+                            <div class="newbee-pagenavi">
+                                <th:block th:if="${orderPageResult.currPage-2 >=1}"><a
+                                        class="numbers"
+                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage-2}}"
+                                        th:text="${orderPageResult.currPage -2}">1</a>
+                                </th:block>
+                                <th:block th:if="${orderPageResult.currPage-1 >=1}"><a
+                                        class="numbers"
+                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage-1}}"
+                                        th:text="${orderPageResult.currPage -1}">1</a>
+                                </th:block>
+                                <a href="##" class="numbers current" th:text="${orderPageResult.currPage}">1</a>
+                                <th:block th:if="${orderPageResult.currPage+1<=orderPageResult.totalPage}"><a
+                                        class="numbers"
+                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage+1}}"
+                                        th:text="${orderPageResult.currPage +1}">1</a></th:block>
+                                <th:block th:if="${orderPageResult.currPage+2<=orderPageResult.totalPage}"><a
+                                        class="numbers"
+                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage+2}}"
+                                        th:text="${orderPageResult.currPage +2}">1</a></th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+</div>
+
+<div th:replace="mall/footer::footer-fragment"></div>
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+
+</body>
+</html>

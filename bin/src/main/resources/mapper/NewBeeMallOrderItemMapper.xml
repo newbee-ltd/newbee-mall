@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.NewBeeMallOrderItemMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+        <id column="order_item_id" jdbcType="BIGINT" property="orderItemId"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
+        <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
+        <result column="goods_count" jdbcType="INTEGER" property="goodsCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    order_item_id, order_id, goods_id, goods_name, goods_cover_img, selling_price, goods_count, 
+    create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_order_item
+        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_order_item
+        where order_id = #{orderItemId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByOrderIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_order_item
+        where order_id
+        in
+        <foreach item="id" collection="orderIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_newbee_mall_order_item
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insertBatch" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+        insert into tb_newbee_mall_order_item (order_id, goods_id,
+        goods_name, goods_cover_img, selling_price,
+        goods_count)
+        values
+        <foreach collection="orderItems" item="orderItem" separator=",">
+            (#{orderItem.orderId,jdbcType=BIGINT}, #{orderItem.goodsId,jdbcType=BIGINT},
+            #{orderItem.goodsName,jdbcType=VARCHAR}, #{orderItem.goodsCoverImg,jdbcType=VARCHAR},
+            #{orderItem.sellingPrice,jdbcType=INTEGER},
+            #{orderItem.goodsCount,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+    insert into tb_newbee_mall_order_item (order_item_id, order_id, goods_id,
+      goods_name, goods_cover_img, selling_price,
+      goods_count, create_time)
+    values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
+      #{goodsName,jdbcType=VARCHAR}, #{goodsCoverImg,jdbcType=VARCHAR}, #{sellingPrice,jdbcType=INTEGER},
+      #{goodsCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+        insert into tb_newbee_mall_order_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderItemId != null">
+                order_item_id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsCoverImg != null">
+                goods_cover_img,
+            </if>
+            <if test="sellingPrice != null">
+                selling_price,
+            </if>
+            <if test="goodsCount != null">
+                goods_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderItemId != null">
+                #{orderItemId,jdbcType=BIGINT},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCoverImg != null">
+                #{goodsCoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="sellingPrice != null">
+                #{sellingPrice,jdbcType=INTEGER},
+            </if>
+            <if test="goodsCount != null">
+                #{goodsCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+        update tb_newbee_mall_order_item
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCoverImg != null">
+                goods_cover_img = #{goodsCoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="sellingPrice != null">
+                selling_price = #{sellingPrice,jdbcType=INTEGER},
+            </if>
+            <if test="goodsCount != null">
+                goods_count = #{goodsCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallOrderItem">
+    update tb_newbee_mall_order_item
+    set order_id = #{orderId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_cover_img = #{goodsCoverImg,jdbcType=VARCHAR},
+      selling_price = #{sellingPrice,jdbcType=INTEGER},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where order_item_id = #{orderItemId,jdbcType=BIGINT}
+  </update>
+</mapper>

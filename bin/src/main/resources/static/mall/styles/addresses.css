@@ -1,0 +1,218 @@
+#personal {
+    width: 100%;
+    height: auto;
+    background: #f5f5f5;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#personal .self-info {
+    width: 1226px;
+}
+
+#personal .self-info .lfnav {
+    width: 234px;
+    height: 500px;
+    background: #fff;
+}
+
+#personal .self-info .lfnav .nav_title {
+    width: 234px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 19px;
+    margin: 30px 20px 10px 40px;
+    color: #333;
+}
+
+#personal .self-info .lfnav .title_list ul li {
+    display: block;
+    width: 194px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 40px;
+}
+
+#personal .self-info .lfnav .title_list ul li .active {
+    color: #1baeae;
+    font-weight: bold;
+}
+
+#personal .self-info .lfnav .title_list ul li a {
+    color: #757575;
+}
+
+#personal .self-info .lfnav .title_list ul li a:hover {
+    color: #333;
+}
+
+#personal .self-info .intro {
+    width: 978px;
+    background: #fff;
+}
+
+#personal .self-info .intro .grzlbt {
+    width: 938px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    color: #757575;
+}
+
+#personal .self-info .intro .info_item {
+    height: 45px;
+    line-height: 45px;
+    width: 900px;
+    background: #fdfdfd;
+    border: 1px solid #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+#personal .self-info .intro .info_item span:nth-of-type(1) {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    color: #757575;
+    width: 70px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+}
+
+#personal .self-info .intro .info_item span:nth-of-type(2) {
+    display: inline-block;
+    font-size: 15px;
+    color: #757575;
+    width: 480px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 120px;
+}
+
+#personal .self-info .intro .info_item span:nth-of-type(3) {
+    display: inline-block;
+    font-size: 15px;
+    width: 160px;
+    height: 45px;
+    line-height: 45px;
+    text-align: right;
+}
+
+#personal .self-info .intro .info_item span a {
+    color: #008080;
+}
+
+#personal .self-info .intro .info_item span a:hover {
+    color: #1baeae;
+}
+
+.uc-main-box {
+    padding: 36px 0;
+}
+
+.uc-box {
+    background: #fff;
+}
+
+.uc-content-box {
+    margin: 0 48px;
+}
+
+.uc-content-box .box-hd .title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 68px;
+    color: #757575;
+}
+
+.user-address-list {
+    padding-top: 30px;
+}
+
+.user-address-list .address-item {
+    float: left;
+    margin-right: 17px;
+    margin-bottom: 20px;
+}
+.address-item-new {
+    text-align: center;
+    color: #b0b0b0;
+}
+.address-item {
+    width: 268px;
+    height: 178px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    position: relative;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+}
+
+.address-item-new .iconfont {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 63px auto 8px;
+    font-size: 30px;
+    line-height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 17px;
+    text-align: center;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+    color: #fff;
+}
+.iconfont {
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.user-address-list .address-item {
+    float: left;
+    margin-right: 17px;
+    margin-bottom: 20px;
+}
+.address-item {
+    width: 268px;
+    height: 178px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    position: relative;
+    -webkit-transition: all .4s ease;
+    transition: all .4s ease;
+}
+.address-item dl {
+    padding: 15px 24px 0;
+    margin: 0;
+}
+.address-item dt {
+    margin: 0 0 10px;
+    line-height: 30px;
+}
+.address-item .uname {
+    font-size: 18px;
+    color: #333;
+    font-style: normal;
+}
+.address-item dd {
+    margin: 0;
+    line-height: 22px;
+    color: #757575;
+}
+.address-item .actions {
+    position: absolute;
+    right: 24px;
+    bottom: 10px;
+    width: 100px;
+    height: 24px;
+}
+.address-item .modify {
+    margin-left: 10px;
+    color: #1baeae;
+}

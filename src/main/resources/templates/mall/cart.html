@@ -1,0 +1,201 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NewBee商城-购物车</title>
+    <link rel="stylesheet" th:href="@{mall/css/iconfont.css}">
+    <link rel="stylesheet" th:href="@{mall/css/common.css}">
+    <link rel="stylesheet" th:href="@{mall/styles/header.css}">
+    <link rel="stylesheet" th:href="@{mall/styles/cart.css}">
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+</head>
+<body>
+
+<div id="cart">
+    <div class="banner_x center">
+        <a th:href="@{/index}" target="_blank">
+            <div class="logo fl">
+                <img src="mall/image/new-bee-logo-3.png"/>
+            </div>
+        </a>
+
+        <div class="wdgwc fl ml20">购物车</div>
+        <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+        <div class="clear"></div>
+    </div>
+    <div class="cart_line"></div>
+    <div class="cart_bg">
+        <th:block th:if="${#lists.isEmpty(myShoppingCartItems)}">
+            <div class="list center">
+                <img style="position: absolute;margin-top: 16px;left: 45%;" th:src="@{/mall/image/null-content.png}">
+            </div>
+        </th:block>
+        <th:block th:unless="${#lists.isEmpty(myShoppingCartItems)}">
+            <div class="list center">
+                <div class="top2 center">
+                    <div class="sub_top fl">
+                    </div>
+                    <div class="sub_top fl">商品名称</div>
+                    <div class="sub_top fl">单价</div>
+                    <div class="sub_top fl">数量</div>
+                    <div class="sub_top fl">小计</div>
+                    <div class="sub_top fr">操作</div>
+                    <div class="clear"></div>
+                </div>
+                <th:block th:each="item : ${myShoppingCartItems}">
+                    <div class="content2 center">
+                        <div class="sub_content fl ">
+                        </div>
+                        <div class="sub_content cover fl"><img th:src="@{${item.goodsCoverImg}}"></div>
+                        <div class="sub_content fl ft20" th:text="${item.goodsName}">商品名称</div>
+                        <div class="sub_content fl" th:text="${item.sellingPrice+'元'}">1299元</div>
+                        <div class="sub_content fl">
+                            <input class="goods_count" th:id="${'goodsCount'+item.cartItemId}" type="number"
+                                   th:onblur="'updateItem('+${item.cartItemId}+')'"
+                                   th:value="${item.goodsCount}" step="1" min="1"
+                                   max="5">
+                        </div>
+                        <div class="sub_content fl" th:text="${item.goodsCount*item.sellingPrice+'元'}">1299元</div>
+                        <div class="sub_content fl"><a href="##" th:onclick="'deleteItem('+${item.cartItemId}+')'">×</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </th:block>
+            </div>
+        </th:block>
+        <div class="pre_order mt20 center">
+            <div class="tips fl ml20">
+                <ul>
+                    <li><a th:href="@{/index}">继续购物</a></li>
+                    <li>|</li>
+                    <li>共<span th:text="${itemsTotal}">13</span>件商品</li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="order_div fr">
+                <div class="order_total fl">合计（不含运费）：<span th:text="${priceTotal}+'.00元'">1299.00元</span></div>
+                <div class="order_button fr">
+                    <th:block th:if="${itemsTotal == 0}">
+                        <input class="order_button_c" type="button" name="tip"
+                               onclick="tip()"
+                               value="去结算"/>
+                    </th:block>
+                    <th:block th:unless="${itemsTotal == 0}">
+                        <input class="order_button_d" type="button" name="settle"
+                               onclick="settle()"
+                               value="去结算"/>
+                    </th:block>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div th:replace="mall/footer::footer-fragment"></div>
+
+</body>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script type="text/javascript">
+
+    /**
+     * 购物车中数量为0时提示
+     */
+    function tip() {
+        swal("购物车中无数据，无法结算", {
+            icon: "error",
+        });
+    }
+
+    /**
+     * 跳转至结算页面
+     */
+    function settle() {
+        window.location.href = '/shop-cart/settle'
+    }
+
+    /**
+     *更新购物项
+     */
+    function updateItem(id) {
+        var domId = 'goodsCount' + id;
+        var goodsCount = $("#" + domId).val();
+        if (goodsCount > 5) {
+            swal("单个商品最多可购买5个", {
+                icon: "error",
+            });
+            return;
+        }
+        if (goodsCount < 1) {
+            swal("数量异常", {
+                icon: "error",
+            });
+            return;
+        }
+        var data = {
+            "cartItemId": id,
+            "goodsCount": goodsCount
+        };
+        $.ajax({
+            type: 'PUT',
+            url: '/shop-cart',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    window.location.reload();
+                } else {
+                    swal("操作失败", {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    /**
+     * * 删除购物项
+     * @param id
+     */
+    function deleteItem(id) {
+        swal({
+            title: "确认弹框",
+            text: "确认要删除数据吗?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((flag) => {
+                if (flag) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/shop-cart/' + id,
+                        success: function (result) {
+                            if (result.resultCode == 200) {
+                                window.location.reload();
+                            } else {
+                                swal("操作失败", {
+                                    icon: "error",
+                                });
+                            }
+                        },
+                        error: function () {
+                            swal("操作失败", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            }
+        )
+        ;
+    }
+</script>
+</html>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.NewBeeMallGoodsMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.NewBeeMallGoods">
+        <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro"/>
+        <result column="goods_category_id" jdbcType="BIGINT" property="goodsCategoryId"/>
+        <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
+        <result column="goods_carousel" jdbcType="VARCHAR" property="goodsCarousel"/>
+        <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
+        <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
+        <result column="stock_num" jdbcType="INTEGER" property="stockNum"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="goods_sell_status" jdbcType="TINYINT" property="goodsSellStatus"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="ltd.newbee.mall.entity.NewBeeMallGoods">
+        <result column="goods_detail_content" jdbcType="LONGVARCHAR" property="goodsDetailContent"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    goods_id, goods_name, goods_intro,goods_category_id, goods_cover_img, goods_carousel, original_price,
+    selling_price, stock_num, tag, goods_sell_status, create_user, create_time, update_user, 
+    update_time
+  </sql>
+    <sql id="Blob_Column_List">
+    goods_detail_content
+  </sql>
+
+    <insert id="batchInsert">
+        INSERT INTO tb_newbee_mall_goods_info(goods_name, goods_intro, goods_category_id,goods_cover_img,
+        goods_carousel,
+        goods_detail_content,original_price,
+        selling_price, stock_num)
+        VALUES
+        <foreach collection="newBeeMallGoodsList" item="goods" separator=",">
+            (#{goods.goodsName},#{goods.goodsIntro},#{goods.goodsCategoryId},#{goods.goodsCoverImg},#{goods.goodsCarousel},#{goods.goodsDetailContent},#{goods.originalPrice},#{goods.sellingPrice},#{goods.stockNum})
+        </foreach>
+    </insert>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_newbee_mall_goods_info
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByCategoryIdAndName" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_newbee_mall_goods_info
+        where goods_name = #{goodsName,jdbcType=VARCHAR} and goods_category_id = #{goodsCategoryId,jdbcType=BIGINT}
+    </select>
+    <update id="updateStockNum">
+        <foreach collection="stockNumDTOS" item="stockNumDTO">
+            update tb_newbee_mall_goods_info set stock_num = stock_num-#{stockNumDTO.goodsCount}
+            where goods_id = #{stockNumDTO.goodsId} and stock_num>=#{stockNumDTO.goodsCount} and goods_sell_status = 0;
+        </foreach>
+    </update>
+    <update id="batchUpdateSellStatus">
+        update tb_newbee_mall_goods_info
+        set goods_sell_status=#{sellStatus},update_time=now() where goods_id in
+        <foreach item="id" collection="orderIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="findNewBeeMallGoodsList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_info
+        <where>
+            <if test="goodsName!=null and goodsName!=''">
+                and goods_name like CONCAT('%','#{goodsName}','%')
+            </if>
+            <if test="goodsSellStatus!=null and goodsSellStatus!=''">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+            <if test="startTime != null and startTime.trim() != ''">
+                and create_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime.trim() != ''">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+        order by goods_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="findNewBeeMallGoodsListBySearch" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+        <if test="orderBy!=null and orderBy!=''">
+            <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 按照发布时间倒序排列 -->
+                    order by goods_id desc
+                </when>
+                <when test="orderBy == 'price'">
+                    <!-- 按照售价从小到大排列 -->
+                    order by selling_price asc
+                </when>
+                <otherwise>
+                    <!-- 默认按照库存数量从大到小排列 -->
+                    order by stock_num desc
+                </otherwise>
+            </choose>
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalNewBeeMallGoodsBySearch" parameterType="Map" resultType="int">
+        select count(*) from tb_newbee_mall_goods_info
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                and (goods_name like CONCAT('%',#{keyword},'%') or goods_intro like CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="goodsCategoryId!=null and goodsCategoryId!=''">
+                and goods_category_id = #{goodsCategoryId}
+            </if>
+            <if test="goodsSellStatus!=null">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_goods_info
+        where goods_id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by field(goods_id,
+        <foreach item="id" collection="list" separator=",">
+            #{id}
+        </foreach>
+        );
+    </select>
+    <select id="getTotalNewBeeMallGoods" parameterType="Map" resultType="int">
+        select count(*) from tb_newbee_mall_goods_info
+        <where>
+            <if test="goodsName!=null and goodsName!=''">
+                and goods_name like CONCAT('%','#{goodsName}','%')
+            </if>
+            <if test="goodsSellStatus!=null and goodsSellStatus!=''">
+                and goods_sell_status = #{goodsSellStatus}
+            </if>
+            <if test="startTime != null and startTime.trim() != ''">
+                and create_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime.trim() != ''">
+                and create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_newbee_mall_goods_info
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    insert into tb_newbee_mall_goods_info (goods_id, goods_name, goods_intro, 
+      goods_cover_img, goods_carousel, original_price, 
+      selling_price, stock_num, tag, 
+      goods_sell_status, create_user, create_time, 
+      update_user, update_time, goods_detail_content
+      )
+    values (#{goodsId,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{goodsIntro,jdbcType=VARCHAR}, 
+      #{goodsCoverImg,jdbcType=VARCHAR}, #{goodsCarousel,jdbcType=VARCHAR}, #{originalPrice,jdbcType=INTEGER}, 
+      #{sellingPrice,jdbcType=INTEGER}, #{stockNum,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
+      #{goodsSellStatus,jdbcType=TINYINT}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{goodsDetailContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+        insert into tb_newbee_mall_goods_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsIntro != null">
+                goods_intro,
+            </if>
+            <if test="goodsCategoryId != null">
+                goods_category_id,
+            </if>
+            <if test="goodsCoverImg != null">
+                goods_cover_img,
+            </if>
+            <if test="goodsCarousel != null">
+                goods_carousel,
+            </if>
+            <if test="originalPrice != null">
+                original_price,
+            </if>
+            <if test="sellingPrice != null">
+                selling_price,
+            </if>
+            <if test="stockNum != null">
+                stock_num,
+            </if>
+            <if test="tag != null">
+                tag,
+            </if>
+            <if test="goodsSellStatus != null">
+                goods_sell_status,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="goodsDetailContent != null">
+                goods_detail_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsIntro != null">
+                #{goodsIntro,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsIntro != null">
+                #{goodsCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsCoverImg != null">
+                #{goodsCoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCarousel != null">
+                #{goodsCarousel,jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                #{originalPrice,jdbcType=INTEGER},
+            </if>
+            <if test="sellingPrice != null">
+                #{sellingPrice,jdbcType=INTEGER},
+            </if>
+            <if test="stockNum != null">
+                #{stockNum,jdbcType=INTEGER},
+            </if>
+            <if test="tag != null">
+                #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSellStatus != null">
+                #{goodsSellStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsDetailContent != null">
+                #{goodsDetailContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+        update tb_newbee_mall_goods_info
+        <set>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsIntro != null">
+                goods_intro = #{goodsIntro,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCategoryId != null">
+                goods_category_id = #{goodsCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsCoverImg != null">
+                goods_cover_img = #{goodsCoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCarousel != null">
+                goods_carousel = #{goodsCarousel,jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                original_price = #{originalPrice,jdbcType=INTEGER},
+            </if>
+            <if test="sellingPrice != null">
+                selling_price = #{sellingPrice,jdbcType=INTEGER},
+            </if>
+            <if test="stockNum != null">
+                stock_num = #{stockNum,jdbcType=INTEGER},
+            </if>
+            <if test="tag != null">
+                tag = #{tag,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsSellStatus != null">
+                goods_sell_status = #{goodsSellStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="goodsDetailContent != null">
+                goods_detail_content = #{goodsDetailContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    update tb_newbee_mall_goods_info
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_intro = #{goodsIntro,jdbcType=VARCHAR},
+      goods_cover_img = #{goodsCoverImg,jdbcType=VARCHAR},
+      goods_carousel = #{goodsCarousel,jdbcType=VARCHAR},
+      original_price = #{originalPrice,jdbcType=INTEGER},
+      selling_price = #{sellingPrice,jdbcType=INTEGER},
+      stock_num = #{stockNum,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      goods_sell_status = #{goodsSellStatus,jdbcType=TINYINT},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      goods_detail_content = #{goodsDetailContent,jdbcType=LONGVARCHAR}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallGoods">
+    update tb_newbee_mall_goods_info
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_intro = #{goodsIntro,jdbcType=VARCHAR},
+      goods_cover_img = #{goodsCoverImg,jdbcType=VARCHAR},
+      goods_carousel = #{goodsCarousel,jdbcType=VARCHAR},
+      original_price = #{originalPrice,jdbcType=INTEGER},
+      selling_price = #{sellingPrice,jdbcType=INTEGER},
+      stock_num = #{stockNum,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      goods_sell_status = #{goodsSellStatus,jdbcType=TINYINT},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where goods_id = #{goodsId,jdbcType=BIGINT}
+  </update>
+</mapper>

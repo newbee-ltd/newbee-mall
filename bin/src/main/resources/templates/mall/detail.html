@@ -1,0 +1,159 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="mall/header::head-fragment('NewBee商城-商品详情','detail')">
+</head>
+<body>
+<header th:replace="mall/header::header-fragment"></header>
+
+<div id="detail">
+    <!-- nav -->
+    <nav th:replace="mall/header::nav-fragment"></nav>
+
+    <div class="dc">
+        <div class="content w">
+            <div class="title fl">商品详情</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="intro mt20 w clearfix">
+        <div class="left fl" style="position: relative;">
+            <div class="swiper-container fl">
+                <img th:src="@{${goodsDetail.goodsCoverImg}}">
+            </div>
+        </div>
+        <div class="right fr">
+            <div class="h3 ml20 mt20" th:text="${goodsDetail.goodsName}">NewBeeMall</div>
+            <div class="sub_title mr40 ml20 mt10" th:text="${goodsDetail.goodsIntro}">NewBeeMall</div>
+            <div class="item_price mr40 ml20 mt10">
+                <th:block th:text="${goodsDetail.sellingPrice}+'.00 元'"></th:block>
+                <del>
+                    <th:block th:text="${goodsDetail.originalPrice}+'.00 元'"></th:block>
+                </del>
+            </div>
+
+            <div class="order">
+                <input class="car" type="button" th:onclick="'saveAndGoCart('+${goodsDetail.goodsId}+')'" value="立即选购"/>
+                <input class="car" type="button" th:onclick="'saveToCart('+${goodsDetail.goodsId}+')'" value="加入购物车"/>
+            </div>
+            <div class="tb-extra ml20" id="J_tbExtra">
+                <dl>
+                    <dt>承诺</dt>
+                    <dd><a class="J_Cont" title="满足7天无理由退换货申请的前提下，包邮商品需要买家承担退货邮费，非包邮商品需要买家承担发货和退货邮费。" href="#"
+                           target="_blank"><img th:src="@{/mall/image/7d.jpg}">7天无理由</a></dd>
+                </dl>
+                <dl>
+                    <dt>支付</dt>
+                    <dd><a href="##" target="_blank"><img th:src="@{/mall/image/hua.png}">蚂蚁花呗</a><a href="##"
+                                                                                                     target="_blank"><img
+                            th:src="@{/mall/image/card.png}">信用卡支付</a><a href="##" target="_blank"><img
+                            th:src="@{/mall/image/ji.png}">集分宝</a></dd>
+                </dl>
+                <dl>
+                    <dt>支持</dt>
+                    <dd>折旧变现，买新更省钱。<a style="float:none;text-decoration: underline;" href="##">详情</a></dd>
+                </dl>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- 这里使用的是 th:utext 标签，用 th:text 不会解析 html，用 th:utext 会解析 html -->
+    <div class="goods mt20 w clearfix" th:utext="${goodsDetail.goodsDetailContent}">
+    </div>
+</div>
+
+<div th:replace="mall/footer::footer-fragment"></div>
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<script type="text/javascript">
+    /**
+     * 添加到购物车
+     */
+    function saveToCart(id) {
+        var goodsCount = 1;
+        var data = {
+            "goodsId": id,
+            "goodsCount": goodsCount
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/shop-cart',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    swal({
+                        title: "添加成功",
+                        text: "确认框",
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((flag) => {
+                            window.location.reload();
+                        }
+                    );
+                } else {
+                    swal(result.message, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+    /**
+     * 添加到购物车并跳转至购物车页面
+     */
+    function saveAndGoCart(id) {
+        var goodsCount = 1;
+        var data = {
+            "goodsId": id,
+            "goodsCount": goodsCount
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/shop-cart',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    swal({
+                        title: "已将商品加入购物车",
+                        icon: "success",
+                        buttons: {
+                            cancel: "留在当前页",
+                            confirm: "去购物车结算"
+                        },
+                        dangerMode: false,
+                    }).then((flag) => {
+                            if (flag) {
+                                window.location.href = '/shop-cart';
+                            }
+                        }
+                    );
+                } else {
+                    swal(result.message, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+</script>
+</body>
+</html>
