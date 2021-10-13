@@ -54,7 +54,7 @@ public class ErrorPageController implements ErrorController {
             return new ModelAndView("error/error_5xx");
         }
     }
-
+    /*
     @RequestMapping(value = ERROR_PATH)
     @ResponseBody
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
@@ -62,8 +62,9 @@ public class ErrorPageController implements ErrorController {
         HttpStatus status = getStatus(request);
         return new ResponseEntity<Map<String, Object>>(body, status);
     }
+    */
 
-    @Override
+    //@Override
     public String getErrorPath() {
         return ERROR_PATH;
     }
@@ -77,11 +78,13 @@ public class ErrorPageController implements ErrorController {
         return !"false".equals(parameter.toLowerCase());
     }
 
-    protected Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
+
+   /* protected Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
         WebRequest webRequest = new ServletWebRequest(request);
        return this.errorAttributes.getErrorAttributes(webRequest, includeStackTrace);
     }
 
+    */
     private HttpStatus getStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request
                 .getAttribute("javax.servlet.error.status_code");
@@ -94,3 +97,5 @@ public class ErrorPageController implements ErrorController {
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 }
+
+

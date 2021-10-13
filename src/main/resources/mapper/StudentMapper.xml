@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.StudentMapper">
+
+	<select id="getStudentListByName"
+		parameterType="java.lang.String"
+		resultType="ltd.newbee.mall.entity.Student">
+		select id,name from student
+		where name like
+		concat('%',#{name},'%')
+	</select>
+
+	<insert id="save">
+
+		//注意keyProperty 与类中的id属性名称要一致
+		<selectKey keyProperty="fileId" resultType="int"
+			order="AFTER">
+			//此处为mysql的函数
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into table_name
+		(...)
+		values
+		(...)
+	</insert>
+
+</mapper>
