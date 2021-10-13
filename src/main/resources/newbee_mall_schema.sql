@@ -10,7 +10,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- qq交流群 796794009
 -- email 2449207463@qq.com
 -- link https://github.com/newbee-ltd
--- Table structure for tb_newbee_mall_admin_user
+-- Table structure for tb_newbee_mall_admin_usertb_newbee_mall_admin_usertb_newbee_mall_carouseltb_newbee_mall_goods_infotb_newbee_mall_admin_user
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_newbee_mall_admin_user`;
 CREATE TABLE `tb_newbee_mall_admin_user`  (
