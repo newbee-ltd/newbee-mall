@@ -16,7 +16,13 @@ public interface StudentMapper {
 
     public ArrayList<Student> getStudentListByName(String name);
     
-    Long getStudentID();
+    int getStudentID();
     
     int insertStudent(Student s);
+    int getMaxStudentID();
+   
+    int updateStudent(Student stu);
+    
+    int deleteStudent(int studentNumber);
+    
 }

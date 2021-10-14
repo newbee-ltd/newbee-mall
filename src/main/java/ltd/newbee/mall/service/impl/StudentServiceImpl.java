@@ -19,5 +19,25 @@ public class StudentServiceImpl implements StudentService {
     public ArrayList<Student> getStudentListByName(String name) {
     	return studentMapper.getStudentListByName(name);
     }
-
+    
+    @Override
+    public int insertStudent(Student s) {
+    	int id = studentMapper.getMaxStudentID();
+    	s.setStudentId(id + 1);
+    	return studentMapper.insertStudent(s);
+    }
+    
+    @Override
+    public int updateStudent(Student stu) {
+    	int count = studentMapper.updateStudent(stu);
+    	return count;
+    	
+    }
+    
+    @Override
+    public int deleteStudent(int studentNumber) {
+    	int count = studentMapper.deleteStudent(studentNumber);
+    	return count;
+    }
+    
 }

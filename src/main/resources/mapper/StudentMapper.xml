@@ -5,4 +5,156 @@
         select student_id, student_name, age, gender, address, birthplace, phone, total_score, class_name, ranking, blacklist, physics, chemistry, biology
         from student where student_name like CONCAT('%', #{name}, '%')
     </select>
+    
+    <select id="getMaxStudentID" resultType="int">
+        select max(student_id) from student
+    </select>
+    
+    <insert id="insertStudent" parameterType="ltd.newbee.mall.entity.Student">
+         insert into student
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="studentID != null">
+                 student_id,
+             </if>
+             <if test="studentName != null">
+                 student_name,
+             </if>
+             <if test="age != null">
+                 age,
+             </if>
+             <if test="gender != null">
+                 gender,
+             </if>
+             <if test="address != null">
+                 address,
+             </if>
+             <if test="birthplace != null">
+                 birthplace,
+             </if>
+             <if test="phone != null">
+                 phone,
+             </if>
+             <if test="totalScore != null">
+                 total_score,
+             </if>
+             <if test="className != null">
+                 class_name,
+             </if>
+             <if test="ranking != null">
+                 ranking,
+             </if>
+             <if test="blacklist != null">
+                 blacklist,
+             </if>
+             <if test="physics != null">
+                 physics,
+             </if>
+             <if test="chemistry != null">
+                 chemistry,
+             </if>
+             <if test="biology != null">
+                 biology,
+             </if>   
+         </trim>
+         
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="studentID != null">
+                 #{studentId,jdbcType=INTEGER},
+             </if>
+             <if test="studentName != null">
+                 #{studentName,jdbcType=VARCHAR},
+             </if>
+             <if test="age != null">
+                 #{age,jdbcType=INTEGER},
+             </if>
+             <if test="gender != null">
+                 #{gender,jdbcType=VARCHAR},
+             </if>
+             <if test="address != null">
+                 #{address,jdbcType=VARCHAR},
+             </if>
+             <if test="birthplace != null">
+                 #{birthplace,jdbcType=VARCHAR},
+             </if>
+             <if test="phone != null">
+                 #{phone,jdbcType=VARCHAR},
+             </if>
+             <if test="totalScore != null">
+                 #{totalScore,jdbcType=INTEGER},
+             </if>
+             <if test="className != null">
+                 #{className,jdbcType=VARCHAR},
+             </if>
+             <if test="ranking != null">
+                 #{ranking,jdbcType=INTEGER},
+             </if>
+             <if test="blacklist != null">
+                 #{blacklist,jdbcType=VARCHAR},
+             </if>
+             <if test="physics != null">
+                 #{physics,jdbcType=INTEGER},
+             </if>
+             <if test="chemistry != null">
+                 #{chemistry,jdbcType=INTEGER},
+             </if>
+             <if test="biology != null">
+                 #{biology,jdbcType=INTEGER},
+             </if>   
+         </trim> 
+    </insert>
+    
+    <update id="updateStudent" parameterType="ltd.newbee.mall.entity.Student">
+        update student
+      <set> 
+         <if test="studentID != null">
+             student_id = #{studentId,jdbcType=INTEGER},
+         </if>
+         <if test="studentName != null">
+             student_name = #{studentName,jdbcType=VARCHAR},
+         </if>
+         <if test="age != null">
+             age = #{age,jdbcType=INTEGER},
+         </if>
+         <if test="gender != null">
+             gender = #{gender,jdbcType=VARCHAR},
+         </if>
+         <if test="address != null">
+             address = #{address,jdbcType=VARCHAR},
+         </if>
+         <if test="birthplace != null">
+             birthplace = #{birthplace,jdbcType=VARCHAR},
+         </if>
+         <if test="phone != null">
+             phone = #{phone,jdbcType=VARCHAR},
+         </if>
+         <if test="totalScore != null">
+             total_score = #{totalScore,jdbcType=INTEGER},
+         </if>
+         <if test="className != null">
+             class_name = #{className,jdbcType=VARCHAR},
+         </if>
+         <if test="ranking != null">
+             ranking = #{ranking,jdbcType=INTEGER},
+         </if>
+         <if test="blacklist != null">
+             blacklist = #{blacklist,jdbcType=VARCHAR},
+         </if>
+         <if test="physics != null">
+             physics = #{physics,jdbcType=INTEGER},
+         </if>
+         <if test="chemistry != null">
+             chemistry = #{chemistry,jdbcType=INTEGER},
+         </if>
+         <if test="biology != null">
+             biology = #{biology,jdbcType=INTEGER},
+         </if>
+      </set>
+        where student_id = #{studentId,jdbcType=INTEGER},
+    </update>
+    
+    <delete id="deleteStudent" parameterType="int">
+    delete from student
+    where student_id = #{studentId,jdbcType=INTEGER}
+    </delete> 
+    
 </mapper>

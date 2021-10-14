@@ -6,6 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +29,6 @@ public class TestStudentServiceRestController {
     @Resource
     private StudentService studentService;
     
-    //@CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/studentName", method = RequestMethod.GET)
     @ResponseBody
     public Result studentName(@RequestParam String name) {
@@ -37,6 +40,41 @@ public class TestStudentServiceRestController {
     		return ResultGenerator.genSuccessResult(list);
     	}
     }
+    
+    @RequestMapping(value = "/student", method = RequestMethod.POST)
+    @ResponseBody
+    public Result insertStudent(@RequestBody Student s) {
+    	
+    	int count = studentService.insertStudent(s);
+    	if (count <= 0) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult("挿入できました.");
+    	}
+    }
+    
+    @PutMapping(value = "/student/{studentId}")
+    @ResponseBody
+    public Result updateStudent(@PathVariable("studentID") Student stu) {
+    	
+    	int countUpdateStudent = studentService.updateStudent(stu);
+    	if (countUpdateStudent <= 0) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult("更新できました.");
+    	}
+    }
 
+    @DeleteMapping("/student/{studentId}")
+    @ResponseBody
+    public Result deleteStudent(@PathVariable("studentID") int studentNumber) {
+    	
+    	int countDeleteStudent = studentService.deleteStudent(studentNumber);
+    	if (countDeleteStudent <= 0) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult("削除できました.");
+    	}
+    }
    
 }
