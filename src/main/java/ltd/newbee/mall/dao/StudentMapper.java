@@ -24,10 +24,12 @@ public interface StudentMapper {
 	long insertStudent(Student stu);
 
 
-	public static long getMaxStudentId() {
-		// TODO Auto-generated method stub
-		return 0;
-	} 
+	long getMaxStudentId();
+	
+	String updateStudent(Student student);
+
+	Student selectByStudentId(long id);
+	int updateByStudentIdSelective(Student record);
 	
 
 }

@@ -9,9 +9,9 @@
 		where name like
 		concat('%',#{name},'%')
 	</select>
-	
 
-	<select id="getMaxStudentId" resultType="java.lang.Integer">
+
+	<select id="getMaxStudentId" resultType="java.lang.Long">
 		select max(id) from
 		student
 	</select>
@@ -112,5 +112,57 @@
 		</trim>
 
 	</insert>
+
+
+	<update id="updateStudent"
+		parameterType="ltd.newbee.mall.entity.Student">
+		update student
+		<set>
+			<if test="id != null">
+				id = #{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=BIGINT},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				location = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				nativePlace = #{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="TEL != null">
+				TEL = #{TEL,jdbcType=VARCHAR},
+			</if>
+			<if test="totalScore != null">
+				totalScore = #{totalScore,jdbcType=BIGINT},
+			</if>
+			<if test="className != null">
+				className = #{className,jdbcType=VARCHAR},
+			</if>
+			<if test="ranking != null">
+				ranking = #{ranking,jdbcType=BIGINT},
+			</if>
+			<if test="blacklist != null">
+				blacklist = #{blacklist,jdbcType=VARCHAR},
+			</if>
+			<if test="physical != null">
+				physical = #{physical,jdbcType=BIGINT},
+			</if>
+			<if test="chemistry != null">
+				chemistry = #{chemistry,jdbcType=BIGINT},
+			</if>
+			<if test="biological != null">
+				biological = #{biological,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
 
 </mapper>
