@@ -18,8 +18,6 @@ import ltd.newbee.mall.dao.StudentMapper;
 import ltd.newbee.mall.entity.Student;
 import ltd.newbee.mall.service.StudentService;
 
-
-
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -38,32 +36,39 @@ public class StudentServiceImpl implements StudentService {
 		stu.setId(id + 1);
 		return studentMapper.insertStudent(stu);
 	}
-	
+
 	@Override
-    public String updateStudent(Student student) {
+	public String updateStudent(Student student) {
 		Student temp = studentMapper.selectByStudentId(student.getId());
-        if (temp == null) {
-            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
-        }
-        
-        temp.setName(student.getName());
-        temp.setAge(student.getAge());
-        temp.setGender(student.getGender());
-        temp.setLocation(student.getLocation());
-        temp.setNativePlace(student.getNativePlace());
-        temp.setTEL(student.getTEL());
-        temp.setTotalScore(student.getTotalScore());
-        temp.setClassName(student.getClassName());
-        temp.setRanking(student.getRanking());
-        temp.setBlacklist(student.getBlacklist());
-        temp.setPhysical(student.getPhysical());
-        temp.setChemistry(student.getChemistry());
-        temp.setBiological(student.getBiological());
-        
-        if (studentMapper.updateByStudentIdSelective(temp) > 0) {
-            return ServiceResultEnum.SUCCESS.getResult();
-        }
-        return ServiceResultEnum.DB_ERROR.getResult();
-    }
-   
+		if (temp == null) {
+			return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+		}
+
+		temp.setName(student.getName());
+		temp.setAge(student.getAge());
+		temp.setGender(student.getGender());
+		temp.setLocation(student.getLocation());
+		temp.setNativePlace(student.getNativePlace());
+		temp.setTEL(student.getTEL());
+		temp.setTotalScore(student.getTotalScore());
+		temp.setClassName(student.getClassName());
+		temp.setRanking(student.getRanking());
+		temp.setBlacklist(student.getBlacklist());
+		temp.setPhysical(student.getPhysical());
+		temp.setChemistry(student.getChemistry());
+		temp.setBiological(student.getBiological());
+
+		if (studentMapper.updateByStudentIdSelective(temp) > 0) {
+			return ServiceResultEnum.SUCCESS.getResult();
+		}
+		return ServiceResultEnum.DB_ERROR.getResult();
+	}
+
+	@Override
+	public Boolean deleteStudentById(long id) {
+		return studentMapper.deleteByStudentId(id)>0;
+	}
+
+
+
 }

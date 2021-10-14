@@ -164,5 +164,9 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
+	<delete id="deleteByStudentId" parameterType="java.lang.Long">
+		delete from student
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
 
 </mapper>

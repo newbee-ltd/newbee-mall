@@ -21,9 +21,32 @@ public interface StudentService {
 	 */
 	ArrayList<Student> getStudentListByName(String name);
 
+	/**
+     * 插入学生信息
+     *
+     * @param id
+     * @return 
+     */
 	long insertStudent(Student stu);
 
+	
+	/**
+     * 更新表
+     *
+     * @param 
+     * @return 
+     */
 	String updateStudent(Student student);
 	
+    /**
+     * 删除购物车中的商品
+     *
+     * @param id
+     * @return 
+     */
+
+	Boolean deleteStudentById(long id);
+	
+    
 
 }

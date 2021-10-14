@@ -1,6 +1,7 @@
 package ltd.newbee.mall.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ltd.newbee.mall.entity.Student;
 
@@ -23,13 +24,18 @@ public interface StudentMapper {
 	// 插入新的一行学生信息
 	long insertStudent(Student stu);
 
-
 	long getMaxStudentId();
 	
+	
+
 	String updateStudent(Student student);
 
 	Student selectByStudentId(long id);
+
 	int updateByStudentIdSelective(Student record);
 	
+  
+	int deleteByStudentId(long id);
+
 
 }
