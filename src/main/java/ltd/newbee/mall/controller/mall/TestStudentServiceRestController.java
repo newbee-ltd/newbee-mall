@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ltd.newbee.mall.common.Constants;
@@ -34,5 +34,18 @@ public class TestStudentServiceRestController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/insertStudent", method = RequestMethod.POST)
+	@ResponseBody
+	public Result insertStudent(@RequestBody Student stu) {
+		long count =studentService.insertStudent(stu);
+		if (count<=0) {
+			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_INSERT_ERROR_MESSAGE);
+		} else {
+			return ResultGenerator.genSuccessResult("挿入した");
+		}
+
+	}
+	
 
 }
