@@ -50,29 +50,29 @@ public class TestStudentServiceRestController {
 		}
 	}
 
-	@PutMapping(value = "/student")
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@PutMapping(value = "/updateStudent")
 	@ResponseBody
 	public Result updateStudent(@RequestBody Student student) {
-		student.setId(student.getId());
-		String updatResult = studentService.updateStudent(student);
-		if (!ServiceResultEnum.SUCCESS.getResult().equals(updatResult)) {
+		int updatResult = studentService.updateStudent(student);
+		if (ServiceResultEnum.SUCCESS.getResult().equals(updatResult)) {
 			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_INSERT_ERROR_MESSAGE);
 		} else {
 			return ResultGenerator.genSuccessResult("更新した");
 		}
 	}
-	//debug后在57行双击打断点；postman里send；鼠标放在57行student查看。
+	// debug后在57行双击打断点；postman里send；鼠标放在56行student查看。
 
-	
 	@DeleteMapping("/student/{id}")
 	@ResponseBody
-	public Result deleteStudentById(@PathVariable("id") long id) {		
+	public Result deleteStudentById(@PathVariable("id") long id) {
 		Boolean deleteResult = studentService.deleteStudentById(id);
 		if (deleteResult) {
-			return ResultGenerator.genSuccessResult();
+			return ResultGenerator.genSuccessResult("Success delete");
 		}
 		return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
 	}
-   //  http://localhost:8081//student/1   URL里写id时不带{};
-	
+	// http://localhost:8081//student/1    URL里写id时不带{};
+
 }

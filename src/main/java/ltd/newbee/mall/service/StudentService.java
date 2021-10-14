@@ -36,7 +36,7 @@ public interface StudentService {
      * @param 
      * @return 
      */
-	String updateStudent(Student student);
+	int updateStudent(Student student);
 	
     /**
      * 删除购物车中的商品

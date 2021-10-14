@@ -8,7 +8,7 @@ public class Student {
 	private String gender;
 	private String location;
 	private String nativePlace;
-	private String TEL;
+	private String tel;
 	private long totalScore;
 	private String className;
 	private long ranking;
@@ -65,12 +65,12 @@ public class Student {
 		this.nativePlace = nativePlace;
 	}
 
-	public String getTEL() {
-		return TEL;
+	public String getTel() {
+		return tel;
 	}
 
-	public void setTEL(String tEL) {
-		TEL = tEL;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 	public long getTotalScore() {
@@ -144,8 +144,8 @@ public class Student {
 		builder.append(location);
 		builder.append(", nativePlace=");
 		builder.append(nativePlace);
-		builder.append(", TEL=");
-		builder.append(TEL);
+		builder.append(", tel=");
+		builder.append(tel);
 		builder.append(", totalScore=");
 		builder.append(totalScore);
 		builder.append(", className=");
@@ -163,7 +163,5 @@ public class Student {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }

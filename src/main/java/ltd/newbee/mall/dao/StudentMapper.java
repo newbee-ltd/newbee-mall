@@ -28,11 +28,10 @@ public interface StudentMapper {
 	
 	
 
-	String updateStudent(Student student);
-
-	Student selectByStudentId(long id);
-
-	int updateByStudentIdSelective(Student record);
+	
+	int updateStudent(Student student);
+	//Student selectByStudentId(long id);
+	//int updateByStudentIdSelective(Student record);
 	
   
 	int deleteByStudentId(long id);

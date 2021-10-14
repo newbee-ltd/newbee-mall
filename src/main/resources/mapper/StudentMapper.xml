@@ -39,8 +39,8 @@
 			<if test="nativePlace != null">
 				nativePlace,
 			</if>
-			<if test="TEL != null">
-				TEL,
+			<if test="tel != null">
+				tel,
 			</if>
 			<if test="totalScore != null">
 				totalScore,
@@ -85,8 +85,8 @@
 			<if test="nativePlace != null">
 				#{nativePlace,jdbcType=VARCHAR},
 			</if>
-			<if test="TEL != null">
-				#{TEL,jdbcType=VARCHAR},
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
 			</if>
 			<if test="totalScore != null">
 				#{totalScore,jdbcType=BIGINT},
@@ -113,6 +113,14 @@
 
 	</insert>
 
+<!-- 
+	<select id="selectByStudentId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from student
+		where id = #{id,jdbcType=BIGINT} and is_deleted = 0
+	</select> -->
 
 	<update id="updateStudent"
 		parameterType="ltd.newbee.mall.entity.Student">
@@ -136,8 +144,8 @@
 			<if test="nativePlace != null">
 				nativePlace = #{nativePlace,jdbcType=VARCHAR},
 			</if>
-			<if test="TEL != null">
-				TEL = #{TEL,jdbcType=VARCHAR},
+			<if test="tel != null">
+				TEL = #{tel,jdbcType=VARCHAR},
 			</if>
 			<if test="totalScore != null">
 				totalScore = #{totalScore,jdbcType=BIGINT},
@@ -163,6 +171,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+
 
 	<delete id="deleteByStudentId" parameterType="java.lang.Long">
 		delete from student

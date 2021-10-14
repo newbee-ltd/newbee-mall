@@ -37,38 +37,36 @@ public class StudentServiceImpl implements StudentService {
 		return studentMapper.insertStudent(stu);
 	}
 
+	/*
+	 * @Override public String updateStudent(Student student) { Student temp =
+	 * studentMapper.selectByStudentId(student.getId()); if (temp == null) { return
+	 * ServiceResultEnum.DATA_NOT_EXIST.getResult(); }
+	 * 
+	 * temp.setName(student.getName()); temp.setAge(student.getAge());
+	 * temp.setGender(student.getGender()); temp.setLocation(student.getLocation());
+	 * temp.setNativePlace(student.getNativePlace()); temp.setTEL(student.getTEL());
+	 * temp.setTotalScore(student.getTotalScore());
+	 * temp.setClassName(student.getClassName());
+	 * temp.setRanking(student.getRanking());
+	 * temp.setBlacklist(student.getBlacklist());
+	 * temp.setPhysical(student.getPhysical());
+	 * temp.setChemistry(student.getChemistry());
+	 * temp.setBiological(student.getBiological());
+	 * 
+	 * if (studentMapper.updateByStudentIdSelective(temp) > 0) { return
+	 * ServiceResultEnum.SUCCESS.getResult(); } return
+	 * ServiceResultEnum.DB_ERROR.getResult(); }
+	 */
+
 	@Override
-	public String updateStudent(Student student) {
-		Student temp = studentMapper.selectByStudentId(student.getId());
-		if (temp == null) {
-			return ServiceResultEnum.DATA_NOT_EXIST.getResult();
-		}
-
-		temp.setName(student.getName());
-		temp.setAge(student.getAge());
-		temp.setGender(student.getGender());
-		temp.setLocation(student.getLocation());
-		temp.setNativePlace(student.getNativePlace());
-		temp.setTEL(student.getTEL());
-		temp.setTotalScore(student.getTotalScore());
-		temp.setClassName(student.getClassName());
-		temp.setRanking(student.getRanking());
-		temp.setBlacklist(student.getBlacklist());
-		temp.setPhysical(student.getPhysical());
-		temp.setChemistry(student.getChemistry());
-		temp.setBiological(student.getBiological());
-
-		if (studentMapper.updateByStudentIdSelective(temp) > 0) {
-			return ServiceResultEnum.SUCCESS.getResult();
-		}
-		return ServiceResultEnum.DB_ERROR.getResult();
+	public int updateStudent(Student student) {
+		return studentMapper.updateStudent(student);
 	}
+
 
 	@Override
 	public Boolean deleteStudentById(long id) {
-		return studentMapper.deleteByStudentId(id)>0;
+		return studentMapper.deleteByStudentId(id) > 0;
 	}
-
-
 
 }
