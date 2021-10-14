@@ -18,14 +18,16 @@ public interface StudentMapper {
 	 * @return 学生リスト
 	 * 
 	 */
-
 	public ArrayList<Student> getStudentListByName(String name);
 
-	// get student's id
-	long getId();
-	// xml mapper 如下
-	// select max(id) +1 from Student
+	// 插入新的一行学生信息
+	long insertStudent(Student stu);
+
+
+	public static long getMaxStudentId() {
+		// TODO Auto-generated method stub
+		return 0;
+	} 
 	
-	int insertStudent(Student s);
-	
+
 }

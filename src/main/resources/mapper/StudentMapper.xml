@@ -9,19 +9,108 @@
 		where name like
 		concat('%',#{name},'%')
 	</select>
+	
 
-	<insert id="save">
+	<select id="getMaxStudentId" resultType="java.lang.Integer">
+		select max(id) from
+		student
+	</select>
 
-		//注意keyProperty 与类中的id属性名称要一致
-		<selectKey keyProperty="fileId" resultType="int"
-			order="AFTER">
-			//此处为mysql的函数
-			select LAST_INSERT_ID()
-		</selectKey>
-		insert into table_name
-		(...)
-		values
-		(...)
+
+	<insert id="insertStudent"
+		parameterType="ltd.newbee.mall.entity.Student">
+		insert into student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="age= null">
+				age,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="location != null">
+				location,
+			</if>
+			<if test="nativePlace != null">
+				nativePlace,
+			</if>
+			<if test="TEL != null">
+				TEL,
+			</if>
+			<if test="totalScore != null">
+				totalScore,
+			</if>
+			<if test="className != null">
+				className,
+			</if>
+			<if test="ranking != null">
+				ranking,
+			</if>
+			<if test="blacklist= null">
+				blacklist,
+			</if>
+			<if test="physical != null">
+				physical,
+			</if>
+			<if test="chemistry != null">
+				chemistry,
+			</if>
+			<if test="biological != null">
+				biological,
+			</if>
+
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=BIGINT},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=VARCHAR},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				#{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="TEL != null">
+				#{TEL,jdbcType=VARCHAR},
+			</if>
+			<if test="totalScore != null">
+				#{totalScore,jdbcType=BIGINT},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+			<if test="ranking != null">
+				#{ranking,jdbcType=BIGINT},
+			</if>
+			<if test="blacklist != null">
+				#{blacklist,jdbcType=VARCHAR},
+			</if>
+			<if test="physical != null">
+				#{physical,jdbcType=BIGINT},
+			</if>
+			<if test="chemistry != null">
+				#{chemistry,jdbcType=BIGINT},
+			</if>
+			<if test="biological != null">
+				#{biological,jdbcType=BIGINT},
+			</if>
+		</trim>
+
 	</insert>
 
 </mapper>

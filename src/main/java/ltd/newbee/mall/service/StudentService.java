@@ -20,5 +20,9 @@ public interface StudentService {
 	 * @return 学生list
 	 */
 	ArrayList<Student> getStudentListByName(String name);
+	
+	long insertStudent(Student stu);
+
+	
 
 }

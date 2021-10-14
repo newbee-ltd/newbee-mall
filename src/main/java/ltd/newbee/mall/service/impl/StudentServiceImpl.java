@@ -27,8 +27,15 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public ArrayList<Student> getStudentListByName(String name) {
-		//ArrayList<Student> list = studentMapper.getStudentListbyName(name);
+		// ArrayList<Student> list = studentMapper.getStudentListbyName(name);
 		return studentMapper.getStudentListByName(name);
+	}
+
+	@Override
+	public long insertStudent(Student stu) {
+		long id = StudentMapper.getMaxStudentId();
+		stu.setId(id + 1);
+		return studentMapper.insertStudent(stu);
 	}
 
 }

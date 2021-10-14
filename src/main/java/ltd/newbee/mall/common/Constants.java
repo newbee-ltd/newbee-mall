@@ -47,5 +47,5 @@ public class Constants {
 
 	public final static int FETCH_ERROR = 300;
 	public final static String STUDENT_FETCH_ERROR_MESSAGE = "該当学生がいません";
-
+	public final static String STUDENT_INSERT_ERROR_MESSAGE = "挿入できない";
 }
