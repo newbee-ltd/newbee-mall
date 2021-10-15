@@ -23,17 +23,12 @@ public interface StudentMapper {
 
 	// 插入新的一行学生信息
 	long insertStudent(Student stu);
-
 	long getMaxStudentId();
 	
-	
-
-	
+	// 更新学生信息
 	int updateStudent(Student student);
-	//Student selectByStudentId(long id);
-	//int updateByStudentIdSelective(Student record);
-	
-  
+
+	// 删除一行学生信息
 	int deleteByStudentId(long id);
 
 

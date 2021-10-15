@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.GoodsDetailMapper">
+
+	<select id="getGoodsDetailList" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.GoodsDetail">
+		SELECT goods_id,goods_size_weight
+		FROM goods_detail
+		where goods_id = #{goodsId,jdbcType=BIGINT}
+	</select>
+
+</mapper>
