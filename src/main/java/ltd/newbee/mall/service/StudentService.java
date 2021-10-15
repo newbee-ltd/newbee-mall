@@ -28,7 +28,6 @@ public interface StudentService {
      * @return 
      */
 	long insertStudent(Student stu);
-
 	
 	/**
      * 更新表
@@ -39,7 +38,7 @@ public interface StudentService {
 	int updateStudent(Student student);
 	
     /**
-     * 删除购物车中的商品
+     * 删除一行学生信息
      *
      * @param id
      * @return 
@@ -47,6 +46,5 @@ public interface StudentService {
 
 	Boolean deleteStudentById(long id);
 	
-    
-
+   
 }

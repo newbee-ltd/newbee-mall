@@ -20,7 +20,7 @@ import ltd.newbee.mall.util.PageQueryUtil;
 public interface NewBeeMallGoodsMapper {
     int deleteByPrimaryKey(Long goodsId);
 
-    int insert(NewBeeMallGoods record);
+    int insert(NewBeeMallGoods record); 
 
     int insertSelective(NewBeeMallGoods record);
 
