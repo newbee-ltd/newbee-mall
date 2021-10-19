@@ -13,7 +13,7 @@
     <insert id="insertStudent" parameterType="ltd.newbee.mall.entity.Student">
          insert into student
          <trim prefix="(" suffix=")" suffixOverrides=",">
-             <if test="studentID != null">
+             <if test="studentId != null">
                  student_id,
              </if>
              <if test="studentName != null">
@@ -58,7 +58,7 @@
          </trim>
          
          <trim prefix="values (" suffix=")" suffixOverrides=",">
-             <if test="studentID != null">
+             <if test="studentId != null">
                  #{studentId,jdbcType=INTEGER},
              </if>
              <if test="studentName != null">

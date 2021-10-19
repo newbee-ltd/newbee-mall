@@ -14,11 +14,14 @@ import ltd.newbee.mall.controller.vo.NewBeeMallSearchGoodsVO;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
+import ltd.newbee.mall.entity.GoodsDetail;
+import ltd.newbee.mall.entity.GoodsImg;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -123,4 +126,34 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         PageResult pageResult = new PageResult(newBeeMallSearchGoodsVOS, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
+    
+    // ①GoodsImgServiceImpl
+    @Override
+	public ArrayList<GoodsImg> getGoodsImgByGoodsId(long id) {
+		return goodsMapper.getGoodsImgByGoodsId(id);
+	}
+    
+    // ②GoodsDetailServiceImpl
+    @Override
+	public ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long GoodsId) {
+		return goodsMapper.getGoodsDetailByGoodsId(GoodsId);
+    }
+	
+    // ③QuestionAndAnswerServiceImpl
+  
+    // ④QuestionSankouServicesImpl
+    /*
+    @Override
+    public ArrayList<QuestionSankou> getQuestionSankouByGoodsId(long goodsID) {
+    	return goodsMapper.getQuestionSankouByGoodsId(goodsID);
+    }
+    
+    @Override
+    public int insertQuestionSankou(QuestionSankou questionSankou) {
+    	int userId = goodsMapper.getMaxUserID();
+    	questionSankou.setUserId(userId + 1);
+    	return goodsMapper.insertQuestionSankou(questionSankou);
+    }
+    */
+    
 }
