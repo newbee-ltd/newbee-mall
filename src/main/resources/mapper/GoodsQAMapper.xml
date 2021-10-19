@@ -7,8 +7,7 @@
 		resultType="java.lang.Long">
 		select max(goods_id) from
 		question_and_answer
-		where goods_id
-		= #{goodsId,jdbcType=BIGINT}
+		where goods_id = #{goodsId,jdbcType=BIGINT}
 	</select>
 
 
