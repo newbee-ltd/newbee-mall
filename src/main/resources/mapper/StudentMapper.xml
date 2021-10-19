@@ -113,14 +113,6 @@
 
 	</insert>
 
-<!-- 
-	<select id="selectByStudentId" parameterType="java.lang.Long"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from student
-		where id = #{id,jdbcType=BIGINT} and is_deleted = 0
-	</select> -->
 
 	<update id="updateStudent"
 		parameterType="ltd.newbee.mall.entity.Student">
@@ -177,5 +169,6 @@
 		delete from student
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
+
 
 </mapper>

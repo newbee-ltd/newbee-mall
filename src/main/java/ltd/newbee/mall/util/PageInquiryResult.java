@@ -7,7 +7,7 @@ import java.util.List;
  * 分页工具类
  *
  */
-public class PageResult implements Serializable {
+public class PageInquiryResult implements Serializable {
 
     //总记录数
     private int totalCount;
@@ -28,7 +28,7 @@ public class PageResult implements Serializable {
      * @param pageSize   每页记录数
      * @param currPage   当前页数
      */
-    public PageResult(List<?> list, int totalCount, int pageSize, int currPage) {
+    public PageInquiryResult(List<?> list, int totalCount, int pageSize, int currPage) {
         this.list = list;
         this.totalCount = totalCount;
         this.pageSize = pageSize;
