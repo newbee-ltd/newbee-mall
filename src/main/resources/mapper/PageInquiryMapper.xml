@@ -26,7 +26,7 @@
 		resultType="ltd.newbee.mall.entity.QuestionAndAnswer">
 		select
 		qa.goods_id,qa.questions_id,qa.question,qa.answer,help_qa.submit_date,help_qa.answers_date,
-		count(user_id) as help_num
+		count(help_qa.user_id) as help_num
 		from question_and_answer as qa , question_sannkou as help_qa
 		<where>
 			<if test="goodsId!=null and goodsId!=''">
@@ -36,7 +36,7 @@
 			</if>
 		</where>
 		group by qa.goods_id,qa.questions_id,qa.question,answer,submit_date,answers_date
-		order by #{orderByColumn} #{ascOrDesc}
+		order by ${orderByColumn} ${ascOrDesc}
 		<if test="start!=null and limit!=null">
 			limit #{start},#{limit}
 		</if>
