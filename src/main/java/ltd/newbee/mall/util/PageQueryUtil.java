@@ -12,11 +12,12 @@ import java.util.Map;
  * @link https://github.com/newbee-ltd
  */
 public class PageQueryUtil extends LinkedHashMap<String, Object> {
-    //当前页码
-    private int page;
-    //每页条数
-    private int limit;
+   
+	//数据域
+    private int page;   //当前页码
+    private int limit;   //每页条数
 
+    //构造函数
     public PageQueryUtil(Map<String, Object> params) {
         this.putAll(params);
 

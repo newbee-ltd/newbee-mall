@@ -11,6 +11,7 @@ package ltd.newbee.mall.service;
 import java.util.ArrayList;
 
 import ltd.newbee.mall.entity.Student;
+import ltd.newbee.mall.util.PageInquiryUtil;
 
 public interface StudentService {
 	/**
@@ -46,5 +47,6 @@ public interface StudentService {
 
 	Boolean deleteStudentById(long id);
 	
+	//ArrayList<Student> getPageRecords(PageInquiryUtil pageInquiryUtil);
    
 }

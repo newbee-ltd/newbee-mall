@@ -1,25 +1,30 @@
 package ltd.newbee.mall.controller.mall;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.Student;
 import ltd.newbee.mall.service.StudentService;
+import ltd.newbee.mall.util.PageInquiryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TestStudentServiceRestController {
@@ -50,7 +55,6 @@ public class TestStudentServiceRestController {
 		}
 	}
 
-	
 	@SuppressWarnings("unlikely-arg-type")
 	@PutMapping(value = "/updateStudent")
 	@ResponseBody
@@ -73,6 +77,8 @@ public class TestStudentServiceRestController {
 		}
 		return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
 	}
-	// http://localhost:8081//student/1    URL里写id时不带{};
+	// http://localhost:8081//student/1 URL里写id时不带{};
+
+   
 
 }

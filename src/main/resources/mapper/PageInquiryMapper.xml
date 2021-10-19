@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.PageInquiryMapper">
+<!-- 	<resultMap id="BaseQAMap"
+		type="ltd.newbee.mall.entity.QuestionAndAnswer">
+		<id column="goods_id" jdbcType="BIGINT" property="goodsId" />
+		<result column="questions_id" jdbcType="BIGINT"
+			property="questionsId" />
+		<result column="question" jdbcType="VARCHAR"
+			property="question" />
+		<result column="answer" jdbcType="VARCHAR" property="answer" />
+		<result column="submit_date" jdbcType="TIMESTAMP"
+			property="submitDate" />
+		<result column="answers_date" jdbcType="TIMESTAMP"
+			property="answersDate" />
+		<result column="help_num" jdbcType="BIGINT"
+			property="helpNum" />
+        <collection property="users" javaType="ltd.newbee.mall.entity.QuestionSannkou">
+        <id property="goods_id" column="goods_id"/>
+        <result property="help_qa.submit_date" column="help_qa.submit_date"/>
+        <result property="help_qa.answers_date" column="help_qa.answers_date"/>
+        </collection>	    	
+	</resultMap> -->
+
+	<select id="findQAList" parameterType="Map"
+		resultType="ltd.newbee.mall.entity.QuestionAndAnswer">
+		select
+		qa.goods_id,qa.questions_id,qa.question,qa.answer,help_qa.submit_date,help_qa.answers_date,
+		count(user_id) as help_num
+		from question_and_answer as qa , question_sannkou as help_qa
+		<where>
+			<if test="goodsId!=null and goodsId!=''">
+				and qa.goods_id=#{goodsId}
+				and help_qa.goods_id=qa.goods_id
+				and help_qa.questions_id=qa.questions_id
+			</if>
+		</where>
+		group by qa.goods_id,qa.questions_id,qa.question,answer,submit_date,answers_date
+		order by #{orderByColumn} #{ascOrDesc}
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+	
+	<select id="getGoodsQACount" parameterType="Map" resultType="int">
+        select count(goods_id) from question_sannkou
+        <where>
+            <if test="goods_id!=null and goods_id!=''">
+                and goods_id=#{goodsId}
+            </if>
+        </where>
+    </select>
+	
+</mapper>

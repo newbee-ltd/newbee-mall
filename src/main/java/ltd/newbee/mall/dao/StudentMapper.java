@@ -1,7 +1,6 @@
 package ltd.newbee.mall.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ltd.newbee.mall.entity.Student;
 
@@ -31,5 +30,7 @@ public interface StudentMapper {
 	// 删除一行学生信息
 	int deleteByStudentId(long id);
 
+//	// 查找某页数据，通过id排序
+//	ArrayList<Student> getPageRecords(PageInquiryUtil pageInquiryUtil);
 
 }
