@@ -2,17 +2,29 @@ package ltd.newbee.mall.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Review {
 
 	private long goodsId;
 	private long reviewId;
 	private long reviewUserId;
 	private short star; 
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date submitDate;
 	private String reviewTitle;
 	private String reviewDetail;
 	private String imageUrl;
+	private long helpNum;
 	
+	
+	public long getHelpNum() {
+		return helpNum;
+	}
+	public void setHelpNum(long helpNum) {
+		this.helpNum = helpNum;
+	}
 	public long getGoodsId() {
 		return goodsId;
 	}
@@ -62,6 +74,5 @@ public class Review {
 		this.imageUrl = imageUrl;
 	}
 	
-	
-	
+
 }

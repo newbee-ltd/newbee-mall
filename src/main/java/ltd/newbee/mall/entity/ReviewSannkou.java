@@ -2,11 +2,15 @@ package ltd.newbee.mall.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReviewSannkou {
 
 	private long goodsId;
 	private long reviewId;
 	private long sannkouUserId;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date submitDate;
 	
 	public long getGoodsId() {

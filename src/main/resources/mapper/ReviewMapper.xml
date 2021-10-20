@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.ReviewMapper">
+
+
+	<select id="findReviewList" parameterType="Map"
+		resultType="ltd.newbee.mall.entity.Review">
+		select
+		rs.goods_id,rs.review_id,rs.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
+		count(rs.review_id) as help_num
+		from review_sannkou as rs , review as r
+		<where>
+			<if test="goodsId!=null and goodsId!=''">
+				and rs.goods_id=#{goodsId}
+				and rs.goods_id=r.goods_id 
+				and rs.review_id =r.review_id
+			</if>
+		</where>
+		group by rs.goods_id,rs.review_id,rs.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+		order by ${orderByColumn} ${ascOrDesc}
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+	
+	<select id="getTotalReview" parameterType="Map" resultType="int">
+        select count(review_id) from Review
+        <where>
+            <if test="goods_id!=null and goods_id!=''">
+                and goods_id=#{goodsId}
+            </if>
+        </where>
+    </select>
+	
+</mapper>
