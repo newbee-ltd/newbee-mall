@@ -9,28 +9,55 @@
 package ltd.newbee.mall.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.dao.ReviewMapper;
 import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.service.ReviewService;
+import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageInquiryResult;
 import ltd.newbee.mall.util.PageInquiryUtil;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    @Autowired
-    private ReviewMapper reviewMapper;
+	@Autowired
+	private ReviewMapper reviewMapper;
 
-    @Override
-    public PageInquiryResult getReviewPage(PageInquiryUtil pageUtil){
-    	List<Review> ReviewList = reviewMapper.findReviewList(pageUtil);
-        int totalReview = reviewMapper.getTotalReview(pageUtil);
-        PageInquiryResult pageInquiryResult = new PageInquiryResult(ReviewList, totalReview, pageUtil.getLimit(), pageUtil.getCurrentPage());
-        return pageInquiryResult;
-    }
-    
+	@Override
+	public PageInquiryResult getReviewPage(PageInquiryUtil pageUtil) {
+		List<Review> ReviewList = reviewMapper.findReviewList(pageUtil);
+		int totalReview = reviewMapper.getTotalReview(pageUtil);
+		PageInquiryResult pageInquiryResult = new PageInquiryResult(ReviewList, totalReview, pageUtil.getLimit(),
+				pageUtil.getCurrentPage());
+		return pageInquiryResult;
+	}
+
+	
+	@Override
+	public long insertReview(Review review) {
+		return reviewMapper.insertReview(review);
+	}
+	@Override
+	public Long getMaxReviewId(Long reviewId) {
+		Long maxrReviewId = reviewMapper.getMaxReviewId(reviewId);
+		if (maxrReviewId != null) {
+			return maxrReviewId + 1;
+		} else {
+			return 1L;
+		}
+	}
+	
+	
+	@Override
+	public List<ReviewVO> getGoodsReviews(Long goodsId) {
+		List<Review> entityList = reviewMapper.getGoodsReview(goodsId);
+		List<ReviewVO> reviewVOList = BeanUtil.copyList(entityList, ReviewVO.class);
+		return reviewVOList;
+	}
+
 }

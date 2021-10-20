@@ -31,5 +31,79 @@
             </if>
         </where>
     </select>
+    
+    
+    <select id="getMaxReviewId" parameterType="java.lang.Long"
+		resultType="java.lang.Long">
+		select max(review_id) from
+		review
+		where review_id = #{reviewId,jdbcType=BIGINT}
+	</select>
+
+
+	<insert id="insertReview"
+		parameterType="ltd.newbee.mall.entity.QuestionAndAnswer">
+		insert into review
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="reviewId != null">
+				review_id,
+			</if>
+			<if test="reviewUserId != null">
+				review_user_id,
+			</if>
+			<if test="star != null">
+				star,
+			</if>
+			<if test="submitDate != null">
+				submit_date,
+			</if>
+			<if test="reviewTitle != null">
+				review_title,
+			</if>
+			<if test="reviewDetail != null">
+				review_detail,
+			</if>
+			<if test="imageUrl != null">
+				image_url,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				#{goodsId,jdbcType=BIGINT},
+			</if>
+			<if test="reviewId != null">
+				#{reviewId,jdbcType=BIGINT},
+			</if>
+			<if test="reviewUserId != null">
+				#{reviewUserId,jdbcType=BIGINT},
+			</if>
+			<if test="star != null">
+				#{star,jdbcType=SMALLINT},
+			</if>
+			<if test="submitDate != null">
+				#{submitDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reviewTitle != null">
+				#{reviewTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="reviewDetail != null">
+				#{reviewDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="imageUrl != null">
+				#{imageUrl,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	
+   <select id="getGoodsReview" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.Review">
+	 SELECT goods_id,review_id,review_user_id,star,submit_date,review_title,review_detail,image_url
+ 		FROM review where goods_id = #{goodsId,jdbcType=BIGINT}
+ 		order by star DESC
+   </select>
+	
 	
 </mapper>
