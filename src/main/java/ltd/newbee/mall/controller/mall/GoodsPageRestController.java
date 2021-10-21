@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 @Controller
-public class TestGoodsPageRestController {
+public class GoodsPageRestController {
 
     @Resource
     private GoodsPageService goodsPageService;

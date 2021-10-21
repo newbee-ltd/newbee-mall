@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.GoodsReviewMapper">   
+    <!-- review查询部分 -->
+    <select id="findGoodsReviewList" parameterType="Map" resultType="ltd.newbee.mall.entity.GoodsReview">
+        select review.goods_id,
+		       review.review_id, 
+		       review.star,
+               review.submit_date,
+		       review.review_title,
+               review.review_detail,
+               review.image_url,
+        count(review_sankou.sankou_user_id) as help_num
+        from review left join review_sankou
+        on review_sankou.goods_id = review.goods_id
+        and review_sankou.review_id = review.review_id
+        <where>
+           <if test="goodsId!=null and goodsId!=''">
+                and review.goods_id = #{goodsId}
+            </if>
+            
+            group by review.goods_id,
+		             review.review_id, 
+                     review.star,
+                     review.submit_date,
+		             review.review_title,
+                     review.review_detail,
+                     review.image_url
+        </where>
+         order by help_num desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalGoodsReview" parameterType="Map" resultType="int">
+        select count(*) from review
+    </select>
+    <select id="getCount" parameterType="Map" resultType="java.lang.Long">
+        select count(*) from review
+    </select>
+    
+    <!-- insert -->
+    <select id="getMaxGoodsReviewId" resultType="java.lang.Long">
+        select max(review_id) from review
+    </select>    
+    <insert id="insertGoodsReview" parameterType="ltd.newbee.mall.entity.GoodsReview">
+         insert into review
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 goods_id,
+             </if>
+             <if test="reviewId != null">
+                 review_id,
+             </if>
+             <if test="reviewUserId != null">
+                 review_user_id,
+             </if>
+             <if test="star != null">
+                 star,
+             </if>
+             <if test="submitDate != null">
+                 submit_date,
+             </if>
+             <if test="reviewTitle != null">
+                 review_title,
+             </if>
+             <if test="reviewDetail != null">
+                 review_detail,
+             </if>
+             <if test="imageUrl != null">
+                 image_url,
+             </if>
+         </trim>
+         
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 #{goodsId,jdbcType=BIGINT},
+             </if>
+             <if test="reviewId != null">
+                 #{reviewId,jdbcType=BIGINT},
+             </if>
+             <if test="reviewUserId != null">
+                 #{reviewUserId,jdbcType=BIGINT},
+             </if>
+             <if test="star != null">
+                 #{star,jdbcType=SMALLINT},
+             </if>
+             <if test="submitDate != null">
+                 #{submitDate,jdbcType=TIMESTAMP},
+             </if>
+             <if test="reviewTitle != null">
+                 #{reviewTitle,jdbcType=VARCHAR},
+             </if>
+             <if test="reviewDetail != null">
+                 #{reviewDetail,jdbcType=VARCHAR},
+             </if>
+             <if test="imageUrl != null">
+                 #{imageUrl,jdbcType=VARCHAR},
+             </if>
+         </trim> 
+    </insert>  
+    
+    <!-- 参考になった  
+    <select id="getHelpNum" parameterType="Map" resultType="java.lang.Long">
+        select helpNum
+        from review where review_id = #{reviewId,jdbcType=BIGINT},
+    </select>      --> 
+    <select id="getMaxHelpNum" resultType="java.lang.Long">
+        select max(help_num) from review_sankou
+    </select>
+    <insert id="insertHelpNum" parameterType="Map">
+         insert into review_sankou
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 goods_id,
+             </if>
+             <if test="reviewId != null">
+                 review_id,
+             </if>
+             <if test="sankouUserId != null">
+                 sankou_user_id,
+             </if>
+             <if test="submitDate != null">
+                 submit_date,
+             </if>
+         </trim>
+         
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 #{goodsId,jdbcType=BIGINT},
+             </if>
+             <if test="reviewId != null">
+                 #{reviewId,jdbcType=BIGINT},
+             </if>
+             <if test="sankouUserId != null">
+                 #{sankouUserId,jdbcType=BIGINT},
+             </if>
+             <if test="submitDate != null">
+                 #{submitDate,jdbcType=TIMESTAMP},
+             </if>
+         </trim> 
+    </insert>
+</mapper>
