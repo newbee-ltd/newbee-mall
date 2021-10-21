@@ -9,7 +9,7 @@ public class QuestionSannkou {
 	private long goodsId;
 	private long questionId;
 	private long userId;
-
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date submitDate;
 

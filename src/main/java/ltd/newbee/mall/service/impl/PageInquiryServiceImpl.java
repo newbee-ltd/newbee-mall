@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import ltd.newbee.mall.dao.PageInquiryMapper;
 import ltd.newbee.mall.entity.QuestionAndAnswer;
+import ltd.newbee.mall.entity.QuestionSannkou;
 import ltd.newbee.mall.service.PageInquiryService;
 import ltd.newbee.mall.util.PageInquiryResult;
 import ltd.newbee.mall.util.PageInquiryUtil;
@@ -32,5 +33,19 @@ public class PageInquiryServiceImpl implements PageInquiryService {
         PageInquiryResult pageInquiryResult = new PageInquiryResult(goodsQAList, GoodsQACount, pageUtil.getLimit(), pageUtil.getCurrentPage());
         return pageInquiryResult;
     }
+    
+    @Override
+	public boolean insertHelpNum(QuestionSannkou questionSannkou) {
+		return pageInquiryMapper.insertHelpNum(questionSannkou);
+	}
+	@Override
+	public boolean updateReviewNum(QuestionSannkou questionSannkou) {
+		return pageInquiryMapper.insertHelpNum(questionSannkou);
+	}
+	@Override
+	public long getHelpNum(long questionId) {
+		return pageInquiryMapper.getHelpNum(questionId);
+	}
+	
     
 }

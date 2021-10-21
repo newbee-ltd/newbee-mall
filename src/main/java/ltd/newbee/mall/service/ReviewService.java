@@ -25,11 +25,12 @@ public interface ReviewService {
 	
 	List<ReviewVO> getGoodsReviews(Long goodsId);
 
+//	Review getReviewByReviewId(long reviewId);
 	
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
     boolean updateReviewNum(ReviewSannkou reviewSannkou);
-    long getHelpNum(long reviewId);
-    
-    
+    long getHelpNum(long reviewId); 
+
+//	ReviewVO getReviewDetail(long reviewId, Long userId);
 	
 }
