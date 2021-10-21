@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.dao.ReviewMapper;
@@ -77,18 +78,27 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	//
+//	@Override
+//    public Review getReviewByReviewId(long reviewId){
+//        return reviewMapper.getReviewByReviewId(reviewId);
+//    }
+//	@Override
+//    public ReviewVO getReviewDetail(long reviewId, Long userId) {
+//		return null;
+//	}
+
 	@Override
 	public boolean insertHelpNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.insertHelpNum(reviewSannkou);
 	}
+	
 	@Override
 	public boolean updateReviewNum(ReviewSannkou reviewSannkou) {
-		return reviewMapper.insertHelpNum(reviewSannkou);
+		return reviewMapper.updateReviewNum(reviewSannkou);
 	}
 	@Override
 	public long getHelpNum(long reviewId) {
 		return reviewMapper.getHelpNum(reviewId);
 	}
-	
 
 }

@@ -8,6 +8,7 @@
  */
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.entity.QuestionSannkou;
 import ltd.newbee.mall.util.PageInquiryResult;
 import ltd.newbee.mall.util.PageInquiryUtil;
 
@@ -20,4 +21,8 @@ public interface PageInquiryService {
 	 */
 	PageInquiryResult getQAPage(PageInquiryUtil pageUtil);
 
+	boolean insertHelpNum(QuestionSannkou questionSannkou);
+	boolean updateReviewNum(QuestionSannkou questionSannkou);
+	long getHelpNum(long questionId);
+	
 }

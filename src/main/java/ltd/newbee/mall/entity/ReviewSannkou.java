@@ -1,8 +1,5 @@
 package ltd.newbee.mall.entity;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ReviewSannkou {
 
