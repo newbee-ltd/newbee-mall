@@ -92,9 +92,10 @@ public class GoodsReviewRestController {
         		return ResultGenerator.genErrorResult(300, "改修失敗！");
         	}
         } else {
-        	return ResultGenerator.genSuccessResult("挿入失敗！");
+        	return ResultGenerator.genSuccessResult("");
         }
             
+        
     }
     
 }
