@@ -27,7 +27,7 @@ import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 
 @Controller
-public class TestStudentServiceRestController {
+public class TestStudentRestController {
 
 	@Resource
 	private StudentService studentService;
