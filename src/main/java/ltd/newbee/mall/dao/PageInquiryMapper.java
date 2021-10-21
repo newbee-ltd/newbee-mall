@@ -11,4 +11,5 @@ public interface PageInquiryMapper {
 
 	int getGoodsQACount(PageInquiryUtil pageUtil);
 
+	
 }

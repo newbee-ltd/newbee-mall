@@ -12,32 +12,61 @@
 		<where>
 			<if test="goodsId!=null and goodsId!=''">
 				and rs.goods_id=#{goodsId}
-				and rs.goods_id=r.goods_id 
+				and rs.goods_id=r.goods_id
 				and rs.review_id =r.review_id
 			</if>
 		</where>
-		group by rs.goods_id,rs.review_id,rs.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+		group by
+		rs.goods_id,rs.review_id,rs.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
 		order by ${orderByColumn} ${ascOrDesc}
 		<if test="start!=null and limit!=null">
 			limit #{start},#{limit}
 		</if>
 	</select>
-	
+
 	<select id="getTotalReview" parameterType="Map" resultType="int">
-        select count(review_id) from Review
-        <where>
-            <if test="goods_id!=null and goods_id!=''">
-                and goods_id=#{goodsId}
-            </if>
-        </where>
-    </select>
-    
-    
-    <select id="getMaxReviewId" parameterType="java.lang.Long"
+		select count(review_id) from Review
+		<where>
+			<if test="goods_id!=null and goods_id!=''">
+				and goods_id=#{goodsId}
+			</if>
+		</where>
+	</select>
+
+	<select id="getReviewList" parameterType="Map"
+		resultType="ltd.newbee.mall.entity.Review">
+		select
+		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
+		count(rs.review_id) as help_num
+		from review as r left join review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id =r.review_id
+		<where>
+			<if test="goodsId!=null and goodsId!=''">
+				and r.goods_id=#{goodsId}
+			</if>
+		</where>
+		group by
+		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+		order by help_num Desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+
+	<select id="getCount" parameterType="Map" resultType="long">
+		select count(review_id) from Review
+		<where>
+			<if test="goods_id!=null and goods_id!=''">
+				and goods_id=#{goodsId}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxReviewId" parameterType="java.lang.Long"
 		resultType="java.lang.Long">
 		select max(review_id) from
 		review
-		where review_id = #{reviewId,jdbcType=BIGINT}
+		where review_id =
+		#{reviewId,jdbcType=BIGINT}
 	</select>
 
 
@@ -97,13 +126,38 @@
 			</if>
 		</trim>
 	</insert>
+
+
+	<select id="getGoodsReview" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.Review">
+		select
+		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
+		count(rs.review_id) as help_num
+		from review as r left join review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id =r.review_id
+		<where>
+			<if test="goodsId!=null and goodsId!=''">
+				and r.goods_id=#{goodsId}
+			</if>
+		</where>
+		group by
+		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+		order by help_num Desc
+	</select>
 	
-	
-   <select id="getGoodsReview" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.Review">
-	 SELECT goods_id,review_id,review_user_id,star,submit_date,review_title,review_detail,image_url
- 		FROM review where goods_id = #{goodsId,jdbcType=BIGINT}
- 		order by star DESC
-   </select>
-	
-	
+	<insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.ReviewSannkou">
+	    insert into review_sannkou(goods_id,review_id, sannkou_user_id)
+	    values(#{goodsId,jdbcType=BIGINT},#{reviewId,jdbcType=BIGINT}, #{sannkouUserId,jdbcType=BIGINT})
+    </insert>
+
+	<update id="updateReviewNum">
+		update review set review_num = review_num + 1
+		where review_id= #{reviewId}
+	</update>
+
+	<select id="getHelpNum" parameterType="long" resultType="java.lang.Long">
+		SELECT review_num
+		FROM review where review_id = #{reviewId,jdbcType=BIGINT}
+	</select>
+
+
 </mapper>

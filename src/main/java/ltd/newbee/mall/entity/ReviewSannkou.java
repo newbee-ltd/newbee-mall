@@ -9,10 +9,7 @@ public class ReviewSannkou {
 	private long goodsId;
 	private long reviewId;
 	private long sannkouUserId;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date submitDate;
-	
+
 	public long getGoodsId() {
 		return goodsId;
 	}
@@ -30,12 +27,6 @@ public class ReviewSannkou {
 	}
 	public void setSannkouUserId(long sannkouUserId) {
 		this.sannkouUserId = sannkouUserId;
-	}
-	public Date getSubmitDate() {
-		return submitDate;
-	}
-	public void setSubmitDate(Date submitDate) {
-		this.submitDate = submitDate;
 	}
 	
 	

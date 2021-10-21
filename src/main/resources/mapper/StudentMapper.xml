@@ -63,8 +63,6 @@
 			<if test="biological != null">
 				biological,
 			</if>
-
-
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -110,7 +108,6 @@
 				#{biological,jdbcType=BIGINT},
 			</if>
 		</trim>
-
 	</insert>
 
 

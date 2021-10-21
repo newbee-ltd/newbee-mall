@@ -17,10 +17,13 @@ import org.springframework.stereotype.Service;
 import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.dao.ReviewMapper;
 import ltd.newbee.mall.entity.Review;
+import ltd.newbee.mall.entity.ReviewSannkou;
 import ltd.newbee.mall.service.ReviewService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageInquiryResult;
+import ltd.newbee.mall.util.PageInquiryResult2;
 import ltd.newbee.mall.util.PageInquiryUtil;
+import ltd.newbee.mall.util.PageInquiryUtil2;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -37,7 +40,20 @@ public class ReviewServiceImpl implements ReviewService {
 		return pageInquiryResult;
 	}
 
-	
+	//show more page 2
+	@Override
+	public PageInquiryResult2 getMoreReview(PageInquiryUtil2 pageUtil) {
+		List<Review> ReviewList = reviewMapper.getReviewList(pageUtil);
+		int totalReview = reviewMapper.getTotalReview(pageUtil);
+		PageInquiryResult2 pageInquiryResult =new PageInquiryResult2(ReviewList, totalReview, pageUtil.getLimit());
+		return pageInquiryResult;
+	}
+	@Override
+	public Long getCount(Map map) {
+		return reviewMapper.getCount(map);
+	}
+
+	//
 	@Override
 	public long insertReview(Review review) {
 		return reviewMapper.insertReview(review);
@@ -51,13 +67,28 @@ public class ReviewServiceImpl implements ReviewService {
 			return 1L;
 		}
 	}
-	
-	
+
+	//show more page 1
 	@Override
 	public List<ReviewVO> getGoodsReviews(Long goodsId) {
 		List<Review> entityList = reviewMapper.getGoodsReview(goodsId);
 		List<ReviewVO> reviewVOList = BeanUtil.copyList(entityList, ReviewVO.class);
 		return reviewVOList;
 	}
+	
+	//
+	@Override
+	public boolean insertHelpNum(ReviewSannkou reviewSannkou) {
+		return reviewMapper.insertHelpNum(reviewSannkou);
+	}
+	@Override
+	public boolean updateReviewNum(ReviewSannkou reviewSannkou) {
+		return reviewMapper.insertHelpNum(reviewSannkou);
+	}
+	@Override
+	public long getHelpNum(long reviewId) {
+		return reviewMapper.getHelpNum(reviewId);
+	}
+	
 
 }
