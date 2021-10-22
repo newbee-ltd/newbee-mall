@@ -39,8 +39,8 @@ public class PageInquiryServiceImpl implements PageInquiryService {
 		return pageInquiryMapper.insertHelpNum(questionSannkou);
 	}
 	@Override
-	public boolean updateReviewNum(QuestionSannkou questionSannkou) {
-		return pageInquiryMapper.insertHelpNum(questionSannkou);
+	public boolean updateHelpNum(QuestionSannkou questionSannkou) {
+		return pageInquiryMapper.updateHelpNum(questionSannkou);
 	}
 	@Override
 	public long getHelpNum(long questionId) {

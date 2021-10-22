@@ -15,7 +15,7 @@ public interface PageInquiryMapper {
 
 	
 	boolean insertHelpNum(QuestionSannkou questionSannkou);
-	boolean updateReviewNum(QuestionSannkou questionSannkou);
+	boolean updateHelpNum(QuestionSannkou questionSannkou);
 	long getHelpNum(long questionId);
 	
 }

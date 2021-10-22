@@ -30,9 +30,8 @@ public interface ReviewMapper {
 	
 	//参考になったを押下した際、どの商品、どのレビューに対して誰が押したかをDBに記録する必要がある。
 	//かつ、押下したことがあるユーザーならば、警告メッセージが提出してください。
-//	Review getReviewByReviewId(long reviewId);
-//	ReviewVO getReviewDetail(long reviewId, Long userId);
 	
+	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
 	boolean updateReviewNum(ReviewSannkou reviewSannkou);
 	long getHelpNum(long reviewId);

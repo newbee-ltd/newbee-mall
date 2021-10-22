@@ -46,29 +46,29 @@ public class PageInquiryController {
 		PageInquiryUtil pageUtil = new PageInquiryUtil(params);
 		return ResultGenerator.genSuccessResult(pageInquiryService.getQAPage(pageUtil));
 	}
-//
-//	@RequestMapping(value = "/review/helpNum", method = RequestMethod.POST)
-//	@ResponseBody
-//	public Result helpNum(@RequestBody QuestionSannkou questionSannkou,HttpSession httpSession) {
-//		NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-//    	if(user!=null) {
-//    		questionSannkou.setUserId(user.getUserId())
-//    		.setSannkouUserId(user.getUserId());
-//    	}
-//    	
-//		boolean insertFlag = pageInquiryService.insertHelpNum(questionSannkou);
-//		if (insertFlag) {
-//			boolean updateFlag =pageInquiryService.updateReviewNum(questionSannkou);
-//			if (updateFlag) {
-//				long helpNum = pageInquiryService.getHelpNum(questionSannkou.getQuestionId());
-//				return ResultGenerator.genSuccessResult(helpNum);
-//			} else {
-//				return ResultGenerator.genFailResult("改修できない！");
-//			}
-//		} else {
-//			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
-//		}
-//		
-//	}
+
+	
+	@RequestMapping(value = "/QA/helpNum", method = RequestMethod.POST)
+	@ResponseBody
+	public Result helpNum(@RequestBody QuestionSannkou questionSannkou,HttpSession httpSession) {
+		NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+    	if(user!=null) {
+    		questionSannkou.setUserId(user.getUserId());
+    	}
+    	
+		boolean insertFlag = pageInquiryService.insertHelpNum(questionSannkou);
+		if (insertFlag) {
+			boolean updateFlag = pageInquiryService.updateHelpNum(questionSannkou);
+			if (updateFlag) {
+				long helpNum = pageInquiryService.getHelpNum(questionSannkou.getQuestionsId());
+				return ResultGenerator.genSuccessResult(helpNum);
+			} else {
+				return ResultGenerator.genFailResult("改修失敗！！");
+			}
+		} else {
+			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
+		}
+		
+	}
 	
 }

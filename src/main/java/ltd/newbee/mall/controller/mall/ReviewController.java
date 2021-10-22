@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -118,27 +119,41 @@ public class ReviewController {
 //		}
 //	}
 
-	@RequestMapping(value = "/review/helpNum", method = RequestMethod.POST)
+	@RequestMapping(value = "/reviewHelpNum", method = RequestMethod.GET)
 	@ResponseBody
-	public Result helpNum(@RequestBody ReviewSannkou reviewSannkou, HttpSession httpSession) {
+	public Result helpNum(ReviewSannkou reviewSannkou, HttpSession httpSession) {
 		NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
 		if (user != null) {
 			reviewSannkou.setSannkouUserId(2001);
 		}
-		boolean insertFlag = reviewService.insertHelpNum(reviewSannkou);
-		if (insertFlag) {
-			boolean updateFlag = reviewService.updateReviewNum(reviewSannkou);
-			if (updateFlag) {
-				long helpNum = reviewService.getHelpNum(reviewSannkou.getReviewId());
-				return ResultGenerator.genSuccessResult(helpNum);
-				
-			} else {
-				return ResultGenerator.genFailResult("改修失敗！！");
-			}
-		} else {
-			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
-		}
 
+//		if (count >0 ) {
+//			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
+//		}else{
+//			insertCount = xxxService.xxxInsert()
+//			if(insertCount> 0){
+//				return ResultGenerator.genSuccessResult("処理が成功しました。");
+//			}else{
+//				return ResultGenerator.genFailResult("処理が失敗しました。");
+//			}
+//		}
+
+		List<ReviewSannkou> list = reviewService.getReviewSannkouUserId(reviewSannkou);
+		if (!CollectionUtils.isEmpty(list)) {
+			return ResultGenerator.genSuccessResult("押下したことがあるので、押下できない!");
+		} else {
+			boolean insertFlag = reviewService.insertHelpNum(reviewSannkou);
+			if (insertFlag) {
+				boolean updateFlag = reviewService.updateReviewNum(reviewSannkou);
+				if (updateFlag) { 
+					long helpNum = reviewService.getHelpNum(reviewSannkou.getReviewId());
+					return ResultGenerator.genSuccessResult(helpNum);
+				} else {
+					return ResultGenerator.genFailResult("更新できない！");
+				}
+			}
+		}
+		return ResultGenerator.genFailResult("処理が失敗しました！");
 	}
 
 }

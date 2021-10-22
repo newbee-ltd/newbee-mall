@@ -27,6 +27,7 @@ public interface ReviewService {
 
 //	Review getReviewByReviewId(long reviewId);
 	
+	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
     boolean updateReviewNum(ReviewSannkou reviewSannkou);
     long getHelpNum(long reviewId); 
