@@ -162,11 +162,13 @@
 	</select>
 
  
-<!--     <select id="getReviewByReviewId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.Review">
-        select r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
-		count(rs.review_id) as help_num
-		from review as r left join review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id =r.review_id
-        where review_id = #{reviewId,jdbcType=BIGINT}
-    </select> -->
-
+    <select id="getReviewSannkouUserId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.ReviewSannkou">
+        select rs.goods_id,rs.review_id,rs.sannkou_user_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+		from review_sannkou as rs left join review as r
+		on rs.goods_id=r.goods_id and rs.review_id =r.review_id
+        where rs.sannkou_user_id = #{sannkouUserId,jdbcType=BIGINT} 
+              and rs.goods_id = #{goodsId,jdbcType=BIGINT} 
+              and rs.review_id = #{reviewId,jdbcType=BIGINT} 
+    </select> 
+    
 </mapper>

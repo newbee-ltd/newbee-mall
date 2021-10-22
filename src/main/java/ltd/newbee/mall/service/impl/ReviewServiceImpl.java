@@ -77,7 +77,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewVOList;
 	}
 	
-	//
 //	@Override
 //    public Review getReviewByReviewId(long reviewId){
 //        return reviewMapper.getReviewByReviewId(reviewId);
@@ -87,6 +86,11 @@ public class ReviewServiceImpl implements ReviewService {
 //		return null;
 //	}
 
+	@Override
+	public List<ReviewSannkou>  getReviewSannkouUserId(ReviewSannkou reviewSannkou){
+		return reviewMapper.getReviewSannkouUserId(reviewSannkou);
+	}
+	
 	@Override
 	public boolean insertHelpNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.insertHelpNum(reviewSannkou);
