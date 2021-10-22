@@ -8,6 +8,8 @@
  */
 package ltd.newbee.mall.controller.mall;
 
+import ltd.newbee.mall.common.Constants;
+import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.entity.QuestionAndAnswer;
 import ltd.newbee.mall.service.GoodsPageService;
 import ltd.newbee.mall.util.PageQueryUtil;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import java.util.Map;
 
@@ -32,7 +35,7 @@ public class GoodsPageRestController {
     @Resource
     private GoodsPageService goodsPageService;
 
-    // 分页
+    // QA分页
     @RequestMapping(value = "/questionAndAnswer/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
@@ -55,6 +58,30 @@ public class GoodsPageRestController {
     	} else {
     		return ResultGenerator.genSuccessResult("挿入できました.");
     	}
+    }
+    
+    // 参考になった
+    @RequestMapping(value = "/insertQaHelpNum", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getHelpNum(@RequestBody QuestionAndAnswer qaHelpNum, HttpSession httpSession) {
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        if (user != null) {
+        	qaHelpNum.setUserId(user.getUserId());
+        }
+        
+        boolean insertFlag = goodsPageService.insertHelpNum(qaHelpNum);
+        if (insertFlag) {
+        	boolean updateFlag = goodsPageService.updateQuestionNum(qaHelpNum);
+        	if (updateFlag) {
+        		long helpNum = goodsPageService.getHelpNum(qaHelpNum.getQuestionId());
+        		return ResultGenerator.genSuccessResult(helpNum);
+        	} else {
+        		return ResultGenerator.genErrorResult(300, "改修失敗！");
+        	}
+        } else {
+        	return ResultGenerator.genSuccessResult("挿入失敗！");
+        }
+            
     }
     
 }

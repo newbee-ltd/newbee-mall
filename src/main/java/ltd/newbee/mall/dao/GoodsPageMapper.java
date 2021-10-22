@@ -7,7 +7,7 @@ import ltd.newbee.mall.util.PageQueryUtil;
 
 public interface GoodsPageMapper {
     
-	// 分页
+	// QA分页
 	List<QuestionAndAnswer> findQuestionAndAnswerList(PageQueryUtil pageUtil);
 	
 	int getTotalQuestionAndAnswer(PageQueryUtil pageUtil);
@@ -15,5 +15,10 @@ public interface GoodsPageMapper {
 	// 質問を投稿
 	long insertQuestion(QuestionAndAnswer question);
 	long getMaxQuestionId();
+	
+	// 参考になった
+	boolean insertHelpNum(QuestionAndAnswer qaHelpNum);
+	boolean updateQuestionNum(QuestionAndAnswer qaHelpNum);
+	long getHelpNum(long qaHelpNum);
 	
 }

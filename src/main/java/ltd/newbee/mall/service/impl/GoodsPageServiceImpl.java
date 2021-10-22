@@ -17,7 +17,7 @@ public class GoodsPageServiceImpl implements GoodsPageService {
 	@Autowired
 	private GoodsPageMapper goodsPageMapper;
 	
-	// 分页
+	// QA分页
 	@Override
     public PageResult getQuestionAndAnswer(PageQueryUtil pageUtil) {
 		List<QuestionAndAnswer> questionAndAnswer = goodsPageMapper.findQuestionAndAnswerList(pageUtil);
@@ -32,6 +32,21 @@ public class GoodsPageServiceImpl implements GoodsPageService {
 		long maxQuestionId = goodsPageMapper.getMaxQuestionId();
 		question.setQuestionId(maxQuestionId + 1);
 		return goodsPageMapper.insertQuestion(question);
+	}
+	
+	// 参考になった
+	@Override
+	public boolean insertHelpNum(QuestionAndAnswer qaHelpNum) {
+		return goodsPageMapper.insertHelpNum(qaHelpNum);
+	}
+		
+	@Override
+	public boolean updateQuestionNum(QuestionAndAnswer qaHelpNum) {
+		return goodsPageMapper.updateQuestionNum(qaHelpNum);
+	}
+		
+	public long getHelpNum(long qaHelpNum) {
+		return goodsPageMapper.getHelpNum(qaHelpNum);
 	}
 
 }

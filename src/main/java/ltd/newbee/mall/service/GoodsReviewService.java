@@ -1,5 +1,6 @@
 package ltd.newbee.mall.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import ltd.newbee.mall.entity.GoodsReview;
@@ -17,8 +18,13 @@ public interface GoodsReviewService {
 	long insertGoodsReview(GoodsReview goodsReview);
 	
 	// 参考になった
+	/*
+	ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum);
 	boolean insertHelpNum(GoodsReview goodsReviewHelpNum);
-	boolean updateReivewNum(GoodsReview goodsReviewHelpNum);
-	long getHelpNum(long goodsReviewHelpNum);
+	boolean updateReviewNum(GoodsReview goodsReviewHelpNum);
+	long getHelpNum(long reviewId);
+	*/
+	long insertHelpNum(GoodsReview goodsReviewHelpNum);
+    long getHelpNumTwice(long reviewId);
 	
 }

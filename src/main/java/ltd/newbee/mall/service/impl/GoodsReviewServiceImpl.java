@@ -1,5 +1,6 @@
 package ltd.newbee.mall.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,22 +42,37 @@ public class GoodsReviewServiceImpl implements GoodsReviewService {
 	}
 	
 	// 参考になった
+	/*
+	@Override
+	public ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum) {
+		return goodsReviewMapper.getSankouUserId(goodsReviewHelpNum);
+	}
+	
 	@Override
 	public boolean insertHelpNum(GoodsReview goodsReviewHelpNum) {
+		return goodsReviewMapper.insertHelpNum(goodsReviewHelpNum);
+	}
+	
+	@Override
+	public boolean updateReviewNum(GoodsReview goodsReviewHelpNum) {
+		return goodsReviewMapper.updateReviewNum(goodsReviewHelpNum);
+	}
+	
+	@Override
+	public long getHelpNum(long reviewId) {
+		return goodsReviewMapper.getHelpNum(reviewId);
+	}
+	*/
+	
+	@Override
+	public long insertHelpNum(GoodsReview goodsReviewHelpNum) {
 		long maxHelpNum = goodsReviewMapper.getMaxHelpNum();
 		goodsReviewHelpNum.setHelpNum(maxHelpNum + 1);
 		return goodsReviewMapper.insertHelpNum(goodsReviewHelpNum);
 	}
 	
 	@Override
-	public boolean updateReivewNum(GoodsReview goodsReviewHelpNum) {
-		boolean count = goodsReviewMapper.updateReivewNum(goodsReviewHelpNum);
-    	return count;
+	public long getHelpNumTwice(long reviewId) {
+		return goodsReviewMapper.getHelpNumTwice(reviewId);
 	}
-	
-	public long getHelpNum(long goodsReviewHelpNum) {
-		long count = goodsReviewMapper.getHelpNum(goodsReviewHelpNum);
-    	return count;
-	}
-	
 }

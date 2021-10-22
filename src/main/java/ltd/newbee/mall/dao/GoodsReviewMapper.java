@@ -1,5 +1,6 @@
 package ltd.newbee.mall.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,15 @@ public interface GoodsReviewMapper {
 	 *  分页的sql有错误，应该是goods_qa left join help_num_tbl 。
 	 *  因为会有qa没有人点参考になった，如果是join的话，没有被点参加になった的不会被抽出。
 	 */
-	boolean insertHelpNum(GoodsReview goodsReviewHelpNum);
-	boolean updateReivewNum(GoodsReview goodsReviewHelpNum);
-	long getMaxHelpNum();
-	long getHelpNum(long goodsReviewHelpNum);
+	 /*
+	 public ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum);
+	 boolean insertHelpNum(GoodsReview goodsReviewHelpNum);
+	 boolean updateReviewNum(GoodsReview goodsReviewHelpNum);
+	 long getHelpNum(long reviewId);
+	 */
+	 long insertHelpNum(GoodsReview goodsReviewHelpNum);
+	 long getMaxHelpNum();
+	 long getHelpNumTwice(long reviewId);
+	 
 	
 }

@@ -19,6 +19,7 @@ import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,28 +76,80 @@ public class GoodsReviewRestController {
     }
     
     // 参考になった
-    @RequestMapping(value = "/insertHelpNum", method = RequestMethod.POST)
+    /*
+    @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
     @ResponseBody
-    public Result getHelpNum(@RequestBody GoodsReview goodsReviewHelpNum, HttpSession httpSession) {
+    public Result getHelpNum(GoodsReview goodsReviewHelpNum, HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         if (user != null) {
-        	goodsReviewHelpNum.setSankouUserId(user.getUserId());
+        	goodsReviewHelpNum.setSankouUserId(6);
         }
         
-        boolean insertFlag = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
-        if (insertFlag) {
-        	boolean updateFlag = goodsReviewService.updateReivewNum(goodsReviewHelpNum);
-        	if (updateFlag) {
-        		long helpNum = goodsReviewService.getHelpNum(goodsReviewHelpNum.getReviewId());
-        		return ResultGenerator.genSuccessResult(helpNum);
+        List<GoodsReview> list = goodsReviewService.getSankouUserId(goodsReviewHelpNum);
+        if (!CollectionUtils.isEmpty(list)) {
+    		return ResultGenerator.genFailResult("押下したことがありますので、押下できません。");
+    	} else {
+        	boolean insertFlag = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
+            if (insertFlag) {
+            	boolean updateFlag = goodsReviewService.updateReviewNum(goodsReviewHelpNum);
+            	if (updateFlag) {
+            		long helpNum = goodsReviewService.getHelpNum(goodsReviewHelpNum.getReviewId());
+            		return ResultGenerator.genSuccessResult(helpNum);
+            	} else {
+                    return ResultGenerator.genErrorResult(300, "改修失敗！");           
+                } 
+            }
+    	}
+		return ResultGenerator.genFailResult("改修失敗！");  
+    }
+    */
+
+    @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getHelpNum(GoodsReview goodsReviewHelpNum, long reviewId, HttpSession httpSession) {
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        if (user != null) {
+        	goodsReviewHelpNum.setSankouUserId(6);
+        }
+        
+        long count = goodsReviewService.getHelpNumTwice(reviewId);
+        if (count > 0) {
+        	ResultGenerator.genFailResult("押下したことがありますので、押下できません。");
+        } else {
+        	long insertCount = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
+        	if (insertCount > 0) {
+        		return ResultGenerator.genSuccessResult(insertCount);
         	} else {
         		return ResultGenerator.genErrorResult(300, "改修失敗！");
         	}
-        } else {
-        	return ResultGenerator.genSuccessResult("");
         }
-            
-        
+		return ResultGenerator.genErrorResult(300, "改修失敗！");
     }
+}   
+	
+    /*
+    @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getHelpNum(GoodsReview goodsReviewHelpNum, HttpSession httpSession) {
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        if (user != null) {
+        	goodsReviewHelpNum.setSankouUserId(6);
+        }
+        try {
+        	boolean insertFlag = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
+            if (insertFlag) {
+            	boolean updateFlag = goodsReviewService.updateReivewNum(goodsReviewHelpNum);
+                if (updateFlag) {
+                	long helpNum = goodsReviewService.getHelpNum(goodsReviewHelpNum.getReviewId());
+                    return ResultGenerator.genSuccessResult(helpNum);
+                    } else {
+                    	return ResultGenerator.genErrorResult(300, "改修失敗！");
+                    }
+                }
+        } catch (Exception e) {
+        	return ResultGenerator.genFailResult("押下したことがありますので、押下できません。");
+        }
+        return ResultGenerator.genFailResult("yichang");    
+    }
+    */
     
-}

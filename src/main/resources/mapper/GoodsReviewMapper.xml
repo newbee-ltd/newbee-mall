@@ -18,15 +18,15 @@
            <if test="goodsId!=null and goodsId!=''">
                 and review.goods_id = #{goodsId}
             </if>
-            
-            group by review.goods_id,
-		             review.review_id, 
-                     review.star,
-                     review.submit_date,
-		             review.review_title,
-                     review.review_detail,
-                     review.image_url
-        </where>
+        </where>    
+        group by review.goods_id,
+                 review.review_id, 
+                 review.star,
+                 review.submit_date,
+		         review.review_title,
+                 review.review_detail,
+                 review.image_url
+        
          order by help_num desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
@@ -100,15 +100,8 @@
          </trim> 
     </insert>  
     
-    <!-- 参考になった  
-    <select id="getHelpNum" parameterType="Map" resultType="java.lang.Long">
-        select helpNum
-        from review where review_id = #{reviewId,jdbcType=BIGINT},
-    </select>      --> 
-    <select id="getMaxHelpNum" resultType="java.lang.Long">
-        select max(help_num) from review_sankou
-    </select>
-    <insert id="insertHelpNum" parameterType="Map">
+    <!-- 参考になった --> 
+    <!--  <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.GoodsReview">
          insert into review_sankou
          <trim prefix="(" suffix=")" suffixOverrides=",">
              <if test="goodsId != null">
@@ -120,7 +113,66 @@
              <if test="sankouUserId != null">
                  sankou_user_id,
              </if>
-             <if test="submitDate != null">
+         </trim>
+         
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 #{goodsId,jdbcType=BIGINT},
+             </if>
+             <if test="reviewId != null">
+                 #{reviewId,jdbcType=BIGINT},
+             </if>
+             <if test="sankouUserId != null">
+                 #{sankouUserId,jdbcType=BIGINT},
+             </if>
+         </trim>
+    </insert>
+    
+    <update id="updateReivewNum">
+        update review set help_num = help_num + 1
+        where review_id = #{reviewId}
+    </update>
+    
+    <select id="getHelpNum" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(review_id) as help_num
+        from review_sankou where review_id = #{reviewId,jdbcType=BIGINT}
+    </select>
+    
+    <select id="getSankouUserId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsReview">
+        select review_sankou.goods_id
+               review_sankou.review_id
+               review_sankou.sankou_user_id
+               review.submit_date
+               review.review_user_id
+               review.star
+               review.review_title
+               review.review_detail
+               review.image_url
+		from review_sankou left join review
+		on review_sankou.goods_id=review.goods_id 
+		and review_sankou.review_id =review.review_id
+        where review_sankou.sankou_user_id = #{sankouUserId,jdbcType=BIGINT} 
+        and review_sankou.goods_id = #{goodsId,jdbcType=BIGINT} 
+        and review_sankou.review_id = #{reviewId,jdbcType=BIGINT} 
+    </select> -->
+    
+    <select id="getMaxHelpNum" resultType="java.lang.Long">
+        select max(sankou_user_id) from review_sankou
+    </select> 
+   
+    <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.GoodsReview">
+         insert into review_sankou
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="goodsId != null">
+                 goods_id,
+             </if>
+             <if test="reviewId != null">
+                 review_id,
+             </if>
+             <if test="sankouUserId != null">
+                 sankou_user_id,
+             </if>
+         <if test="submitDate != null">
                  submit_date,
              </if>
          </trim>
@@ -138,6 +190,14 @@
              <if test="submitDate != null">
                  #{submitDate,jdbcType=TIMESTAMP},
              </if>
-         </trim> 
+         </trim>
     </insert>
+    
+    <select id="getHelpNumTwice" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(*) as help_num
+        from review_sankou
+        where review_id = #{reviewId,jdbcType=BIGINT}
+        and goods_id = #{goodsId,jdbcType=BIGINT}
+        and sankou_user_id = #{sankouUserId,jdbcType=BIGINT}
+    </select> 
 </mapper>
