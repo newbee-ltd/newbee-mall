@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.CategoryOrGoodsMapper">
+
+
+	<select id="getApplyCategory" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ApplyCategoryCampaign">
+		select * from (
+
+		select
+		  acc.category_id,cat.category_name,oam.campaign_id,oam.campaign_name,
+		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join apply_category_campaign as acc
+		  on acc.category_id = cat.category_id
+		join over_amount_minus as oam
+		  on acc.campaign_id=oam.campaign_id
+
+		union
+
+		select
+		  acc.category_id,cat.category_name,bcs.campaign_id,bcs.campaign_name,
+		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join apply_category_campaign as acc
+		  on acc.category_id = cat.category_id
+		join buy_category_set as bcs
+		  on acc.campaign_id=bcs.campaign_id
+
+		union
+
+		select
+		  acc.category_id,cat.category_name,oac.campaign_id,oac.campaign_name,
+		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join apply_category_campaign as acc
+		  on acc.category_id = cat.category_id
+		join over_amount_coupon as oac
+		  on acc.campaign_id=oac.campaign_id
+
+		union
+
+		select
+		  acc.category_id,cat.category_name,d.campaign_id,d.campaign_name,
+		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join apply_category_campaign as acc
+		  on acc.category_id = cat.category_id
+		join discount as d
+		  on acc.campaign_id=d.campaign_id
+
+		) as temp
+		where temp.parent_id=#{parentId,jdbcType=BIGINT}
+	</select>
+
+	<select id="getApplyGoods" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
+		select * from (
+
+		select
+		  agc.goods_id,goods.goods_name,oam.campaign_id,oam.campaign_name,
+		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join tb_newbee_mall_goods_info as goods
+		  on cat.category_id = goods.goods_category_id
+		join apply_goods_campaign as agc
+		  on agc.goods_id = goods.goods_id
+		join over_amount_minus as oam
+		  on agc.campaign_id=oam.campaign_id
+
+		union
+
+		select
+		  agc.goods_id,goods.goods_name,bcs.campaign_id,bcs.campaign_name,
+		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join tb_newbee_mall_goods_info as goods
+		  on cat.category_id = goods.goods_category_id
+		join apply_goods_campaign as agc
+		  on agc.goods_id = goods.goods_id
+		join buy_category_set as bcs
+		  on agc.campaign_id=bcs.campaign_id
+
+		union
+
+		select
+		  agc.goods_id,goods.goods_name,oac.campaign_id,oac.campaign_name,
+		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join tb_newbee_mall_goods_info as goods
+		  on cat.category_id = goods.goods_category_id
+		join apply_goods_campaign as agc
+		  on agc.goods_id = goods.goods_id
+		join over_amount_coupon as oac
+		  on agc.campaign_id=oac.campaign_id
+
+		union
+
+		select
+		  agc.goods_id,goods.goods_name,d.campaign_id,d.campaign_name,
+		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
+		from tb_newbee_mall_goods_category as cat
+		join tb_newbee_mall_goods_info as goods
+		  on cat.category_id = goods.goods_category_id
+		join apply_goods_campaign as agc
+		  on agc.goods_id = goods.goods_id
+		join discount as d
+		  on agc.campaign_id=d.campaign_id
+
+		) as temp
+		
+		where temp.parent_id=#{parentId,jdbcType=BIGINT}
+	</select>
+
+</mapper>
