@@ -15,7 +15,8 @@ public class ApplyGoodsCampaign {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
 	private Date validDateTo;
 	private long parentId;
-
+    private boolean deleteFlag;
+	
 	public long getGoodsId() {
 		return goodsId;
 	}
@@ -71,5 +72,15 @@ public class ApplyGoodsCampaign {
 	public void setValidDateTo(Date validDateTo) {
 		this.validDateTo = validDateTo;
 	}
+
+	public boolean isDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
+	
 
 }

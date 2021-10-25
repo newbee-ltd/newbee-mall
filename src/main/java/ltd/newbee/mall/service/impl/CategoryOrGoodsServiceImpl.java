@@ -18,6 +18,7 @@ import ltd.newbee.mall.dao.CategoryOrGoodsMapper;
 import ltd.newbee.mall.dao.StudentMapper;
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.entity.Student;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 import ltd.newbee.mall.service.StudentService;
@@ -29,6 +30,7 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 	@Autowired
 	private CategoryOrGoodsMapper categoryOrGoodsMapper;
 
+	//
 	@Override
 	public ArrayList<ApplyCategoryCampaign> getApplyCategory(ApplyCategoryCampaign applyCategoryCampaign) {
 		return categoryOrGoodsMapper.getApplyCategory(applyCategoryCampaign);
@@ -39,5 +41,45 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 		return categoryOrGoodsMapper.getApplyGoods(applyGoodsCampaign);
 	}
 
+	//
+	@Override
+	public long insertCategoryCampaign(ApplyCategoryCampaign applyCategoryCampaign) {
+		return categoryOrGoodsMapper.insertCategoryCampaign(applyCategoryCampaign);
+	}
+	@Override
+	public Long getMaxCategoryId(Long categoryId) {
+		Long maxCategoryId = categoryOrGoodsMapper.getMaxCategoryId(categoryId);
+		if (maxCategoryId != null) {
+			return maxCategoryId + 1;
+		} else {
+			return 1L;
+		}
+	}
+	
+	@Override
+	public long insertGoodsCampaign(ApplyGoodsCampaign applyGoodsCampaign) {
+		return categoryOrGoodsMapper.insertGoodsCampaign(applyGoodsCampaign);
+	}
+	@Override
+	public Long getMaxGoodsId(Long GoodsId) {
+		Long maxGoodsId = categoryOrGoodsMapper.getMaxGoodsId(GoodsId);
+		if (maxGoodsId != null) {
+			return maxGoodsId + 1;
+		} else {
+			return 1L;
+		}
+	}
 
+	//
+	@Override
+	public int updateCategoryDelete(ApplyCategoryCampaign applyCategoryCampaign) {
+		return categoryOrGoodsMapper.updateCategoryDelete(applyCategoryCampaign);
+	}
+	
+	@Override
+	public int updateGoodsDelete(ApplyGoodsCampaign applyGoodsCampaign) {
+		return categoryOrGoodsMapper.updateGoodsDelete(applyGoodsCampaign);
+	}
+	
+	
 }

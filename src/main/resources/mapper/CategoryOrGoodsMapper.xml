@@ -5,111 +5,119 @@
 
 	<select id="getApplyCategory" parameterType="java.lang.Long"
 		resultType="ltd.newbee.mall.entity.ApplyCategoryCampaign">
-		select * from (
+	select 
+	  cat.category_id,cat.category_name,c.campaign_id,c.campaign_name,acc.valid_date_from,acc.valid_date_to
+	from
+	tb_newbee_mall_goods_category as cat
+	left join apply_category_campaign as acc
+	  on acc.category_id = cat.category_id
+	left join campaign as c
+	  on acc.campaign_id = c.campaign_id
 
-		select
-		  acc.category_id,cat.category_name,oam.campaign_id,oam.campaign_name,
-		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join apply_category_campaign as acc
-		  on acc.category_id = cat.category_id
-		join over_amount_minus as oam
-		  on acc.campaign_id=oam.campaign_id
+	left join over_amount_minus as oam
+	  on acc.campaign_id=oam.campaign_id
+	left join buy_category_set as bcs
+	  on acc.campaign_id=bcs.campaign_id
+	left join over_amount_coupon as oac
+	  on acc.campaign_id=oac.campaign_id
+	left join discount as d
+	  on acc.campaign_id=d.campaign_id
 
-		union
-
-		select
-		  acc.category_id,cat.category_name,bcs.campaign_id,bcs.campaign_name,
-		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join apply_category_campaign as acc
-		  on acc.category_id = cat.category_id
-		join buy_category_set as bcs
-		  on acc.campaign_id=bcs.campaign_id
-
-		union
-
-		select
-		  acc.category_id,cat.category_name,oac.campaign_id,oac.campaign_name,
-		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join apply_category_campaign as acc
-		  on acc.category_id = cat.category_id
-		join over_amount_coupon as oac
-		  on acc.campaign_id=oac.campaign_id
-
-		union
-
-		select
-		  acc.category_id,cat.category_name,d.campaign_id,d.campaign_name,
-		  acc.valid_date_from,acc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join apply_category_campaign as acc
-		  on acc.category_id = cat.category_id
-		join discount as d
-		  on acc.campaign_id=d.campaign_id
-
-		) as temp
-		where temp.parent_id=#{parentId,jdbcType=BIGINT}
+	where cat.parent_id=#{parentId,jdbcType=BIGINT}
+	order by cat.category_id
 	</select>
 
 	<select id="getApplyGoods" parameterType="java.lang.Long"
 		resultType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
-		select * from (
+	select
+	  goods.goods_id,goods.goods_name,c.campaign_id,c.campaign_name,agc.valid_date_from,agc.valid_date_to
+	from tb_newbee_mall_goods_category as cat
+	join tb_newbee_mall_goods_info as goods
+	  on cat.category_id = goods.goods_category_id
+	left join apply_goods_campaign as agc
+	  on agc.goods_id = goods.goods_id
+	left join campaign as c
+	  on agc.campaign_id = c.campaign_id
 
-		select
-		  agc.goods_id,goods.goods_name,oam.campaign_id,oam.campaign_name,
-		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join tb_newbee_mall_goods_info as goods
-		  on cat.category_id = goods.goods_category_id
-		join apply_goods_campaign as agc
-		  on agc.goods_id = goods.goods_id
-		join over_amount_minus as oam
-		  on agc.campaign_id=oam.campaign_id
-
-		union
-
-		select
-		  agc.goods_id,goods.goods_name,bcs.campaign_id,bcs.campaign_name,
-		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join tb_newbee_mall_goods_info as goods
-		  on cat.category_id = goods.goods_category_id
-		join apply_goods_campaign as agc
-		  on agc.goods_id = goods.goods_id
-		join buy_category_set as bcs
-		  on agc.campaign_id=bcs.campaign_id
-
-		union
-
-		select
-		  agc.goods_id,goods.goods_name,oac.campaign_id,oac.campaign_name,
-		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join tb_newbee_mall_goods_info as goods
-		  on cat.category_id = goods.goods_category_id
-		join apply_goods_campaign as agc
-		  on agc.goods_id = goods.goods_id
-		join over_amount_coupon as oac
-		  on agc.campaign_id=oac.campaign_id
-
-		union
-
-		select
-		  agc.goods_id,goods.goods_name,d.campaign_id,d.campaign_name,
-		  agc.valid_date_from,agc.valid_date_to,cat.parent_id
-		from tb_newbee_mall_goods_category as cat
-		join tb_newbee_mall_goods_info as goods
-		  on cat.category_id = goods.goods_category_id
-		join apply_goods_campaign as agc
-		  on agc.goods_id = goods.goods_id
-		join discount as d
-		  on agc.campaign_id=d.campaign_id
-
-		) as temp
-		
-		where temp.parent_id=#{parentId,jdbcType=BIGINT}
+	left join over_amount_minus as oam
+	  on agc.campaign_id=oam.campaign_id
+	left join buy_category_set as bcs
+	  on agc.campaign_id=bcs.campaign_id
+	left join over_amount_coupon as oac
+	  on agc.campaign_id=oac.campaign_id
+	left join discount as d
+	  on agc.campaign_id=d.campaign_id
+	where cat.parent_id=#{parentId,jdbcType=BIGINT}
+	order by goods.goods_id
 	</select>
+	
+	
+	<insert id="insertCategoryCampaign" parameterType="ltd.newbee.mall.entity.ApplyCategoryCampaign">
+    insert into apply_category_campaign (category_id,campaign_id,valid_date_from,valid_date_to,delete_flag)
+    values (#{categoryId,jdbcType=BIGINT}, #{campaignId,jdbcType=BIGINT}, 
+      #{validDateFrom,jdbcType=TIMESTAMP}, #{validDateTo,jdbcType=TIMESTAMP},#{deleteFlag,jdbcType=TINYINT})
+    </insert>
+    
+    <select id="getMaxCategoryId" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select max(category_id) from apply_category_campaign
+		where category_id = #{categoryId,jdbcType=BIGINT}
+	</select>
+	
+    <insert id="insertGoodsCampaign" parameterType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
+    insert into apply_goods_campaign (goods_id,campaign_id,valid_date_from,valid_date_to,delete_flag)
+    values (#{goodsId,jdbcType=BIGINT}, #{campaignId,jdbcType=BIGINT}, 
+      #{validDateFrom,jdbcType=TIMESTAMP}, #{validDateTo,jdbcType=TIMESTAMP},#{deleteFlag,jdbcType=TINYINT})
+    </insert>
+    
+    <select id="getMaxGoodsId" parameterType="java.lang.Long" resultType="java.lang.Long">
+		select max(goods_id) from apply_goods_campaign
+		where goods_id = #{goodsId,jdbcType=BIGINT}
+	</select>
+  
+    <update id="updateCategoryDelete"
+		parameterType="ltd.newbee.mall.entity.ApplyCategoryCampaign">
+		update apply_category_campaign
+		<set>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="validDateFrom != null">
+				valid_date_from = #{validDateFrom,jdbcType=TIMESTAMP},
+			</if>
+			<if test="validDateTo != null">
+				valid_date_to = #{validDateTo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag,jdbcType=TINYINT},
+			</if>
+		</set>
+		where category_id = #{categoryId,jdbcType=BIGINT}
+	  </update>
+	
+	  <update id="updateGoodsDelete"
+		parameterType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
+		update apply_goods_campaign
+		<set>
+			<if test="goodsId != null">
+				goods_id = #{goodsId,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="validDateFrom != null">
+				valid_date_from = #{validDateFrom,jdbcType=TIMESTAMP},
+			</if>
+			<if test="validDateTo != null">
+				valid_date_to = #{validDateTo,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag,jdbcType=TINYINT},
+			</if>
+		</set>
+		where goods_id = #{goodsId,jdbcType=BIGINT}
+	</update>
 
 </mapper>

@@ -15,7 +15,8 @@ public class ApplyCategoryCampaign {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
 	private Date validDateTo;
 	private long parentId;
-
+	private boolean deleteFlag;
+	
 	public long getCategoryId() {
 		return categoryId;
 	}
@@ -71,5 +72,15 @@ public class ApplyCategoryCampaign {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+	public boolean isDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
+	
 
 }
