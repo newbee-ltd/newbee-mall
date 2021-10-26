@@ -2,147 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ltd.newbee.mall.dao.CampaignMapper">
     <!-- campaign查询 -->
-    <select id="getCampaignGoods" parameterType="Map" resultType="ltd.newbee.mall.entity.CampaignGoods">
-        select * from(
+    <select id="getCampaignGoods" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.CampaignGoods">
+	select
+	  goods.goods_id,goods.goods_name,c.campaign_id,c.campaign_name,agc.valid_date_from,agc.valid_date_to
+	from tb_newbee_mall_goods_category as cat
+	join tb_newbee_mall_goods_info as goods
+	  on cat.category_id = goods.goods_category_id
+	left join apply_goods_campaign as agc
+	  on agc.goods_id = goods.goods_id
+	left join campaign as c
+	  on agc.campaign_id = c.campaign_id
 
-        select agc.goods_id,
-               gi.goods_name,
-               oam.campaign_id,
-               oam.campaign_name,
-               agc.valid_date_from,
-               agc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join tb_newbee_mall_goods_info as gi
-        on cat.category_id = gi.goods_category_id
-        left join apply_goods_campaign as agc
-        on agc.goods_id = gi.goods_id
-        left join over_amount_minus as oam
-        on agc.campaign_id = oam.campaign_id
+	left join over_amount_minus as oam
+	  on agc.campaign_id=oam.campaign_id
+	left join buy_category_set as bcs
+	  on agc.campaign_id=bcs.campaign_id
+	left join over_amount_coupon as oac
+	  on agc.campaign_id=oac.campaign_id
+	left join discount as d
+	  on agc.campaign_id=d.campaign_id
+	where cat.parent_id=#{parentId,jdbcType=BIGINT}
+	order by goods.goods_id
+	</select>
+	
+    <select id="getCampaignCategory" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.CampaignCategory">
+	select 
+	  cat.category_id,cat.category_name,c.campaign_id,c.campaign_name,acc.valid_date_from,acc.valid_date_to
+	from
+	tb_newbee_mall_goods_category as cat
+	left join apply_category_campaign as acc
+	  on acc.category_id = cat.category_id
+	left join campaign as c
+	  on acc.campaign_id = c.campaign_id
 
-        union
+	left join over_amount_minus as oam
+	  on acc.campaign_id=oam.campaign_id
+	left join buy_category_set as bcs
+	  on acc.campaign_id=bcs.campaign_id
+	left join over_amount_coupon as oac
+	  on acc.campaign_id=oac.campaign_id
+	left join discount as d
+	  on acc.campaign_id=d.campaign_id
 
-        select agc.goods_id,
-               gi.goods_name,
-               bgs.campaign_id,
-               bgs.campaign_name,
-               agc.valid_date_from,
-               agc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join tb_newbee_mall_goods_info as gi
-        on cat.category_id = gi.goods_category_id
-        left join apply_goods_campaign as agc
-        on agc.goods_id = gi.goods_id
-        left join buy_goods_set as bgs
-        on agc.campaign_id = bgs.campaign_id
-
-        union
-
-        select agc.goods_id,
-               gi.goods_name,
-               oac.campaign_id,
-               oac.campaign_name,
-               agc.valid_date_from,
-               agc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join tb_newbee_mall_goods_info as gi
-        on cat.category_id = gi.goods_category_id
-        left join apply_goods_campaign as agc
-        on agc.goods_id = gi.goods_id
-        left join over_amount_coupon as oac
-        on agc.campaign_id = oac.campaign_id
-
-        union
-
-        select agc.goods_id,
-               gi.goods_name,
-               d.campaign_id,
-               d.campaign_name,
-               agc.valid_date_from,
-               agc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join tb_newbee_mall_goods_info as gi
-        on cat.category_id = gi.goods_category_id
-        left join apply_goods_campaign as agc
-        on agc.goods_id = gi.goods_id
-        left join discount as d
-        on agc.campaign_id = d.campaign_id
-
-        )as temp
-        where temp.parent_id = #{parentId} 
-        
-        order by goods_id
-    </select>
-    
-    <select id="getCampaignCategory" parameterType="Map" resultType="ltd.newbee.mall.entity.CampaignCategory">
-        select * from(
-
-        select acc.category_id,
-               cat.category_name,
-               oam.campaign_id,
-               oam.campaign_name,
-               acc.valid_date_from,
-               acc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join apply_category_campaign as acc
-        on acc.category_id = cat.category_id
-        left join over_amount_minus as oam
-        on acc.campaign_id = oam.campaign_id
-
-        union
-
-        select acc.category_id,
-               cat.category_name,
-               bcs.campaign_id,
-               bcs.campaign_name,
-               acc.valid_date_from,
-               acc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join apply_category_campaign as acc
-        on acc.category_id = cat.category_id
-        left join buy_category_set as bcs
-        on acc.campaign_id = bcs.campaign_id
-
-        union
-
-        select acc.category_id,
-               cat.category_name,
-               oac.campaign_id,
-               oac.campaign_name,
-               acc.valid_date_from,
-               acc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join apply_category_campaign as acc
-        on acc.category_id = cat.category_id
-        left join over_amount_coupon as oac
-        on acc.campaign_id = oac.campaign_id
-
-        union
-
-        select acc.category_id,
-               cat.category_name,
-               d.campaign_id,
-               d.campaign_name,
-               acc.valid_date_from,
-               acc.valid_date_to,
-               cat.parent_id
-        from tb_newbee_mall_goods_category as cat
-        left join apply_category_campaign as acc
-        on acc.category_id = cat.category_id
-        left join discount as d
-        on acc.campaign_id = d.campaign_id
-
-        )as temp
-        where temp.parent_id = #{parentId} 
-        
-        order by category_id
-    </select>
+	where cat.parent_id=#{parentId,jdbcType=BIGINT}
+	order by cat.category_id
+	</select>
     
     <!-- キャンペーン適用(商品) -->
     <select id="getMaxGoodsId" resultType="long">
@@ -261,26 +167,21 @@
          <if test="campaignId != null">
              campaign_id = #{campaignId,jdbcType=BIGINT},
          </if>
-         <if test="campaignName != null">
-             campaign_name = #{campaignName,jdbcType=VARCHAR},
-         </if>
          <if test="goodsId != null">
              goods_id = #{goodsId,jdbcType=BIGINT},
-         </if>
-         <if test="goodsName != null">
-             goods_name = #{goodsName,jdbcType=VARCHAR},
          </if>
          <if test="validDateFrom != null">
              valid_date_from = #{validDateFrom,jdbcType=TIMESTAMP},
          </if>
          <if test="validDateTo != null">
              valid_date_to = #{validDateTo,jdbcType=TIMESTAMP},
-         </if>
+         </if> 
          <if test="deleteFlg != null">
              delete_flg = #{deleteFlg,jdbcType=INTEGER},
-         </if>
+         </if>   
       </set>
         where goods_id = #{goodsId,jdbcType=BIGINT}
+        and campaign_id = #{campaignId,jdbcType=BIGINT}
     </update>
     
     <!-- キャンペーン削除(カテゴリー) -->
@@ -290,14 +191,8 @@
          <if test="campaignId != null">
              campaign_id = #{campaignId,jdbcType=BIGINT},
          </if>
-         <if test="campaignName != null">
-             campaign_name = #{campaignName,jdbcType=VARCHAR},
-         </if>
          <if test="categoryId != null">
              category_id = #{categoryId,jdbcType=BIGINT},
-         </if>
-         <if test="categoryName != null">
-             category_name = #{categoryName,jdbcType=VARCHAR},
          </if>
          <if test="validDateFrom != null">
              valid_date_from = #{validDateFrom,jdbcType=TIMESTAMP},
@@ -307,8 +202,19 @@
          </if>
          <if test="deleteFlg != null">
              delete_flg = #{deleteFlg,jdbcType=INTEGER},
-         </if>
+         </if> 
       </set>
         where category_id = #{categoryId,jdbcType=BIGINT}
+        and campaign_id = #{campaignId,jdbcType=BIGINT}
     </update>
+    
+    <!-- キャンペーン情報のdropDownListのAPI -->
+    <select id="getGoodsDropDownList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.CampaignGoods">
+        select campaign_name
+        from campaign where campaign_name =  #{campaignName,jdbcType=VARCHAR}
+    </select>
+    <select id="getCategoryDropDownList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select campaign_name
+        from campaign where campaign_name =  #{campaignName,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -18,13 +18,18 @@ public interface GoodsReviewService {
 	long insertGoodsReview(GoodsReview goodsReview);
 	
 	// 参考になった
-	/*
 	ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum);
 	boolean insertHelpNum(GoodsReview goodsReviewHelpNum);
 	boolean updateReviewNum(GoodsReview goodsReviewHelpNum);
 	long getHelpNum(long reviewId);
-	*/
-	long insertHelpNum(GoodsReview goodsReviewHelpNum);
-    long getHelpNumTwice(long reviewId);
+	
+//	long insertHelpNum(GoodsReview goodsReviewHelpNum);
+//    long getHelpNumTwice(long reviewId);
+    
+    // レビュー平均評価x.xの情報
+	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId);
+	
+	// 参考になったを押下した後、「参考になった（125人）」人数を計算
+	ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId);
 	
 }

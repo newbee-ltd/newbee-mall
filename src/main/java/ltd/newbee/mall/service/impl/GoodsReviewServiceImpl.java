@@ -42,7 +42,6 @@ public class GoodsReviewServiceImpl implements GoodsReviewService {
 	}
 	
 	// 参考になった
-	/*
 	@Override
 	public ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum) {
 		return goodsReviewMapper.getSankouUserId(goodsReviewHelpNum);
@@ -62,17 +61,28 @@ public class GoodsReviewServiceImpl implements GoodsReviewService {
 	public long getHelpNum(long reviewId) {
 		return goodsReviewMapper.getHelpNum(reviewId);
 	}
-	*/
 	
+//	@Override
+//	public long insertHelpNum(GoodsReview goodsReviewHelpNum) {
+//		long maxHelpNum = goodsReviewMapper.getMaxHelpNum();
+//		goodsReviewHelpNum.setHelpNum(maxHelpNum + 1);
+//		return goodsReviewMapper.insertHelpNum(goodsReviewHelpNum);
+//	}
+//	
+//	@Override
+//	public long getHelpNumTwice(long reviewId) {
+//		return goodsReviewMapper.getHelpNumTwice(reviewId);
+//	}
+	
+	// レビュー平均評価x.xの情報
 	@Override
-	public long insertHelpNum(GoodsReview goodsReviewHelpNum) {
-		long maxHelpNum = goodsReviewMapper.getMaxHelpNum();
-		goodsReviewHelpNum.setHelpNum(maxHelpNum + 1);
-		return goodsReviewMapper.insertHelpNum(goodsReviewHelpNum);
+	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId) {
+		return goodsReviewMapper.getAverageStarByGoodsId(goodsId);
 	}
 	
-	@Override
-	public long getHelpNumTwice(long reviewId) {
-		return goodsReviewMapper.getHelpNumTwice(reviewId);
+	// 参考になったを押下した後、「参考になった（125人）」人数を計算
+	public ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId) {
+		return goodsReviewMapper.getReviewHelpNum(goodsId, reviewId);
 	}
+	
 }

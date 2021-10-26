@@ -8,8 +8,8 @@ import ltd.newbee.mall.entity.CampaignGoods;
 public interface CampaignService {
 	
 	// campaign查询
-	ArrayList<CampaignGoods> getCampaignGoods(CampaignGoods campaignGoods);
-	ArrayList<CampaignCategory> getCampaignCategory(CampaignCategory campaignCategory);
+	ArrayList<CampaignGoods> getCampaignGoods(long parentId);
+	ArrayList<CampaignCategory> getCampaignCategory(long parentId);
 	
 	// キャンペーン適用(商品)
 	long insertCampaignGoods(CampaignGoods campaignGoods);
@@ -22,5 +22,9 @@ public interface CampaignService {
 	
 	// キャンペーン削除(カテゴリー)
 	long updateCampaignCategory(CampaignCategory campaignCategory);	
+	
+	// キャンペーン情報のdropDownListのAPI
+	ArrayList<CampaignGoods> getGoodsDropDownList(String campaignName);
+	ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName);
 	
 }

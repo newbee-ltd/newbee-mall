@@ -129,8 +129,8 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     
     // ①GoodsImgServiceImpl
     @Override
-	public ArrayList<GoodsImg> getGoodsImgByGoodsId(long id) {
-		return goodsMapper.getGoodsImgByGoodsId(id);
+	public ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId) {
+		return goodsMapper.getGoodsImgByGoodsId(goodsId);
 	}
     
     // ②GoodsDetailServiceImpl
@@ -138,22 +138,5 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	public ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long GoodsId) {
 		return goodsMapper.getGoodsDetailByGoodsId(GoodsId);
     }
-	
-    // ③QuestionAndAnswerServiceImpl
-  
-    // ④QuestionSankouServicesImpl
-    /*
-    @Override
-    public ArrayList<QuestionSankou> getQuestionSankouByGoodsId(long goodsID) {
-    	return goodsMapper.getQuestionSankouByGoodsId(goodsID);
-    }
-    
-    @Override
-    public int insertQuestionSankou(QuestionSankou questionSankou) {
-    	int userId = goodsMapper.getMaxUserID();
-    	questionSankou.setUserId(userId + 1);
-    	return goodsMapper.insertQuestionSankou(questionSankou);
-    }
-    */
     
 }

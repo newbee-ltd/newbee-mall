@@ -53,19 +53,9 @@ public interface NewBeeMallGoodsMapper {
     int batchUpdateSellStatus(@Param("orderIds")Long[] orderIds,@Param("sellStatus") int sellStatus);
 
     // ①GoodsImgMapper
-    public ArrayList<GoodsImg> getGoodsImgByGoodsId(long id);
+    public ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId);
     
     // ②GoodsDetailMapper
-    public ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long GoodsId);
-    
-    // ③QuestionAndAnswerMapper   
-    
-    // ④QuestionSankouMapper
-    /*
-    public ArrayList<QuestionSankou> getQuestionSankouByGoodsId(long goodsID);
-    
-    int insertQuestionSankou(QuestionSankou questionSankou);
-    int getMaxUserID();
-    */
+    public ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long goodsId);
 
 }

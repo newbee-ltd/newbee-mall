@@ -75,17 +75,9 @@ public interface NewBeeMallGoodsService {
     PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
     
     // ①GoodsImgService
-    ArrayList<GoodsImg> getGoodsImgByGoodsId(long id);
+    ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId);
     
     // ②GoodsDetailService
-    ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long GoodsId);
+    ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long goodsId);
     
-    // ③QuestionAndAnswerService
-    
-    // ④QuestionSankouServices
-    /*
-    ArrayList<QuestionSankou> getQuestionSankouByGoodsId(long goodsID);
-    
-    int insertQuestionSankou(QuestionSankou questionSankou);
-    */
 }

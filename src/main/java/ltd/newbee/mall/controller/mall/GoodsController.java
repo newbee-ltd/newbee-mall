@@ -13,19 +13,30 @@ import ltd.newbee.mall.common.NewBeeMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallGoodsDetailVO;
 import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
+import ltd.newbee.mall.entity.GoodsDetail;
+import ltd.newbee.mall.entity.GoodsImg;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.Result;
+import ltd.newbee.mall.util.ResultGenerator;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -87,6 +98,30 @@ public class GoodsController {
         goodsDetailVO.setGoodsCarouselList(goods.getGoodsCarousel().split(","));
         request.setAttribute("goodsDetail", goodsDetailVO);
         return "mall/detail";
+    }
+    
+    @RequestMapping(value = "/goodsImgs", method = RequestMethod.GET)
+    @ResponseBody
+    public Result goodsImgList(@RequestParam long goodsId) {
+    	
+    	List<GoodsImg> goodsImgList = newBeeMallGoodsService.getGoodsImgByGoodsId(goodsId);
+    	if (CollectionUtils.isEmpty(goodsImgList)) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult(goodsImgList);
+    	}
+    }
+    
+    @RequestMapping(value = "/goodsDetails", method = RequestMethod.GET)
+    @ResponseBody
+    public Result goodsDetailList(@RequestParam long goodsId) {
+    	
+    	List<GoodsDetail> goodsDetailList = newBeeMallGoodsService.getGoodsDetailByGoodsId(goodsId);
+    	if (CollectionUtils.isEmpty(goodsDetailList)) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult(goodsDetailList);
+    	}
     }
 
 }

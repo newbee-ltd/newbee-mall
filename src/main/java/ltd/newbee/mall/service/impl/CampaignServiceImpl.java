@@ -18,13 +18,13 @@ public class CampaignServiceImpl implements CampaignService {
 	
 	// campaign查询
 	@Override
-	public ArrayList<CampaignGoods> getCampaignGoods(CampaignGoods campaignGoods) {
-		return campaignMapper.getCampaignGoods(campaignGoods);
+	public ArrayList<CampaignGoods> getCampaignGoods(long parentId) {
+		return campaignMapper.getCampaignGoods(parentId);
 	}
 	
 	@Override
-	public ArrayList<CampaignCategory> getCampaignCategory(CampaignCategory campaignCategory) {
-		return campaignMapper.getCampaignCategory(campaignCategory);
+	public ArrayList<CampaignCategory> getCampaignCategory(long parentId) {
+		return campaignMapper.getCampaignCategory(parentId);
 	}
 	
 	// キャンペーン適用(商品)
@@ -54,6 +54,17 @@ public class CampaignServiceImpl implements CampaignService {
 	public long updateCampaignCategory(CampaignCategory campaignCategory) {
 		long count = campaignMapper.updateCampaignCategory(campaignCategory);
 		return count;
+	}
+	
+	// キャンペーン情報のdropDownListのAPI
+	@Override
+	public ArrayList<CampaignGoods> getGoodsDropDownList(String campaignName) {
+		return campaignMapper.getGoodsDropDownList(campaignName);
+	}
+	
+	@Override
+	public ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName) {
+		return campaignMapper.getCategoryDropDownList(campaignName);
 	}
 
 }

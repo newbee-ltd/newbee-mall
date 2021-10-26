@@ -51,5 +51,12 @@ public class Constants {
     
     public final static String STUDENT_FETCH_ERROR_MESSAGE = "該当学生がいません";
     public final static int FETCH_ERROR = 300;//リターンコード
+    
+    public final static String CAMPAIGNGOODS_FETCH_ERROR_MESSAGE = "該当商品がありません";
+    public final static String CAMPAIGNCATEGORY_FETCH_ERROR_MESSAGE = "該当カテゴリーがありません";
+    public final static String CAMPAIGN_FETCH_ERROR_MESSAGE = "キャンペーン期間外";
+    public final static String CAMPAIGNINSERT_FETCH_SUCCESS_MESSAGE = "キャンペーン応用情報の取得に成功しました";
+    public final static String CAMPAIGNDELETE_FETCH_SUCCESS_MESSAGE = "キャンペーンの削除に成功しました";
+    public final static String ERROR_MESSAGE = "Error!";
 
 }

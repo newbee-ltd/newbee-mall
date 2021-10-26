@@ -385,21 +385,17 @@
   
   <!-- ①GoodsImgMapper -->
   <select id="getGoodsImgByGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsImg">
-        insert goods_id, goods_img_url
-        from goods_img where goods_id = #{id,jdbcType=BIGINT}
+        select goods_id, goods_img_url
+        from goods_img where goods_id = #{goodsId,jdbcType=BIGINT}
   </select>
   
   <!-- ②GoodsDetailMapper -->
   <select id="getGoodsDetailByGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsDetail">
-        insert goods_id, goods_color, goods_material, goods_size_weight, goods_size_weight_unit, 
+        select goods_id, goods_color, goods_material, goods_size_weight, goods_size_weight_unit, 
         goods_size_height, goods_size_height_unit, goods_size_length, goods_size_length_unit, 
         goods_size_width, goods_size_width_unit, goods_package_size, goods_warranty_year, 
         goods_warranty_year_unit, goods_assembly_time, goods_assembly_time_unit
         
         from goods_detail where goods_id = #{goodsId,jdbcType=BIGINT}
   </select>
-
-  <!-- ③QuestionAndAnswerMapper -->
-  
-  <!-- ④QuestionSankouMapper -->
 </mapper>

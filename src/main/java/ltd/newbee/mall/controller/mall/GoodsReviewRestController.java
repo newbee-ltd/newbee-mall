@@ -76,7 +76,6 @@ public class GoodsReviewRestController {
     }
     
     // 参考になった
-    /*
     @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
     @ResponseBody
     public Result getHelpNum(GoodsReview goodsReviewHelpNum, HttpSession httpSession) {
@@ -102,28 +101,53 @@ public class GoodsReviewRestController {
     	}
 		return ResultGenerator.genFailResult("改修失敗！");  
     }
-    */
 
-    @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
+//    @RequestMapping(value = "/insertReviewHelpNum", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result getHelpNum(GoodsReview goodsReviewHelpNum, long reviewId, HttpSession httpSession) {
+//        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+//        if (user != null) {
+//        	goodsReviewHelpNum.setSankouUserId(6);
+//        }
+//        
+//        long count = goodsReviewService.getHelpNumTwice(reviewId);
+//        if (count > 0) {
+//        	ResultGenerator.genFailResult("押下したことがありますので、押下できません。");
+//        } else {
+//        	long insertCount = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
+//        	if (insertCount > 0) {
+//        		return ResultGenerator.genSuccessResult(insertCount);
+//        	} else {
+//        		return ResultGenerator.genErrorResult(300, "改修失敗！");
+//        	}
+//        }
+//		return ResultGenerator.genErrorResult(300, "改修失敗！");
+//    }
+    
+    // レビュー平均評価x.xの情報
+    @RequestMapping(value = "/goodsReview/averageStar", method = RequestMethod.GET)
     @ResponseBody
-    public Result getHelpNum(GoodsReview goodsReviewHelpNum, long reviewId, HttpSession httpSession) {
-        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-        if (user != null) {
-        	goodsReviewHelpNum.setSankouUserId(6);
-        }
-        
-        long count = goodsReviewService.getHelpNumTwice(reviewId);
-        if (count > 0) {
-        	ResultGenerator.genFailResult("押下したことがありますので、押下できません。");
-        } else {
-        	long insertCount = goodsReviewService.insertHelpNum(goodsReviewHelpNum);
-        	if (insertCount > 0) {
-        		return ResultGenerator.genSuccessResult(insertCount);
-        	} else {
-        		return ResultGenerator.genErrorResult(300, "改修失敗！");
-        	}
-        }
-		return ResultGenerator.genErrorResult(300, "改修失敗！");
+    public Result averageStar(@RequestParam long goodsId) {
+    	
+    	List<GoodsReview> averageStar = goodsReviewService.getAverageStarByGoodsId(goodsId);
+    	if (CollectionUtils.isEmpty(averageStar)) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult(averageStar);
+    	}
+    }
+    
+    // 参考になったを押下した後、「参考になった（125人）」人数を計算
+    @RequestMapping(value = "/goodsReview/reviewHelpNum", method = RequestMethod.GET)
+    @ResponseBody
+    public Result reviewHelpNum(@RequestParam long goodsId, long reviewId) {
+    	
+    	List<GoodsReview> reviewHelpNum = goodsReviewService.getReviewHelpNum(goodsId, reviewId);
+    	if (CollectionUtils.isEmpty(reviewHelpNum)) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult(reviewHelpNum);
+    	}
     }
 }   
 	
@@ -152,4 +176,6 @@ public class GoodsReviewRestController {
         return ResultGenerator.genFailResult("yichang");    
     }
     */
+
+
     

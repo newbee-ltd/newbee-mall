@@ -26,15 +26,19 @@ public interface GoodsReviewMapper {
 	 *  分页的sql有错误，应该是goods_qa left join help_num_tbl 。
 	 *  因为会有qa没有人点参考になった，如果是join的话，没有被点参加になった的不会被抽出。
 	 */
-	 /*
 	 public ArrayList<GoodsReview> getSankouUserId(GoodsReview goodsReviewHelpNum);
 	 boolean insertHelpNum(GoodsReview goodsReviewHelpNum);
 	 boolean updateReviewNum(GoodsReview goodsReviewHelpNum);
 	 long getHelpNum(long reviewId);
-	 */
-	 long insertHelpNum(GoodsReview goodsReviewHelpNum);
-	 long getMaxHelpNum();
-	 long getHelpNumTwice(long reviewId);
 	 
-	
+//	 long insertHelpNum(GoodsReview goodsReviewHelpNum);
+//	 long getMaxHelpNum();
+//	 long getHelpNumTwice(long reviewId);
+	 
+	 // レビュー平均評価x.xの情報
+	 public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId);
+	 
+	 // 参考になったを押下した後、「参考になった（125人）」人数を計算
+	 public ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId);
+	 
 }

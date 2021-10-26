@@ -101,7 +101,7 @@
     </insert>  
     
     <!-- 参考になった --> 
-    <!--  <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.GoodsReview">
+    <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.GoodsReview">
          insert into review_sankou
          <trim prefix="(" suffix=")" suffixOverrides=",">
              <if test="goodsId != null">
@@ -154,8 +154,8 @@
         where review_sankou.sankou_user_id = #{sankouUserId,jdbcType=BIGINT} 
         and review_sankou.goods_id = #{goodsId,jdbcType=BIGINT} 
         and review_sankou.review_id = #{reviewId,jdbcType=BIGINT} 
-    </select> -->
-    
+    </select>
+    <!-- 
     <select id="getMaxHelpNum" resultType="java.lang.Long">
         select max(sankou_user_id) from review_sankou
     </select> 
@@ -200,4 +200,24 @@
         and goods_id = #{goodsId,jdbcType=BIGINT}
         and sankou_user_id = #{sankouUserId,jdbcType=BIGINT}
     </select> 
+    -->
+    <!-- レビュー平均評価x.xの情報 --> 
+    <select id="getAverageStarByGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsReview">
+        select avg(star) as average_star, goods_id from review
+        where goods_id = #{goodsId,jdbcType=BIGINT}
+        group by goods_id
+    </select>
+    
+    <!-- 参考になったを押下した後、「参考になった（125人）」人数を計算 --> 
+    <select id="getReviewHelpNum" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsReview">
+        select r.review_id, r.goods_id,
+        count(rs.sankou_user_id) as help_num
+        from review as r left join review_sankou as rs
+        on rs.goods_id = r.goods_id
+        and rs.review_id = r.review_id
+        where r.review_id = #{reviewId,jdbcType=BIGINT}
+        and r.goods_id = #{goodsId,jdbcType=BIGINT}
+        group by r.review_id, r.goods_id
+        order by r.review_id
+    </select>
 </mapper>

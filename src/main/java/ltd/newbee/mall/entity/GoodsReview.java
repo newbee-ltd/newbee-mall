@@ -18,6 +18,7 @@ public class GoodsReview {
 	private String imageUrl;
 	private long helpNum;
 	private long limit;
+	private double averageStar;
 
 	public long getGoodsId() {
 		return goodsId;
@@ -84,6 +85,12 @@ public class GoodsReview {
 	}
 	public void setLimit(long limit) {
 		this.limit = limit;
+	}
+	public double getAverageStar() {
+		return averageStar;
+	}
+	public void setAverageStar(double averageStar) {
+		this.averageStar = averageStar;
 	}
 
 }
