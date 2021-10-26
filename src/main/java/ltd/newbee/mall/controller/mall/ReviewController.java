@@ -26,6 +26,7 @@ import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.entity.ReviewSannkou;
+import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.ReviewService;
 import ltd.newbee.mall.util.PageInquiryUtil;
 import ltd.newbee.mall.util.PageInquiryUtil2;
@@ -105,19 +106,6 @@ public class ReviewController {
 
 	}
 
-//	@RequestMapping(value = "/review/{reviewId}", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Result orderDetailPage(HttpServletRequest request, @PathVariable("reviewId") long reviewId,
-//			HttpSession httpSession) {
-//		NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
-//		ReviewVO reviewVO = reviewService.getReviewDetail(reviewId, user.getUserId());
-//		if (reviewVO == null) {
-//			return ResultGenerator.genFailResult("error/error_5xx");
-//		} else {
-//			httpSession.setAttribute("orderDetailVO", reviewVO);
-//			return ResultGenerator.genSuccessResult("mall/order-detail");
-//		}
-//	}
 
 	@RequestMapping(value = "/reviewHelpNum", method = RequestMethod.GET)
 	@ResponseBody
@@ -126,17 +114,6 @@ public class ReviewController {
 		if (user != null) {
 			reviewSannkou.setSannkouUserId(2001);
 		}
-
-//		if (count >0 ) {
-//			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
-//		}else{
-//			insertCount = xxxService.xxxInsert()
-//			if(insertCount> 0){
-//				return ResultGenerator.genSuccessResult("処理が成功しました。");
-//			}else{
-//				return ResultGenerator.genFailResult("処理が失敗しました。");
-//			}
-//		}
 
 		List<ReviewSannkou> list = reviewService.getReviewSannkouUserId(reviewSannkou);
 		if (!CollectionUtils.isEmpty(list)) {
@@ -155,5 +132,29 @@ public class ReviewController {
 		}
 		return ResultGenerator.genFailResult("処理が失敗しました！");
 	}
+	
 
+	@RequestMapping(value = "/averageStar", method = RequestMethod.GET)
+	@ResponseBody
+	public Result AverageStar(Long goodsId) {
+        List<Review> list = reviewService.getAverageStar(goodsId);
+        if(CollectionUtils.isEmpty(list)) {
+        	return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "参考になったリストの取得は失敗した！");
+        }else {
+        	return ResultGenerator.genSuccessResult(list);
+        }
+    }
+    
+	@RequestMapping(value = "/totalSannkou", method = RequestMethod.GET)
+	@ResponseBody
+	public Result totalSannkou(Long goodsId, Long reviewId) {
+        List<Review> list = reviewService.getTotalSannkou(goodsId, reviewId);
+        if(CollectionUtils.isEmpty(list)) {
+        	return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "参考になったリストの取得は失敗した！");
+        }else {
+        	return ResultGenerator.genSuccessResult(list);
+        }
+    }
+
+	
 }

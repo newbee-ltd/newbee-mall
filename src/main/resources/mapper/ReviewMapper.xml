@@ -160,7 +160,6 @@
 		FROM review_sannkou 
 		where review_id = #{reviewId,jdbcType=BIGINT}
 	</select>
-
  
     <select id="getReviewSannkouUserId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.ReviewSannkou">
         select rs.goods_id,rs.review_id,rs.sannkou_user_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
@@ -169,6 +168,21 @@
         where rs.sannkou_user_id = #{sannkouUserId,jdbcType=BIGINT} 
               and rs.goods_id = #{goodsId,jdbcType=BIGINT} 
               and rs.review_id = #{reviewId,jdbcType=BIGINT} 
-    </select> 
-    
+    </select>
+
+    <select id="getAverageStar" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.ReviewAverageStar">
+	    select round(avg(star),2) as average_star
+	    from review 
+	    where goods_id = #{goodsId,jdbcType=BIGINT};
+	</select>
+
+	<select id="getTotalSannkou" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.ReviewSannkouNum">
+	    select r.goods_id,r.review_id,count(rs.sannkou_user_id) as help_num
+	    from review as r left join review_sannkou as rs
+	    on r.review_id = rs.review_id and r.goods_id=rs.goods_id
+	    where r.goods_id=#{goodsId,jdbcType=BIGINT} and r.review_id=#{reviewId,jdbcType=BIGINT}
+	    group by r.review_id,r.goods_id
+	    order by r.goods_id,r.review_id;
+	</select>
+	
 </mapper>

@@ -2,23 +2,28 @@
 package ltd.newbee.mall.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.campaign.Campaign;
 
 public interface CategoryOrGoodsService {
 	
-	ArrayList<ApplyCategoryCampaign> getApplyCategory(ApplyCategoryCampaign applyCategoryCampaign);
+	ArrayList<ApplyCategoryCampaign> getApplyCategory(long parentId);
 	
-	ArrayList<ApplyGoodsCampaign> getApplyGoods(ApplyGoodsCampaign applyGoodsCampaign);
+	ArrayList<ApplyGoodsCampaign> getApplyGoods(long parentId);
+	
 	
 	long insertCategoryCampaign(ApplyCategoryCampaign applyCategoryCampaign);
-	Long getMaxCategoryId(Long categoryId);
 	
 	long insertGoodsCampaign(ApplyGoodsCampaign applyGoodsCampaign);
-	Long getMaxGoodsId(Long GoodsId);
+	
 	
 	int updateCategoryDelete(ApplyCategoryCampaign applyCategoryCampaign);
+	
 	int updateGoodsDelete(ApplyGoodsCampaign applyGoodsCampaign);
+	
+	List<Campaign> dropDownList();
 
 }

@@ -1,12 +1,17 @@
 package ltd.newbee.mall.controller.mall;
 
 
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +23,7 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 
 import ltd.newbee.mall.util.Result;
@@ -31,19 +37,26 @@ public class CategoryOrGoodsController {
 
 	@RequestMapping(value = "/applyCampaign", method = RequestMethod.GET)
 	@ResponseBody
-	public Result applyCampaign(ApplyGoodsCampaign applyGoodsCampaign, ApplyCategoryCampaign applyCategoryCampaign) {
-		ArrayList<ApplyCategoryCampaign> categoryList = categoryOrGoodsService.getApplyCategory(applyCategoryCampaign);
-		ArrayList<ApplyGoodsCampaign> goodsList = categoryOrGoodsService.getApplyGoods(applyGoodsCampaign);
-		if (categoryList.size() == 0 && goodsList.size() == 0) {
-			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "該当カテゴリもしくはグッズがない");
-		} else if (goodsList.size() > 0) {
-			return ResultGenerator.genSuccessResult(goodsList);
+	public Result applyCampaign(long parentId) {
+		
+		ArrayList<ApplyGoodsCampaign> goodsList = categoryOrGoodsService.getApplyGoods(parentId);
+		
+		if (goodsList != null && goodsList.size() == 0) {
+			
+			ArrayList<ApplyCategoryCampaign> categoryList = categoryOrGoodsService.getApplyCategory(parentId);
+			if (categoryList != null && categoryList.size() == 0) {
+				return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "該当カテゴリリストもしくはグッズリストがない！");
+			} else {
+				return ResultGenerator.genSuccessResult(categoryList);
+			}
+			
 		} else {
-			return ResultGenerator.genSuccessResult(categoryList);
+			return ResultGenerator.genSuccessResult(goodsList);
 		}
 	}
 
-	@RequestMapping(value = "/insertCategoryCampaign", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/applyCategoryCampaign", method = RequestMethod.POST)
 	@ResponseBody
 	public Result insertCategoryCampaign(@RequestBody ApplyCategoryCampaign applyCategoryCampaign) {
 
@@ -52,8 +65,6 @@ public class CategoryOrGoodsController {
 		int compareTo = validDateFrom.compareTo(validDateTo);
 		if (compareTo < 0) {
 			long count = categoryOrGoodsService.insertCategoryCampaign(applyCategoryCampaign);
-			Long categoryId = categoryOrGoodsService.getMaxCategoryId(applyCategoryCampaign.getCampaignId());
-			applyCategoryCampaign.setCampaignId(categoryId);
 			if (count > 0) {
 				return ResultGenerator.genSuccessResult("キャンペーン応用情報の挿入に成功しました。");
 			} else {
@@ -64,7 +75,7 @@ public class CategoryOrGoodsController {
 		}
 	}
 	
-	@RequestMapping(value = "/insertGoodsCampaign", method = RequestMethod.POST)
+	@RequestMapping(value = "/GoodsCampaignFlag", method = RequestMethod.POST)
 	@ResponseBody
 	public Result insertGoodsCampaign(@RequestBody ApplyGoodsCampaign applyGoodsCampaign) {
 
@@ -73,8 +84,6 @@ public class CategoryOrGoodsController {
 		int compareTo = validDateFrom.compareTo(validDateTo);
 		if (compareTo < 0) {
 			long count = categoryOrGoodsService.insertGoodsCampaign(applyGoodsCampaign);
-			Long goodsId = categoryOrGoodsService.getMaxGoodsId(applyGoodsCampaign.getGoodsId());
-			applyGoodsCampaign.setGoodsId(goodsId);
 			if (count > 0) {
 				return ResultGenerator.genSuccessResult("キャンペーン応用情報の挿入に成功しました。");
 			} else {
@@ -85,8 +94,8 @@ public class CategoryOrGoodsController {
 		}
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
-	@PutMapping(value = "/updateCategoryDelete")
+
+	@PutMapping(value = "/categoryDeleteFlag")
 	@ResponseBody
 	public Result updateCategoryDelete(@RequestBody ApplyCategoryCampaign applyCategoryCampaign) {
 		int updateCategoryDelete = categoryOrGoodsService.updateCategoryDelete(applyCategoryCampaign);
@@ -97,8 +106,8 @@ public class CategoryOrGoodsController {
 		}
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
-	@PutMapping(value = "/updateGoodsDelete")
+
+	@PutMapping(value = "/goodsDeleteFlag")
 	@ResponseBody
 	public Result updateGoodsDelete(@RequestBody ApplyGoodsCampaign applyGoodsCampaign) {
 		int updateGoodsDelete = categoryOrGoodsService.updateGoodsDelete(applyGoodsCampaign);
@@ -108,5 +117,21 @@ public class CategoryOrGoodsController {
 			return ResultGenerator.genSuccessResult("更新した");
 		}
 	}
+	
+
+	@RequestMapping(value = "/dropDownList", method = RequestMethod.GET)
+	@ResponseBody
+	public Result addDropDownList() {
+        List<Campaign> list = categoryOrGoodsService.dropDownList();
+        if(CollectionUtils.isEmpty(list)) {
+        	return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "キャンペーンリストの取得は失敗した！");
+        }else {
+        	return ResultGenerator.genSuccessResult(list);
+        }
+        
+    }
+
+	
+	
 
 }

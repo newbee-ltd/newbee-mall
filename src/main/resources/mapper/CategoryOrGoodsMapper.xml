@@ -57,22 +57,13 @@
     values (#{categoryId,jdbcType=BIGINT}, #{campaignId,jdbcType=BIGINT}, 
       #{validDateFrom,jdbcType=TIMESTAMP}, #{validDateTo,jdbcType=TIMESTAMP},#{deleteFlag,jdbcType=TINYINT})
     </insert>
-    
-    <select id="getMaxCategoryId" parameterType="java.lang.Long" resultType="java.lang.Long">
-		select max(category_id) from apply_category_campaign
-		where category_id = #{categoryId,jdbcType=BIGINT}
-	</select>
-	
+
     <insert id="insertGoodsCampaign" parameterType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
     insert into apply_goods_campaign (goods_id,campaign_id,valid_date_from,valid_date_to,delete_flag)
     values (#{goodsId,jdbcType=BIGINT}, #{campaignId,jdbcType=BIGINT}, 
       #{validDateFrom,jdbcType=TIMESTAMP}, #{validDateTo,jdbcType=TIMESTAMP},#{deleteFlag,jdbcType=TINYINT})
     </insert>
-    
-    <select id="getMaxGoodsId" parameterType="java.lang.Long" resultType="java.lang.Long">
-		select max(goods_id) from apply_goods_campaign
-		where goods_id = #{goodsId,jdbcType=BIGINT}
-	</select>
+
   
     <update id="updateCategoryDelete"
 		parameterType="ltd.newbee.mall.entity.ApplyCategoryCampaign">
@@ -94,7 +85,7 @@
 				delete_flag = #{deleteFlag,jdbcType=TINYINT},
 			</if>
 		</set>
-		where category_id = #{categoryId,jdbcType=BIGINT}
+		where category_id = #{categoryId,jdbcType=BIGINT} and campaign_id= #{campaignId,jdbcType=BIGINT}
 	  </update>
 	
 	  <update id="updateGoodsDelete"
@@ -117,7 +108,12 @@
 				delete_flag = #{deleteFlag,jdbcType=TINYINT},
 			</if>
 		</set>
-		where goods_id = #{goodsId,jdbcType=BIGINT}
+		where goods_id = #{goodsId,jdbcType=BIGINT} and campaign_id= #{campaignId,jdbcType=BIGINT}
 	</update>
+
+	<select id="dropDownList" resultType="ltd.newbee.mall.entity.campaign.Campaign">
+		select campaign_id,campaign_name
+		from Campaign
+	</select>
 
 </mapper>

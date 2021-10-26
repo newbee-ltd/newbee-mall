@@ -76,26 +76,16 @@ public class ReviewServiceImpl implements ReviewService {
 		List<ReviewVO> reviewVOList = BeanUtil.copyList(entityList, ReviewVO.class);
 		return reviewVOList;
 	}
-	
-//	@Override
-//    public Review getReviewByReviewId(long reviewId){
-//        return reviewMapper.getReviewByReviewId(reviewId);
-//    }
-//	@Override
-//    public ReviewVO getReviewDetail(long reviewId, Long userId) {
-//		return null;
-//	}
 
+    //
 	@Override
 	public List<ReviewSannkou>  getReviewSannkouUserId(ReviewSannkou reviewSannkou){
 		return reviewMapper.getReviewSannkouUserId(reviewSannkou);
 	}
-	
 	@Override
 	public boolean insertHelpNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.insertHelpNum(reviewSannkou);
 	}
-	
 	@Override
 	public boolean updateReviewNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.updateReviewNum(reviewSannkou);
@@ -105,4 +95,19 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewMapper.getHelpNum(reviewId);
 	}
 
+	//
+	@Override
+	public List<Review> getAverageStar(Long goodsId){
+		return reviewMapper.getAverageStar(goodsId);
+	}
+	
+	//
+	@Override
+	public List<Review> getTotalSannkou(Long goodsId, Long reviewId){
+		return reviewMapper.getTotalSannkou(goodsId, reviewId);
+	}
+	
+
+	
+	
 }

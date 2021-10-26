@@ -30,10 +30,15 @@ public interface ReviewMapper {
 	
 	//参考になったを押下した際、どの商品、どのレビューに対して誰が押したかをDBに記録する必要がある。
 	//かつ、押下したことがあるユーザーならば、警告メッセージが提出してください。
-	
 	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
 	boolean updateReviewNum(ReviewSannkou reviewSannkou);
 	long getHelpNum(long reviewId);
+	
+	//レビュー平均評価x.xの情報
+	List<Review> getAverageStar(Long goodsId);
+	
+	//参考になったを押下した後、「参考になった（125人）」人数を計算
+	List<Review> getTotalSannkou(Long goodsId, Long reviewId);
 
 }
