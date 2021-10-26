@@ -25,13 +25,15 @@ public interface ReviewService {
 	
 	List<ReviewVO> getGoodsReviews(Long goodsId);
 
-//	Review getReviewByReviewId(long reviewId);
 	
 	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
     boolean updateReviewNum(ReviewSannkou reviewSannkou);
     long getHelpNum(long reviewId); 
 
-//	ReviewVO getReviewDetail(long reviewId, Long userId);
+
+    List<Review> getAverageStar(Long goodsId);
+    
+    List<Review> getTotalSannkou(Long goodsId, Long reviewId);
 	
 }

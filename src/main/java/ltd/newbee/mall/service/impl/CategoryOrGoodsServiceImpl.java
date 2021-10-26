@@ -9,6 +9,7 @@
 package ltd.newbee.mall.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
 import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.entity.Student;
+import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 import ltd.newbee.mall.service.StudentService;
 import ltd.newbee.mall.util.PageInquiryUtil;
@@ -32,13 +34,13 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 
 	//
 	@Override
-	public ArrayList<ApplyCategoryCampaign> getApplyCategory(ApplyCategoryCampaign applyCategoryCampaign) {
-		return categoryOrGoodsMapper.getApplyCategory(applyCategoryCampaign);
+	public ArrayList<ApplyCategoryCampaign> getApplyCategory(long parentId) {
+		return categoryOrGoodsMapper.getApplyCategory(parentId);
 	}
 	
 	@Override
-	public ArrayList<ApplyGoodsCampaign> getApplyGoods(ApplyGoodsCampaign applyGoodsCampaign) {
-		return categoryOrGoodsMapper.getApplyGoods(applyGoodsCampaign);
+	public ArrayList<ApplyGoodsCampaign> getApplyGoods(long parentId) {
+		return categoryOrGoodsMapper.getApplyGoods(parentId);
 	}
 
 	//
@@ -46,29 +48,12 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 	public long insertCategoryCampaign(ApplyCategoryCampaign applyCategoryCampaign) {
 		return categoryOrGoodsMapper.insertCategoryCampaign(applyCategoryCampaign);
 	}
-	@Override
-	public Long getMaxCategoryId(Long categoryId) {
-		Long maxCategoryId = categoryOrGoodsMapper.getMaxCategoryId(categoryId);
-		if (maxCategoryId != null) {
-			return maxCategoryId + 1;
-		} else {
-			return 1L;
-		}
-	}
 	
 	@Override
 	public long insertGoodsCampaign(ApplyGoodsCampaign applyGoodsCampaign) {
 		return categoryOrGoodsMapper.insertGoodsCampaign(applyGoodsCampaign);
 	}
-	@Override
-	public Long getMaxGoodsId(Long GoodsId) {
-		Long maxGoodsId = categoryOrGoodsMapper.getMaxGoodsId(GoodsId);
-		if (maxGoodsId != null) {
-			return maxGoodsId + 1;
-		} else {
-			return 1L;
-		}
-	}
+
 
 	//
 	@Override
@@ -81,5 +66,10 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 		return categoryOrGoodsMapper.updateGoodsDelete(applyGoodsCampaign);
 	}
 	
+	//
+	@Override
+	public List<Campaign> dropDownList(){
+		return categoryOrGoodsMapper.dropDownList();
+	}
 	
 }

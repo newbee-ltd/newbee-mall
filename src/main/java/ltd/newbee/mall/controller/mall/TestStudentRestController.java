@@ -55,7 +55,6 @@ public class TestStudentRestController {
 		}
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	@PutMapping(value = "/updateStudent")
 	@ResponseBody
 	public Result updateStudent(@RequestBody Student student) {
