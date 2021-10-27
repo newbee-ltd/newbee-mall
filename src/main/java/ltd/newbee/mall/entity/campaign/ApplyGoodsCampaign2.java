@@ -2,17 +2,18 @@ package ltd.newbee.mall.entity.campaign;
 
 import java.util.Date;
 
-public class ApplyGoodsCampaign {
+public class ApplyGoodsCampaign2 {
 
 	private long goodsId;
 	private long campaignId;
-	private long freeGoodsId;
 	private Date insertDate;
 	private String insertUser;
 	private Date updateDate;
 	private String updateUser;
-	private Date valid_date_from;
-	private Date valid_date_to;
+	private Date validDateFrom;
+	private Date validDateTo;
+	private boolean deleteFlag;
+
 	
 	public long getCampaignId() {
 		return campaignId;
@@ -50,25 +51,24 @@ public class ApplyGoodsCampaign {
 	public void setGoodsId(long goodsId) {
 		this.goodsId = goodsId;
 	}
-	public Date getValid_date_from() {
-		return valid_date_from;
+	public Date getValidDateFrom() {
+		return validDateFrom;
 	}
-	public void setValid_date_from(Date valid_date_from) {
-		this.valid_date_from = valid_date_from;
+	public void setValidDateFrom(Date validDateFrom) {
+		this.validDateFrom = validDateFrom;
 	}
-	public Date getValid_date_to() {
-		return valid_date_to;
+	public Date getValidDateTo() {
+		return validDateTo;
 	}
-	public void setValid_date_to(Date valid_date_to) {
-		this.valid_date_to = valid_date_to;
+	public void setValidDateTo(Date validDateTo) {
+		this.validDateTo = validDateTo;
 	}
-	public long getFreeGoodsId() {
-		return freeGoodsId;
+	public boolean isDeleteFlag() {
+		return deleteFlag;
 	}
-	public void setFreeGoodsId(long freeGoodsId) {
-		this.freeGoodsId = freeGoodsId;
+	public void setDeleteFlag(boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
-	
 	
 }

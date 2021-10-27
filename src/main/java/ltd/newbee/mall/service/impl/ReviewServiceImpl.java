@@ -97,13 +97,13 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//
 	@Override
-	public List<Review> getAverageStar(Long goodsId){
+	public double getAverageStar(Long goodsId){
 		return reviewMapper.getAverageStar(goodsId);
 	}
 	
 	//
 	@Override
-	public List<Review> getTotalSannkou(Long goodsId, Long reviewId){
+	public long getTotalSannkou(Long goodsId, Long reviewId){
 		return reviewMapper.getTotalSannkou(goodsId, reviewId);
 	}
 	

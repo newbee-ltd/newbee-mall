@@ -6,6 +6,8 @@ import java.util.List;
 
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.campaign.ApplyGoodsCampaign2;
 import ltd.newbee.mall.entity.campaign.Campaign;
 
 public interface CategoryOrGoodsService {
@@ -26,4 +28,10 @@ public interface CategoryOrGoodsService {
 	
 	List<Campaign> dropDownList();
 
+	//CSV
+	long insertGoodsCampaign2(ApplyGoodsCampaign2 agc);
+	List<NewBeeMallGoods> getGoodsIdList();
+	List<Campaign> getCampaignIdList();
+	
+	
 }

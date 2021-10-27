@@ -115,5 +115,19 @@
 		select campaign_id,campaign_name
 		from Campaign
 	</select>
+	
+	 <insert id="insertGoodsCampaign2" parameterType="ltd.newbee.mall.entity.campaign.ApplyGoodsCampaign2">
+    insert into apply_goods_campaign (goods_id,campaign_id,insert_date,insert_user,update_date,update_user,valid_date_from,valid_date_to,delete_flag)
+    values (#{goodsId,jdbcType=BIGINT}, #{campaignId,jdbcType=BIGINT}, 
+      #{insertDate,jdbcType=TIMESTAMP},#{insertUser,jdbcType=VARCHAR},#{updateDate,jdbcType=TIMESTAMP},#{updateUser,jdbcType=VARCHAR},
+      #{validDateFrom,jdbcType=TIMESTAMP}, #{validDateTo,jdbcType=TIMESTAMP},#{deleteFlag,jdbcType=TINYINT})
+    </insert>
 
+    <select id="getGoodsIdList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.NewBeeMallGoods">
+		select goods_id from tb_newbee_mall_goods_info
+	</select>
+	
+	 <select id="getCampaignIdList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.campaign.Campaign">
+		select campaign_id from campaign
+	</select>
 </mapper>

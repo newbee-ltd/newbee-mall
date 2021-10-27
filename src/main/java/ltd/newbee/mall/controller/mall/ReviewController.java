@@ -6,13 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,12 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.controller.vo.NewBeeMallOrderDetailVO;
 import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.entity.ReviewSannkou;
-import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.ReviewService;
 import ltd.newbee.mall.util.PageInquiryUtil;
 import ltd.newbee.mall.util.PageInquiryUtil2;
@@ -137,23 +132,15 @@ public class ReviewController {
 	@RequestMapping(value = "/averageStar", method = RequestMethod.GET)
 	@ResponseBody
 	public Result AverageStar(Long goodsId) {
-        List<Review> list = reviewService.getAverageStar(goodsId);
-        if(CollectionUtils.isEmpty(list)) {
-        	return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "参考になったリストの取得は失敗した！");
-        }else {
-        	return ResultGenerator.genSuccessResult(list);
-        }
+        double averageStar = reviewService.getAverageStar(goodsId);
+        	return ResultGenerator.genSuccessResult(averageStar);
     }
     
 	@RequestMapping(value = "/totalSannkou", method = RequestMethod.GET)
 	@ResponseBody
 	public Result totalSannkou(Long goodsId, Long reviewId) {
-        List<Review> list = reviewService.getTotalSannkou(goodsId, reviewId);
-        if(CollectionUtils.isEmpty(list)) {
-        	return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "参考になったリストの取得は失敗した！");
-        }else {
-        	return ResultGenerator.genSuccessResult(list);
-        }
+        long totalSannkou= reviewService.getTotalSannkou(goodsId, reviewId);
+        	return ResultGenerator.genSuccessResult(totalSannkou);
     }
 
 	

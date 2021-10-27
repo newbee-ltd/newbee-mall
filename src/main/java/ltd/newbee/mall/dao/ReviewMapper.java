@@ -36,9 +36,9 @@ public interface ReviewMapper {
 	long getHelpNum(long reviewId);
 	
 	//レビュー平均評価x.xの情報
-	List<Review> getAverageStar(Long goodsId);
+	double getAverageStar(Long goodsId);
 	
 	//参考になったを押下した後、「参考になった（125人）」人数を計算
-	List<Review> getTotalSannkou(Long goodsId, Long reviewId);
+	long getTotalSannkou(Long goodsId, Long reviewId);
 
 }

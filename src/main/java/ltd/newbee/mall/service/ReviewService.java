@@ -32,8 +32,8 @@ public interface ReviewService {
     long getHelpNum(long reviewId); 
 
 
-    List<Review> getAverageStar(Long goodsId);
+    double getAverageStar(Long goodsId);
     
-    List<Review> getTotalSannkou(Long goodsId, Long reviewId);
+    long getTotalSannkou(Long goodsId, Long reviewId);
 	
 }
