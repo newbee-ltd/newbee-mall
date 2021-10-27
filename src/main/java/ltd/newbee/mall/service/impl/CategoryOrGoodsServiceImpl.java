@@ -19,8 +19,10 @@ import ltd.newbee.mall.dao.CategoryOrGoodsMapper;
 import ltd.newbee.mall.dao.StudentMapper;
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.Review;
 import ltd.newbee.mall.entity.Student;
+import ltd.newbee.mall.entity.campaign.ApplyGoodsCampaign2;
 import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 import ltd.newbee.mall.service.StudentService;
@@ -70,6 +72,20 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 	@Override
 	public List<Campaign> dropDownList(){
 		return categoryOrGoodsMapper.dropDownList();
+	}
+
+    //CSV
+	@Override
+	public long insertGoodsCampaign2(ApplyGoodsCampaign2 agc) {
+		return categoryOrGoodsMapper.insertGoodsCampaign2(agc);
+	}
+	@Override
+	public 	List<NewBeeMallGoods> getGoodsIdList(){
+		return categoryOrGoodsMapper.getGoodsIdList();
+	}
+	@Override
+	public List<Campaign> getCampaignIdList(){
+		return categoryOrGoodsMapper.getCampaignIdList();
 	}
 	
 }
