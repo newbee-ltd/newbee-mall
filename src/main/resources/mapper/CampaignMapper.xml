@@ -61,15 +61,19 @@
              <if test="campaignId != null">
                  campaign_id,
              </if>
+             <!--
              <if test="campaignName != null">
                  campaign_name,
              </if>
+             -->
              <if test="goodsId != null">
                  goods_id,
              </if>
+             <!--
              <if test="goodsName != null">
                  goods_name,
              </if>
+             -->
              <if test="validDateFrom != null">
                  valid_date_from,
              </if>
@@ -79,20 +83,36 @@
              <if test="deleteFlg != null">
                  delete_flg,
              </if>
+             <if test="insertDate != null">
+                 insert_date,
+             </if>
+             <if test="insertUser != null">
+                 insert_user,
+             </if>
+             <if test="updateDate != null">
+                 update_date,
+             </if>
+             <if test="updateUser != null">
+                 update_user,
+             </if>
          </trim>
          <trim prefix="values (" suffix=")" suffixOverrides=",">
              <if test="campaignId != null">
                  #{campaignId,jdbcType=BIGINT},
              </if>
+             <!--
              <if test="campaignName != null">
                  #{campaignName,jdbcType=VARCHAR},
              </if>
+             -->
              <if test="goodsId != null">
                  #{goodsId,jdbcType=BIGINT},
              </if>
+             <!--
              <if test="goodsName != null">
                  #{goodsName,jdbcType=VARCHAR},
              </if>
+             -->
              <if test="validDateFrom != null">
                  #{validDateFrom,jdbcType=TIMESTAMP},
              </if>
@@ -101,6 +121,18 @@
              </if>
              <if test="deleteFlg != null">
                  #{deleteFlg,jdbcType=INTEGER},
+             </if>
+             <if test="insertDate != null">
+                 #{insertDate,jdbcType=TIMESTAMP},
+             </if>
+             <if test="insertUser != null">
+                 #{insertUser,jdbcType=BIGINT},
+             </if>
+             <if test="updateDate != null">
+                 #{updateDate,jdbcType=TIMESTAMP},
+             </if>
+             <if test="updateUser != null">
+                 #{updateUser,jdbcType=BIGINT},
              </if>
          </trim> 
     </insert>
@@ -216,5 +248,11 @@
     <select id="getCategoryDropDownList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.CampaignCategory">
         select campaign_name
         from campaign where campaign_name =  #{campaignName,jdbcType=VARCHAR}
+    </select>
+    
+    <!-- goods_idは商品マスタに存在するかどうかをチェック --> 
+    <select id="getCampaignGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select goods_id from tb_newbee_mall_goods_info
+        where goods_id =  #{goodsId,jdbcType=BIGINT}
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package ltd.newbee.mall.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import ltd.newbee.mall.entity.CampaignCategory;
 import ltd.newbee.mall.entity.CampaignGoods;
@@ -28,5 +29,8 @@ public interface CampaignMapper {
 	// キャンペーン情報のdropDownListのAPI
 	public ArrayList<CampaignGoods> getGoodsDropDownList(String campaignName);
 	public ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName);
+	
+	// goods_idは商品マスタに存在するかどうかをチェック
+	public ArrayList<CampaignGoods> getCampaignGoodsId(long goodsId);
 	
 }

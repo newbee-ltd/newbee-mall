@@ -27,9 +27,11 @@ public interface GoodsReviewService {
 //    long getHelpNumTwice(long reviewId);
     
     // レビュー平均評価x.xの情報
-	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId);
+	double getAverageStarByGoodsId(long goodsId);
+//	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId);
 	
 	// 参考になったを押下した後、「参考になった（125人）」人数を計算
-	ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId);
+	long getReviewHelpNum(long goodsId, long reviewId);
+//	ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId);
 	
 }

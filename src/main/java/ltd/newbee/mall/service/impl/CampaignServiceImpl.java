@@ -66,5 +66,11 @@ public class CampaignServiceImpl implements CampaignService {
 	public ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName) {
 		return campaignMapper.getCategoryDropDownList(campaignName);
 	}
+	
+	// goods_idは商品マスタに存在するかどうかをチェック
+	@Override
+	public ArrayList<CampaignGoods> getCampaignGoodsId(long goodsId) {
+		return campaignMapper.getCampaignGoodsId(goodsId);
+	}
 
 }

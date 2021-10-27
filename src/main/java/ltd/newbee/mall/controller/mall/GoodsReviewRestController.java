@@ -129,26 +129,49 @@ public class GoodsReviewRestController {
     @ResponseBody
     public Result averageStar(@RequestParam long goodsId) {
     	
-    	List<GoodsReview> averageStar = goodsReviewService.getAverageStarByGoodsId(goodsId);
-    	if (CollectionUtils.isEmpty(averageStar)) {
+    	double averageStar = goodsReviewService.getAverageStarByGoodsId(goodsId);
+    	if (averageStar <= 0) {
     		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
     	} else {
     		return ResultGenerator.genSuccessResult(averageStar);
     	}
     }
+//    @RequestMapping(value = "/goodsReview/averageStar", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result averageStar(@RequestParam long goodsId) {
+//    	
+//    	List<GoodsReview> averageStar = goodsReviewService.getAverageStarByGoodsId(goodsId);
+//    	if (CollectionUtils.isEmpty(averageStar)) {
+//    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+//    	} else {
+//    		return ResultGenerator.genSuccessResult(averageStar);
+//    	}
+//    }
     
     // 参考になったを押下した後、「参考になった（125人）」人数を計算
     @RequestMapping(value = "/goodsReview/reviewHelpNum", method = RequestMethod.GET)
     @ResponseBody
     public Result reviewHelpNum(@RequestParam long goodsId, long reviewId) {
     	
-    	List<GoodsReview> reviewHelpNum = goodsReviewService.getReviewHelpNum(goodsId, reviewId);
-    	if (CollectionUtils.isEmpty(reviewHelpNum)) {
+    	long reviewHelpNum = goodsReviewService.getReviewHelpNum(goodsId, reviewId);
+    	if (reviewHelpNum <= 0) {
     		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
     	} else {
     		return ResultGenerator.genSuccessResult(reviewHelpNum);
     	}
     }
+//    @RequestMapping(value = "/goodsReview/reviewHelpNum", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Result reviewHelpNum(@RequestParam long goodsId, long reviewId) {
+//    	
+//    	List<GoodsReview> reviewHelpNum = goodsReviewService.getReviewHelpNum(goodsId, reviewId);
+//    	if (CollectionUtils.isEmpty(reviewHelpNum)) {
+//    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
+//    	} else {
+//    		return ResultGenerator.genSuccessResult(reviewHelpNum);
+//    	}
+//    }
+    
 }   
 	
     /*

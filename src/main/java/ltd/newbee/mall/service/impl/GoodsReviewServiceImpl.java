@@ -76,13 +76,22 @@ public class GoodsReviewServiceImpl implements GoodsReviewService {
 	
 	// レビュー平均評価x.xの情報
 	@Override
-	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId) {
+	public double getAverageStarByGoodsId(long goodsId) {
 		return goodsReviewMapper.getAverageStarByGoodsId(goodsId);
 	}
+//	@Override
+//	public ArrayList<GoodsReview> getAverageStarByGoodsId(long goodsId) {
+//		return goodsReviewMapper.getAverageStarByGoodsId(goodsId);
+//	}
 	
 	// 参考になったを押下した後、「参考になった（125人）」人数を計算
-	public ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId) {
+	@Override
+	public long getReviewHelpNum(long goodsId, long reviewId) {
 		return goodsReviewMapper.getReviewHelpNum(goodsId, reviewId);
 	}
+//	@Override
+//	public ArrayList<GoodsReview> getReviewHelpNum(long goodsId, long reviewId) {
+//		return goodsReviewMapper.getReviewHelpNum(goodsId, reviewId);
+//	}
 	
 }

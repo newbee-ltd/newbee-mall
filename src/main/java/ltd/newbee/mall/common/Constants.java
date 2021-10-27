@@ -58,5 +58,5 @@ public class Constants {
     public final static String CAMPAIGNINSERT_FETCH_SUCCESS_MESSAGE = "キャンペーン応用情報の取得に成功しました";
     public final static String CAMPAIGNDELETE_FETCH_SUCCESS_MESSAGE = "キャンペーンの削除に成功しました";
     public final static String ERROR_MESSAGE = "Error!";
-
+    public final static String SUCCESS_MESSAGE = "挿入できました";
 }

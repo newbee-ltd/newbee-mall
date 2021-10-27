@@ -27,4 +27,7 @@ public interface CampaignService {
 	ArrayList<CampaignGoods> getGoodsDropDownList(String campaignName);
 	ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName);
 	
+	// goods_idは商品マスタに存在するかどうかをチェック
+	ArrayList<CampaignGoods> getCampaignGoodsId(long goodsId);
+	
 }

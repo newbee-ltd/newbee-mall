@@ -202,14 +202,14 @@
     </select> 
     -->
     <!-- レビュー平均評価x.xの情報 --> 
-    <select id="getAverageStarByGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsReview">
+    <select id="getAverageStarByGoodsId" parameterType="java.lang.Long" resultType="java.lang.Double">
         select avg(star) as average_star, goods_id from review
         where goods_id = #{goodsId,jdbcType=BIGINT}
         group by goods_id
     </select>
     
     <!-- 参考になったを押下した後、「参考になった（125人）」人数を計算 --> 
-    <select id="getReviewHelpNum" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsReview">
+    <select id="getReviewHelpNum" parameterType="java.lang.Long" resultType="java.lang.Long">
         select r.review_id, r.goods_id,
         count(rs.sankou_user_id) as help_num
         from review as r left join review_sankou as rs
