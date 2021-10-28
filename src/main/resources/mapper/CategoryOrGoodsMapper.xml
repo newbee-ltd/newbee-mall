@@ -125,9 +125,11 @@
 
     <select id="getGoodsIdList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.NewBeeMallGoods">
 		select goods_id from tb_newbee_mall_goods_info
+		where goods_id = #{goodsId,jdbcType=BIGINT}
 	</select>
 	
 	 <select id="getCampaignIdList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.campaign.Campaign">
 		select campaign_id from campaign
+		where campaign_id= #{campaignId,jdbcType=BIGINT}
 	</select>
 </mapper>
