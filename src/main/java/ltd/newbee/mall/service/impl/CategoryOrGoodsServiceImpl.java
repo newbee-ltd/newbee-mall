@@ -80,12 +80,13 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 		return categoryOrGoodsMapper.insertGoodsCampaign2(agc);
 	}
 	@Override
-	public 	List<NewBeeMallGoods> getGoodsIdList(){
-		return categoryOrGoodsMapper.getGoodsIdList();
+	public 	List<NewBeeMallGoods> getGoodsIdList(long goodsId){
+		return categoryOrGoodsMapper.getGoodsIdList(goodsId);
 	}
 	@Override
-	public List<Campaign> getCampaignIdList(){
-		return categoryOrGoodsMapper.getCampaignIdList();
+	public List<Campaign> getCampaignIdList(long campaignId){
+		return categoryOrGoodsMapper.getCampaignIdList(campaignId);
 	}
+	
 	
 }

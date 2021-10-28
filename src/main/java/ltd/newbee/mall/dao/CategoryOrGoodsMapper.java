@@ -29,7 +29,8 @@ public interface CategoryOrGoodsMapper {
 	
 	//CSV
 	long insertGoodsCampaign2(ApplyGoodsCampaign2 agc);
-	List<NewBeeMallGoods> getGoodsIdList();
-	List<Campaign> getCampaignIdList();
+	List<NewBeeMallGoods> getGoodsIdList(long goodsId);
+	List<Campaign> getCampaignIdList(long campaignId);
+	//ArrayList<String> msgList();
 	
 }

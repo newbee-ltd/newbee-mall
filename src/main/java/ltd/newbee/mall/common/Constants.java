@@ -48,4 +48,8 @@ public class Constants {
 	public final static int FETCH_ERROR = 300;
 	public final static String STUDENT_FETCH_ERROR_MESSAGE = "該当学生がいません";
 	public final static String STUDENT_INSERT_ERROR_MESSAGE = "挿入できない";
+	
+	public final static String DROPDOWNLIST_GET_ERROR_MESSAGE="キャンペーンリストの取得は失敗した！";
+	public final static String CSV_INSERT_ERROR_MESSAGE="CSVは挿入できない";
+	public final static String CSV_INSERT_SUCCESS_MESSAGE="csvファイルがデータベースにインポートされ、batch実行が完了しました。";
 }
