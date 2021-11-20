@@ -19,8 +19,8 @@ public class GoodsDetailServerImpl implements GoodsDetailService{
 
 	@Override
 	public ArrayList<GoodsDetail> getGoodsDetailList(long goodsId) {
-		ArrayList<GoodsDetail> GoodsDetailList = goodsDetailMapper.getGoodsDetailList(goodsId);
-		return GoodsDetailList;
+		ArrayList<GoodsDetail> goodsDetailList = goodsDetailMapper.getGoodsDetailList(goodsId);
+		return goodsDetailList;
 	}
 	
 }

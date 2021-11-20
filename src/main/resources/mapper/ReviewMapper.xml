@@ -13,7 +13,8 @@
 			<if test="goodsId!=null and goodsId!=''">
 				and rs.goods_id=#{goodsId}
 				and rs.goods_id=r.goods_id
-				and rs.review_id =r.review_id
+				and
+				rs.review_id =r.review_id
 			</if>
 		</where>
 		group by
@@ -38,7 +39,9 @@
 		select
 		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
 		count(rs.review_id) as help_num
-		from review as r left join review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id =r.review_id
+		from review as r left join
+		review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id
+		=r.review_id
 		<where>
 			<if test="goodsId!=null and goodsId!=''">
 				and r.goods_id=#{goodsId}
@@ -52,7 +55,8 @@
 		</if>
 	</select>
 
-	<select id="getCount" parameterType="Map" resultType="long">
+	<select id="getCount" parameterType="java.lang.Long"
+		resultType="long">
 		select count(review_id) from Review
 		<where>
 			<if test="goods_id!=null and goods_id!=''">
@@ -133,7 +137,10 @@
 		select
 		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url,
 		count(rs.review_id) as help_num
-		from review as r left join review_sannkou as rs on rs.goods_id=r.goods_id and rs.review_id =r.review_id
+		from review as r left join
+		review_sannkou as rs
+		on rs.goods_id=r.goods_id and rs.review_id
+		=r.review_id
 		<where>
 			<if test="goodsId!=null and goodsId!=''">
 				and r.goods_id=#{goodsId}
@@ -143,44 +150,70 @@
 		r.goods_id,r.review_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
 		order by help_num Desc
 	</select>
-	
-	
-	<insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.ReviewSannkou">
-	    insert into review_sannkou(goods_id,review_id, sannkou_user_id)
-	    values(#{goodsId,jdbcType=BIGINT},#{reviewId,jdbcType=BIGINT}, #{sannkouUserId,jdbcType=BIGINT})
-    </insert>
 
-    <update id="updateReviewNum">
+
+	<insert id="insertHelpNum"
+		parameterType="ltd.newbee.mall.entity.ReviewSannkou">
+		insert into review_sannkou(goods_id,review_id,
+		sannkou_user_id)
+		values(#{goodsId,jdbcType=BIGINT},#{reviewId,jdbcType=BIGINT},
+		#{sannkouUserId,jdbcType=BIGINT})
+	</insert>
+
+	<update id="updateReviewNum">
 		update review set help_num = help_num + 1
-		where review_id= #{reviewId}
+		where
+		review_id= #{reviewId}
 	</update>
 
-	<select id="getHelpNum" parameterType="long" resultType="java.lang.Long">
+	<select id="getHelpNum" parameterType="long"
+		resultType="java.lang.Long">
 		SELECT count(review_id) as help_num
-		FROM review_sannkou 
-		where review_id = #{reviewId,jdbcType=BIGINT}
+		FROM review_sannkou
+		where review_id = #{reviewId,jdbcType=BIGINT} and
+		goods_id=#{goodsId,jdbcType=BIGINT}
 	</select>
- 
-    <select id="getReviewSannkouUserId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.ReviewSannkou">
-        select rs.goods_id,rs.review_id,rs.sannkou_user_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
+
+	<select id="getReviewSannkouUserId"
+		parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ReviewSannkou">
+		select
+		rs.goods_id,rs.review_id,rs.sannkou_user_id,r.submit_date,r.review_user_id,r.star,r.review_title,r.review_detail,r.image_url
 		from review_sannkou as rs left join review as r
-		on rs.goods_id=r.goods_id and rs.review_id =r.review_id
-        where rs.sannkou_user_id = #{sannkouUserId,jdbcType=BIGINT} 
-              and rs.goods_id = #{goodsId,jdbcType=BIGINT} 
-              and rs.review_id = #{reviewId,jdbcType=BIGINT} 
-    </select>
-
-    <select id="getAverageStar" parameterType="java.lang.Long" resultType="java.lang.Double">
-	    select round(avg(star),2) as average_star
-	    from review 
-	    where goods_id = #{goodsId,jdbcType=BIGINT};
+		on
+		rs.goods_id=r.goods_id and rs.review_id =r.review_id
+		where
+		rs.sannkou_user_id = #{sannkouUserId,jdbcType=BIGINT}
+		and rs.goods_id =
+		#{goodsId,jdbcType=BIGINT}
+		and rs.review_id =
+		#{reviewId,jdbcType=BIGINT}
 	</select>
 
-	<select id="getTotalSannkou" parameterType="java.lang.Long" resultType="java.lang.Long">
-	    select count(rs.sannkou_user_id) as help_num
-	    from review as r left join review_sannkou as rs
-	    on r.review_id = rs.review_id and r.goods_id=rs.goods_id
-	    where r.goods_id=#{goodsId,jdbcType=BIGINT} and r.review_id=#{reviewId,jdbcType=BIGINT}
+	<select id="getAverageStar" parameterType="java.lang.Long"
+		resultType="java.lang.Double">
+		select round(avg(star),1) as average_star
+		from review
+		where
+		goods_id = #{goodsId,jdbcType=BIGINT};
 	</select>
-	
+
+	<select id="getTotalSannkou" parameterType="java.lang.Long"
+		resultType="java.lang.Long">
+		select count(rs.sannkou_user_id) as help_num
+		from review as
+		r left join review_sannkou as rs
+		on r.review_id = rs.review_id and
+		r.goods_id=rs.goods_id
+		where r.goods_id=#{goodsId,jdbcType=BIGINT} and
+		r.review_id=#{reviewId,jdbcType=BIGINT}
+	</select>
+
+	<select id="getStarNum" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.Review">
+		select star,count(star) as help_num
+		from review
+		where goods_id=#{goodsId,jdbcType=BIGINT}
+		group by star
+	</select>
+
 </mapper>

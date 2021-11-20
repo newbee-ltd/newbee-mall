@@ -51,13 +51,13 @@ public class ReviewController {
 	// 展开评论方法2
 	@RequestMapping(value = "/review/list2", method = RequestMethod.GET)
 	@ResponseBody
-	public Result list2(@RequestParam Map<String, Object> params) {
+	public Result list2(@RequestParam Map<String, Object> params, long goodsId) {
 
 		if (StringUtils.isEmpty((String) params.get("goodsId"))) {
 			return ResultGenerator.genFailResult("参数异常！");
 		}
 
-		Long count = reviewService.getCount(params);
+		Long count = reviewService.getCount(goodsId);
 		if (params.get("callTimes").equals("1")) {
 			params.put("start", 0);
 			params.put("limit", 3);
@@ -93,55 +93,51 @@ public class ReviewController {
 	@ResponseBody
 	public Result showMoreRevies(@RequestParam Long goodsId) {
 
-		List<ReviewVO> reviewList = reviewService.getGoodsReviews(goodsId);
-		List<ReviewVO> subReviewList = reviewList.subList(3, reviewList.size());
-		// limit是3，显示0 1 2
+		List<Review> reviewList = reviewService.getGoodsReview(goodsId);
+//		List<ReviewVO> subReviewList = reviewList.subList(3, reviewList.size());
+		// limit是3，显示0 1 2 
 		// 子字符串，折叠3—size（因为左闭右开，不用-1）
-		return ResultGenerator.genSuccessResult(subReviewList);
+		return ResultGenerator.genSuccessResult(reviewList);
 
 	}
 
-
-	@RequestMapping(value = "/reviewHelpNum", method = RequestMethod.GET)
+	@RequestMapping(value = "/reviewHelpNum", method = RequestMethod.POST)
 	@ResponseBody
-	public Result helpNum(ReviewSannkou reviewSannkou, HttpSession httpSession) {
+	public Result helpNum(@RequestBody ReviewSannkou reviewSannkou, HttpSession httpSession) {
 		NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
 		if (user != null) {
-			reviewSannkou.setSannkouUserId(2001);
+			reviewSannkou.setSannkouUserId(user.getUserId());
 		}
 
 		List<ReviewSannkou> list = reviewService.getReviewSannkouUserId(reviewSannkou);
 		if (!CollectionUtils.isEmpty(list)) {
-			return ResultGenerator.genSuccessResult("押下したことがあるので、押下できない!");
+			return ResultGenerator.genFailResult("押下したことがあるので、押下できない!");
 		} else {
 			boolean insertFlag = reviewService.insertHelpNum(reviewSannkou);
 			if (insertFlag) {
-				boolean updateFlag = reviewService.updateReviewNum(reviewSannkou);
-				if (updateFlag) { 
-					long helpNum = reviewService.getHelpNum(reviewSannkou.getReviewId());
-					return ResultGenerator.genSuccessResult(helpNum);
-				} else {
-					return ResultGenerator.genFailResult("更新できない！");
-				}
+				// boolean updateFlag = reviewService.updateReviewNum(reviewSannkou);
+				// if (updateFlag) {
+				long helpNum = reviewService.getHelpNum(reviewSannkou.getReviewId(), reviewSannkou.getGoodsId());
+				return ResultGenerator.genSuccessResult(helpNum);
+				// } else {
+				// return ResultGenerator.genFailResult("更新できない！");
+			} else {
+				return ResultGenerator.genFailResult("押下が失敗しました！");
 			}
 		}
-		return ResultGenerator.genFailResult("処理が失敗しました！");
 	}
-	
 
 	@RequestMapping(value = "/averageStar", method = RequestMethod.GET)
 	@ResponseBody
 	public Result AverageStar(Long goodsId) {
-        double averageStar = reviewService.getAverageStar(goodsId);
-        	return ResultGenerator.genSuccessResult(averageStar);
-    }
-    
+		double averageStar = reviewService.getAverageStar(goodsId);
+		return ResultGenerator.genSuccessResult(averageStar);
+	}
+
 	@RequestMapping(value = "/totalSannkou", method = RequestMethod.GET)
 	@ResponseBody
 	public Result totalSannkou(Long goodsId, Long reviewId) {
-        long totalSannkou= reviewService.getTotalSannkou(goodsId, reviewId);
-        	return ResultGenerator.genSuccessResult(totalSannkou);
-    }
-
-	
+		long totalSannkou = reviewService.getTotalSannkou(goodsId, reviewId);
+		return ResultGenerator.genSuccessResult(totalSannkou);
+	}
 }

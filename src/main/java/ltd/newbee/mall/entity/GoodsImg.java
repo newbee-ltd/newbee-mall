@@ -32,6 +32,7 @@ public class GoodsImg {
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 	
 }

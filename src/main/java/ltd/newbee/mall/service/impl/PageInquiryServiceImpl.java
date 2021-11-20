@@ -34,6 +34,11 @@ public class PageInquiryServiceImpl implements PageInquiryService {
         return pageInquiryResult;
     }
     
+    
+    @Override
+   	public List<QuestionSannkou> getQASannkouUserId(QuestionSannkou questionSannkou) {
+   		return pageInquiryMapper.getQASannkouUserId(questionSannkou);
+   	}
     @Override
 	public boolean insertHelpNum(QuestionSannkou questionSannkou) {
 		return pageInquiryMapper.insertHelpNum(questionSannkou);
@@ -43,8 +48,8 @@ public class PageInquiryServiceImpl implements PageInquiryService {
 		return pageInquiryMapper.updateHelpNum(questionSannkou);
 	}
 	@Override
-	public long getHelpNum(long questionId) {
-		return pageInquiryMapper.getHelpNum(questionId);
+	public long getHelpNum(long questionId,long goodsId) {
+		return pageInquiryMapper.getHelpNum(questionId,goodsId);
 	}
 	
     

@@ -5,45 +5,63 @@
 	<select id="findQAList" parameterType="Map"
 		resultType="ltd.newbee.mall.entity.QuestionAndAnswer">
 		select
-		qa.goods_id,qa.questions_id,qa.question,qa.answer,help_qa.submit_date,help_qa.answers_date,
-		count(help_qa.user_id) as help_num
-		from question_and_answer as qa left joint question_sannkou as help_qa 
-		on help_qa.goods_id=qa.goods_id help_qa.questions_id=qa.questions_id
+		qa.goods_id,qa.questions_id,qa.question,qa.answer,qa.submit_date,qa.answers_date,count(user_id)
+		as help_num
+		from question_and_answer as qa left join question_sannkou
+		as help_qa
+		on help_qa.goods_id=qa.goods_id and
+		help_qa.questions_id=qa.questions_id
 		<where>
 			<if test="goodsId!=null and goodsId!=''">
 				and qa.goods_id=#{goodsId}
 			</if>
 		</where>
-		group by qa.goods_id,qa.questions_id,qa.question,qa.answer,help_qa.submit_date,help_qa.answers_date
+		group by
+		qa.goods_id,qa.questions_id,qa.question,qa.answer,qa.submit_date,qa.answers_date
 		order by ${orderByColumn} ${ascOrDesc}
 		<if test="start!=null and limit!=null">
 			limit #{start},#{limit}
 		</if>
 	</select>
-	
-	<select id="getGoodsQACount" parameterType="Map" resultType="int">
-        select count(goods_id) from question_sannkou
-        <where>
-            <if test="goods_id!=null and goods_id!=''">
-                and goods_id=#{goodsId}
-            </if>
-        </where>
-    </select>
-    
-    
-    <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.QuestionSannkou">
-	    insert into question_sannkou(goods_id,questions_id, user_id)
-	    values(#{goodsId,jdbcType=BIGINT},#{questionsId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
-    </insert>
-    <update id="updateHelpNum">
-		update question_and_answer set help_num = help_num + 1
+
+	<select id="getGoodsQACount" parameterType="Map"
+		resultType="int">
+		select count(goods_id) from question_and_answer
+		<where>
+			<if test="goods_id!=null and goods_id!=''">
+				and goods_id=#{goodsId}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getQASannkouUserId" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.QuestionSannkou">
+		select
+		qa.goods_id,qa.questions_id,help_qa.user_id,qa.question,qa.answer,qa.submit_date,qa.answers_date
+		from question_and_answer as qa right join question_sannkou as help_qa
+		on help_qa.goods_id=qa.goods_id and help_qa.questions_id=qa.questions_id
+		where help_qa.goods_id =#{goodsId,jdbcType=BIGINT}
+		and help_qa.questions_id =#{questionsId,jdbcType=BIGINT}
+		and help_qa.user_id =#{userId,jdbcType=BIGINT}
+	</select>
+	<insert id="insertHelpNum"
+		parameterType="ltd.newbee.mall.entity.QuestionSannkou">
+		insert into question_sannkou(goods_id,questions_id,
+		user_id)
+		values(#{goodsId,jdbcType=BIGINT},#{questionsId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT})
+	</insert>
+	<update id="updateHelpNum">
+		update question_and_answer set help_num = help_num +1
 		where questions_id= #{questionsId,jdbcType=BIGINT}
 	</update>
-	<select id="getHelpNum" parameterType="long" resultType="java.lang.Long">
+	<select id="getHelpNum" parameterType="long"
+		resultType="java.lang.Long">
 		SELECT count(questions_id) as help_num
-		FROM question_sannkou 
-		where questions_id = #{questionsId,jdbcType=BIGINT}
+		FROM question_sannkou
+		where questions_id = #{questionsId,jdbcType=BIGINT} and goods_id=#{goodsId,jdbcType=BIGINT}
 	</select>
-    
-	
+
+
 </mapper>

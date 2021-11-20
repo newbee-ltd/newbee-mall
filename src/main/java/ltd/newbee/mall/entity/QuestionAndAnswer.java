@@ -18,12 +18,13 @@ public class QuestionAndAnswer {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date answersDate;
 	
-	private String helpNum;
+	private long helpNum;
 	
-	public String getHelpNum() {
+	
+	public long getHelpNum() {
 		return helpNum;
 	}
-	public void setHelpNum(String helpNum) {
+	public void setHelpNum(long helpNum) {
 		this.helpNum = helpNum;
 	}
 	public long getGoodsId() {

@@ -18,7 +18,7 @@ import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 
 @Controller
-public class TestGoodsImgReatController {
+public class GoodsImgController {
 
 	@Resource
     private GoodsImgService goodsImgService;
@@ -36,6 +36,5 @@ public class TestGoodsImgReatController {
 
 	}
 	
-
 	
 }

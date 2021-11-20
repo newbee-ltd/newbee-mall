@@ -41,17 +41,18 @@ public class ReviewServiceImpl implements ReviewService {
 		return pageInquiryResult;
 	}
 
-	//show more page 2
+	// show more page 2
 	@Override
 	public PageInquiryResult2 getMoreReview(PageInquiryUtil2 pageUtil) {
 		List<Review> ReviewList = reviewMapper.getReviewList(pageUtil);
 		int totalReview = reviewMapper.getTotalReview(pageUtil);
-		PageInquiryResult2 pageInquiryResult =new PageInquiryResult2(ReviewList, totalReview, pageUtil.getLimit());
+		PageInquiryResult2 pageInquiryResult = new PageInquiryResult2(ReviewList, totalReview, pageUtil.getLimit());
 		return pageInquiryResult;
 	}
+
 	@Override
-	public Long getCount(Map map) {
-		return reviewMapper.getCount(map);
+	public Long getCount(long goodsId) {
+		return reviewMapper.getCount(goodsId);
 	}
 
 	//
@@ -59,6 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public long insertReview(Review review) {
 		return reviewMapper.insertReview(review);
 	}
+
 	@Override
 	public Long getMaxReviewId(Long reviewId) {
 		Long maxrReviewId = reviewMapper.getMaxReviewId(reviewId);
@@ -69,45 +71,51 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
-	//show more page 1
+	// show more page 1
 	@Override
-	public List<ReviewVO> getGoodsReviews(Long goodsId) {
-		List<Review> entityList = reviewMapper.getGoodsReview(goodsId);
-		List<ReviewVO> reviewVOList = BeanUtil.copyList(entityList, ReviewVO.class);
-		return reviewVOList;
+	public List<Review> getGoodsReview(Long goodsId) {
+		List<Review> reviewList = reviewMapper.getGoodsReview(goodsId);
+		// List<ReviewVO> reviewVOList = BeanUtil.copyList(entityList, ReviewVO.class);
+		return reviewList;
 	}
 
-    //
+	//
 	@Override
-	public List<ReviewSannkou>  getReviewSannkouUserId(ReviewSannkou reviewSannkou){
+	public List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou) {
 		return reviewMapper.getReviewSannkouUserId(reviewSannkou);
 	}
+
 	@Override
 	public boolean insertHelpNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.insertHelpNum(reviewSannkou);
 	}
+
 	@Override
 	public boolean updateReviewNum(ReviewSannkou reviewSannkou) {
 		return reviewMapper.updateReviewNum(reviewSannkou);
 	}
+
 	@Override
-	public long getHelpNum(long reviewId) {
-		return reviewMapper.getHelpNum(reviewId);
+	public long getHelpNum(long reviewId, long goodsId) {
+		return reviewMapper.getHelpNum(reviewId, goodsId);
 	}
 
 	//
 	@Override
-	public double getAverageStar(Long goodsId){
+	public double getAverageStar(Long goodsId) {
 		return reviewMapper.getAverageStar(goodsId);
 	}
-	
+
 	//
 	@Override
-	public long getTotalSannkou(Long goodsId, Long reviewId){
+	public long getTotalSannkou(Long goodsId, Long reviewId) {
 		return reviewMapper.getTotalSannkou(goodsId, reviewId);
 	}
-	
 
-	
-	
+	//
+	@Override
+	public List<Review> getStarNum(long goodsId) {
+		return reviewMapper.getStarNum(goodsId);
+	}
+
 }

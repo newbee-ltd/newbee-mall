@@ -45,7 +45,7 @@ $(function () {
     });
 
     new AjaxUpload('#uploadCarouselImage', {
-        action: '/admin/upload/file',
+        action: '/admin/upload/file', 
         name: 'file',
         autoSubmit: true,
         responseType: "json",
@@ -88,7 +88,7 @@ $('#saveButton').click(function () {
     var redirectUrl = $("#redirectUrl").val();
     var carouselRank = $("#carouselRank").val();
     var carouselUrl = $('#carouselImg')[0].src;
-    var data = {
+    var data = {   
         "carouselUrl": carouselUrl,
         "carouselRank": carouselRank,
         "redirectUrl": redirectUrl

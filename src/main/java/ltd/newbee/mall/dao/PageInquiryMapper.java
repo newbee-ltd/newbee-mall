@@ -4,7 +4,7 @@ import java.util.List;
 
 import ltd.newbee.mall.entity.QuestionAndAnswer;
 import ltd.newbee.mall.entity.QuestionSannkou;
-
+import ltd.newbee.mall.entity.ReviewSannkou;
 import ltd.newbee.mall.util.PageInquiryUtil;
 
 public interface PageInquiryMapper {
@@ -14,8 +14,9 @@ public interface PageInquiryMapper {
 	int getGoodsQACount(PageInquiryUtil pageUtil);
 
 	
+	List<QuestionSannkou> getQASannkouUserId(QuestionSannkou questionSannkou);
 	boolean insertHelpNum(QuestionSannkou questionSannkou);
 	boolean updateHelpNum(QuestionSannkou questionSannkou);
-	long getHelpNum(long questionId);
+	long getHelpNum(long questionsId,long goodsId);
 	
 }

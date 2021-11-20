@@ -17,23 +17,25 @@ public interface ReviewService {
 	
 	
 	PageInquiryResult2 getMoreReview(PageInquiryUtil2 pageUtil);
-	Long getCount (Map map);
+	Long getCount (long goodsId);
 
 	long insertReview(Review review);
 	Long getMaxReviewId(Long reviewId);
 
-	
-	List<ReviewVO> getGoodsReviews(Long goodsId);
+	List<Review> getGoodsReview(Long goodsId);
+	//List<ReviewVO> getGoodsReviews(Long goodsId);
 
 	
 	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
     boolean updateReviewNum(ReviewSannkou reviewSannkou);
-    long getHelpNum(long reviewId); 
+    long getHelpNum(long reviewId, long goodsId); 
 
 
     double getAverageStar(Long goodsId);
     
     long getTotalSannkou(Long goodsId, Long reviewId);
+    
+    List<Review>  getStarNum(long goodsId);
 	
 }

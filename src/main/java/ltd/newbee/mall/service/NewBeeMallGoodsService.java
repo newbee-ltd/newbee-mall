@@ -8,10 +8,12 @@
  */
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.entity.GoodsImg;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface NewBeeMallGoodsService {
@@ -70,4 +72,5 @@ public interface NewBeeMallGoodsService {
      * @return
      */
     PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
+
 }

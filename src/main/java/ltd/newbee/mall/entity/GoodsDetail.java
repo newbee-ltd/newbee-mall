@@ -13,7 +13,7 @@ public class GoodsDetail {
 	private String goodsSizeWeightUnit;
 	private String goodsSizeLengthUnit;
 	private String goodsSizeHeightUnit; 
-	private double goodsSizeWidthUnit;
+	private String goodsSizeWidthUnit;
 	private String goodsPackageSize;
 	private double goodsWarrantyYear;
 	private String goodsWarrantyYearUnit;
@@ -80,10 +80,10 @@ public class GoodsDetail {
 	public void setGoodsSizeHeightUnit(String goodsSizeHeightUnit) {
 		this.goodsSizeHeightUnit = goodsSizeHeightUnit;
 	}
-	public double getGoodsSizeWidthUnit() {
+	public String getGoodsSizeWidthUnit() {
 		return goodsSizeWidthUnit;
 	}
-	public void setGoodsSizeWidthUnit(double goodsSizeWidthUnit) {
+	public void setGoodsSizeWidthUnit(String goodsSizeWidthUnit) {
 		this.goodsSizeWidthUnit = goodsSizeWidthUnit;
 	}
 	public String getGoodsPackageSize() {

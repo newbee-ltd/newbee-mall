@@ -18,7 +18,7 @@ public interface ReviewMapper {
 	//show more review 2
 	List<Review> getReviewList(PageInquiryUtil2 pageUtil);
 	int getTotalReview(PageInquiryUtil2 pageUtil);
-	Long getCount(Map map);
+	Long getCount(long goodsId);
 	
 	//普通查找
 	long insertReview(Review review);
@@ -26,19 +26,22 @@ public interface ReviewMapper {
 	
 	//レビューをもっと見る
 	List<Review> getGoodsReview(Long goodsId);
-	List<ReviewVO> getGoodsReviews(Long goodsId);
+	//List<ReviewVO> getGoodsReviews(Long goodsId);
 	
 	//参考になったを押下した際、どの商品、どのレビューに対して誰が押したかをDBに記録する必要がある。
 	//かつ、押下したことがあるユーザーならば、警告メッセージが提出してください。
 	List<ReviewSannkou> getReviewSannkouUserId(ReviewSannkou reviewSannkou);
 	boolean insertHelpNum(ReviewSannkou reviewSannkou);
 	boolean updateReviewNum(ReviewSannkou reviewSannkou);
-	long getHelpNum(long reviewId);
+	long getHelpNum(long reviewId,long goodsId);
 	
 	//レビュー平均評価x.xの情報
 	double getAverageStar(Long goodsId);
 	
 	//参考になったを押下した後、「参考になった（125人）」人数を計算
 	long getTotalSannkou(Long goodsId, Long reviewId);
+	
+	// 
+	List<Review>  getStarNum(long goodsId);
 
 }

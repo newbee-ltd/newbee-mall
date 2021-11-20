@@ -8,6 +8,8 @@
  */
 package ltd.newbee.mall.service;
 
+import java.util.List;
+
 import ltd.newbee.mall.entity.QuestionSannkou;
 import ltd.newbee.mall.util.PageInquiryResult;
 import ltd.newbee.mall.util.PageInquiryUtil;
@@ -21,8 +23,9 @@ public interface PageInquiryService {
 	 */
 	PageInquiryResult getQAPage(PageInquiryUtil pageUtil);
 
+	List<QuestionSannkou> getQASannkouUserId(QuestionSannkou questionSannkou);
 	boolean insertHelpNum(QuestionSannkou questionSannkou);
 	boolean updateHelpNum(QuestionSannkou questionSannkou);
-	long getHelpNum(long questionId);
+	long getHelpNum(long questionsId, long goodsId);
 	
 }
