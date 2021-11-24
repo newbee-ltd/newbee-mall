@@ -17,7 +17,7 @@
 	left join over_amount_minus as oam
 	  on acc.campaign_id=oam.campaign_id
 	left join buy_category_set as bcs
-	  on acc.campaign_id=bcs.campaign_id
+	  on acc.category_id=bcs.buy_category_id
 	left join over_amount_coupon as oac
 	  on acc.campaign_id=oac.campaign_id
 	left join discount as d
@@ -30,7 +30,7 @@
 	<select id="getApplyGoods" parameterType="java.lang.Long"
 		resultType="ltd.newbee.mall.entity.ApplyGoodsCampaign">
 	select
-	  goods.goods_id,goods.goods_name,c.campaign_id,c.campaign_name,agc.valid_date_from,agc.valid_date_to
+	  goods.goods_id,goods.goods_name,c.campaign_id,c.campaign_name,agc.valid_date_from,agc.valid_date_to,bgs.free_goods_id
 	from tb_newbee_mall_goods_category as cat
 	join tb_newbee_mall_goods_info as goods
 	  on cat.category_id = goods.goods_category_id
@@ -41,8 +41,8 @@
 
 	left join over_amount_minus as oam
 	  on agc.campaign_id=oam.campaign_id
-	left join buy_category_set as bcs
-	  on agc.campaign_id=bcs.campaign_id
+    left join buy_goods_set as bgs
+	  on agc.goods_id=bgs.buy_goods_id and agc.campaign_id=bgs.campaign_id
 	left join over_amount_coupon as oac
 	  on agc.campaign_id=oac.campaign_id
 	left join discount as d
@@ -131,5 +131,9 @@
 	 <select id="getCampaignIdList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.campaign.Campaign">
 		select campaign_id from campaign
 		where campaign_id= #{campaignId,jdbcType=BIGINT}
+	</select>
+	
+	  <select id="getGoodsInfoList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.NewBeeMallGoods">
+		select goods_id,goods_name from tb_newbee_mall_goods_info limit 10
 	</select>
 </mapper>

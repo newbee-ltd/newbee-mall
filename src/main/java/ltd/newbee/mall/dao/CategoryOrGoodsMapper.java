@@ -33,4 +33,7 @@ public interface CategoryOrGoodsMapper {
 	List<Campaign> getCampaignIdList(long campaignId);
 	//ArrayList<String> msgList();
 	
+	// modal
+	List<NewBeeMallGoods> getGoodsInfoList();
+	
 }

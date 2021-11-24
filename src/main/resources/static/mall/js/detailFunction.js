@@ -391,7 +391,6 @@ let avgStar = parseFloat($('.p-reviw-graph-area-g-score').text());
 $('#avgStar').css("width", `${(avgStar / 5) * 100}%`);
 
 // model 星星
-
 for (let i = 0; i < stars.length; i++) {
 	stars[i].onclick = function() {
 		console.log('star rating: ' + this.value);
@@ -445,7 +444,6 @@ function reviewSubmit() {
 	let reviewTitle1 = reviewTitle.value;
 	let reviewDetail1 = reviewTitle.value;
 	let imageUrl = document.getElementById("carouselImg").src;
-
 	let data = {
 		"goodsId": goodsId,
 		"reviewId": reviewId,
@@ -455,32 +453,67 @@ function reviewSubmit() {
 		"reviewDetail": reviewDetail1,
 		"imageUrl": imageUrl
 	};
-	
-	$.ajax({
-		type: 'POST',//方法类型
-		url: '/insertReview',
-		contentType: 'application/json',
-		data: JSON.stringify(data),
-		success: function(result) {
-			if (result.resultCode == 200) {
-				fade.style.display = "none";
-				swal("保存成功", {
-					icon: "success",
-				});
-				reload();
-			} else {
-				fade.style.display = "none";
-				swal(result.message, {
+	/*
+		$.ajax({
+			type: 'POST',//方法类型
+			url: '/insertReview',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(result){
+				if (result.resultCode == 200) {
+					fade.style.display = "none";
+					swal("保存成功", {
+						icon: "success",
+					});
+					reload();
+				} else {
+					fade.style.display = "none";
+					swal(result.message, {
+						icon: "error",
+					});
+				}
+				;
+			},
+			error: function() {
+				swal("操作失败", {
 					icon: "error",
 				});
-			}
-			;
-		},
-		error: function() {
-			swal("操作失败", {
-				icon: "error",
-			});
+			}																																										
+		});
+	*/
+	for (let i = 0; i < stars.length; i++) {
+		if (stars[i].textContent != '') {
+			stars[i].textContent = '';
+			//点击完需去除颜色，初始化时点击星星后要设置其他text为0.避免重复点击
 		}
-	});
+	}
+	reviewTitle.value = '';
+	reviewDetail.value = '';
+	document.getElementById("carouselImg").src = '/admin/dist/img/img-upload.png';
 
 }
+
+$(function() {
+	new AjaxUpload('#uploadRVImage', {
+		action: '/upload/rvfile',
+		name: 'file',
+		autoSubmit: true,
+		responseType: "json",
+		onSubmit: function(file, extension) {
+			if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
+				alert('只支持jpg、png、gif格式的文件！');
+				return false;
+			}
+		},
+		onComplete: function(file, r) {
+			if (r != null && r.resultCode == 200) {
+				$("#carouselImg").attr("src", r.data);
+				$("#carouselImg").attr("style", "width: 128px;height: 128px;display:block;");
+				return false;
+			} else {
+				alert("error");
+			}
+		}
+	});
+});
+

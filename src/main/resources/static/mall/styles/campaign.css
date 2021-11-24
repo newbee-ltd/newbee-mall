@@ -1,0 +1,157 @@
+
+/*------------------campaign---------------*/
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+
+.campaign{
+	margin:1rem;
+	position:relative;
+}
+.g-c-title{
+	margin-bottom: 0.5rem;
+}
+.g-c-name {
+    font-size: 0.9rem;
+    padding: 6px 5px;
+    background-color: white;
+    border-radius: 5px;
+    border:1px solid rgb(152, 152, 152);
+    width:150px;
+}
+.g-c-date input{
+   padding: 4px 4px;
+   border-radius: 5px;
+   border:1px solid rgb(152, 152, 152);
+}
+.g-c-form{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	margin:6px 0;
+}
+.g-c-form-item{
+	padding-right: 1rem;
+}
+
+#date-start,#date-end{
+	width:195px;
+
+}
+.plus-munus{
+	margin:0;
+	padding:0;
+	font-size: 1.5rem;
+	color:rgb(21, 158, 149);
+}
+
+.hidden-show1{
+	display:none;
+}
+.show1-div{
+	display:flex;
+	flex-direction: row;
+	border-bottom:1px dashed rgb(214, 214, 214);
+	padding:2px 0 3px;
+	align-items: center;
+	}
+.show1-sec{
+	border:2px solid rgb(179, 179, 179);
+	border-radius: 5px;
+	padding:6px;
+	margin-left: 5px;
+}
+.show1-sec select{
+	border-radius: 5px;
+	padding:3px;
+}
+.g-c-form-core{
+	display:flex;
+	width:824px;
+	min-width: 824px;
+}
+.show1-cbox{
+	max-width: 200px;
+}
+.plus2{
+	display:none;
+}
+
+.hidden-show2{
+	display:none;
+}
+.show2-div{
+	display:flex;
+	flex-direction: row;
+	border-bottom:1px dashed rgb(214, 214, 214);
+	padding:2px 0 3px;
+	align-items: center;
+	}
+.show2-sec{
+	border:2px solid rgb(179, 179, 179);
+	border-radius: 5px;
+	padding:6px;
+	margin-left: 5px;
+}
+.show2-sec select{
+	border-radius: 5px;
+	padding:3px;
+}
+.show2-cbox{
+	max-width: 200px;
+}
+.plus3{
+	display:none;
+}
+.g-c-form-core-1{
+	display:flex;
+	min-width: 225px;
+	align-items: center;
+}
+.plus2-1{
+	display:flex;
+	align-items: center;
+}
+
+.hidden-show3{
+	display:none;
+}
+.show3-div{
+	display:flex;
+	flex-direction: row;
+	border-bottom:1px dashed rgb(214, 214, 214);
+	padding:2px 0 3px;
+	align-items: center;
+	}
+.show3-sec{
+	border:2px solid rgb(179, 179, 179);
+	border-radius: 5px;
+	padding:6px;
+	margin-left: 5px;
+}
+.show3-sec select{
+	border-radius: 5px;
+	padding:3px;
+}
+.show3-cbox{
+	max-width: 200px;
+}
+.present{
+	display:none;
+}
+
+.hidden-modal{
+	display:none;
+}
+.modal-campaign{
+	background-color: rgba(96, 96, 96,0.5);
+    position: fixed;
+    top: 0rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-right: 17px;
+    z-index: 10;
+}

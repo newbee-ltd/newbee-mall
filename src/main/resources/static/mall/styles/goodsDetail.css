@@ -72,7 +72,8 @@
 
 .slide-controls {
   color: rgb(71, 73, 73);
-
+display:flex;
+flex-direction: row;
   margin-top: 10px;
   align-items: center; 
   justify-content: center;
@@ -81,6 +82,7 @@
 }
 
 .slide-left,.slide-right{
+
 	cursor: pointer;
     font-size: 1.5rem;
     text-align: center;
@@ -490,7 +492,7 @@ img {
     
     }
 .fade{
-	display: block;
+	display: none;
 }
 .modal.show .modal-dialog {
     transform: translate(0,0);
@@ -640,5 +642,31 @@ img {
 	color:white;
 	border-radius: 7px;
 	border:1px solid rgb(68, 140, 243);
+}
+
+/*------------------campaign---------------*/
+.campaign{
+	padding:1rem 2rem;
+	
+}
+.g-c-name {
+    font-size: 0.9rem;
+    padding: 6px 5px;
+    background-color: white;
+    border-radius: 5px;
+    border:1px solid rgb(152, 152, 152);
+}
+.g-c-date input{
+   padding: 4px 4px;
+   border-radius: 5px;
+   border:1px solid rgb(152, 152, 152);
+}
+.g-c-form{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+}
+.g-c-form-item{
+	padding-right: 1rem;
 }
 	

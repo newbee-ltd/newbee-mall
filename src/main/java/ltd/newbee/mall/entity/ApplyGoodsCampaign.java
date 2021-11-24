@@ -16,6 +16,7 @@ public class ApplyGoodsCampaign {
 	private Date validDateTo;
 	private long parentId;
     private boolean deleteFlag;
+    private long freeGoodsId;
 	
 	public long getGoodsId() {
 		return goodsId;
@@ -79,6 +80,14 @@ public class ApplyGoodsCampaign {
 
 	public void setDeleteFlag(boolean deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public long getFreeGoodsId() {
+		return freeGoodsId;
+	}
+
+	public void setFreeGoodsId(long freeGoodsId) {
+		this.freeGoodsId = freeGoodsId;
 	}
 
 	

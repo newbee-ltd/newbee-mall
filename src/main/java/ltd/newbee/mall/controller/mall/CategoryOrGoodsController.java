@@ -51,9 +51,9 @@ public class CategoryOrGoodsController {
 
 			ArrayList<ApplyCategoryCampaign> categoryList = categoryOrGoodsService.getApplyCategory(parentId);
 			if (categoryList != null && !categoryList.isEmpty()) {
-				return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "該当カテゴリリストもしくはグッズリストがない！");
-			} else {
 				return ResultGenerator.genSuccessResult(categoryList);
+			} else {
+				return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, "該当カテゴリリストもしくはグッズリストがない！");
 			}
 
 		} else {
@@ -264,4 +264,9 @@ public class CategoryOrGoodsController {
 		}
 		return ResultGenerator.genSuccessResult(Constants.CSV_INSERT_SUCCESS_MESSAGE);
 	}
+	
+	// modal get goodsInfo list
+	
 }
+
+

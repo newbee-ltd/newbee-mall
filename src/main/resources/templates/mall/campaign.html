@@ -1,0 +1,186 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mall/header::head-fragment('Campaign','campaign')">
+
+</head>
+
+
+<body>
+
+	<section class="campaign">
+		<div class="g-c-title">
+			<h2 class="g-h-2 g-h-i">
+				<i class="fas fa-comment-dots"></i>
+				<span>キャンペーン</span>
+			</h2>
+		</div>
+
+
+		<!--
+		<div class="g-c-form">
+			<div class="g-c-form-item">
+				<select class="g-c-name" id="campaignId">
+					<option value="">--キャンペーン--</option>
+
+					<th:block th:each="campaigns,iterStat: ${campaign}">
+						<th:block th:each="campaigni,innerStat: ${campaigns}">
+							<option class="campaign-opt" th:value="${campaigni.campaignId}" th:text="${campaigni.campaignId+'. '+campaigni.campaignName}">
+							</option>
+						</th:block>
+					</th:block>
+
+				</select>
+			</div>
+			<div class="g-c-form-item">
+				<input type="checkbox" id="cbox" value="first_checkbox"> --カテゴリー--
+				<label for="cbox"></label>
+			</div>
+			<div class="g-c-form-item g-c-date">
+				<label for="date-start">開始日</label>
+				<input id="date-start" type="date">
+				<label for="date-end">終了日</label>
+				<input id="date-end" type="date">
+			</div>
+		</div>
+-->
+
+
+
+		<th:block th:each="gOrcListi,innerStat: ${gOrcList}">
+
+			<div class="g-c-form">
+				<div class="g-c-form-core">
+					<div class="g-c-form-item">
+						<select class="g-c-name" id="campaignId">
+							<option value="">--キャンペーン--</option>
+							<option th:each="campaigni,innerStat: ${campaign}" class="campaign-opt"
+								th:value="${campaigni.campaignId}"
+								th:text="${campaigni.campaignId+'. '+campaigni.campaignName}"
+								th:selected="${gOrcListi.campaignId}!=0?${campaigni.campaignId==gOrcListi.campaignId}:${gOrcListi.campaignId}!=0">
+							</option>
+						</select>
+					</div>
+					<div class="g-c-form-item">
+						<input type="checkbox" id="cbox1" th:value="${gOrcListi.categoryId}"
+							th:checked="${gOrcListi.campaignId}!=0?ture:false">
+						<label for="cbox1" th:text="${gOrcListi.categoryName}"></label>
+					</div>
+					<div class="g-c-form-item g-c-date">
+						<label for="date-start">開始日</label>
+						<input id="date-start" type="datetime-local"
+							th:value="${#dates.format(gOrcListi.validDateFrom,'yyyy-MM-dd')}+'T'+${#dates.format(gOrcListi.validDateFrom,'hh:mm')}">
+						<label for="date-end">終了日</label>
+						<input id="date-end" type="datetime-local"
+							th:value="${#dates.format(gOrcListi.validDateTo,'yyyy-MM-dd')}+'T'+${#dates.format(gOrcListi.validDateTo,'hh:mm')}">
+					</div>
+				</div>
+				<i class="fas fa-plus-circle plus-munus" id="plus1" th:onclick="|show1(this)|"></i>
+
+			</div>
+		</th:block>
+
+	</section>
+
+
+	<div id="show1-div" class="hidden-show1">
+		<div class="show1-div">
+			<div class="g-c-form-core-1">
+				<div class="g-c-form-item" id="show1-opt">
+
+				</div>
+				<div class="g-c-form-item show1-cbox">
+					<input type="checkbox" id="cbox2">
+					<label class="show-cbox" for="cbox2" id="show1-cbox"></label>
+				</div>
+			</div>
+			<div class="plus2">
+				<i class="fas fa-plus-circle plus-munus" id="plus2" onclick="show2(this)"></i>
+			</div>
+			<div class="present">
+				<i class="fas fa-gift plus-munus" id="present" onclick="present(this)"></i>
+			</div>
+		</div>
+	</div>
+
+	<div id="show2-div" class="hidden-show2">
+		<div class="show2-div">
+			<div class="g-c-form-core-1">
+				<div class="g-c-form-item" id="show2-opt">
+
+				</div>
+				<div class="g-c-form-item show2-cbox">
+					<input type="checkbox" id="cbox3">
+					<label class="show-cbox" for="cbox3" id="show2-cbox"></label>
+				</div>
+			</div>
+			<div class="plus3">
+				<i class="fas fa-plus-circle plus-munus" id="plus3" onclick="show3(this)"></i>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="show3-div" class="hidden-show3">
+		<div class="show3-div">
+			<div class="g-c-form-core-1">
+				<div class="g-c-form-item" id="show3-opt">
+
+				</div>
+				<div class="g-c-form-item show3-cbox">
+					<input type="checkbox" id="cbox4">
+					<label class="show-cbox" for="cbox4" id="show3-cbox"></label>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal-campaign hidden-modal" id="modal-campaign">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h6 class="modal-title" id="carouselModalLabel">买一赠一活动</h6>
+					<button type="button" class="close-modal">
+						<i class="fas fa-times" id="close-modal" onclick="closeModal()"></i>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div id="indexConfigForm">
+
+						<div class="form-group">
+							<label for="reviewTitle" class="control-label">主商品:</label>
+							<input type="text" class="form-text" id="mainName" name="reviewTitle" disabled>
+						</div>
+						<div class="form-group">
+							<label for="reviewDetail" class="control-label">赠送商品:</label>
+							<select>
+								<option value="0">请选择一个您喜欢的商品
+							</select>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-cancel" id="rvCancelBt">キャンセル</button>
+						<button type="button" class="btn btn-kakuninn" id="rvSaveBt">サブミット</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+	<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+	<script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
+	<script th:src="@{/mall/js/campaign.js}" type="text/javascript"></script>
+	<script type="text/javascript">
+
+	</script>
+</body>
+
+</html>

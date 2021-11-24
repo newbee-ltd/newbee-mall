@@ -88,5 +88,10 @@ public class CategoryOrGoodsServiceImpl implements CategoryOrGoodsService {
 		return categoryOrGoodsMapper.getCampaignIdList(campaignId);
 	}
 	
+	//
+	@Override
+	public List<NewBeeMallGoods> getGoodsInfoList(){
+		return categoryOrGoodsMapper.getGoodsInfoList();
+	}
 	
 }
