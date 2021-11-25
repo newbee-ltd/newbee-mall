@@ -50,6 +50,7 @@ function show1(_this) {
 						el = $('.hidden-show1').clone().removeClass("hidden-show1");
 						if ('goodsId' in result.data[i]) {
 							el.find('#show1-cbox').text(result.data[i].goodsName);
+							el.find('#show1-cbox').val(result.data[i].goodsId);
 							if (result.data[i].campaignId == 2) {
 								el.find('.present').removeClass('present');
 							}
@@ -151,6 +152,9 @@ function show2(_this) {
 						el = $('.hidden-show2').clone().removeClass("hidden-show2");
 						if ('goodsId' in result.data[i]) {
 							el.find('#show2-cbox').text(result.data[i].goodsName);
+							if (result.data[i].campaignId == 2) {
+								el.find('.present').removeClass('present');
+							}
 						} else {
 							el.find('#show2-cbox').text(result.data[i].categoryName);
 							el.find('.plus3').addClass('plus2-1');
@@ -264,7 +268,6 @@ function show3(_this) {
 					icon: "error",
 				});
 			}
-
 		});
 
 	}
@@ -278,10 +281,9 @@ function show3(_this) {
 function present(_this) {
 	$('.hidden-modal').css('display', "block");
 	let mainName = $(_this).parent().parent().find('.show-cbox').text();
-	$('#mainName').val(mainName);
-
-
-
+	let mainId = $(_this).parent().parent().find('.show-cbox').val();
+	$('#mainName').val(mainId + " " + mainName);
+	//console.log($('#present-opt').val())
 }
 
 function closeModal() {
@@ -293,4 +295,56 @@ window.onclick = function(event) {
 	if (event.target == hiddenModal) {
 		$('.hidden-modal').css('display', "none");
 	}
+}
+
+function changePresent(_this) {
+	//console.log($(_this).find('option:selected').text())
+}
+
+function submitPresent() {
+	let mainName = $('#mainName').val();
+	let presentName;
+	let presentVal = parseInt($('#present-sel').find('option:selected').val());
+	if (presentVal !== 0) {
+		presentName = $('#present-sel').find('option:selected').text();
+
+		//let presentList = new Array();
+		//presentList.push(mainName);
+		//presentList.push(presentName);
+		let goodId = mainName.substr(0, 5);
+		let freeGoodsId = presentName.substr(0, 5);
+
+		let data = {
+			"buyGoodsId": goodId,
+			"freeGoodsId": freeGoodsId
+		}
+
+		$.ajax({
+			type: 'PUT',
+			url: "/updateBGS",
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(result) {
+				if (result.resultCode == 200) {
+
+				} else {
+					swal(result.message, {
+						icon: "error",
+					});
+				};
+			},
+			error: function() {
+				swal("操作失败", {
+					icon: "error",
+				});
+			}
+		});
+
+
+	} else {
+		swal("请选择一个赠品", {
+			icon: "error",
+		});
+	}
+
 }

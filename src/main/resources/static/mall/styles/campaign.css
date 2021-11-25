@@ -155,3 +155,11 @@
     padding-right: 17px;
     z-index: 10;
 }
+.present-sel{
+	border-radius: 5px;
+	border-color: grey;
+	width:320px;	
+	height:3rem;
+	padding:3px;
+	font-size: 0.9rem;
+}

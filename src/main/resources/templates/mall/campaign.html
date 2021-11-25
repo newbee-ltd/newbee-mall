@@ -114,6 +114,9 @@
 					<input type="checkbox" id="cbox3">
 					<label class="show-cbox" for="cbox3" id="show2-cbox"></label>
 				</div>
+				<div class="present">
+					<i class="fas fa-gift plus-munus" id="present" onclick="present(this)"></i>
+				</div>
 			</div>
 			<div class="plus3">
 				<i class="fas fa-plus-circle plus-munus" id="plus3" onclick="show3(this)"></i>
@@ -140,35 +143,41 @@
 	<div class="modal-campaign hidden-modal" id="modal-campaign">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-
-				<div class="modal-header">
-					<h6 class="modal-title" id="carouselModalLabel">买一赠一活动</h6>
-					<button type="button" class="close-modal">
-						<i class="fas fa-times" id="close-modal" onclick="closeModal()"></i>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div id="indexConfigForm">
-
-						<div class="form-group">
-							<label for="reviewTitle" class="control-label">主商品:</label>
-							<input type="text" class="form-text" id="mainName" name="reviewTitle" disabled>
-						</div>
-						<div class="form-group">
-							<label for="reviewDetail" class="control-label">赠送商品:</label>
-							<select>
-								<option value="0">请选择一个您喜欢的商品
-							</select>
-						</div>
-
+				<form>
+					<div class="modal-header">
+						<h6 class="modal-title" id="carouselModalLabel">买一赠一活动</h6>
+						<button type="button" class="close-modal">
+							<i class="fas fa-times" id="close-modal" onclick="closeModal()"></i>
+						</button>
 					</div>
+
+					<div class="modal-body">
+
+						<div id="indexConfigForm">
+
+							<div class="form-group">
+								<label for="reviewTitle" class="control-label">主商品:</label>
+								<input type="text" class="present-sel" id="mainName" disabled>
+							</div>
+							<div class="form-group">
+								<label for="presentDetail" class="control-label">赠送商品:</label>
+								<select class='present-sel' id='present-sel' onchange='changePresent(this)' required>
+									<option value="0" id="present-opt">请选择一个您喜欢的商品 </option>
+									<option th:each="goods,iterStat: ${goodsInfo}" th:value="${iterStat.index}+1"
+										th:text="${goods.goodsId+' '+goods.goodsName}" id="present-opt">
+									</option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+
 					<div class="modal-footer">
-						<button type="button" class="btn btn-cancel" id="rvCancelBt">キャンセル</button>
-						<button type="button" class="btn btn-kakuninn" id="rvSaveBt">サブミット</button>
+						<button type="submit" class="btn btn-cancel" id="rvCancelBt">キャンセル</button>
+						<button type="button" class="btn btn-kakuninn" id="rvSaveBt"
+							onclick="submitPresent()">サブミット</button>
 					</div>
-
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

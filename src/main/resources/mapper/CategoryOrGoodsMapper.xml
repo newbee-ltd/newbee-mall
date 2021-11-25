@@ -136,4 +136,17 @@
 	  <select id="getGoodsInfoList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.NewBeeMallGoods">
 		select goods_id,goods_name from tb_newbee_mall_goods_info limit 10
 	</select>
+	
+	
+	 <update id="updateBuyGoodsSet"
+		parameterType="ltd.newbee.mall.entity.campaign.BuyGoodsSet" >
+		update buy_goods_set
+		<set>
+			<if test="freeGoodsId != null">
+				free_goods_id = #{freeGoodsId,jdbcType=BIGINT},
+			</if>
+		</set>
+		where buy_goods_id = #{buyGoodsId,jdbcType=BIGINT}
+	</update>
+	
 </mapper>

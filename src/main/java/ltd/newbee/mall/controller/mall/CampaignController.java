@@ -10,6 +10,7 @@ package ltd.newbee.mall.controller.mall;
 
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
+import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
@@ -45,10 +46,11 @@ public class CampaignController {
 			List<ApplyGoodsCampaign> gOrcList = BeanUtil.copyList(goodsList, ApplyGoodsCampaign.class);
 			request.setAttribute("gOrcList", gOrcList);
 		}
-		
-	    // 3.show more
-		// 4.modal  
 
+		// 3.show more
+		// 4.modal
+		List<NewBeeMallGoods> goodsInfoList = categoryOrGoodsService.getGoodsInfoList();
+		request.setAttribute("goodsInfo", goodsInfoList);
 
 		return "mall/campaign";
 	}

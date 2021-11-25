@@ -7,6 +7,7 @@ import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.campaign.ApplyGoodsCampaign2;
+import ltd.newbee.mall.entity.campaign.BuyGoodsSet;
 import ltd.newbee.mall.entity.campaign.Campaign;
 
 
@@ -35,5 +36,5 @@ public interface CategoryOrGoodsMapper {
 	
 	// modal
 	List<NewBeeMallGoods> getGoodsInfoList();
-	
+	long updateBuyGoodsSet(BuyGoodsSet buyGoodsSet);
 }

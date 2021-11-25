@@ -28,7 +28,9 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.ApplyCategoryCampaign;
 import ltd.newbee.mall.entity.ApplyGoodsCampaign;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.Student;
 import ltd.newbee.mall.entity.campaign.ApplyGoodsCampaign2;
+import ltd.newbee.mall.entity.campaign.BuyGoodsSet;
 import ltd.newbee.mall.entity.campaign.Campaign;
 import ltd.newbee.mall.service.CategoryOrGoodsService;
 import ltd.newbee.mall.util.Result;
@@ -246,7 +248,7 @@ public class CategoryOrGoodsController {
 //		}
 //		pw.close();
 
-		//存放路径不可以写filePath,否则会重写插入的文件
+		// 存放路径不可以写filePath,否则会重写插入的文件
 		File file = new File("/Users/chenghongzhen/Desktop/SpringBoot/newbeemall/msgList1.txt");
 		try {
 			if (!file.exists()) {
@@ -264,9 +266,16 @@ public class CategoryOrGoodsController {
 		}
 		return ResultGenerator.genSuccessResult(Constants.CSV_INSERT_SUCCESS_MESSAGE);
 	}
-	
+
 	// modal get goodsInfo list
-	
+	@PutMapping(value = "/updateBGS")
+	@ResponseBody
+	public Result updateStudent(@RequestBody BuyGoodsSet buyGoodsSet) {
+		long updatResult= categoryOrGoodsService.updateBuyGoodsSet(buyGoodsSet);
+		if (ServiceResultEnum.SUCCESS.getResult().equals(updatResult)) {
+			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_INSERT_ERROR_MESSAGE);
+		} else {
+			return ResultGenerator.genSuccessResult("更新した");
+		}
+	}
 }
-
-
