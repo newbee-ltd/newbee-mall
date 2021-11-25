@@ -31,6 +31,13 @@ public interface CampaignMapper {
 	public ArrayList<CampaignCategory> getCategoryDropDownList(String campaignName);
 	
 	// goods_idは商品マスタに存在するかどうかをチェック
-	public ArrayList<CampaignGoods> getCampaignGoodsId(long goodsId);
-	
+    //public ArrayList<CampaignGoods> checkGoodsIdExist(long goodsId);
+    long checkGoodsIdExist(long goodsId);
+     
+    // campaign_idはキャンペーンマスタに存在するかどうかをチェック
+    public ArrayList<CampaignGoods> checkCampaignIdExist(long campaignId);
+    
+    // campaignList
+    public ArrayList<CampaignCategory> dropDownList();
+    
 }

@@ -3,6 +3,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="mall/header::head-fragment('NewBee商城-商品详情','detail')">
 </head>
+<head>
+   <link rel="stylesheet" th:href="@{/mall/styles/goodsFunc.css}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+</head>
 <body>
 <header th:replace="mall/header::header-fragment"></header>
 
@@ -18,11 +22,51 @@
     </div>
 
     <div class="intro mt20 w clearfix">
-        <div class="left fl" style="position: relative;">
+      <!-- GoodsImg Slideshow Gallery -->
+      <!-- Container for the image gallery -->
+	  <div class="main-container">
+	    <!-- Cover Img -->
+		<div class="left fl" id="mainContainer" style="position: relative;">
             <div class="swiper-container fl">
                 <img th:src="@{${goodsDetail.goodsCoverImg}}">
             </div>
         </div>
+        
+		<!-- Img Container -->
+		<div class="img-container swiper-wrapper">
+		  <!-- 用thymealf在初始化页面显示图片Gallery -->
+		  <div class="swiper-slide-active" id="imageContainer">
+		    <th:block th:each="innerList, iter:${outterList}">
+		      <div class="img-column">
+		        <th:block th:each="innerImg, innerIter:${innerList}">
+		          <img class="image" th:src="@{${innerImg.goodsImgUrl}}" th:attr="onclick=|currentImg('${innerIter.index}')|">
+		        </th:block>  
+		      </div>
+		    </th:block>  
+		  </div>
+		    
+        </div>
+		    
+		<!-- Gallery Controls -->
+		<div class="gallery-controls">
+	      <!-- Left Btn -->
+	      <div>
+		    <a class="prev" onclick="nextImgSlide()">&#10094;</a> 
+	      </div>
+	      <!-- Swiper Pagination Bullets -->
+	      <div class="swiper-pagination-bullets">
+	        <th:block th:each="innerList, iter:${outterList}">
+		      <span th:class="${iter.index == 0 ? 'swiper-pagination-bullet swiper-pagination-bullet-active' : 'swiper-pagination-bullet'}"></span>  
+		    <!--  th:attr="onclick=|clickPagination('${iter.index}')|" -->
+		    </th:block>
+	      </div>
+          <!-- Right Btn -->
+          <div>
+		    <a class="next" onclick="nextImgSlide()">&#10095;</a>
+          </div>
+		</div>
+	  </div>	
+        
         <div class="right fr">
             <div class="h3 ml20 mt20" th:text="${goodsDetail.goodsName}">NewBeeMall</div>
             <div class="sub_title mr40 ml20 mt10" th:text="${goodsDetail.goodsIntro}">NewBeeMall</div>
@@ -54,14 +98,452 @@
                     <dt>支持</dt>
                     <dd>折旧变现，买新更省钱。<a style="float:none;text-decoration: underline;" href="##">详情</a></dd>
                 </dl>
-
             </div>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div>  
+        
+      <!-- Q&A -->
+      <section class="qa-container">
+        <div class="qa-head">
+          
+          <h2>
+            <span><i class="fas fa-question-circle"></i></span>
+            <span>商品Q＆A</span>
+          </h2>
+        </div>
+        <!-- Q&A Area -->
+        <div id="qaArea">
+        
+          <!-- Step(head) and Select Wrap -->
+          <div class="qa-step">
+            <div class="step-link">
+              <th:block th:each="qaCount: ${qaCount}">
+                <span class="totalCount" th:text="'全' + ${qaCount} + '件'"></span>
+              </th:block>
+              
+              <span class="page-btn">
+                <i class="fas fa-angle-left" id="left-btn"></i>
+              </span>
+              <span>ページ</span>
+              <th:block th:each="qaCurrentPage: ${qaCurrentPage}"> 
+                <span class="currentPage" id="currentPageHead" th:text="${qaCurrentPage}"></span> 
+              </th:block>
+              <span> / </span>
+              <th:block id="totalPage" th:each="qaTotalPage: ${qaTotalPage}">   
+                <span class="totalPage" id="totalPageHead" th:text="${qaTotalPage}"></span> 
+              </th:block>
+              <span class="page-btn">
+                <i class="fas fa-angle-right" id="right-btn"></i>
+              </span>
+              <span class="select-wrap">
+                <select id="qa-select-sort"><!--onchange="getval(this);"-->
+                  <option id="helpNumSort" value="1">新しい順</option>
+                  <option id="submitDateSort" value="2">トップ評価</option>
+                </select>
+              </span>
+            </div>
+            
+         <!-- <div class="qaContainer">-->
+          <th:block th:each="qaList: ${qaList}">
+          <div class="zv-qa">
+            <div class="question">
+              <span class="q-mark">Q. </span>
+              <span class="q-text" th:text="${qaList.question}"></span>
+              
+            </div>
+            <div class="q-info">
+              <span>投稿日 </span>
+              <span class="q-create-at" th:text="${qaList.submitDate}"></span>
+            </div>
+            <div class="answer">
+              <span class="a-mark">A. </span>
+              <span class="a-text" th:text="${qaList.answer}"></span>
+              <div class="a-info">          
+                <span>回答日 </span>
+                <span class="a-create-at" th:text="${qaList.answerDate}"></span>
+              </div>
+              <div class="a-helpnum">
+                <span><i class="far fa-thumbs-up" onclick="initHelp(this)"><span class="question-id-hidden" style="display:none" th:text="${qaList.questionId}"></span></i></span>
+                <span>参考になった</span>
+                <span>(</span>
+                <span id="helpNum" th:text="${qaList.helpNum}"></span>
+                <span>)</span>
+              </div>
+            </div>
+          </div>
+          </th:block>
+          
+          <!-- Step(foot) -->
+          <div class="qa-step" id="footStep">
+            <div class="step-link">
+              <th:block th:each="qaCount: ${qaCount}">
+                <span class="totalCount" th:text="'全' + ${qaCount} + '件'"></span>
+              </th:block>
+              
+              <span class="page-btn">
+                <i class="fas fa-angle-left" id="left-btn"></i>
+              </span>
+              <span>ページ</span>
+              <th:block th:each="qaCurrentPage: ${qaCurrentPage}"> 
+                <span class="currentPage" th:text="${qaCurrentPage}"></span> 
+              </th:block>
+              <span> / </span>
+              <th:block th:each="qaTotalPage: ${qaTotalPage}">   
+                <span class="totalPage" th:text="${qaTotalPage}"></span> 
+              </th:block>
+              <span class="page-btn">
+                <i class="fas fa-angle-right" id="right-btn"></i>
+              </span>
+            </div>
+          </div>
+          
+        </div>
+        
+         <div class="zv-qa zv-qa-hidden">
+           <div class="question">
+              <span class="q-mark">Q. </span>
+              <span class="q-text"></span>
+              
+            </div>
+            <div class="q-info">
+              <span>投稿日 </span>
+              <span class="q-create-at"></span>
+            </div>
+            <div class="answer">
+              <span class="a-mark">A. </span>
+              <span class="a-text"></span>
+              <div class="a-info">          
+                <span>回答日 </span>
+                <span class="a-create-at"></span>
+              </div>
+              <div class="a-helpnum">
+                <span><i class="far fa-thumbs-up"><span class="question-id-hidden" style="display:none"></span></i></span>
+                <span>参考になった</span>
+                <span>(</span>
+                <span id="helpNum"></span>
+                <span>)</span>
+              </div>
+            </div>
+          </div>
+          
+        <!-- Q&A Attention Container-->
+        <div id="attention-container">
+          <h3 class="attention">ご注意ください</h3>
+          <ul>
+            <li class="attention-message">「ニトリ商品Q&A」は、お客様のご質問とニトリの回答を、他のお客様に参考にしていただくためのサービスです。</li>
+            <li class="attention-message">ニトリが不適切と判断した際、後日投稿を削除する場合がございます。詳細はご利用ガイドのニトリ商品Q&Aについてをご確認ください。</li>
+          </ul>
+        </div>
+        <!-- Q&A Post -->
+        <div id="qaPost">
+          <input type="textbox" id="textArea" class="textbox" placeholder="不明な点を質問（例：この製品には耐久性がありますか？）">
+          <br>
+          <button type="button" id="questionButton" class="btn">質問を投稿</button>
+        </div>
+      </section>
+    
     </div>
     <!-- 这里使用的是 th:utext 标签，用 th:text 不会解析 html，用 th:utext 会解析 html -->
+    <!--
     <div class="goods mt20 w clearfix" th:utext="${goodsDetail.goodsDetailContent}">
     </div>
+    -->
+    
+     <!-- Goods Detail Table -->
+      <section class="goods-detail">
+        <h2 class="detail-head">
+          <span><i class="fas fa-info-circle"></i></span>
+          <span>仕様・サイズ</span>
+        </h2>
+        <ul class="featureIcons">
+          <li src="https://www.nitori-net.jp/ecstatic/image/sys-master/images/8878579613726/pic02007.jpg" alt="">
+          </li>
+        </ul>
+        <div id="detail">
+          <table class="table-detail">
+          
+            <tr>
+              <th>商品コード</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsId}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>カラー</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsColor}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>サイズ</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsSizeLength} + ${detailList.goodsSizeLengthUnit} + ' × ' + ${detailList.goodsSizeWidth} + ${detailList.goodsSizeWidthUnit}  + ' × ' + ${detailList.goodsSizeHeight} + ${detailList.goodsSizeHeightUnit}"></td>
+              </th:block>
+            </tr>
+             <tr>
+              <th>素材</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsMaterial}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>重量</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsSizeWeight} + ${detailList.goodsSizeWeightUnit}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>保証年数</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsWarrantyYear}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>組立時間</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsAssemblyTime} + ${detailList.goodsAssemblyTimeUnit}"></td>
+              </th:block>
+            </tr>
+            <tr>
+              <th>梱包サイズ</th>
+              <th:block th:each="detailList: ${detailList}">
+                <td th:text="${detailList.goodsPackageSize}"></td>
+              </th:block>
+            </tr>
+          
+          </table>
+        </div>
+        <div class="detail-foot">
+          <a href="#" class="detail-btn" role="button">仕様・サイズをもっと見る</a>
+        </div>
+      </section>
+      
+      <!-- Goods Review -->
+      <section class="goods-review-container">
+        <!-- Review Head -->
+        <h2>
+            <span><i class="fas fa-comment-dots"></i></span>
+            <span>レビュー</span>
+        </h2>
+        <div class="review-head">
+	        <!-- Review Score -->
+	        <div class="review-score">
+	        	<div class="review-graph-left">
+	        		<div class="review-item">総合評価</div>
+	        		<div class="review-average-score">4.2</div>
+	        		<div class="review-average-star">
+	        			<div class="fill-ratings review-average-star-fill-ratings" style="width: 73.33%;"><!-- th:style="'width: ' + '${averageStar}%;'" --><!-- th:style="'width: (' + ${averageStar} + '/ 5) * 100%;' -->
+        					<span class="fill-ratings-star">★★★★★</span>
+        				</div>
+        				<div class="empty-ratings">
+							<span class="empty-ratings-star">★★★★★</span>
+						</div>
+	        		</div>
+	        		<th:block th:each="reviewCount: ${reviewCount}">
+		        		<div class="review-total">
+		        			<span>(</span>
+	              		    <span th:text="${reviewCount}"></span>
+	                        <span>)</span>
+		        		</div>
+	        		</th:block>
+	        	</div>
+	        	
+	        	<div class="review-graph-right">
+	        		<div class="review-graph-row">
+	        			<div class="review-graph-star">
+	        				<div class="fill-ratings" style="width: 100%;">
+	        					<span class="fill-ratings-star">★★★★★</span>
+	        				</div>
+	        				<div class="empty-ratings">
+    							<span class="empty-ratings-star">★★★★★</span>
+  							</div>
+	        			</div>
+	        			<div class="a-meter">
+	        			 	<div class="a-meter-bar" style="width: 33.33%;"></div>
+	        			</div>
+	        			<a class="review-link">2人</a>
+	        		</div>
+	        		<div class="review-graph-row">
+	        			<div class="review-graph-star">
+	        				<div class="fill-ratings" style="width: 80%;">
+	        					<span class="fill-ratings-star">★★★★★</span>
+	        				</div>
+	        				<div class="empty-ratings">
+    							<span class="empty-ratings-star">★★★★★</span>
+  							</div>
+	        			</div>
+	        			<div class="a-meter">
+	        			 	<div class="a-meter-bar" style="width: 33.33%;"></div>
+	        			</div>
+	        			<a class="review-link">2人</a>
+	        		</div>
+	        		<div class="review-graph-row">
+	        			<div class="review-graph-star">
+	        				<div class="fill-ratings" style="width: 60%;">
+	        					<span class="fill-ratings-star">★★★★★</span>
+	        				</div>
+	        				<div class="empty-ratings">
+    							<span class="empty-ratings-star">★★★★★</span>
+  							</div>
+	        			</div>
+	        			<div class="a-meter">
+	        			 	<div class="a-meter-bar" style="width: 16.66%;"></div>
+	        			</div>
+	        			<a class="review-link">1人</a>
+	        		</div>
+	        		<div class="review-graph-row">
+	        			<div class="review-graph-star">
+	        				<div class="fill-ratings" style="width: 40%;">
+	        					<span class="fill-ratings-star">★★★★★</span>
+	        				</div>
+	        				<div class="empty-ratings">
+    							<span class="empty-ratings-star">★★★★★</span>
+  							</div>
+	        			</div>
+	        			<div class="a-meter">
+	        			 	<div class="a-meter-bar" style="width: 0%;"></div>
+	        			</div>
+	        			<a class="review-link">0人</a>
+	        		</div>
+	        		<div class="review-graph-row">
+	        			<div class="review-graph-star">
+	        				<div class="fill-ratings" style="width: 20%;">
+	        					<span class="fill-ratings-star">★★★★★</span>
+	        				</div>
+	        				<div class="empty-ratings">
+    							<span class="empty-ratings-star">★★★★★</span>
+  							</div>
+	        			</div>
+	        			<div class="a-meter">
+	        			 	<div class="a-meter-bar" style="width: 16.66%;"></div>
+	        			</div>
+	        			<a class="review-link">1人</a>
+	        		</div>
+	        	</div>
+	        </div>
+	        
+	        <!-- Review Button -->
+	        <button id="reviewModalBtn">
+	        	<span>商品レビューを書く</span>
+	        	<span><i class="fas fa-angle-right" id="review-btn-right"></i></span>
+	        </button>
+	        
+	        <!-- Modal -->
+			<div class="modal-container" id="modal-container">
+				<div class="modal-content">
+					<div class="modal-header">
+		   				<h5 class="modal-title" id="exampleModalLabel">商品レビューを書く</h5>
+		   				<button type="button" class="close-modal">
+		   					<i class="fas fa-times" id="closeModal"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+		    			<label for="range">評価： </label><br>
+		    			
+		    			<div class="rate">
+						    <input type="radio" id="star5" name="rate" value="5" />
+						    <label for="star5" title="text">5 stars</label>
+						    <input type="radio" id="star4" name="rate" value="4" />
+						    <label for="star4" title="text">4 stars</label>
+						    <input type="radio" id="star3" name="rate" value="3" />
+						    <label for="star3" title="text">3 stars</label>
+						    <input type="radio" id="star2" name="rate" value="2" />
+						    <label for="star2" title="text">2 stars</label>
+						    <input type="radio" id="star1" name="rate" value="1" />
+						    <label for="star1" title="text">1 star</label>
+					    </div>
+					    <br>
+		    			
+						<input type="file" id="loadFile"><br><!-- onchange="console.log(this.files[0].name);" -->
+						<div class="col-sm-4">
+                        	<img id="rvUploadImg" src="/admin/dist/img/img-upload.png" style="height: 64px;width: 64px;">
+                        </div><br>
+                        
+                        <!--
+						<button class="upload-btn" id="upload-btn">アップロード</button><br>
+						-->
+		    			<label id="labelModalReviewTitle" for="message">レビュータイトル： </label><br>
+		    			<input id="modalReviewTitle" type="text" placeholder="キーワードを記入してください。"><br>
+		    			<label id="labelModalReviewDetail" for="message">レビュー詳細： </label><br>
+		    			<input id="modalReviewDetail" type="text" placeholder="詳しくレビューしてください。"><br>
+		    			<button id="modalSubmit" type="submit">レビューを提出</button>
+					</div>
+					<div class="modal-footer">
+		    			<p class="footer-title">レビューのご記入ありがとうございます！</p>
+					</div>
+				</div>
+		 	</div>
+	        
+        </div>
+        
+        <!-- Review List -->
+        <div id="review-list">
+        	<ul class="review-list-init">
+        	  <th:block th:each="rwList: ${reviewList}">
+        		<li class="review-list-item">
+        			<div class="review-list-star" th:text="${rwList.star}">★★★★★</div>
+        			<div class="review-user">
+        				<span class="review-user-id" th:text="${rwList.reviewUserId}"></span>
+        				<span>さん</span>
+        				<span class="review-date" th:text="${rwList.submitDate}"></span>
+        			</div>
+        			<p class="review-list-info" th:text="'購入商品: ' + ${rwList.goodsId}"></p>
+        			<p class="review-list-title" th:text="${rwList.reviewTitle}"></p>
+        			<p class="review-list-detail" th:text="${rwList.reviewDetail}"></p>
+        			<ul><li><img class="review-photo" alt="" th:text="${rwList.imageUrl}"></li></ul>
+        			<div class="review-helpnum">
+        			    <span class="review-id-hidden" style="display:none" th:text="${rwList.reviewId}"></span>
+                		<span><i class="far fa-thumbs-up" onclick="initReviewHelp(this)"></i></span>
+                		<span>参考になった</span>
+               			<span>(<span id="reviewhelpNum" th:text="${rwList.helpNum}"></span>)</span>
+              		</div>		
+        		</li> 
+        	  </th:block>
+        	</ul>
+        
+        	<ul class="review-list-init review-more" style="display:none">
+        		<li class="review-list-item">
+        			<div class="review-list-star">★★★★★</div>
+        			<div class="review-user">
+        				<span class="review-user-id"></span>
+        				<span>さん</span>
+        				<span class="review-date"></span>
+        			</div>
+        			<p class="review-list-info"></p>
+        			<p class="review-list-title"></p>
+        			<p class="review-list-detail"></p>
+        			<ul><li><img class="review-photo" alt=""></li></ul>
+        			<div class="review-helpnum">
+        			    <span class="review-id-hidden" style="display:none"></span>
+                		<span><i class="far fa-thumbs-up"></i></span>
+                		<span>参考になった</span>
+               			<span>(<span id="reviewhelpNum"></span>)</span>
+              		</div>		
+        		</li> 
+        	</ul>
+            
+        </div>
+        
+        <!-- Review Foot -->
+        <div class="review-foot">
+        	<a class="review-foot-btn review-more-btn" role="button">
+        		<span><i class="fas fa-angle-down" id="down-btn"></i></span>
+        		<span>レビューをもっと見る</span>
+        		<th:block th:each="reviewCount: ${reviewCount}">
+        		  <span>(</span>
+	              <span>3</span>
+	              <span>/</span>
+	              <span th:text="${reviewCount}"></span>
+	              <span>)</span>
+        		</th:block>  
+        	</a>
+        	<a class="review-foot-btn close-btn" role="button" style="display:none">	
+        		<span><i class="fas fa-angle-up" id="up-btn"></i></span>
+        		<span>閉じる</span>
+        	</a>
+        </div>
+      </section>
+    
 </div>
 
 <div th:replace="mall/footer::footer-fragment"></div>
@@ -155,5 +637,6 @@
         });
     }
 </script>
+<script th:src="@{/mall/js/goodsFunc.js}"></script>
 </body>
 </html>

@@ -79,7 +79,12 @@
          </trim> 
     </insert>
     
-    <!-- 参考になった --> 
+    <!-- 参考になった -->
+    <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.QuestionAndAnswer">
+         insert into question_sankou(goods_id, question_id, user_id)
+         values(#{goodsId,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+    </insert>
+    <!--
     <insert id="insertHelpNum" parameterType="ltd.newbee.mall.entity.QuestionAndAnswer">
          insert into question_sankou
          <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -91,12 +96,6 @@
              </if>
              <if test="userId != null">
                  user_id,
-             </if> 
-             <if test="submitDate != null">
-                 submit_date,
-             </if>
-             <if test="answerDate != null">
-                 answer_date,
              </if>
          </trim>
          
@@ -110,15 +109,9 @@
              <if test="userId != null">
                  #{userId,jdbcType=BIGINT},
              </if>
-             <if test="submitDate != null">
-                 #{submitDate,jdbcType=TIMESTAMP},
-             </if>
-             <if test="answerDate != null">
-                 #{answerDate,jdbcType=TIMESTAMP},
-             </if>
          </trim> 
     </insert>
-    
+     --> 
     <update id="updateQuestionNum" parameterType="ltd.newbee.mall.entity.QuestionAndAnswer">
         update question_and_answer set help_num = help_num + 1
         where question_id = #{questionId}

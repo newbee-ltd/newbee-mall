@@ -1,0 +1,122 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <link rel="stylesheet" th:href="@{/mall/styles/campaigns.css}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+</head>
+<body>
+	
+	<div id="campaignContainer">
+		<!-- 页面初始化 -->
+		<th:block th:each="cat: ${categoryList}">
+			<div class="init-container">
+				<div class="dropDownList">	
+					<select name="camList" class="camList">
+					    <option></option>
+				    	<option class="camDropDownList"
+				    			th:each="cam: ${campaignList}"
+				    			th:value="${cam.campaignId}"
+				    	        th:text="${cam.campaignName}"
+				    	        th:selected="${cat.campaignId==cam.campaignId}">
+		    	        </option>
+					</select>
+				</div>
+				
+				<div class="cat">
+					<input type="checkbox" class="checkbox"
+						   th:checked="${cat.campaignName}">
+					<label for="checkbox" class="category" th:text="${cat.categoryName}"></label></span>
+				</div>
+				
+				<div class="valid-date-from">
+					<label id="labelValidDateFrom">開始日</label>
+					<input type="date" id="validDateFrom"
+					       th:value="${#dates.format(cat.validDateFrom, 'yyyy-MM-dd')}">
+				</div>
+				<div class="valid-date-to">
+					<label id="labelValidDateTo">終了日</label>
+					<input type="date" id="validDateTo"
+					       th:value="${#dates.format(cat.validDateTo, 'yyyy-MM-dd')}">
+				</div>
+				<i class="far fa-plus-square" id="showMore" th:onclick="showMore(this)">
+					<div class="parentId-hidden" style="display:none" th:text="${cat.categoryId}"></div>
+				</i>						
+				<!-- <i class="far fa-minus-square" id="showLess" style="display:none"></i> -->
+			</div>
+		</th:block>
+		
+		<div class="hidden-div2" id="hidden-div2" style="display:none"></div>
+		
+		<div class="second-container" id="secondContainer" style="display:none">
+		    <div class="dropDownList2" id="dropDownList2"></div>
+			<div class="cat2">	
+				<input type="checkbox" class="checkbox2">
+				<label for="checkbox2" class="category2" id="category2"></label>
+			</div>
+			<i class="far fa-plus-square" id="showMore2" onclick="showMore2(this)"></i>
+		</div>
+			
+		<div class="hidden-div3" id="hidden-div3" style="display:none"></div>
+		
+		<div class="third-container" id="thirdContainer" style="display:none">
+		    <div class="dropDownList3" id="dropDownList3"></div>
+			<div class="cat3">	
+				<input type="checkbox" class="checkbox3">
+				<label for="checkbox3" class="category3" id="category3"></label>
+			</div>
+			<i class="far fa-plus-square" id="showMore3" onclick="showMore3(this)"></i>
+		</div>
+		
+		<div class="hidden-div4" id="hidden-div4" style="display:none"></div>
+		
+		<div class="fourth-container" id="fourthContainer" style="display:none">
+		    <div class="dropDownList4" id="dropDownList4"></div>
+			<div class="cat4">	
+				<input type="checkbox" class="checkbox4">
+				<label for="checkbox4" class="category4" id="category4"></label>
+			</div>
+		</div>
+		
+		<!-- Modal -->		
+		<div class="modal-container" id="modal-container">
+			<div class="modal-content">
+				<div class="modal-header">
+	   				<h5 class="modal-title" id="exampleModalLabel">买1送1</h5>
+	   				<button type="button" class="close-modal">
+	   					<i class="fas fa-times" id="closeModal"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+	    			<label id="labelMainGoods" for="message">主商品： </label>
+	    			<select name="mainGoods" id="mainGoods">
+						<option></option>
+					    <option value="1">荣耀</option>
+					  	<option value="2">华为</option>
+					    <option value="3">华为p30</option>
+					  	<option value="4">iPhone11</option>
+					  	<option value="5">iPhone</option>
+					</select><br>
+	    			<label id="labelPresentGoods" for="message">赠送商品：</label>
+	    			<select name="mainGoods" id="mainGoods">
+						<option></option>
+					    <option value="1">充电器</option>
+					  	<option value="2">usb线</option>
+					    <option value="3">耳机</option>
+					  	<option value="4">手机膜</option>
+					  	<option value="5">手机壳</option>
+					</select><br>
+	    			<button id="modalSubmitBtn" type="submit">提出</button>
+				</div>
+			</div>
+	 	</div>
+		 	
+	</div>
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<script th:src="@{/mall/js/campaigns.js}"></script>
+</body>
+</html>

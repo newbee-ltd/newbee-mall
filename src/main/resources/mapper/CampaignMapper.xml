@@ -250,9 +250,29 @@
         from campaign where campaign_name =  #{campaignName,jdbcType=VARCHAR}
     </select>
     
-    <!-- goods_idは商品マスタに存在するかどうかをチェック --> 
-    <select id="getCampaignGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.CampaignCategory">
-        select goods_id from tb_newbee_mall_goods_info
+    <!-- goods_idは商品マスタに存在するかどうかをチェック -->
+    <!--
+    <select id="checkGoodsIdExist" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select goods_id
+        from tb_newbee_mall_goods_info
         where goods_id =  #{goodsId,jdbcType=BIGINT}
+    </select>
+    -->
+    <select id="checkGoodsIdExist" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select count(goods_id)
+        from tb_newbee_mall_goods_info
+        where goods_id =  #{goodsId,jdbcType=BIGINT}
+    </select>
+     <!-- campaign_idはキャンペーンマスタに存在するかどうかをチェック --> 
+    <select id="checkCampaignIdExist" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select campaign_id
+        from campaign
+        where campaign_id =  #{campaignId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- campaignList -->
+    <select id="dropDownList" resultType="ltd.newbee.mall.entity.CampaignCategory">
+        select campaign_name, campaign_id
+        from campaign
     </select>
 </mapper>

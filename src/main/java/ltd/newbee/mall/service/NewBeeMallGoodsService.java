@@ -76,6 +76,8 @@ public interface NewBeeMallGoodsService {
     
     // ①GoodsImgService
     ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId);
+    // Set Cover Img
+    String getCoverImg(long goodsId);
     
     // ②GoodsDetailService
     ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long goodsId);

@@ -54,6 +54,8 @@ public interface NewBeeMallGoodsMapper {
 
     // ①GoodsImgMapper
     public ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId);
+    // Set Cover Img
+    String getCoverImg(long goodsId);
     
     // ②GoodsDetailMapper
     public ArrayList<GoodsDetail> getGoodsDetailByGoodsId(long goodsId);

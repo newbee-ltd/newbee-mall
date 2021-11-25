@@ -14,6 +14,7 @@ import ltd.newbee.mall.entity.CampaignGoods;
 import ltd.newbee.mall.service.CampaignService;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
+import ltd.newbee.mall.util.TimeFormartUtil;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -25,8 +26,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,18 +132,56 @@ public class CampaignRestController {
     	
     	  BufferedReader br = null;
     	  //String file_name = "cvsCampaignGoods.txt"; // 入力ファイル
+    	  
+    	  //declaration
+    	  String line = null;// readLineで一行ずつ読み込む
+    	  ArrayList<String> msgList = new ArrayList<String>();
+    	  
     	  try {
     	      File file = new File(filePath);
     	      br = new BufferedReader(new FileReader(file));
-    	      // readLineで一行ずつ読み込む
-    	      String line; // 読み込み行
+    	      
     	      String[] data; // 分割後のデータを保持する配列
+    	      int row = 1;
     	      while ((line = br.readLine()) != null) {
     	          // lineをカンマで分割し、配列dataに設定
-    	          data = line.split(",");
+    	          data = line.split(",");  
+    	          
+    	          row++;
+    	          // goods_idは商品マスタに存在するかどうかをチェック
+    	          long count = campaignService.checkGoodsIdExist(Long.parseLong(data[0]));
+    	       	  if (count == 0) { 
+        	   	      msgList.add(line + row + "行目: " + "good_id" + Long.parseLong(data[0]) + "は商品マスターに存在しない");
+                  } 
+    	       	  
+    	       	  // campaign_idはキャンペーンマスタに存在するかどうかをチェック
+    	      	  List<CampaignGoods> campaignIdList = campaignService.checkCampaignIdExist(Long.parseLong(data[1]));
+                  if (campaignIdList == null || campaignIdList.isEmpty()) {
+    	              msgList.add(line + row + "行目: " + "campaign_id" + Long.parseLong(data[1]) + "はキャンペーンマスターに存在しない");
+                  }
+                  
+    	          //　日付の妥当性のチェック
+            	  SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+    	          if ((date.parse(data[6])).before(date.parse(data[7])) == false) {
+    	         	  msgList.add(line + row + "行目: " + "valid_date_from" + Long.parseLong(data[6]) + "は" + "valid_date_to" + Long.parseLong(data[7]) + "より遅い");
+    	       	  }
+    	         
+    	          //　日付のフォーマットのチェック
+    	          if (!TimeFormartUtil.isValidDate(data[2])) {
+    	        	  msgList.add(line + row + "行目: " + "insert_date" + Long.parseLong(data[2]) + "は不正な日付である");
+    	          }
+    	          if (!TimeFormartUtil.isValidDate(data[4])) {
+    	        	  msgList.add(line + row + "行目: " + "update_date" + Long.parseLong(data[4]) + "は不正な日付である");
+    	          }
+    	          if (!TimeFormartUtil.isValidDate(data[6])) {
+    	        	  msgList.add(line + row + "行目: " + "valid_date_from" + Long.parseLong(data[6]) + "は不正な日付である");
+    	          }
+    	          if (!TimeFormartUtil.isValidDate(data[7])) {
+    	        	  msgList.add(line + row + "行目: " + "valid_date_to" + Long.parseLong(data[7]) + "は不正な日付である");
+    	          }
+    	          
     	          // 1行分の読み込みデータを表示（データ間にスペース)
     	          CampaignGoods campaignGoods = new CampaignGoods();
-    	          SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
     	          campaignGoods.setGoodsId(Long.parseLong(data[0]));
     	          campaignGoods.setCampaignId(Long.parseLong(data[1]));
     	          campaignGoods.setInsertDate(date.parse(data[2]));
@@ -150,36 +193,10 @@ public class CampaignRestController {
     	          campaignGoods.setDeleteFlg(Integer.parseInt(data[8]));
     	          campaignService.insertCampaignGoods(campaignGoods);
     	          
-//    	          List<CampaignGoods> campaignGoodsId = campaignService.getCampaignGoodsId(campaignGoods.getGoodsId());
-//	              Date validDateFrom = campaignGoods.getValidDateFrom();
-//	              Date validDateTo = campaignGoods.getValidDateTo();
-    
-//	              if (campaignGoodsId.contains(data[0])) { 
-//	            	  if (validDateFrom.before(validDateTo) == true) {
-//	            		  return ResultGenerator.genSuccessResult(data[0]);
-//	            	  } else {
-//	            		  continue;
-//	            	  }
-//	            	  System.out.print("validDateFromはvalidDateTo前であることを確認してください"); 
-//	              } else {
-//	            	  continue;
-//	              }
-//         	      System.out.print("campaign_idはキャンペーンマスタに存在しない");
-	              
-//	              if (campaignGoodsId.contains(data[0]) && validDateFrom.before(validDateTo) == true) { 
-//	            	   return ResultGenerator.genSuccessResult(data[0]);
-//	              } else {
-//	            	   return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.ERROR_MESSAGE);
-//	            	   continue;
-//	              }
-	              
-    	          for (int i = 0; i < data.length; i++) {
-    	              System.out.print(data[i] + " ");
-    	          }
-    	          System.out.println();
-    	      }
+    	      }    
     	  } catch (Exception e) {
     	      System.out.println(e.getMessage());
+    	      msgList.add(line + e.getMessage());
     	  } finally {
     	      try {
     	          br.close();
@@ -187,17 +204,68 @@ public class CampaignRestController {
     	          System.out.println(e.getMessage());
     	      }
     	  }
-		  return ResultGenerator.genSuccessResult(Constants.SUCCESS_MESSAGE);			
+		  
+		  // 読み込みが失敗したデータの出力
+//    	      File file = new File("/Users/administrator/Desktop/project/CampainGoodsFalse.txt");
+		      try {
+//		    	  if (!file.exists()) {
+//		    		  file.createNewFile();
+//		    	  }
+		    	  
+		      // 出力ファイルの作成
+              FileWriter fw = new FileWriter("/Users/administrator/Desktop/project/CampainGoodsFalse.txt", false);
+              // PrintWriterクラスのオブジェクトを生成
+              PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
+
+              // ヘッダーの指定
+              pw.print("goods_id");
+              pw.print(",");
+              pw.print("campaign_id");
+              pw.print(",");
+              pw.print("insert_date");
+              pw.print(",");
+              pw.print("insert_user");
+              pw.print(",");
+              pw.print("update_date");
+              pw.print(",");
+              pw.print("update_user");
+              pw.print(",");
+              pw.print("valid_date_from");
+              pw.print(",");
+              pw.print("valid_date_to");
+              pw.print(",");
+              pw.print("delete_flg");
+              pw.println();
+
+              // データを書き込む
+              for (String goods: msgList){
+            	    pw.println(goods);   
+              }
+
+              // ファイルを閉じる
+              pw.close();
+
+              // 出力確認用のメッセージ
+              System.out.println("csvファイルを出力しました");
+
+              // 出力に失敗したときの処理
+              } catch (IOException ex) {
+                  ex.printStackTrace();
+              }
+              return ResultGenerator.genSuccessResult(Constants.SUCCESS_MESSAGE);	
     }
-//    long campaignGoodsId = campaignGoods.getGoodsId();
-//    Date validDateFrom = campaignGoods.getValidDateFrom();
-//    Date validDateTo = campaignGoods.getValidDateTo();
-//
-//    if (data[0] == String.valueOf(campaignGoodsId) && validDateFrom.before(validDateTo) == true) { 
-//  	  System.out.print(data[i] + " ");
-//    } else if (data[0] != String.valueOf(campaignGoodsId)) {
-//	      System.out.print("campaign_idはキャンペーンマスタに存在しない");
-//    } else if (validDateFrom.before(validDateTo) == false) {
-//        System.out.print("validDateFromはvalidDateTo前であることを確認してください");
-//    }
-}
+    
+    // campaignList
+    @RequestMapping(value = "/campaigns/campaignList", method = RequestMethod.GET)
+    @ResponseBody
+    public Result list() {
+    	
+    	List<CampaignCategory> campaignList = campaignService.dropDownList();
+    	if (CollectionUtils.isEmpty(campaignList)) {
+    		return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
+    	} else {
+    		return ResultGenerator.genSuccessResult(campaignList);
+    	}
+    }
+    
+}	

@@ -3,6 +3,7 @@ package ltd.newbee.mall.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import ltd.newbee.mall.controller.vo.GoodsReviewVO;
 import ltd.newbee.mall.entity.GoodsReview;
 import ltd.newbee.mall.util.GoodsReviewUtil;
 import ltd.newbee.mall.util.PageResult;

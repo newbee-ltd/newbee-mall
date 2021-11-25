@@ -132,6 +132,11 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	public ArrayList<GoodsImg> getGoodsImgByGoodsId(long goodsId) {
 		return goodsMapper.getGoodsImgByGoodsId(goodsId);
 	}
+    // Set Cover Img
+    @Override
+    public String getCoverImg(long goodsId) {
+    	return goodsMapper.getCoverImg(goodsId);
+    }
     
     // ②GoodsDetailServiceImpl
     @Override

@@ -1,0 +1,2 @@
+goods_id,campaign_id,insert_date,insert_user,update_date,update_user,valid_date_from,valid_date_to,delete_flg
+goods_id,campaign_id,insert_date,insert_user,update_date,update_user,valid_date_from,valid_date_to,delete_flgFor input string: "goods_id"

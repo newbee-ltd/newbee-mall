@@ -1,0 +1,109 @@
+.init-container {
+	margin: 10px;
+    padding: 5px;
+    width: 870px;
+    background-color: #1baeae;
+    color: white;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.camList {
+	display: block;
+	margin: 10px 5px 10px 30px;
+}
+
+.checkbox,
+#labelValidDateFrom,
+#labelValidDateTo {
+	margin: 10px 5px 10px 30px;
+}
+
+select:hover,
+.checkbox:hover,
+#validDateFrom:hover,
+#validDateTo:hover,
+.fa-plus-square:hover,
+.fa-minus-square:hover,
+.checkbox2:hover,
+.checkbox3:hover,
+.checkbox4:hover {
+	cursor: pointer;
+}
+
+.fa-plus-square,
+.fa-minus-square {
+	margin-left: 30px;
+	font-size: 150%;
+}
+
+.hidden-div2 {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+}
+
+#second-container {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.checkbox2 {
+	margin: 10px 5px 10px 30px;
+}
+
+.hidden-div3 {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+}
+
+#third-container {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.checkbox3 {
+	margin: 10px 5px 10px 30px;
+}
+
+.hidden-div4 {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+}
+
+#fourth-container {
+	margin: 10px;
+    padding: 5px;
+    width: 250px;
+    background-color: #1baeae;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.checkbox4 {
+	margin: 10px 5px 10px 30px;
+}
+

@@ -68,9 +68,25 @@ public class CampaignServiceImpl implements CampaignService {
 	}
 	
 	// goods_idは商品マスタに存在するかどうかをチェック
+//	@Override
+//	public ArrayList<CampaignGoods> checkGoodsIdExist(long goodsId) {
+//		return campaignMapper.checkGoodsIdExist(goodsId);
+//	}
 	@Override
-	public ArrayList<CampaignGoods> getCampaignGoodsId(long goodsId) {
-		return campaignMapper.getCampaignGoodsId(goodsId);
+	public long checkGoodsIdExist(long goodsId) {
+		return campaignMapper.checkGoodsIdExist(goodsId);
 	}
+	
+	// campaign_idはキャンペーンマスタに存在するかどうかをチェック
+	@Override
+    public ArrayList<CampaignGoods> checkCampaignIdExist(long campaignId) {
+		return campaignMapper.checkCampaignIdExist(campaignId);
+	}
+	
+	// campaignList
+	@Override
+    public ArrayList<CampaignCategory> dropDownList() {
+    	return campaignMapper.dropDownList();
+    }
 
 }

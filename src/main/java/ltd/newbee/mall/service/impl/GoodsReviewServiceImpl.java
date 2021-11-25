@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ltd.newbee.mall.controller.vo.GoodsReviewVO;
 import ltd.newbee.mall.dao.GoodsReviewMapper;
 import ltd.newbee.mall.entity.GoodsReview;
 import ltd.newbee.mall.service.GoodsReviewService;

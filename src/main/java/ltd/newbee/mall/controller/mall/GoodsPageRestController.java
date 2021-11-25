@@ -21,12 +21,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -36,9 +36,9 @@ public class GoodsPageRestController {
     private GoodsPageService goodsPageService;
 
     // QA分页
-    @RequestMapping(value = "/questionAndAnswer/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/questionAndAnswer/list", method = RequestMethod.POST)
     @ResponseBody
-    public Result list(@RequestParam Map<String, Object> params) {
+    public Result list(@RequestBody Map<String, Object> params) {
     	
     	if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
     		return ResultGenerator.genErrorResult(300, "Error!");
@@ -51,6 +51,9 @@ public class GoodsPageRestController {
     @RequestMapping(value = "/insertQuestion", method = RequestMethod.POST)
     @ResponseBody
     public Result insertQuestion(@RequestBody QuestionAndAnswer question) {
+    	
+    	Date d = new Date();
+    	question.setSubmitDate(d);
     	
     	long count = goodsPageService.insertQuestion(question);
     	if (count <= 0) {
@@ -71,17 +74,11 @@ public class GoodsPageRestController {
         
         boolean insertFlag = goodsPageService.insertHelpNum(qaHelpNum);
         if (insertFlag) {
-        	boolean updateFlag = goodsPageService.updateQuestionNum(qaHelpNum);
-        	if (updateFlag) {
-        		long helpNum = goodsPageService.getHelpNum(qaHelpNum.getQuestionId());
-        		return ResultGenerator.genSuccessResult(helpNum);
+        		return ResultGenerator.genSuccessResult("Success!");
         	} else {
         		return ResultGenerator.genErrorResult(300, "改修失敗！");
         	}
-        } else {
-        	return ResultGenerator.genSuccessResult("挿入失敗！");
-        }
-            
+        }  
+     
     }
-    
-}
+ 

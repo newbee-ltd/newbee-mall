@@ -388,6 +388,11 @@
         select goods_id, goods_img_url
         from goods_img where goods_id = #{goodsId,jdbcType=BIGINT}
   </select>
+  <!-- Set Cover Img -->
+  <select id="getCoverImg" parameterType="java.lang.Long" resultType="java.lang.String">
+        select goods_img_url
+        from goods_img where goods_id = #{goodsId,jdbcType=BIGINT}
+  </select>
   
   <!-- ②GoodsDetailMapper -->
   <select id="getGoodsDetailByGoodsId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.GoodsDetail">
