@@ -1,4 +1,13 @@
-// Onclick (Page1 Page2)
+// Dynamically setting iconLevel
+/*
+var idCount = 1;
+$(".iconLevel").each(function() {
+	$(this).attr("id", "iconLevel1-" + idCount);
+	idCount++;
+});
+*/
+
+// Onclick
 function showMore(_this) {
 	// Click Plus
 	if ($(_this).hasClass('fa-plus-square')) {
@@ -9,7 +18,7 @@ function showMore(_this) {
 		var parentId = parseInt($(_this).find('.parentId-hidden').text());
 		//var camList = $(_this).parent().find('.camDropDownList');
 		//var initContainer = $(_this).parent().parent();
-
+		
 		var data = {
 			"parentId": parentId
 		}
@@ -38,13 +47,33 @@ function showMore(_this) {
 					}
 
 					let el;
-					let secondContainer = $("#hidden-div2").clone();
+					let hiddenDiv = $("#hidden-div").clone();
 					for (let i = 0; i < list.length; i++) {
-						el = $(".second-container").clone().removeClass("second-container");
+						el = $(".next-container").clone().removeClass("next-container");
+						
 						if ('goodsId' in list[i]) {
 							el.find("#category2").html(list[i].goodsName);
+							el.find('.parentId-hidden').text(list[i].goodsId);
+							el.find(".fa-plus-square").hide();
 						} else {
 							el.find("#category2").html(list[i].categoryName);
+							el.find('.parentId-hidden').text(list[i].categoryId);
+						}
+ 						
+ 						// 每个icon id生成的规则
+ 						var idAttr = $(_this).attr('id'); // returns iconLevel1_1
+ 						var iconLevel1 = idAttr.substring(9, 10); //iconLevel1_1的第1个数字
+ 						var iconLevel2 = idAttr.substring(11, 12); //iconLevel1_1的第2个数字
+ 						var divLevel = parseInt(iconLevel1) + 1; // 结果得到2_1 里面的2
+ 						var divPrifxi = divLevel + "_" + iconLevel2; // 2_1
+ 						el.find(".far").attr("id", "iconLevel" + divPrifxi + "_" + (i + 1)); //iconLevel2_1_1
+ 						
+						select.clone().val(list[i].campaignId).appendTo(el.find('#dropDownList2'));
+						
+						for (let j = 0; j < camList.length; j++) {
+							if (camList[j].value == list[i].campaignId) {
+								el.find(".dropDownList2").val(list[i].categoryId).prop('selected', true);
+							}
 						}
 						
 						if (list[i].campaignId != 0) {
@@ -52,33 +81,25 @@ function showMore(_this) {
 						} else {
 							el.find(".checkbox2").val(list[i].categoryId).prop('checked', false);
 						}
-						
-						select.clone().val(list[i].campaignId).appendTo(el.find('#dropDownList2'));
+
 						el.show();
-						secondContainer.append(el);
+						hiddenDiv.append(el);
 						el.css({ "display": "flex", "flex-direction": "row", "flex-wrap": "nowrap" });
+						//$(this).attr("id", "iconLevel" + hiddenDiv + divLevel + iconLevel);
 					}
-					secondContainer.appendTo($("body"));
-					secondContainer.show();
-					secondContainer.addClass("currentShow");
+
+					hiddenDiv.appendTo($("body"));
+					hiddenDiv.show();
+					hiddenDiv.addClass("second-div");
 					$(".init-container").css({ 'opacity': '0.5' });
- 					
- 					// Position a div in a specific coordinates
+
+					// Position a div in a specific coordinates
 					//var rect1 = document.getElementById('showMore');
 					var rect2Top = _this.getBoundingClientRect().top;
 					var rect2Left = _this.getBoundingClientRect().right;
-					secondContainer[0].style.position = "absolute";
-					secondContainer[0].style.top = rect2Top + 'px';
-					secondContainer[0].style.left = rect2Left + 'px';
-					
-					/*
-							for (let j = 0; j < camList.length; j++) {
-								if (camList[j].value == list[i].campaignId) {
-									value = list[i].campaignId;
-								}
-							}
-							*/
-
+					hiddenDiv[0].style.position = "absolute";
+					hiddenDiv[0].style.top = rect2Top + 'px';
+					hiddenDiv[0].style.left = rect2Left + 'px';
 				} else {
 					swal(resp.message, {
 						icon: "error",
@@ -95,10 +116,7 @@ function showMore(_this) {
 		// Click Minus
 		$(_this).removeClass('fa-minus-square');
 		$(_this).addClass('fa-plus-square');
-		$(".currentShow").remove();
+		$(".second-div").remove();
 		$(".init-container").css({ 'opacity': '1' });
-		$(".currentGoods").remove();
-		$(".currentGoodsCategory").remove();
 	}
 }
-

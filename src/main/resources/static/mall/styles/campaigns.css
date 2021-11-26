@@ -38,18 +38,16 @@ select:hover,
 	font-size: 150%;
 }
 
-.hidden-div2 {
+.hidden-div {
 	margin: 10px;
     padding: 5px;
-    width: 250px;
     background-color: #1baeae;
     color: white;
 }
 
-#second-container {
+#next-container {
 	margin: 10px;
     padding: 5px;
-    width: 250px;
     background-color: #1baeae;
     color: white;
     display: flex;
@@ -60,50 +58,3 @@ select:hover,
 .checkbox2 {
 	margin: 10px 5px 10px 30px;
 }
-
-.hidden-div3 {
-	margin: 10px;
-    padding: 5px;
-    width: 250px;
-    background-color: #1baeae;
-    color: white;
-}
-
-#third-container {
-	margin: 10px;
-    padding: 5px;
-    width: 250px;
-    background-color: #1baeae;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.checkbox3 {
-	margin: 10px 5px 10px 30px;
-}
-
-.hidden-div4 {
-	margin: 10px;
-    padding: 5px;
-    width: 250px;
-    background-color: #1baeae;
-    color: white;
-}
-
-#fourth-container {
-	margin: 10px;
-    padding: 5px;
-    width: 250px;
-    background-color: #1baeae;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.checkbox4 {
-	margin: 10px 5px 10px 30px;
-}
-

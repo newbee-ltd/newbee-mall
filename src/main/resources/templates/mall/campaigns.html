@@ -9,7 +9,7 @@
 	
 	<div id="campaignContainer">
 		<!-- 页面初始化 -->
-		<th:block th:each="cat: ${categoryList}">
+		<th:block th:each="cat, iter: ${categoryList}">
 			<div class="init-container">
 				<div class="dropDownList">	
 					<select name="camList" class="camList">
@@ -39,43 +39,26 @@
 					<input type="date" id="validDateTo"
 					       th:value="${#dates.format(cat.validDateTo, 'yyyy-MM-dd')}">
 				</div>
-				<i class="far fa-plus-square" id="showMore" th:onclick="showMore(this)">
+				
+				<i class="far fa-plus-square" th:id="'iconLevel1_' + (1 + ${iter.index})" th:onclick="showMore(this)">
 					<div class="parentId-hidden" style="display:none" th:text="${cat.categoryId}"></div>
 				</i>						
-				<!-- <i class="far fa-minus-square" id="showLess" style="display:none"></i> -->
+				<!-- <i class="far fa-minus-square" id="showLess" onclick="showLess(this)" style="display:none"></i> -->
 			</div>
 		</th:block>
 		
-		<div class="hidden-div2" id="hidden-div2" style="display:none"></div>
+		<!-- Hidden Div -->
+		<div class="hidden-div" id="hidden-div" style="display:none"></div>
 		
-		<div class="second-container" id="secondContainer" style="display:none">
+		<div class="next-container" id="nextContainer" style="display:none">
 		    <div class="dropDownList2" id="dropDownList2"></div>
 			<div class="cat2">	
 				<input type="checkbox" class="checkbox2">
 				<label for="checkbox2" class="category2" id="category2"></label>
 			</div>
-			<i class="far fa-plus-square" id="showMore2" onclick="showMore2(this)"></i>
-		</div>
-			
-		<div class="hidden-div3" id="hidden-div3" style="display:none"></div>
-		
-		<div class="third-container" id="thirdContainer" style="display:none">
-		    <div class="dropDownList3" id="dropDownList3"></div>
-			<div class="cat3">	
-				<input type="checkbox" class="checkbox3">
-				<label for="checkbox3" class="category3" id="category3"></label>
-			</div>
-			<i class="far fa-plus-square" id="showMore3" onclick="showMore3(this)"></i>
-		</div>
-		
-		<div class="hidden-div4" id="hidden-div4" style="display:none"></div>
-		
-		<div class="fourth-container" id="fourthContainer" style="display:none">
-		    <div class="dropDownList4" id="dropDownList4"></div>
-			<div class="cat4">	
-				<input type="checkbox" class="checkbox4">
-				<label for="checkbox4" class="category4" id="category4"></label>
-			</div>
+			<i class="far fa-plus-square" th:id="iconLevel" onclick="showMore(this)">
+				<span class="parentId-hidden" style="display:none"></span>
+			</i>
 		</div>
 		
 		<!-- Modal -->		
