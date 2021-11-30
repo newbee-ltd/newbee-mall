@@ -58,3 +58,79 @@ select:hover,
 .checkbox2 {
 	margin: 10px 5px 10px 30px;
 }
+
+/* Modal */
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #f4f4f4;
+  margin: 20% auto;
+  width: 30%;
+  border-radius: 0.3rem;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  animation-name: openModal;
+  animation-duration: 1s;
+}
+
+@keyframes openModal {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+.modal-header{
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.close-btn {
+  margin-left: 270px;
+  float: right;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.modal-body {
+  padding: 0 20px;
+  color: black;
+}
+
+#labelMainGoods,
+#labelPresentGoods {
+  margin: 10px 0 0 15px;
+}
+
+#mainGoods {
+	margin-left: 16px;
+}
+
+#labelPresentGoods,
+#presentGoods {
+	margin-top: 20px;
+}
+
+#submitBtn {
+	margin: 20px 0px 30px 290px;
+}
+
+#submitBtn:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+

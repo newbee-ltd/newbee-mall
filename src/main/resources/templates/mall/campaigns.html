@@ -62,11 +62,11 @@
 		</div>
 		
 		<!-- Modal -->		
-		<div class="modal-container" id="modal-container">
+		<div class="modal-container" id="modalContainer">
 			<div class="modal-content">
 				<div class="modal-header">
-	   				<h5 class="modal-title" id="exampleModalLabel">买1送1</h5>
-	   				<button type="button" class="close-modal">
+	   				<h5 class="modal-title" id="modalTitle">买1送1</h5>
+	   				<button type="button" class="close-btn">
 	   					<i class="fas fa-times" id="closeModal"></i>
 					</button>
 				</div>
@@ -74,22 +74,14 @@
 	    			<label id="labelMainGoods" for="message">主商品： </label>
 	    			<select name="mainGoods" id="mainGoods">
 						<option></option>
-					    <option value="1">荣耀</option>
-					  	<option value="2">华为</option>
-					    <option value="3">华为p30</option>
-					  	<option value="4">iPhone11</option>
-					  	<option value="5">iPhone</option>
+					    <option value="1"></option>
 					</select><br>
 	    			<label id="labelPresentGoods" for="message">赠送商品：</label>
-	    			<select name="mainGoods" id="mainGoods">
+	    			<select name="presentGoods" id="presentGoods">
 						<option></option>
-					    <option value="1">充电器</option>
-					  	<option value="2">usb线</option>
-					    <option value="3">耳机</option>
-					  	<option value="4">手机膜</option>
-					  	<option value="5">手机壳</option>
+					    <option value="1"></option>
 					</select><br>
-	    			<button id="modalSubmitBtn" type="submit">提出</button>
+	    			<button id="submitBtn" type="submit" onclick="submit()">提出</button>
 				</div>
 			</div>
 	 	</div>

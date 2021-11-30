@@ -1,0 +1,180 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <link rel="stylesheet" th:href="@{/mall/styles/tabelogDetail.css}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
+</head>
+<body>
+	<div class="main-container">
+		<!-- Header -->
+		<section class="info-header">
+			<div class="owner-badge-icon">公式</div>
+			
+			<div class="header-title-data">
+				<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+					<div class="header-pillowWord" th:text="${rstInfo.pillowWord}"></div>
+					<div class="header-rstName" th:text="${rstInfo.restaurantName}"></div>
+				</th:block>
+				<div class="header-rating">
+				    <span class="rating-star">
+				    	<span class="fill-rating-star" style="width: 70%;">★★★★★</span>
+						<span class="empty-rating-star">★★★★★</span>
+					</span>
+					<th:block th:each="avgScore: ${avgScore}">
+						<span class="rating-score" th:text="${avgScore}"></span>
+					</th:block>
+					<span><i class="fas fa-comment-dots"></i></span>
+					<th:block th:each="countOfReview: ${countOfReview}">
+						<span><a class="count-of-review" th:text="${countOfReview} + '件'"></a></span>
+					</th:block>
+					<span><i class="fas fa-bookmark"></i></span>
+					<th:block th:each="countOfFollowed: ${countOfFollowed}">
+						<span class="count-of-followed" th:text="${countOfFollowed} + '件'"></span>
+					</th:block>
+				</div>
+			</div>
+			
+			<div class="header-info-data">
+				<div class="header-subinfo">
+					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+						<span class="subinfo-title">最寄り駅：</span>
+						<span class="station1" th:text="${rstInfo.station1}"></span>
+						<span class="city" th:text="${rstInfo.city}"></span>
+						<span class="subinfo-title genre">ジャンル：</span>
+						<span class="genre1" th:text="${rstInfo.genre1}"></span>
+						<span class="genre2" th:text="${rstInfo.genre2}"></span>
+						<span class="genre3" th:text="${rstInfo.genre3}"></span>
+					</th:block>
+				</div>
+				<div class="header-subinfo">
+					<span class="subinfo-title">予算：</span>
+					<span><i class="fas fa-moon"></i></span>
+					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+						<span class="budget-night" th:text="${rstInfo.budgetNight}"></span>
+					</th:block>
+					<span><i class="fas fa-sun"></i></span>
+					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+						<span class="budget-daytime" th:text="${rstInfo.budgetDaytime}"></span>
+						<span class="subinfo-title regular-holiday-title">定休日：</span>
+						<span class="regular-holiday" th:text="${rstInfo.regularHoliday}"></span>
+					</th:block>
+				</div>
+				<div class="header-target-wrap">
+					<span>
+						<a class="go-to-eat">
+							<img class="gte-img" src="https://tblg.k-img.com/images/restaurant/icon/badge_gotoeat_logo.png" width="47" height="12">
+							<th:block th:each="goToEat: ${goToEat}">
+								<span class="gte-txt" th:text="${goToEat}"></span>
+							</th:block>
+						</a>
+					</span>
+					<span class="target-txt">
+						<span><a class="target-txt1">店舗情報（詳細）</a></span>
+						<span><a class="target-txt2">感染症対策情報</a></span>
+					</span>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Navi -->
+		<div class="navi-wrap">
+			<ul class="navi-list">
+				<li class="navi-item navi-top"><a>トップ</a></li>
+				<li class="navi-item navi-table"><a>座席</a></li>
+				<li class="navi-item navi-menu"><a>メニュー・コース</a></li>
+				<li class="navi-item navi-photo"><a>写真</a></li>
+				<li class="navi-item navi-review"><a>口コミ</a></li>
+				<li class="navi-item navi-map"><a>地図</a></li>
+			</ul>
+		</div>
+		
+		<!-- contents * start -->
+		<div class="contents">
+			<!-- main * start -->
+			<div class="column-main">
+			
+				<div class="extra-info">
+					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+						<div class="extra-info-title" th:text="${rstInfo.extraInfoTitle}"></div>
+						<div class="extra-info-detail" th:text="${rstInfo.extraInfoDetail}"></div>
+					</th:block>
+				</div>
+				
+				<div class="main-photo">
+				
+					<div class="photo-slide">
+						<th:block th:each="photoList: ${photoList}">
+					    	<img th:src="${photoList.photoUrl}" style="width:100%">
+						</th:block>
+					</div>
+					<!-- Next and previous buttons -->
+				    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+				    <!-- Image text -->
+				    <div class="caption-container">
+				    	<p id="caption"></p>
+				    </div>
+				    <div class="row">
+					    <th:block th:each="photoList, iter: ${photoList}">
+					    	<div class="column">
+						    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="currentSlide(1 + ${iter.index})">
+					    	</div>
+					    </th:block>
+				    </div>
+				    
+				</div>
+				
+				<div class="comment-wrap">
+					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+						<div class="comment-title" th:text="${rstInfo.commentTitle}"></div>
+						<div class="comment-detail" th:text="${rstInfo.commentDetail}"></div>
+					</th:block>
+				</div>
+				
+				<div class="top-kodawari"></div>
+				
+				<div class="top-course"></div>
+				
+				<div class="top-postphoto"></div>
+				
+				<div class="top-reviewlist">
+					<div class="top-reviewlist-heading">口コミ</div>
+					<div class=" encourage-follow-banner">
+						<span class=" encourage-follow-banner-icon"></span>
+						<span class=" encourage-follow-banner-title">好みのあう人をフォローすると、その人のオススメのお店から探せます。</span>
+					</div>
+					<ul class="rv-pickup">
+						<li class="reviewlist-pickup">
+							<div class="reviewer-data">
+								<span><a class="reviewer-photo"></a></span>
+								<span><a class="reviewer-name"></a></span>
+								<span><a class="mark-auth-mobile"></a></span>
+							</div>
+							
+						</li>
+					</ul>
+				</div>
+				
+				<div class="hygiene"></div>
+				<div class="top-course"></div>
+				<div class="takeout-info"></div>
+				<div class="rst-data"></div>
+				<div class="rst-keyword"></div>
+			</div>
+			<!-- main * end -->
+			
+			<!-- side * start -->
+			<div class="column-side">
+			</div>
+			<!-- side * end -->
+		</div>
+		
+	</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<script th:src="@{/mall/js/tabelogDetail.js}"></script>
+</body>
+</html>

@@ -72,7 +72,7 @@ function showMore(_this) {
 						
 						for (let j = 0; j < camList.length; j++) {
 							if (camList[j].value == list[i].campaignId) {
-								el.find(".dropDownList2").val(list[i].categoryId).prop('selected', true);
+								el.find("#dropDownList2").val(list[i].categoryId).prop('selected', true);
 							}
 						}
 						
@@ -119,4 +119,72 @@ function showMore(_this) {
 		$(".second-div").remove();
 		$(".init-container").css({ 'opacity': '1' });
 	}
+}
+
+// Modal
+const modal = document.getElementById('modalContainer');
+const closeBtn = document.getElementById('closeModal');
+
+$('.camList').change(function() {
+    $('#modalContainer').show();
+});
+//$('#dropDownList2').each(function(){
+//  $('#modalContainer').show();
+//});
+
+closeBtn.addEventListener('click', closeModal);
+function closeModal() {
+	modal.style.display = 'none';
+}
+
+addEventListener('click', outsideClose);
+function outsideClose(e) {
+	if (e.target == modal) {
+		modal.style.display = 'none';
+	};
+};
+
+function submit() {
+	var url = "/campaigns/goods";
+	let mainGoods = $('#mainGoods').val();
+	let presentGoods;
+	let presentVal = parseInt($('#presentGoods').find('option:selected').val());
+	if (presentVal !== 0) {
+		presentGoods = $('#presentGoods').find('option:selected').text();
+		
+		let goodId = mainGoods.substr(0, 5);
+		let presentId = presentGoods.substr(0, 5);
+
+		let data = {
+			"GoodsId": goodId,
+			"PresentId": presentId
+		}
+
+		$.ajax({
+			type: 'PUT',
+			url: url,
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(result) {
+				if (result.resultCode == 200) {
+
+				} else {
+					swal(result.message, {
+						icon: "error",
+					});
+				};
+			},
+			error: function() {
+				swal("操作失败", {
+					icon: "error",
+				});
+			}
+		});
+
+	} else {
+		swal("请选择一个赠品", {
+			icon: "error",
+		});
+	}
+
 }

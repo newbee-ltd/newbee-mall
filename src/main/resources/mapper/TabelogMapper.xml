@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.TabelogMapper">
+<!-- Portal -->
+    <!-- 曖昧検索 -->
+    <select id="getKeywordList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.RestaurantKeyword">
+        select keyword
+        from restaurant_keyword where keyword like CONCAT('%', #{keyword}, '%')
+    </select>
+    
+    <select id="getCityList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.RestaurantJapanRegion">
+        select city_name
+        from restaurant_japan_region where city_name like CONCAT('%', #{cityName}, '%')
+    </select>
+    
+    <select id="getDistrictList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.RestaurantJapanRegion">
+        select district_name
+        from restaurant_japan_region where district_name like CONCAT('%', #{districtName}, '%')
+    </select>
+    
+    <select id="getStationList" parameterType="java.lang.String" resultType="ltd.newbee.mall.entity.RestaurantJapanStation">
+        select concat(station_name, '(', location, ')')
+        from restaurant_japan_station where station_name like CONCAT('%', #{stationName}, '%')
+    </select>
+    
+<!-- Detail Page -->
+    <!-- Keyword(Header) -->
+    <select id="getKeywordByRestaurantId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select keyword
+        from restaurant_keyword where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- RestaurantBasicInfo(Header) -->
+    <select id="getRestaurantBasicInfo" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantBasicInfo">
+        select restaurant_id, restaurant_name, genre1, genre2, genre3, genre4, tel, reserve_availability, address,
+        	   station1, station2, station3, transportation1, transportation2, transportation3, distance,
+        	   business_workday_hour, business_weekend_hour, regular_holiday, budget_night, budget_daytime,
+        	   pay_method1, pay_method2, service_charge, region, city, district, town, village, pillow_word,
+        	   extra_info_title, extra_info_detail, comment_title, comment_detail
+        from restaurant_basic_info where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+     <!-- restaurant_reviewの各点数の平均評価 --> 
+    <select id="getAverageScoreByRestaurantId" parameterType="java.lang.Long" resultType="java.lang.Double">
+    	select avg((score_total + score_taste + score_service + score_atmosphere + score_cost + score_drink) / 6) as average_score, restaurant_id 	
+	    from restaurant_review
+    	where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    	group by restaurant_id
+    </select>
+    
+    <!-- Count Of Review -->
+    <select id="getCountOfReview" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(*) from restaurant_review
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Count Of Followed -->
+    <select id="getCountOfFollowed" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(follow_res_id) from restaurant_user_info
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Go To Eat -->
+    <select id="getGoToEat" parameterType="java.lang.Long" resultType="java.lang.String">
+        select go_to_eat from restaurant_features_info
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Top Slide Photo -->
+    <select id="getSlidePhoto" parameterType="java.lang.Long" resultType="java.lang.String">
+        select photo_url from restaurant_photo
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+<!--
+    <insert id="insertStudent" parameterType="ltd.newbee.mall.entity.Student">
+         insert into student
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+             <if test="studentId != null">
+                 student_id,
+             </if>
+             <if test="studentName != null">
+                 student_name,
+             </if>
+             <if test="age != null">
+                 age,
+             </if>
+             <if test="gender != null">
+                 gender,
+             </if>
+             <if test="address != null">
+                 address,
+             </if>
+             <if test="birthplace != null">
+                 birthplace,
+             </if>
+             <if test="phone != null">
+                 phone,
+             </if>
+             <if test="totalScore != null">
+                 total_score,
+             </if>
+             <if test="className != null">
+                 class_name,
+             </if>
+             <if test="ranking != null">
+                 ranking,
+             </if>
+             <if test="blacklist != null">
+                 blacklist,
+             </if>
+             <if test="physics != null">
+                 physics,
+             </if>
+             <if test="chemistry != null">
+                 chemistry,
+             </if>
+             <if test="biology != null">
+                 biology,
+             </if>   
+         </trim>
+         
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="studentId != null">
+                 #{studentId,jdbcType=INTEGER},
+             </if>
+             <if test="studentName != null">
+                 #{studentName,jdbcType=VARCHAR},
+             </if>
+             <if test="age != null">
+                 #{age,jdbcType=INTEGER},
+             </if>
+             <if test="gender != null">
+                 #{gender,jdbcType=VARCHAR},
+             </if>
+             <if test="address != null">
+                 #{address,jdbcType=VARCHAR},
+             </if>
+             <if test="birthplace != null">
+                 #{birthplace,jdbcType=VARCHAR},
+             </if>
+             <if test="phone != null">
+                 #{phone,jdbcType=VARCHAR},
+             </if>
+             <if test="totalScore != null">
+                 #{totalScore,jdbcType=INTEGER},
+             </if>
+             <if test="className != null">
+                 #{className,jdbcType=VARCHAR},
+             </if>
+             <if test="ranking != null">
+                 #{ranking,jdbcType=INTEGER},
+             </if>
+             <if test="blacklist != null">
+                 #{blacklist,jdbcType=VARCHAR},
+             </if>
+             <if test="physics != null">
+                 #{physics,jdbcType=INTEGER},
+             </if>
+             <if test="chemistry != null">
+                 #{chemistry,jdbcType=INTEGER},
+             </if>
+             <if test="biology != null">
+                 #{biology,jdbcType=INTEGER},
+             </if>   
+         </trim> 
+    </insert>
+    
+    <update id="updateStudent" parameterType="ltd.newbee.mall.entity.Student">
+        update student
+      <set> 
+         <if test="studentID != null">
+             student_id = #{studentId,jdbcType=INTEGER},
+         </if>
+         <if test="studentName != null">
+             student_name = #{studentName,jdbcType=VARCHAR},
+         </if>
+         <if test="age != null">
+             age = #{age,jdbcType=INTEGER},
+         </if>
+         <if test="gender != null">
+             gender = #{gender,jdbcType=VARCHAR},
+         </if>
+         <if test="address != null">
+             address = #{address,jdbcType=VARCHAR},
+         </if>
+         <if test="birthplace != null">
+             birthplace = #{birthplace,jdbcType=VARCHAR},
+         </if>
+         <if test="phone != null">
+             phone = #{phone,jdbcType=VARCHAR},
+         </if>
+         <if test="totalScore != null">
+             total_score = #{totalScore,jdbcType=INTEGER},
+         </if>
+         <if test="className != null">
+             class_name = #{className,jdbcType=VARCHAR},
+         </if>
+         <if test="ranking != null">
+             ranking = #{ranking,jdbcType=INTEGER},
+         </if>
+         <if test="blacklist != null">
+             blacklist = #{blacklist,jdbcType=VARCHAR},
+         </if>
+         <if test="physics != null">
+             physics = #{physics,jdbcType=INTEGER},
+         </if>
+         <if test="chemistry != null">
+             chemistry = #{chemistry,jdbcType=INTEGER},
+         </if>
+         <if test="biology != null">
+             biology = #{biology,jdbcType=INTEGER},
+         </if>
+      </set>
+        where student_id = #{studentId,jdbcType=INTEGER},
+    </update>
+    
+    <delete id="deleteStudent" parameterType="int">
+    delete from student
+    where student_id = #{studentId,jdbcType=INTEGER}
+    </delete> 
+-->
+
+</mapper>
