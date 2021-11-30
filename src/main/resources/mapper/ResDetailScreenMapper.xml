@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.ResDetailScreenMapper">
+
+
+	<select id="getFollowTotal" parameterType="java.lang.Long"
+		resultType="java.lang.Long">
+		select count(follow_res_id) as follow_total from
+		restaurant_user_info
+		where follow_res_id=#{followResId}
+		group by
+		follow_res_id;
+	</select>
+	<select id="getResDetail" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailScreen">
+		select
+		bi.restaurant_id,bi.keywords,bi.restaurant_name,round(avg(r.score_total),2)
+		as score_total,count(r.restaurant_id) as review_total,
+		bi.station1,bi.station2,bi.station3,bi.city,bi.genre1,bi.genre2,bi.genre3,bi.budget_night,bi.budget_daytime,
+		bi.regular_holiday,fi.go_to_eat
+		FROM restaurant_basic_info as bi
+		left
+		join restaurant_review as r on bi.restaurant_id= r.restaurant_id
+		left
+		join restaurant_features_info as fi on bi.restaurant_id=
+		fi.restaurant_id
+		where bi.restaurant_id=#{restaurantId}
+		group by
+		bi.restaurant_id,bi.keywords,bi.restaurant_name,r.restaurant_id,bi.station1,bi.station2,bi.station3,bi.city,bi.genre1,bi.genre2,bi.genre3,
+		bi.budget_night,bi.budget_daytime,bi.regular_holiday,fi.go_to_eat;
+	</select>
+
+	<select id="getMainphoto" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailPhoto">
+		select photo_id,photo_url from restaurant_photo
+		where
+		restaurant_id=#{restaurantId} and photo_code=#{photoCode}
+		order by photo_id asc
+	</select>
+	<select id="getCommitphoto" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailPhoto">
+		select
+		photo_id,photo_url,photo_title,photo_detail,photo_type,type_color
+		from
+		restaurant_photo_commitment
+		where restaurant_id=#{restaurantId}
+	</select>
+	<select id="getCourse" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailCourse">
+		select
+		restaurant_id,course_id,course_name,course_detail,course_img,course_price,course_price_discount,
+		course_item_num,available_time
+		from restaurant_menu_course where
+		restaurant_id=#{restaurantId}
+	</select>
+	<select id="getBacicInfo" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailScreen">
+		select
+		restaurant_id,restaurant_name,genre1,genre2,genre3,tel,reserve_availability,
+		address,transportation1,transportation2,transportation3,distance,
+		business_workday_hour,business_weekend_hour,regular_holiday,budget_night,budget_daytime,
+		pay_method1,pay_method2,service_charge,notice,main_photo_title,main_photo_detail
+		from restaurant_basic_info
+		where restaurant_id = #{restaurantId}
+	</select>
+	<select id="getSeatInfo" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailSeat">
+		SELECT
+		restaurant_id,seats_num,seats_remark,private_room,private_remark,reservable,
+		reservable_remark,smoking_cessation,smoking_remark,parking,parking_remark,space_equipment,cell_phon,
+		course,drink,gourmet
+		FROM restaurant_seats_menu where restaurant_id=
+		#{restaurantId}
+	</select>
+	<select id="getFeaturInfo" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailFeature">
+		select
+		restaurant_id,go_to_eat,scene_name1,scene_name2,scene_name3,
+		location,service,with_children,home_page,account_twitter,account_ins,open_date,
+		telephone,remark,first_contributor_id,first_contributor_name
+		FROM
+		restaurant_features_info
+		where restaurant_id= #{restaurantId}
+	</select>
+</mapper>

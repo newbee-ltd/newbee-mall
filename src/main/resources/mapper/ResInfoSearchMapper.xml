@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.ResInfoSearchMapper">
+
+
+	<select id="getCityName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select DISTINCT city_name from restaurant_japan_region
+		where city_name like concat('%',#{cityName},'%');
+	</select>
+	<select id="getTownName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select town_name from restaurant_japan_region
+		where
+		town_name like concat('%',#{townName},'%');
+	</select>
+	<select id="getStationName" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT DISTINCT
+		concat(station_name,'駅(',SUBSTRING(location,1,3),')')
+		FROM
+		restaurant_japan_station
+		where station_name like
+		concat('%',#{stationName},'%');
+	</select>
+	<select id="getKeywords" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select DISTINCT keywords from restaurant_keywords
+		where
+		keywords like concat('%',#{keywords},'%');
+	</select>
+	<select id="getReserveInfo" resultType="ltd.newbee.mall.entity.ResInfoSearch">
+		select
+		sm.restaurant_id,sm.seats_num,sm.lunch_start,sm.lunch_end,sm.dinner_start,sm.dinner_end,
+		hr.holiday1,hr.holiday2,hr.holiday3,hr.holiday4,hr.holiday5,hr.holiday6,hr.holiday7,
+		hs.holiday_from1,hs.holiday_to1
+		from restaurant_seats_menu as sm left join restaurant_holiday_regular as hr
+		on sm.restaurant_id = hr.restaurant_id
+		left join restaurant_holiday_special as hs
+		on sm.restaurant_id = hs.restaurant_id;
+	</select>
+
+</mapper>
