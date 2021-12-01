@@ -25,7 +25,7 @@
     
 <!-- Detail Page -->
     <!-- Keyword(Header) -->
-    <select id="getKeywordByRestaurantId" parameterType="java.lang.Long" resultType="java.lang.String">
+    <select id="getKeywordByRestaurantId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantKeyword">
         select keyword
         from restaurant_keyword where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
@@ -67,158 +67,34 @@
     </select>
     
     <!-- Top Slide Photo -->
-    <select id="getSlidePhoto" parameterType="java.lang.Long" resultType="java.lang.String">
+    <select id="getSlidePhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantPhoto">
         select photo_url from restaurant_photo
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
     
-<!--
-    <insert id="insertStudent" parameterType="ltd.newbee.mall.entity.Student">
-         insert into student
-         <trim prefix="(" suffix=")" suffixOverrides=",">
-             <if test="studentId != null">
-                 student_id,
-             </if>
-             <if test="studentName != null">
-                 student_name,
-             </if>
-             <if test="age != null">
-                 age,
-             </if>
-             <if test="gender != null">
-                 gender,
-             </if>
-             <if test="address != null">
-                 address,
-             </if>
-             <if test="birthplace != null">
-                 birthplace,
-             </if>
-             <if test="phone != null">
-                 phone,
-             </if>
-             <if test="totalScore != null">
-                 total_score,
-             </if>
-             <if test="className != null">
-                 class_name,
-             </if>
-             <if test="ranking != null">
-                 ranking,
-             </if>
-             <if test="blacklist != null">
-                 blacklist,
-             </if>
-             <if test="physics != null">
-                 physics,
-             </if>
-             <if test="chemistry != null">
-                 chemistry,
-             </if>
-             <if test="biology != null">
-                 biology,
-             </if>   
-         </trim>
-         
-         <trim prefix="values (" suffix=")" suffixOverrides=",">
-             <if test="studentId != null">
-                 #{studentId,jdbcType=INTEGER},
-             </if>
-             <if test="studentName != null">
-                 #{studentName,jdbcType=VARCHAR},
-             </if>
-             <if test="age != null">
-                 #{age,jdbcType=INTEGER},
-             </if>
-             <if test="gender != null">
-                 #{gender,jdbcType=VARCHAR},
-             </if>
-             <if test="address != null">
-                 #{address,jdbcType=VARCHAR},
-             </if>
-             <if test="birthplace != null">
-                 #{birthplace,jdbcType=VARCHAR},
-             </if>
-             <if test="phone != null">
-                 #{phone,jdbcType=VARCHAR},
-             </if>
-             <if test="totalScore != null">
-                 #{totalScore,jdbcType=INTEGER},
-             </if>
-             <if test="className != null">
-                 #{className,jdbcType=VARCHAR},
-             </if>
-             <if test="ranking != null">
-                 #{ranking,jdbcType=INTEGER},
-             </if>
-             <if test="blacklist != null">
-                 #{blacklist,jdbcType=VARCHAR},
-             </if>
-             <if test="physics != null">
-                 #{physics,jdbcType=INTEGER},
-             </if>
-             <if test="chemistry != null">
-                 #{chemistry,jdbcType=INTEGER},
-             </if>
-             <if test="biology != null">
-                 #{biology,jdbcType=INTEGER},
-             </if>   
-         </trim> 
-    </insert>
+    <!-- Top Kodawari -->
+    <select id="getKodawari" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantPhotoCommitment">
+        select restaurant_id, photo_id, photo_url, photo_title, photo_detail, photo_type, type_color
+        from restaurant_photo_commitment
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
     
-    <update id="updateStudent" parameterType="ltd.newbee.mall.entity.Student">
-        update student
-      <set> 
-         <if test="studentID != null">
-             student_id = #{studentId,jdbcType=INTEGER},
-         </if>
-         <if test="studentName != null">
-             student_name = #{studentName,jdbcType=VARCHAR},
-         </if>
-         <if test="age != null">
-             age = #{age,jdbcType=INTEGER},
-         </if>
-         <if test="gender != null">
-             gender = #{gender,jdbcType=VARCHAR},
-         </if>
-         <if test="address != null">
-             address = #{address,jdbcType=VARCHAR},
-         </if>
-         <if test="birthplace != null">
-             birthplace = #{birthplace,jdbcType=VARCHAR},
-         </if>
-         <if test="phone != null">
-             phone = #{phone,jdbcType=VARCHAR},
-         </if>
-         <if test="totalScore != null">
-             total_score = #{totalScore,jdbcType=INTEGER},
-         </if>
-         <if test="className != null">
-             class_name = #{className,jdbcType=VARCHAR},
-         </if>
-         <if test="ranking != null">
-             ranking = #{ranking,jdbcType=INTEGER},
-         </if>
-         <if test="blacklist != null">
-             blacklist = #{blacklist,jdbcType=VARCHAR},
-         </if>
-         <if test="physics != null">
-             physics = #{physics,jdbcType=INTEGER},
-         </if>
-         <if test="chemistry != null">
-             chemistry = #{chemistry,jdbcType=INTEGER},
-         </if>
-         <if test="biology != null">
-             biology = #{biology,jdbcType=INTEGER},
-         </if>
-      </set>
-        where student_id = #{studentId,jdbcType=INTEGER},
-    </update>
+    <!-- Top Course -->
+    <select id="getMenuCourse" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantMenuCourse">
+        select restaurant_id, restaurant_name, course_id, course_name, course_detail, course_img, course_price,
+        course_price_discount, course_item_num, available_hour, available_time, available_people, drink_all,
+        course_content, course_note
+        from restaurant_menu_course
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
     
-    <delete id="deleteStudent" parameterType="int">
-    delete from student
-    where student_id = #{studentId,jdbcType=INTEGER}
-    </delete> 
--->
+    <!-- Review -->
+    <select id="getReview" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantReview">
+        select restaurant_id, restaurant_name, review_id, review_user_id, review_user_name, review_user_age,
+        review_user_gender, review_user_city, review_title, review_detail, review_img, score_total, score_taste,
+        score_service, score_atmosphere, score_cost, score_drink, budget, visit_date, night_or_daytime, reply_detail
+        from restaurant_review
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
 
 </mapper>

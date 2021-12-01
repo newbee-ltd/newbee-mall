@@ -42,7 +42,15 @@
 						<span class="station1" th:text="${rstInfo.station1}"></span>
 						<span class="city" th:text="${rstInfo.city}"></span>
 						<span class="subinfo-title genre">ジャンル：</span>
-						<span class="genre1" th:text="${rstInfo.genre1}"></span>
+						<span class="genre1" th:text="${rstInfo.genre1}"><a>
+							<div class="genre-balloon">
+								<ul>
+									<li class="balloon-item"><a th:text="${rstInfo.genre1} + '×' + ${rstInfo.station1}"></a></li>
+									<li class="balloon-item"><a th:text="${rstInfo.genre1} + '×' + ${rstInfo.station2}"></a></li>
+									<li class="balloon-item"><a th:text="${rstInfo.genre1} + '×' + ${rstInfo.station3}"></a></li>
+								</ul>
+							</div>
+						</a></span>
 						<span class="genre2" th:text="${rstInfo.genre2}"></span>
 						<span class="genre3" th:text="${rstInfo.genre3}"></span>
 					</th:block>
@@ -113,12 +121,12 @@
 				    <a class="next" onclick="plusSlides(1)">&#10095;</a>
 				    <!-- Image text -->
 				    <div class="caption-container">
-				    	<p id="caption"></p>
+				    	<!--<p id="caption"></p>-->
 				    </div>
 				    <div class="row">
 					    <th:block th:each="photoList, iter: ${photoList}">
 					    	<div class="column">
-						    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="currentSlide(1 + ${iter.index})">
+						    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="|currentSlide(${iter.index + 1})|">
 					    	</div>
 					    </th:block>
 				    </div>
@@ -132,11 +140,72 @@
 					</th:block>
 				</div>
 				
-				<div class="top-kodawari"></div>
+				<div class="top-kodawari">
+					<div class="top-kodawari-heading">お店のこだわり</div>
+					<div class="top-kodawari-content">
+						<th:block th:each="KodawariList, iter: ${KodawariList}">
+							<div class="top-kodawari-item" th:id="'top-kodawari-item_' + (1 + ${iter.index})">
+								<div><img class="top-kodawari-photo" th:src="${KodawariList.photoUrl}"></div>
+								<div class="top-kodawari-photo-title" th:text="${KodawariList.photoTitle}"></div>
+							</div>
+							<!-- Kodawari Modal -->
+							<div class="kodawari-modal-container" id="kodawariModalContainer">
+								<div class="kodawari-modal-content">
+									<div class="modal-left">
+										<img class="kodawari-modal-photo" th:src="${KodawariList.photoUrl}">
+									</div>
+									<div class="modal-right">
+										<button type="button" class="close-btn">
+						   					<i class="fas fa-times" id="closeModal"></i>
+										</button>
+						   				<div class="modal-kodawari-title" th:text="${KodawariList.photoTitle}"></div>
+						   				<div class="modal-kodawari-detail" th:text="${KodawariList.photoDetail}"></div>
+									</div>
+								</div>
+						 	</div>
+						</th:block>
+					</div>
+				</div>
 				
-				<div class="top-course"></div>
+				<div class="top-course">
+					<div class="top-course-heading">コース</div>
+					<div class="top-course-content">
+						<th:block th:each="courseList: ${courseList}">
+							<div class="top-course-item">
+								<div><a><img class="top-course-item-img" th:src="${courseList.courseImg}"></a></div>
+								<div class="top-course-item-detail">
+									<div class="top-course-item-summary">
+										<div class="top-course-title"></div>
+										<div class="top-course-desc"></div>
+										<div class="top-course-price"></div>
+									</div>
+									<div class="top-course-reserve-btn">
+										<div><a class="course-reserve-btn"></a></div>
+										<div><a class="course-info-btn"></a></div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+					<div class="top-course-more-link">
+						<i class="fas fa-play-circle"> コースをもっと見る</i>
+					</div>
+				</div>
 				
-				<div class="top-postphoto"></div>
+				<div class="top-postphoto">
+					<div class="top-postphoto-heading">
+						<span class="postphoto-title">投稿写真</span>
+						<span><a class="top-postphoto-btn">投稿する</a></span>
+					</div>
+					<div class="top-postphoto-content">
+						<th:block th:each="rvList: ${reviewList}">
+							<div><img class="top-postphoto-item" th:src="${rvList.reviewImg}"></div>
+						</th:block>
+					</div>
+					<div class="top-postphoto-more-link">
+						<i class="fas fa-play-circle"> 写真をもっと見る</i>
+					</div>
+				</div>
 				
 				<div class="top-reviewlist">
 					<div class="top-reviewlist-heading">口コミ</div>
@@ -166,6 +235,15 @@
 			
 			<!-- side * start -->
 			<div class="column-side">
+				<div class="booking-tel">
+					<div class="booking-tel-wrap">
+						<div class="booking-tel-number" ></div>
+						<div class="booking-available"></div>
+					</div>
+					<div class="booking-infosend-wrap"></div>
+				</div>
+				<div class="booking-internet">
+				</div>
 			</div>
 			<!-- side * end -->
 		</div>

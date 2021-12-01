@@ -188,6 +188,10 @@
 .navi-wrap {
 	margin: 10px 150px;
 	width: 1000px;
+   /* position: sticky;
+    top: 0;
+    z-index: 5;
+    display: -webkit-box;*/
 }
 
 .navi-list {
@@ -250,6 +254,11 @@
 	font-size: 80%;
 }
 
+/* Main Photo */
+.main-photo {
+	padding: 10px 0;
+	position: relative;
+}
 .photo-slide {
 	display: none;
 }
@@ -283,7 +292,6 @@
   text-align: center;
   background-color: #222;
   padding: 2px 16px;
-  color: white;
 }
 .row:after {
   content: "";
@@ -302,6 +310,7 @@
   opacity: 1;
 }
 
+/* Comment Wrap */
 .comment-wrap {
 	padding: 10px 0;
 	border-bottom: 1px solid #e9e9e9;
@@ -319,9 +328,169 @@
     line-height: 1.6;
 }
 
+/* Top Kodawari */
+.top-kodawari {
+	padding: 20px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.top-kodawari-heading {
+	padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.top-kodawari-content {
+	display: flex;
+	align-items: stretch;
+}
+
+.top-kodawari-item {
+	margin-right: 0.5rem;
+	border: 1px solid #e8e6e4;
+	border-radius: 2px;
+    box-shadow: 0 0 2px rgb(56 44 26 / 10%);
+    cursor: pointer;
+}
+
+.top-kodawari-item:hover {
+	border: 1px solid #fa0;
+}
+
+.top-kodawari-photo {
+	width: 157px;
+    height: 157px; 
+    object-fit: cover; /* 画像トリミング */
+}
+
+.top-kodawari-photo:hover {
+    opacity: 0.7;
+}
+
+.top-kodawari-photo-title {
+	margin: 10px;
+	font-size: 70%;
+}
+
+/* Kodawari Modal */
+.kodawari-modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.kodawari-modal-content {
+  background-color: #f4f4f4;
+  margin: 20% auto;
+  width: 50%;
+  border-radius: 0.3rem;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  animation-name: openModal;
+  animation-duration: 1s;
+}
+@keyframes openModal {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+.modal-header{
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: row;
+}
+.close-btn {
+  margin-left: 450px;
+  float: right;
+  background-color: #f4f4f4;
+  font-size: 1rem;
+  border: none;
+}
+.close-btn {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.modal-body {
+  padding: 10px 20px;
+  color: black;
+  font-size: 80%;
+}
+
+/* Top Course */
+.top-course {
+	padding: 20px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.top-course-heading {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Top Postphoto */
+.top-postphoto {
+	padding: 20px 0 40px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.top-postphoto-heading {
+	padding-bottom: 20px;
+}
+
+.top-postphoto-btn {
+	float:right;
+	padding: 3px 10px;
+	font-size: 80%;
+	font-weight: bold;
+    border: 1px solid #82ad24;
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgb(255 255 255 / 60%) inset, 0 1px 0 rgb(0 0 0 / 10%);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 30%);
+    background-color: #9c0;
+}
+
+.top-postphoto-btn:hover {
+	cursor: pointer;
+	filter: brightness(110%);
+}
+
+.postphoto-title {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.top-postphoto-content {
+	display: flex;
+	/*flex-direction: row;*/
+}
+
+.top-postphoto-item {
+	width: 126px;
+	height:126px;
+	margin-right: 0.5rem;
+	object-fit: cover; 
+}
+
+.fa-play-circle {
+	float: right;
+	padding-top: 10px;
+}
+
+.fa-play-circle:hover {
+	cursor: pointer;
+	color: #fa0;
+}
+
 /* ---------------------- contents * side ---------------------- */
 .column-side {
 	margin: 10px 0;
 	float: right;
     width: 300px;
 }
+

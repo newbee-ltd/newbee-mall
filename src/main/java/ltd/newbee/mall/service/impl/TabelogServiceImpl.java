@@ -10,7 +10,10 @@ import ltd.newbee.mall.entity.RestaurantBasicInfo;
 import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
+import ltd.newbee.mall.entity.RestaurantMenuCourse;
 import ltd.newbee.mall.entity.RestaurantPhoto;
+import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
+import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.service.TabelogService;
 
 @Service
@@ -76,6 +79,21 @@ public class TabelogServiceImpl implements TabelogService {
 	@Override
 	public ArrayList<RestaurantPhoto> getSlidePhoto(long restaurantId) {
 		return tabelogMapper.getSlidePhoto(restaurantId);
+	}
+	// Top Kodawari
+	@Override
+	public ArrayList<RestaurantPhotoCommitment> getKodawari(long restaurantId) {
+		return tabelogMapper.getKodawari(restaurantId);
+	}
+	// Top Course
+	@Override
+	public ArrayList<RestaurantMenuCourse> getMenuCourse(long restaurantId) {
+		return tabelogMapper.getMenuCourse(restaurantId);
+	}
+	// Review
+	@Override
+	public ArrayList<RestaurantReview> getReview(long restaurantId) {
+		return tabelogMapper.getReview(restaurantId);
 	}
     
 }

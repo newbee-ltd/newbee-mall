@@ -14,7 +14,10 @@ import ltd.newbee.mall.entity.RestaurantBasicInfo;
 import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
+import ltd.newbee.mall.entity.RestaurantMenuCourse;
 import ltd.newbee.mall.entity.RestaurantPhoto;
+import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
+import ltd.newbee.mall.entity.RestaurantReview;
 
 public interface TabelogMapper {
 
@@ -42,5 +45,11 @@ public interface TabelogMapper {
 	  
 	  // Top Slide Photo
 	  public ArrayList<RestaurantPhoto> getSlidePhoto(long restaurantId);
+	  // Top Kodawari
+	  public ArrayList<RestaurantPhotoCommitment> getKodawari(long restaurantId);
+	  // Top Course
+	  public ArrayList<RestaurantMenuCourse> getMenuCourse(long restaurantId);
+	  // Review
+	  public ArrayList<RestaurantReview> getReview(long restaurantId);
 	  
 }
