@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import ltd.newbee.mall.dao.TabelogMapper;
 import ltd.newbee.mall.entity.RestaurantBasicInfo;
+import ltd.newbee.mall.entity.RestaurantDiseaseControl;
+import ltd.newbee.mall.entity.RestaurantFeaturesInfo;
 import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
@@ -14,6 +16,8 @@ import ltd.newbee.mall.entity.RestaurantMenuCourse;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
+import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
 
 @Service
@@ -43,13 +47,13 @@ public class TabelogServiceImpl implements TabelogService {
 		return tabelogMapper.getStationList(stationName);
 	}
 	
-	/* -------------------------------- Detail Page -------------------------------- */
-	// Keyword(Header)
+	/* -------------------------------- Detail Page (Header) -------------------------------- */
+	// Keyword
 	@Override
 	public ArrayList<RestaurantKeyword> getKeywordByRestaurantId(long restaurantId) {
 		return tabelogMapper.getKeywordByRestaurantId(restaurantId);
 	}
-	// RestaurantBasicInfo(Header)
+	// RestaurantBasicInfo
 	@Override
 	public ArrayList<RestaurantBasicInfo> getRestaurantBasicInfo(long restaurantId) {
 		return tabelogMapper.getRestaurantBasicInfo(restaurantId);
@@ -75,6 +79,7 @@ public class TabelogServiceImpl implements TabelogService {
 		return tabelogMapper.getGoToEat(restaurantId);
 	}
 	
+	/* -------------------------------- Detail Page (Top) -------------------------------- */
 	// Top Slide Photo
 	@Override
 	public ArrayList<RestaurantPhoto> getSlidePhoto(long restaurantId) {
@@ -94,6 +99,26 @@ public class TabelogServiceImpl implements TabelogService {
 	@Override
 	public ArrayList<RestaurantReview> getReview(long restaurantId) {
 		return tabelogMapper.getReview(restaurantId);
+	}
+	// Disease Control
+	@Override
+	public ArrayList<RestaurantDiseaseControl> getDiseaseControlList(long restaurantId) {
+		return tabelogMapper.getDiseaseControlList(restaurantId);
+	}
+	// Takeout
+	@Override
+	public ArrayList<RestaurantTakeout> getTakeoutList(long restaurantId) {
+		return tabelogMapper.getTakeoutList(restaurantId);
+	}
+	// Seats Menu
+	@Override
+	public ArrayList<RestaurantSeatsMenu> getSeatsMenu(long restaurantId) {
+		return tabelogMapper.getSeatsMenu(restaurantId);
+	}
+	// Restaurant Features Info
+	@Override
+	public ArrayList<RestaurantFeaturesInfo> getRestaurantFeaturesInfo(long restaurantId) {
+		return tabelogMapper.getRestaurantFeaturesInfo(restaurantId);
 	}
     
 }

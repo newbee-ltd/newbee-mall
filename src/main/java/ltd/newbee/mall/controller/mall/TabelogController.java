@@ -8,15 +8,18 @@
  */
 package ltd.newbee.mall.controller.mall;
 
-import ltd.newbee.mall.controller.vo.GoodsReviewVO;
+import ltd.newbee.mall.controller.vo.RestaurantFeaturesInfoVO;
 import ltd.newbee.mall.controller.vo.RestaurantReviewVO;
-import ltd.newbee.mall.entity.GoodsReview;
 import ltd.newbee.mall.entity.RestaurantBasicInfo;
+import ltd.newbee.mall.entity.RestaurantDiseaseControl;
+import ltd.newbee.mall.entity.RestaurantFeaturesInfo;
 import ltd.newbee.mall.entity.RestaurantKeyword;
 import ltd.newbee.mall.entity.RestaurantMenuCourse;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
+import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
 import ltd.newbee.mall.util.BeanUtil;
 
@@ -106,7 +109,6 @@ public class TabelogController {
         
         // Review
     	List<RestaurantReview> reviewEntityList = tabelogService.getReview(restaurantId);
-        // Copy KodawariList
         List<RestaurantReviewVO> reviewList = new ArrayList<RestaurantReviewVO>();
         // Set Goods Review Time Format
         SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
@@ -140,8 +142,57 @@ public class TabelogController {
         	r.setBudget(rv.getBudget());
         	r.setNightOrDaytime(rv.getNightOrDaytime());
         	r.setReplyDetail(rv.getReplyDetail());
+        	r.setReviewerPhoto(rv.getReviewerPhoto());
         	reviewList.add(r);
+        }
+        
+        // Disease Control
+        List<RestaurantDiseaseControl> diseaseControlEntityList = tabelogService.getDiseaseControlList(restaurantId);
+        // Copy seatsMenuList
+        List<RestaurantDiseaseControl> diseaseControlList = (List<RestaurantDiseaseControl>) BeanUtil.copyList(diseaseControlEntityList, RestaurantDiseaseControl.class);
+        
+        // Takeout
+        List<RestaurantTakeout> takeoutEntityList = tabelogService.getTakeoutList(restaurantId);
+        // Copy seatsMenuList
+        List<RestaurantTakeout> takeoutList = (List<RestaurantTakeout>) BeanUtil.copyList(takeoutEntityList, RestaurantTakeout.class);
+        
+        // Seats Menu
+    	List<RestaurantSeatsMenu> seatsMenuEntityList = tabelogService.getSeatsMenu(restaurantId);
+        // Copy seatsMenuList
+        List<RestaurantSeatsMenu> seatsMenuList = (List<RestaurantSeatsMenu>) BeanUtil.copyList(seatsMenuEntityList, RestaurantSeatsMenu.class);
+        
+        // Restaurant Features Info
+        List<RestaurantFeaturesInfo> restaurantFeaturesInfoEntityList = tabelogService.getRestaurantFeaturesInfo(restaurantId);
+        List<RestaurantFeaturesInfoVO> restaurantFeaturesInfoList = new ArrayList<RestaurantFeaturesInfoVO>();
+        // Set Restaurant Features Info Time Format
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for (int i = 0; i < restaurantFeaturesInfoEntityList.size(); i++) {
+        	RestaurantFeaturesInfo rf = restaurantFeaturesInfoEntityList.get(i);
+        	RestaurantFeaturesInfoVO r = new RestaurantFeaturesInfoVO();
+            
+        	if (rf != null && rf.getOpenDate() != null) {
+                String dateString = format.format(rf.getOpenDate());
+                Date date = format.parse(dateString);
+                r.setOpenDate(dateString);
+        	}
         	
+        	r.setRestaurantId(rf.getRestaurantId());
+        	r.setRestaurantName(rf.getRestaurantName());
+        	r.setGoToEat(rf.getGoToEat());
+        	r.setSceneName1(rf.getSceneName1());
+        	r.setSceneName2(rf.getSceneName2());
+        	r.setSceneName3(rf.getSceneName3());
+        	r.setLocation(rf.getLocation());
+        	r.setService(rf.getService());
+        	r.setWithChildren(rf.getWithChildren());
+        	r.setHomePage(rf.getHomePage());
+        	r.setAccountTwitter(rf.getAccountTwitter());
+        	r.setAccountIns(rf.getAccountIns());
+        	r.setTelephone(rf.getTelephone());
+        	r.setRemark(rf.getRemark());
+        	r.setFirstContributorId(rf.getFirstContributorId());
+        	r.setFirstContributorName(rf.getFirstContributorName());
+        	restaurantFeaturesInfoList.add(r);
         }
         
         request.setAttribute("keywordList", keywordList);
@@ -154,6 +205,10 @@ public class TabelogController {
         request.setAttribute("KodawariList", kodawariList);
         request.setAttribute("courseList", courseList);
         request.setAttribute("reviewList", reviewList);
+        request.setAttribute("diseaseControlList", diseaseControlList);
+        request.setAttribute("takeoutList", takeoutList);
+        request.setAttribute("seatsMenuList", seatsMenuList);
+        request.setAttribute("rstFeaturesInfoList", restaurantFeaturesInfoList);
         
         return "mall/tabelogDetail";
     }

@@ -9,9 +9,6 @@
 package ltd.newbee.mall.controller.vo;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 商品详情页VO
@@ -39,6 +36,7 @@ public class RestaurantReviewVO implements Serializable {
 	private String visitDate;
 	private String nightOrDaytime;
 	private String replyDetail;
+	private String reviewerPhoto;
 	
 	public long getRestaurantId() {
 		return restaurantId;
@@ -166,5 +164,10 @@ public class RestaurantReviewVO implements Serializable {
 	public void setReplyDetail(String replyDetail) {
 		this.replyDetail = replyDetail;
 	}
-   
+	public String getReviewerPhoto() {
+		return reviewerPhoto;
+	}
+	public void setReviewerPhoto(String reviewerPhoto) {
+		this.reviewerPhoto = reviewerPhoto;
+	}
 }

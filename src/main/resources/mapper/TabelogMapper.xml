@@ -92,9 +92,42 @@
     <select id="getReview" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantReview">
         select restaurant_id, restaurant_name, review_id, review_user_id, review_user_name, review_user_age,
         review_user_gender, review_user_city, review_title, review_detail, review_img, score_total, score_taste,
-        score_service, score_atmosphere, score_cost, score_drink, budget, visit_date, night_or_daytime, reply_detail
+        score_service, score_atmosphere, score_cost, score_drink, budget, visit_date, night_or_daytime, reply_detail,
+        reviewer_photo
         from restaurant_review
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
+    
+    <!-- Disease Control -->
+    <select id="getDiseaseControlList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantDiseaseControl">
+        select restaurant_id, restaurant_name, restaurant_countermeasure1, restaurant_countermeasure2, employee_countermeasure1,
+        employee_countermeasure2, employee_countermeasure3, customer_countermeasure1, customer_countermeasure2
+        from restaurant_disease_control
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Takeout -->
+    <select id="getTakeoutList" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantTakeout">
+        select restaurant_id, restaurant_name, takeout_img1, takeout_img2, takeout_img3, available_time, menu
+        from restaurant_takeout
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
 
+    <!-- Seats Menu -->
+    <select id="getSeatsMenu" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantSeatsMenu">
+        select restaurant_id, restaurant_name, seats_num, seats_remark, private_room, private_remark, reservable,
+        reservable_remark, smoking_cessation, smoking_remark, parking, parking_remark, space_equipment, cell_phon,
+        course, drink, gourmet, lunch_start, lunch_end, dinner_start, dinner_end, keyword
+        from restaurant_seats_menu
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Restaurant Features Info -->
+    <select id="getRestaurantFeaturesInfo" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantFeaturesInfo">
+        select restaurant_id, restaurant_name, go_to_eat, scene_name1, scene_name2, scene_name3, location, service,
+        with_children, home_page, account_twitter, account_ins, open_date, telephone, remark, first_contributor_id,
+        first_contributor_name
+        from restaurant_features_info
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
 </mapper>

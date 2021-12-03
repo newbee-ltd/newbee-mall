@@ -28,6 +28,7 @@ public class RestaurantReview {
 	private Date visitDate;
 	private String nightOrDaytime;
 	private String replyDetail;
+	private String reviewerPhoto;
 	
 	public long getRestaurantId() {
 		return restaurantId;
@@ -155,5 +156,10 @@ public class RestaurantReview {
 	public void setReplyDetail(String replyDetail) {
 		this.replyDetail = replyDetail;
 	}
-	
+	public String getReviewerPhoto() {
+		return reviewerPhoto;
+	}
+	public void setReviewerPhoto(String reviewerPhoto) {
+		this.reviewerPhoto = reviewerPhoto;
+	}
 }

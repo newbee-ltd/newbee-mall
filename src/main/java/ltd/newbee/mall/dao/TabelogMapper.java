@@ -11,6 +11,8 @@ package ltd.newbee.mall.dao;
 import java.util.ArrayList;
 
 import ltd.newbee.mall.entity.RestaurantBasicInfo;
+import ltd.newbee.mall.entity.RestaurantDiseaseControl;
+import ltd.newbee.mall.entity.RestaurantFeaturesInfo;
 import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
@@ -18,6 +20,8 @@ import ltd.newbee.mall.entity.RestaurantMenuCourse;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
+import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantTakeout;
 
 public interface TabelogMapper {
 
@@ -29,10 +33,10 @@ public interface TabelogMapper {
 	  public ArrayList<RestaurantJapanRegion> getDistrictList(String districtName);
 	  public ArrayList<RestaurantJapanStation> getStationList(String stationName);
 	  
-	  /* -------------------------------- Detail Page -------------------------------- */
-	  // Keyword(Header)
+	  /* -------------------------------- Detail Page (Header) -------------------------------- */
+	  // Keyword
 	  public ArrayList<RestaurantKeyword> getKeywordByRestaurantId(long restaurantId);
-	  // RestaurantBasicInfo(Header)
+	  // RestaurantBasicInfo
 	  public ArrayList<RestaurantBasicInfo> getRestaurantBasicInfo(long restaurantId);
 	  // restaurant_reviewの各点数の平均評価
 	  double getAverageScoreByRestaurantId(long restaurantId);
@@ -43,6 +47,7 @@ public interface TabelogMapper {
 	  // Go To Eat
 	  String getGoToEat(long restaurantId);
 	  
+	  /* -------------------------------- Detail Page (Top) -------------------------------- */
 	  // Top Slide Photo
 	  public ArrayList<RestaurantPhoto> getSlidePhoto(long restaurantId);
 	  // Top Kodawari
@@ -51,5 +56,13 @@ public interface TabelogMapper {
 	  public ArrayList<RestaurantMenuCourse> getMenuCourse(long restaurantId);
 	  // Review
 	  public ArrayList<RestaurantReview> getReview(long restaurantId);
+	  // Disease Control
+	  public ArrayList<RestaurantDiseaseControl> getDiseaseControlList(long restaurantId);
+	  // Takeout
+	  public ArrayList<RestaurantTakeout> getTakeoutList(long restaurantId);
+	  // Seats Menu
+	  public ArrayList<RestaurantSeatsMenu> getSeatsMenu(long restaurantId);
+	  // Restaurant Features Info
+	  public ArrayList<RestaurantFeaturesInfo> getRestaurantFeaturesInfo(long restaurantId);
 	  
 }

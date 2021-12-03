@@ -231,6 +231,10 @@
 }
 
 /* ---------------------- contents * main ---------------------- */
+.contents {
+	display: flex;
+}
+
 .column-main {
 	margin: 10px 150px;
 	float: left;
@@ -250,10 +254,62 @@
     font-size: 1rem;
 }
 
-.extra-info-detail {
+.extra-info-detail-btn {
 	font-size: 80%;
+	font-weight: bold;
+	color: #06c;
+	margin-top: 6px;
 }
 
+.extra-info-detail-btn:hover {
+	cursor: pointer;
+	color: #fa0;
+	text-decoration: underline;
+}
+
+/* もっと見る機能 */
+/*
+.extra-info-detail {
+	font-size: 80%;*/
+	/* 定义被截断文本的行数 */
+  	/*display: -webkit-box;
+  	-webkit-line-clamp: 2;
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+}*/
+.extra-info-detail-btn::before {
+  content: "もっと見る";
+}
+.extra-info-detail {
+	font-size: 80%;
+	position: relative;
+ 	overflow: hidden;
+  	height: 40px; /*隠した状態の高さ*/
+}
+.extra-info-detail::before {
+	display: block;
+    position: absolute;
+  	bottom: 0;
+  	left: 0;
+ 	width: 100%;
+  	height: 40px; /*グラデーションで隠す高さ*/
+  	/*background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);*/
+  	background: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+  	content: "";
+}	
+.extra-info-detail-trigger {
+	display: none; /*チェックボックスは常に非表示*/
+}
+.extra-info-detail-trigger:checked + .extra-info-detail-btn::before {
+	content: "閉じる"; /*チェックされていたら、文言を変更する*/
+}
+.extra-info-detail-trigger:checked ~ .extra-info-detail {
+	height: auto; /*チェックされていたら、高さを戻す*/
+}
+.extra-info-detail-trigger:checked ~ .extra-info-detail::before {
+	display: none; /*チェックされていたら、grad-itemのbeforeを非表示にする*/
+}
+	
 /* Main Photo */
 .main-photo {
 	padding: 10px 0;
@@ -269,7 +325,7 @@
 .next {
   cursor: pointer;
   position: absolute;
-  top: 40%;
+  top: 45%;
   width: auto;
   padding: 16px;
   margin-top: -50px;
@@ -320,6 +376,7 @@
     font-style: normal;
     font-weight: bold;
     font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 .comment-detail {
@@ -327,6 +384,65 @@
 	color: #595960;
     line-height: 1.6;
 }
+
+.comment-detail-btn {
+	font-size: 80%;
+	font-weight: bold;
+	color: #06c;
+	margin-top: 6px;
+}
+
+.comment-detail-btn:hover {
+	cursor: pointer;
+	color: #fa0;
+	text-decoration: underline;
+}
+
+/* 続きを読む機能 */
+.comment-detail-btn::before {
+  content: "続きを読む";
+}
+.comment-detail {
+	font-size: 80%;
+	position: relative;
+ 	overflow: hidden;
+  	height: 60px; /*隠した状態の高さ*/
+}
+.comment-detail::before {
+	display: block;
+    position: absolute;
+  	bottom: 0;
+  	left: 0;
+ 	width: 100%;
+  	height: 40px; /*グラデーションで隠す高さ*/
+  	background: linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.9) 50%, #fff 100%);
+  	content: "";
+}	
+.comment-detail-trigger {
+	display: none; /*チェックボックスは常に非表示*/
+}
+.comment-detail-trigger:checked + .comment-detail-btn::before {
+	content: "閉じる"; /*チェックされていたら、文言を変更する*/
+}
+.comment-detail-trigger:checked ~ .comment-detail {
+	height: auto; /*チェックされていたら、高さを戻す*/
+}
+.comment-detail-trigger:checked ~ .comment-detail::before {
+	display: none; /*チェックされていたら、grad-itemのbeforeを非表示にする*/
+}
+
+/* Top Course */
+.top-course{
+	padding: 20px 0;
+}
+
+.top-course-heading {
+	padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+	border-bottom: 1px solid #e9e9e9;
+}
+
 
 /* Top Kodawari */
 .top-kodawari {
@@ -374,54 +490,78 @@
 
 /* Kodawari Modal */
 .kodawari-modal-container {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  	display: none;
+  	position: fixed;
+  	z-index: 1;
+ 	left: 0;
+ 	top: 0;
+  	height: 100%;
+  	width: 100%;
+  	overflow: auto;
+  	background-color: rgba(0, 0, 0, 0.5);
 }
-.kodawari-modal-content {
-  background-color: #f4f4f4;
-  margin: 20% auto;
-  width: 50%;
-  border-radius: 0.3rem;
-  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
-  animation-name: openModal;
-  animation-duration: 1s;
+.kodawari-modal-inner {
+	width: 760px;
+	height:390px;
+	display: column;
+	margin: 100px auto;
+  	background-color: #f4f4f4;
+ 	border-radius: 0.3rem;
+  	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+  	animation-name: openModal;
+ 	animation-duration: 1s;
 }
 @keyframes openModal {
-  from {opacity: 0}
-  to {opacity: 1}
+  	from {opacity: 0}
+  	to {opacity: 1}
 }
-.modal-header{
-  padding: 20px 20px;
-  display: flex;
-  flex-direction: row;
+.close-kodawari-modal {
+	margin: 20px 30px 0 0;
+	float: right;
+	font-size: 1rem;
+	border: none;
+  	background-color: transparent;
 }
-.close-btn {
-  margin-left: 450px;
-  float: right;
-  background-color: #f4f4f4;
-  font-size: 1rem;
-  border: none;
-}
-.close-btn {
+.close-kodawari-modal:hover {
   cursor: pointer;
   transform: scale(1.2);
 }
-.modal-body {
-  padding: 10px 20px;
-  color: black;
-  font-size: 80%;
+.kodawari-modal-content {
+	width: 720px;
+	height:320px;
+	display: flex;
+}
+.modal-left {
+	width: 320px;
+	height: 320px;
+	margin: 35px 15px 35px 35px;
+}
+.kodawari-modal-photo {
+	width: 320px;
+	height: 320px;
+	object-fit: cover;
+}
+.modal-right {
+	width: 350px;
+	height: 320px;
+	margin: 35px 0;
+}
+.modal-kodawari-title {
+	font-size: 1rem;
+	font-weight: bold;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #e9e9e9;
+}
+.modal-kodawari-detail{
+	margin-top: 5px;
+	font-size: 0.75rem;
+	line-height: 1.6;
+	color: #595960;
 }
 
 /* Top Course */
 .top-course {
-	padding: 20px 0;
+	padding: 20px 0 40px 0;
 	border-bottom: 1px solid #e9e9e9;
 }
 
@@ -429,6 +569,111 @@
     padding-bottom: 10px;
     font-weight: bold;
     font-size: 1rem;
+}
+
+.top-course-item {
+	padding: 20px 0;
+	border-bottom: 1px solid #e9e9e9;
+	display: flex;
+}
+
+.top-course-item-img {
+	width: 120px;
+	height: 120px;
+	object-fit: cover; 
+}
+
+.top-course-item-img:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.top-course-item-detail {
+	display: flex;
+}
+
+.top-course-item-summary {
+	width: 430px;
+	height: 120px;
+	padding: 0 15px;
+	position: relative;
+}
+
+.top-course-title {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #06c;
+}
+
+.top-course-title:hover {
+	cursor: pointer;
+	color: #fa0;
+	text-decoration: underline;
+}
+
+.top-course-desc {
+    color: #797152;
+    line-height: 1.6;
+    font-size: 0.7rem;
+    padding: 5px 0;
+}
+
+.top-course-total-price {
+	position: absolute;
+	bottom: 0;
+}
+.top-course-price {
+    font-size: 1rem;
+    color: #e64c30;
+	font-weight: bold;
+}
+
+.top-course-price-unit {
+	font-size: 0.7rem;
+	color: #e64c30;
+	font-weight: bold;
+}
+
+.fa-user {
+	color: #797152;
+	font-size: 80%;
+}
+.fa-clock {
+	margin-left: 10px;
+	color: #797152;
+	font-size: 80%;
+}
+
+.top-course-reserve-btn {
+	width: 110px;
+}
+
+.course-reserve-btn {
+	padding: 5px 28px;
+    border: 1px solid #f3980a;
+    border-radius: 3px;
+    font-size: 80%;
+    font-weight: bold;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 30%);
+    background-image: linear-gradient(to bottom, #fa0,#ff9600);
+}
+
+.course-info-btn {
+	padding: 5px 22px;
+	font-size: 80%;
+    font-weight: bold;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #fff inset, 0 1px 0 rgb(0 0 0 / 10%);
+	background-image: linear-gradient(to bottom, #fff,#f4f4f4);
+}
+
+.course-reserve-btn:hover,
+.course-info-btn:hover {
+	cursor: pointer;
+	filter: brightness(110%);
 }
 
 /* Top Postphoto */
@@ -477,6 +722,12 @@
 	object-fit: cover; 
 }
 
+.top-postphoto-item:hover {
+	cursor: pointer;
+	opacity: 0.8;
+	border: 1px solid #fa0;
+}
+
 .fa-play-circle {
 	float: right;
 	padding-top: 10px;
@@ -487,10 +738,271 @@
 	color: #fa0;
 }
 
+/* Top Reviewlist */
+.top-reviewlist {
+	padding: 20px 0 40px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.top-reviewlist-heading {
+	padding-bottom: 20px;
+}
+
+.top-reviewlist-btn {
+	float:right;
+	padding: 3px 10px;
+	font-size: 80%;
+	font-weight: bold;
+    border: 1px solid #82ad24;
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgb(255 255 255 / 60%) inset, 0 1px 0 rgb(0 0 0 / 10%);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 30%);
+    background-color: #9c0;
+}
+
+.top-reviewlist-btn:hover {
+	cursor: pointer;
+	filter: brightness(110%);
+}
+
+.top-reviewlist-title {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.top-reviewlist-title-help,
+.pickup-rv-like-count-help {
+	padding: 0 2px;
+	font-size: 70%;
+	text-decoration: none;
+    color: #949499;
+    border: solid 1px #949499;
+}
+
+.encourage-follow-banner {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f3f3f3;
+    border: 1px solid #e9e9e9;
+    cursor: pointer;
+}
+
+.encourage-follow-banner:hover .encourage-follow-banner-title {
+	color: #fa0;
+	text-decoration: underline;
+}
+
+.encourage-follow-wrap {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.encourage-follow-banner-title {
+	margin-left: 15px;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #06c;
+}
+
+.top-review-pickup-item {
+	margin: 15px 0;
+	list-style: none;
+}
+
+.top-reviewer-data-wrap {
+	display: flex;
+    align-items: center;
+}
+
+.top-reviewer-photo {
+	border-radius: 3px;
+	object-fit: cover; 
+}
+
+.top-reviewer-photo:hover{
+	cursor: pointer;
+	opacity: 0.8;
+	border: 1px solid #fa0;
+}
+
+.top-reviewer-name {
+	margin: 0 10px;
+	font-size: 0.7rem;
+    color: #595960;
+}
+
+.top-reviewer-name:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.review-pickup-title {
+	font-size: 1rem;
+	font-weight: bold;
+	border-bottom: 1px dotted #13131e;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.review-pickup-detail-wrap {
+	margin: 10px 0;
+}
+
+.review-pickup-content {
+	margin-left: 40px;
+	padding: 20px;
+    border: 1px solid #d2d2d2;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.review-pickup-content:hover .review-pickup-title {
+	color: #fa0;
+	border-bottom: 1px dotted #fa0;
+}
+
+.review-pickup-content:hover .pickup-review-more {
+	color: #fa0;
+}
+
+.review-pickup-detail {
+	color: #595960;
+	font-size: 0.75rem;
+    line-height: 1.5;
+    /* 定义被截断文本的行数 */
+  	display: -webkit-box;
+  	-webkit-line-clamp: 4;
+  	-webkit-box-orient: vertical;
+  	overflow: hidden;
+}
+
+.pickup-review-more {
+	font-size: 80%;
+	color: #06c;
+	margin-top: 5px;	
+}
+
+.review-pickup-data {
+	font-size: 80%;
+    color: #949499;
+}
+
+.pickup-rv-rating {
+	margin: 0 10px;
+}
+
+/* Disease Control */
+.disease_control {
+	padding: 20px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.disease-control-heading {
+	padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.disease-control-table th {
+	padding-top: 20px;
+	width: 100px;
+    font-size: 0.9rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.disease-control-table td {
+	width: 560px;
+    padding: 15px 0;
+    font-size: 80%;
+    color: #595960;
+    line-height: 2.5;
+    border-bottom: solid 1px #eeece4;
+}
+
+.fa-store,
+.fa-user-check,
+.fa-user-friends {
+	font-size: 130%;
+	color: #86b5e3;
+}
+
+.fa-check-circle {
+	color: #86b5e3;
+}
+
+.rstinfo-edit-navi {
+	margin-top: 15px;
+	font-size: 70%;
+	color: #82ad24;
+}
+
+.rstinfo-edit-navi a {
+	color: #06c;
+    text-decoration: none;
+}
+
+/* Takeout */
+.takeout-info {
+	padding-top: 20px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.takeout-info-heading {
+	padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.takeout-info-photo {
+	margin: 15px 0;
+}
+
+.takeout-info-time-title,
+.takeout-info-menu-title {
+	margin: 10px 0;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-left: 5px solid #fa0;
+}
+
+.takeout-info-time,
+.takeout-info-menu {
+	font-size: 90%;
+    color: #595960;
+    margin-bottom: 20px;
+}
+
+/* restaurant Basic Info */
+.rst-data {
+	padding: 20px 0;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.rst-data-heading {
+	padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.rstinfo-table-title,
+.rstseats-table-title,
+.rstseats-menu-title,
+.rst-features-info-title {
+	margin: 10px 0;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-left: 5px solid #fa0;
+}
+
 /* ---------------------- contents * side ---------------------- */
 .column-side {
 	margin: 10px 0;
-	float: right;
-    width: 300px;
+	padding: 10px 0;
+    width: 314px;
+    transform: translateX(-125px);
+    border-top: 1px solid #e9e9e9;
 }
 
