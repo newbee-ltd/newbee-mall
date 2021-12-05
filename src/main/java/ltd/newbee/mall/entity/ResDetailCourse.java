@@ -11,6 +11,7 @@ public class ResDetailCourse {
 	private String coursePriceDiscount;
 	private long courseItemNum;
 	private String availableTime;
+	private String availablePeople;
 	
 	public long getRestaurantId() {
 		return restaurantId;
@@ -65,6 +66,12 @@ public class ResDetailCourse {
 	}
 	public void setAvailableTime(String availableTime) {
 		this.availableTime = availableTime;
+	}
+	public String getAvailablePeople() {
+		return availablePeople;
+	}
+	public void setAvailablePeople(String availablePeople) {
+		this.availablePeople = availablePeople;
 	}
 	
 }

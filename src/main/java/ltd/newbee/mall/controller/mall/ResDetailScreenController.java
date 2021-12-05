@@ -23,23 +23,23 @@ public class ResDetailScreenController {
 	@Resource
 	ResDetailScreenService resDetailScreenService;
 
-	@RequestMapping(value = "/followTotal", method = RequestMethod.GET)
-	@ResponseBody
-	public Result followTotal(long followResId) {
-		long followTotal = resDetailScreenService.getFollowTotal(followResId);
-		return ResultGenerator.genSuccessResult(followTotal);
-	}
-
-	@RequestMapping(value = "/resDetail", method = RequestMethod.GET)
-	@ResponseBody
-	public Result resDetail(long restaurantId) {
-		List<ResDetailScreen> resDetailList = resDetailScreenService.getResDetail(restaurantId);
-
-		if (CollectionUtils.isEmpty(resDetailList)) {
-			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
-		} else {
-			return ResultGenerator.genSuccessResult(resDetailList);
-		}
-	}
+//	@RequestMapping(value = "/followTotal", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Result followTotal(long followResId) {
+//		long followTotal = resDetailScreenService.getFollowTotal(followResId);
+//		return ResultGenerator.genSuccessResult(followTotal);
+//	}
+//
+//	@RequestMapping(value = "/resDetail", method = RequestMethod.GET)
+//	@ResponseBody
+//	public Result resDetail(long restaurantId) {
+//		List<ResDetailScreen> resDetailList = resDetailScreenService.getResDetail(restaurantId);
+//
+//		if (CollectionUtils.isEmpty(resDetailList)) {
+//			return ResultGenerator.genErrorResult(Constants.FETCH_ERROR, Constants.STUDENT_FETCH_ERROR_MESSAGE);
+//		} else {
+//			return ResultGenerator.genSuccessResult(resDetailList);
+//		}
+//	}
 
 }

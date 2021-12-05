@@ -28,7 +28,7 @@ public class ResInfoSearch {
 	private Date holidayFrom1;
 	private Date holidayTo1;
 
-	private String keywords;
+	private String keyword;
 
 	
 	public String getLocation() {
@@ -184,11 +184,11 @@ public class ResInfoSearch {
 	}
 
 	public String getKeywords() {
-		return keywords;
+		return keyword;
 	}
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setKeywords(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

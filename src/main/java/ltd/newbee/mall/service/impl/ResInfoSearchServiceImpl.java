@@ -40,8 +40,8 @@ public class ResInfoSearchServiceImpl implements ResInfoSearchService {
 	}
 
 	@Override
-	public List<String> getKeywords(String keywords) {
-		return resInfoSearchMapper.getKeywords(keywords);
+	public List<String> getKeywords(String keyword) {
+		return resInfoSearchMapper.getKeywords(keyword);
 	}
 
 	@Override

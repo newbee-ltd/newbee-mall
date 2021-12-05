@@ -25,9 +25,9 @@
 	</select>
 	<select id="getKeywords" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		select DISTINCT keywords from restaurant_keywords
+		select DISTINCT keyword from restaurant_keywords
 		where
-		keywords like concat('%',#{keywords},'%');
+		keyword like concat('%',#{keyword},'%');
 	</select>
 	<select id="getReserveInfo" resultType="ltd.newbee.mall.entity.ResInfoSearch">
 		select

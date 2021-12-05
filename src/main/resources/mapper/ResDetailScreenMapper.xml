@@ -35,7 +35,8 @@
 		select photo_id,photo_url from restaurant_photo
 		where
 		restaurant_id=#{restaurantId} and photo_code=#{photoCode}
-		order by photo_id asc
+		order by
+		photo_id asc
 	</select>
 	<select id="getCommitphoto" parameterType="java.lang.Long"
 		resultType="ltd.newbee.mall.entity.ResDetailPhoto">
@@ -49,8 +50,9 @@
 		resultType="ltd.newbee.mall.entity.ResDetailCourse">
 		select
 		restaurant_id,course_id,course_name,course_detail,course_img,course_price,course_price_discount,
-		course_item_num,available_time
-		from restaurant_menu_course where
+		course_item_num,available_time,available_people
+		from
+		restaurant_menu_course where
 		restaurant_id=#{restaurantId}
 	</select>
 	<select id="getBacicInfo" parameterType="java.lang.Long"
@@ -67,7 +69,7 @@
 		resultType="ltd.newbee.mall.entity.ResDetailSeat">
 		SELECT
 		restaurant_id,seats_num,seats_remark,private_room,private_remark,reservable,
-		reservable_remark,smoking_cessation,smoking_remark,parking,parking_remark,space_equipment,cell_phon,
+		reservable_remark,smoking_cessation,smoking_remark,parking,parking_remark,space_equipment,cell_phone,
 		course,drink,gourmet
 		FROM restaurant_seats_menu where restaurant_id=
 		#{restaurantId}
@@ -82,4 +84,43 @@
 		restaurant_features_info
 		where restaurant_id= #{restaurantId}
 	</select>
+
+	<select id="getReviewList" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailReview">
+		SELECT
+		r.restaurant_id,r.review_id,r.review_user_id,r.review_user_name,r.review_user_age,r.review_user_gender,r.review_user_city,
+		r.review_title,r.review_detail,r.review_img,r.score_total,r.score_taste,r.score_service,r.score_atmosphere,r.score_cost,r.score_drink,
+		r.budget,r.visit_date,r.night_or_daytime,count(rs.sannkou_user_id) as
+		sannkou_num
+		FROM restaurant_review as r left join
+		restaurant_review_sannkou as rs
+		on r.restaurant_id=rs.restaurant_id and
+		r.review_id=rs.review_id
+		where r.restaurant_id= #{restaurantId}
+		group by
+		r.review_id,r.review_user_id,r.review_user_name,r.review_user_age,r.review_user_gender,r.review_user_city,
+		r.review_title,r.review_detail,r.review_img,r.score_total,r.score_taste,r.score_service,r.score_atmosphere,r.score_cost,r.score_drink,
+		r.budget,r.visit_date,r.night_or_daytime;
+	</select>
+
+	<select id="getVisitNum" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailReview">
+		select review_user_id,count(visit_date) as visit_num from
+		restaurant_review
+		where restaurant_id=#{restaurantId}
+		group by
+		review_user_id;
+	</select>
+	
+	<select id="getReserveInfo" parameterType="java.lang.Long"
+		resultType="ltd.newbee.mall.entity.ResDetailReserve">
+		select
+		rr.restaurant_id,rr.reserve_date,rr.reserve_time,rr.reserve_num,rr.room_no,rr.course_id,
+		sm.seats_num,sm.private_room_num,sm.common_table_num,sm.lunch_start,sm.lunch_end,
+		sm.dinner_start,sm.dinner_end
+		from restaurant_reserve as rr left join restaurant_seats_menu as sm
+		on rr.restaurant_id=sm.restaurant_id
+		where rr.restaurant_id=#{restaurantId};
+	</select>
+	
 </mapper>

@@ -17,6 +17,8 @@ import ltd.newbee.mall.dao.ResDetailScreenMapper;
 import ltd.newbee.mall.entity.ResDetailCourse;
 import ltd.newbee.mall.entity.ResDetailFeature;
 import ltd.newbee.mall.entity.ResDetailPhoto;
+import ltd.newbee.mall.entity.ResDetailReserve;
+import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
@@ -62,5 +64,18 @@ public class ResDetailScreenServiceImpl implements ResDetailScreenService {
 	public List<ResDetailFeature> getFeaturInfo(long restaurantId){
 		return resDetailScreenMapper.getFeaturInfo(restaurantId);
 	}
+	@Override
+	public List<ResDetailReview> getReviewList(long restaurantId){
+		return resDetailScreenMapper.getReviewList(restaurantId);
+	}
+
+	@Override
+	public List<ResDetailReview> getVisitNum(long restaurantId){
+		return resDetailScreenMapper.getVisitNum(restaurantId);
+	}
 	
+	@Override
+	public List<ResDetailReserve> getReserveInfo(long restaurantId){
+		return resDetailScreenMapper.getReserveInfo(restaurantId);
+	}
 }

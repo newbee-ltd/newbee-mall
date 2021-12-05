@@ -52,4 +52,8 @@ public class Constants {
 	public final static String DROPDOWNLIST_GET_ERROR_MESSAGE="キャンペーンリストの取得は失敗した！";
 	public final static String CSV_INSERT_ERROR_MESSAGE="CSVは挿入できない";
 	public final static String CSV_INSERT_SUCCESS_MESSAGE="csvファイルがデータベースにインポートされ、batch実行が完了しました。";
+	
+	public final static long MAIN_PHOTO_CODE=1;
+	public final static long MEAL_USER_PHOTO_CODE=8;
+	
 }

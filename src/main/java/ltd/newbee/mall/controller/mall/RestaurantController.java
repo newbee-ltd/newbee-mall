@@ -1,4 +1,5 @@
 /**
+
  * 严肃声明：
  * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
  * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
@@ -32,11 +33,11 @@ public class RestaurantController {
 		String cityName = "東京";
 		String townName = "東京";
 		String stationName = "東京";
-		String keywords = "焼";
+		String keyword = "焼";
 		List<String> cityList = resInfoSearchService.getCityName(cityName);
 		List<String> townList = resInfoSearchService.getTownName(townName);
 		List<String> stationList = resInfoSearchService.getStationName(stationName);
-		List<String> keywordList = resInfoSearchService.getKeywords(keywords);
+		List<String> keywordList = resInfoSearchService.getKeywords(keyword);
 		List<ResInfoSearch> reserveList = resInfoSearchService.getReserveInfo();
 
 		List<String> areaList = new ArrayList<>();

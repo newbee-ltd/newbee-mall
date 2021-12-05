@@ -17,9 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import ltd.newbee.mall.common.Constants;
+import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.entity.ResDetailCourse;
 import ltd.newbee.mall.entity.ResDetailFeature;
 import ltd.newbee.mall.entity.ResDetailPhoto;
+import ltd.newbee.mall.entity.ResDetailReserve;
+import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
@@ -39,13 +43,15 @@ public class RestaurantDetailController {
 		request.setAttribute("followTotal", followTotal);
 		request.setAttribute("resDetai", resDetailList);
 
-		long photoCode = 1;
+		long photoCode = Constants.MAIN_PHOTO_CODE;
 		List<ResDetailPhoto> mainPhotoList = resDetailScreenService.getMainphoto(restaurantId, photoCode);
 		List<ResDetailPhoto> commitPhotoList = resDetailScreenService.getCommitphoto(restaurantId);
 		List<ResDetailCourse> courseList = resDetailScreenService.getCourse(restaurantId);
 		List<ResDetailScreen> basicInfoList = resDetailScreenService.getBacicInfo(restaurantId);
 		List<ResDetailSeat> seatList = resDetailScreenService.getSeatInfo(restaurantId);
 		List<ResDetailFeature> featureList = resDetailScreenService.getFeaturInfo(restaurantId);
+		List<ResDetailReview> reviewList = resDetailScreenService.getReviewList(restaurantId);
+		List<ResDetailReview> visitNum = resDetailScreenService.getVisitNum(restaurantId);
 
 		request.setAttribute("mainPhoto", mainPhotoList);
 		request.setAttribute("commitPhoto", commitPhotoList);
@@ -53,7 +59,21 @@ public class RestaurantDetailController {
 		request.setAttribute("basicInfo", basicInfoList);
 		request.setAttribute("seat", seatList);
 		request.setAttribute("feature", featureList);
+		request.setAttribute("review", reviewList);
+		request.setAttribute("visit", visitNum);
 
+		photoCode = Constants.MEAL_USER_PHOTO_CODE;
+		List<ResDetailPhoto> mealUserPhotoList = resDetailScreenService.getMainphoto(restaurantId, photoCode);
+		List<ResDetailPhoto> mealUserPhotoList1 = mealUserPhotoList.subList(0, 10);
+		List<ResDetailPhoto> mealUserPhotoList2 = mealUserPhotoList.subList(10, 20);
+		request.setAttribute("mealUserPhoto1", mealUserPhotoList1);
+		request.setAttribute("mealUserPhoto2", mealUserPhotoList2);
+
+		List<ResDetailReserve> reserveList = resDetailScreenService.getReserveInfo(restaurantId);
+		request.setAttribute("reverse", reserveList);
+
+		
+		
 		return "mall/resDetailScreen";
 	}
 
