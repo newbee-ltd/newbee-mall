@@ -400,13 +400,10 @@ for (var i = 0; t3 < t4 * 60; i++) {
 	times.push(("0" + (hh % 24)).slice(-2) + ':' + ("0" + mm).slice(-2)); // pushing data in array in [00:00 - 12:00 AM/PM format]
 	t3 = t3 + x;
 }
-//console.log(times);
 
 for (let val in times) {
 	$('<option />', { value: val, text: '○ ' + times[val], selected: times[val] == '19:00' }).appendTo($('#reserve-time'));
 }
-
-
 
 
 
