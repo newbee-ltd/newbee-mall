@@ -2694,3 +2694,69 @@ line-height: 3rem;
 .c-btn.c-btn--full {
     width: 100%;
 }
+
+.rstdtl-table-lst__seat {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.rstdtl-table-lst__seat-item {
+    margin-bottom: 2rem;
+    width: calc(100% / 2 - 10px);
+}
+.rstdtl-table-lst__heading {
+    margin-bottom: 1.7rem;
+}
+.rstdtl-table-lst__caption {
+    margin-top: 0.8rem;
+    color: #13131e;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+.rstdtl-table-lst__booking-btn {
+    margin-bottom: 4rem;
+    padding: 1.5rem 0;
+    text-align: center;
+    background-color: #faf8f5; 
+}
+.js-show-yoyaku-modal-trigger-seat{
+	width:auto !important;
+	font-size:1rem;
+}
+#js-week-wrap tbody tr td:hover{
+	cursor:pointer;
+}
+#js-week-wrap tbody tr td::after{
+    color: #b4b4b4;
+    font-family: "Tabelog Glyph";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    -webkit-font-smoothing: antialiased;
+    text-transform: none;
+    content: "-";
+    font-weight: bold;
+    display:flex;
+    justify-content: center;
+    line-height: 5px;
+}
+#js-week-wrap tbody tr td.without-after-element::after{
+    content: "";
+}
+#js-week-wrap tbody tr td.reserve-ok-after.without-after-element::after{
+    content: "";
+    }
+#js-week-wrap tbody tr td.tel-after::after{
+    color: #b4b4b4;
+    content: 'TEL';
+    font-size: 0.9rem;
+}
+#js-week-wrap tbody tr td.reserve-ok-after::after{
+    color: #fa0;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    content: "○";
+}
+
+ 

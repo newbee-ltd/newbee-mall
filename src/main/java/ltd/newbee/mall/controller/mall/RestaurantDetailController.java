@@ -8,6 +8,7 @@
  */
 package ltd.newbee.mall.controller.mall;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import ltd.newbee.mall.common.Constants;
-import ltd.newbee.mall.controller.vo.ReviewVO;
 import ltd.newbee.mall.entity.ResDetailCourse;
 import ltd.newbee.mall.entity.ResDetailFeature;
 import ltd.newbee.mall.entity.ResDetailPhoto;
@@ -27,7 +27,6 @@ import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
-import ltd.newbee.mall.service.ResInfoSearchService;
 
 @Controller
 public class RestaurantDetailController {
@@ -35,8 +34,9 @@ public class RestaurantDetailController {
 	@Resource
 	ResDetailScreenService resDetailScreenService;
 
-	@GetMapping("/restaurant/detail/{restaurantId}")
-	public String restaurantPage(@PathVariable("restaurantId") Long restaurantId, HttpServletRequest request) {
+	@GetMapping({"/restaurant/detail/{restaurantId}","/restaurant/detail/{restaurantId}/{flag}"})
+	public String restaurantPage(@PathVariable("restaurantId") Long restaurantId, HttpServletRequest request,
+			@PathVariable(name="flag", required = false) String flag) {
 		long followResId = restaurantId;
 		long followTotal = resDetailScreenService.getFollowTotal(followResId);
 		List<ResDetailScreen> resDetailList = resDetailScreenService.getResDetail(restaurantId);
@@ -70,9 +70,9 @@ public class RestaurantDetailController {
 		request.setAttribute("mealUserPhoto2", mealUserPhotoList2);
 
 		List<ResDetailReserve> reserveList = resDetailScreenService.getReserveInfo(restaurantId);
-		request.setAttribute("reverse", reserveList);
-
+		request.setAttribute("reverse", reserveList);		
 		
+		request.setAttribute("flag", flag);
 		
 		return "mall/resDetailScreen";
 	}
