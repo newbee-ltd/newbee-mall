@@ -8,15 +8,22 @@
  */
 package ltd.newbee.mall.controller.mall;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.entity.ResDetailCourse;
@@ -27,6 +34,10 @@ import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
+import ltd.newbee.mall.util.PageInquiryResult;
+import ltd.newbee.mall.util.PageInquiryUtil;
+import ltd.newbee.mall.util.Result;
+import ltd.newbee.mall.util.ResultGenerator;
 
 @Controller
 public class RestaurantDetailController {
@@ -34,9 +45,11 @@ public class RestaurantDetailController {
 	@Resource
 	ResDetailScreenService resDetailScreenService;
 
-	@GetMapping({"/restaurant/detail/{restaurantId}","/restaurant/detail/{restaurantId}/{flag}"})
+	@GetMapping({ "/restaurant/detail/{restaurantId}", "/restaurant/detail/{restaurantId}/{flag}",
+			"/restaurant/detail/{restaurantId}/{flag}/{flag1}" })
 	public String restaurantPage(@PathVariable("restaurantId") Long restaurantId, HttpServletRequest request,
-			@PathVariable(name="flag", required = false) String flag) {
+			@PathVariable(name = "flag", required = false) String flag,
+			@PathVariable(name = "flag1", required = false) String flag1) {
 		long followResId = restaurantId;
 		long followTotal = resDetailScreenService.getFollowTotal(followResId);
 		List<ResDetailScreen> resDetailList = resDetailScreenService.getResDetail(restaurantId);
@@ -70,11 +83,35 @@ public class RestaurantDetailController {
 		request.setAttribute("mealUserPhoto2", mealUserPhotoList2);
 
 		List<ResDetailReserve> reserveList = resDetailScreenService.getReserveInfo(restaurantId);
-		request.setAttribute("reverse", reserveList);		
-		
+		request.setAttribute("reverse", reserveList);
+
+		Map<String, Object> params = new HashMap<>();
+		int limit = 6;
+		int currentPage = 1;
+		params.put("limit", limit);
+		params.put("currentPage", currentPage);
+		params.put("restaurantId", restaurantId);
+		PageInquiryUtil pageUtil = new PageInquiryUtil(params);
+		PageInquiryResult pageResult = resDetailScreenService.getMenuPhoto(pageUtil);
+		request.setAttribute("MPpage", pageResult);
+
 		request.setAttribute("flag", flag);
-		
+		request.setAttribute("flag1", flag1);
+		request.setAttribute("resId", restaurantId);
+
 		return "mall/resDetailScreen";
+	}
+
+	@RequestMapping(value = "/menuPhotoList", method = RequestMethod.GET)
+	@ResponseBody
+	public Result list(@RequestParam Map<String, Object> params) {
+		if (StringUtils.isEmpty(params.get("currentPage").toString())
+				|| StringUtils.isEmpty(params.get("limit").toString())
+				|| StringUtils.isEmpty(params.get("restaurantId").toString())) {
+			return ResultGenerator.genFailResult("参数异常！");
+		}
+		PageInquiryUtil pageUtil = new PageInquiryUtil(params);
+		return ResultGenerator.genSuccessResult(resDetailScreenService.getMenuPhoto(pageUtil));
 	}
 
 }

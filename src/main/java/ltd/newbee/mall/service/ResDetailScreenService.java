@@ -9,6 +9,8 @@ import ltd.newbee.mall.entity.ResDetailReserve;
 import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
+import ltd.newbee.mall.util.PageInquiryResult;
+import ltd.newbee.mall.util.PageInquiryUtil;
 
 
 public interface ResDetailScreenService {
@@ -23,7 +25,9 @@ public interface ResDetailScreenService {
 	List<ResDetailSeat> getSeatInfo(long restaurantId);
 	List<ResDetailFeature> getFeaturInfo(long restaurantId);
 	List<ResDetailReview> getReviewList(long restaurantId);
-
 	List<ResDetailReview> getVisitNum(long restaurantId);
 	List<ResDetailReserve> getReserveInfo(long restaurantId);
+	
+	//int getMenuPhotoCount(PageInquiryUtil pageUtil);
+	PageInquiryResult getMenuPhoto(PageInquiryUtil pageUtil);
 }

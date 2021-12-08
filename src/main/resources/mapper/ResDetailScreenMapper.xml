@@ -111,16 +111,43 @@
 		group by
 		review_user_id;
 	</select>
-	
+
 	<select id="getReserveInfo" parameterType="java.lang.Long"
 		resultType="ltd.newbee.mall.entity.ResDetailReserve">
 		select
 		rr.restaurant_id,rr.reserve_date,rr.reserve_time,rr.reserve_num,rr.room_no,rr.course_id,
 		sm.seats_num,sm.private_room_num,sm.common_table_num,sm.lunch_start,sm.lunch_end,
 		sm.dinner_start,sm.dinner_end
-		from restaurant_reserve as rr left join restaurant_seats_menu as sm
+		from restaurant_reserve as rr left join
+		restaurant_seats_menu as sm
 		on rr.restaurant_id=sm.restaurant_id
-		where rr.restaurant_id=#{restaurantId};
+		where
+		rr.restaurant_id=#{restaurantId};
 	</select>
-	
+
+	<select id="getMenuPhoto" parameterType="map"
+		resultType="ltd.newbee.mall.entity.ResDetailMenuPhoto">
+		SELECT
+		mp.restaurant_id,mp.photo_id,mp.photo_url,mp.photo_post_date,mp.post_user_name,
+		count(mps.sannkou_user_id) as help_num
+		FROM restaurant_menu_photo as mp
+		left join restaurant_menu_photo_sannkou
+		as mps
+		on
+		mp.restaurant_id=mps.restaurant_id and mp.photo_id=mps.photo_id
+		where
+		mp.restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		group by
+		mp.restaurant_id,mp.photo_id,mp.photo_url,mp.photo_post_date,mp.post_user_name
+		order by help_num desc
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>;
+	</select>
+	<select id="getMenuPhotoCount" parameterType="Map"
+		resultType="int">
+		select count(photo_id) as menu_photo_count from restaurant_menu_photo where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT};
+	</select>
+
 </mapper>

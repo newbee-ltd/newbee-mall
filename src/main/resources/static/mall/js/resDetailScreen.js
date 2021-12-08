@@ -298,6 +298,7 @@ refreshDate();
 
 function showcourse(_this) {
 	$('#course-reserve-modal').css({ 'display': 'block' });
+	$('.js-booking-info-root').css({ 'display': 'block' });
 	let courseName = $(_this).parent().parent().find('.rstdtl-course-list__course-title-text').text();
 	let coursePriceStr = $(_this).parent().parent().parent().find('.rstdtl-course-list__price-num em').text();
 	//let coursePrice = parseInt(coursePriceStr.replace(/\,/g, ''));
@@ -312,6 +313,7 @@ function changeNaviColor(_this) {
 
 function showSeaReserve(_this) {
 	$('#course-reserve-modal').css({ 'display': 'block' });
+	$('.js-booking-info-root').css({ 'display': 'block' });
 	$('.p-booking-calendar__option-subject').text('座席');
 	$('.p-booking-calendar__option-item').text('完全個室');
 }
@@ -405,5 +407,199 @@ for (let val in times) {
 	$('<option />', { value: val, text: '○ ' + times[val], selected: times[val] == '19:00' }).appendTo($('#reserve-time'));
 }
 
+function reserveSeatOnly() {
+	$('#course-reserve-modal').css({ 'display': 'block' });
+	$('.js-booking-info-root').css({ 'display': 'none' });
+}
+
+$('#menu-navi2').css('display') == 'block' ? $('#menu-navi').css({ 'display': 'none' }) : $('#menu-navi').css({ 'display': 'display' });
+
+window.onscroll = function() { naviSticky() };
+var navbar = document.getElementById("main-navi");
+var sticky = navbar.offsetTop;
+function naviSticky() {
+	if (window.pageYOffset >= sticky) {
+		navbar.classList.add("navi-sticky")
+	} else {
+		navbar.classList.remove("navi-sticky");
+	}
+}
+
+
+//总页数
+let total = parseInt($('#mp-total-count').text());
+//let total = 20;
+$(function() {
+	//页面初始化调用 生成页码
+	makePage(total, 1);
+});
+//生成页码函数
+function makePage(total, page) {
+	let pageHtml = '';
+	//点点点的html
+	let ddd = '<li class="c-pagination__item"><strong class="c-pagination__dot"> ... </strong></li>';
+
+	function createPage(index) { //单页码生成
+		if (page == index) {
+			//当前页(或选中)样式 多了个selected(换背景色字体色的)
+			pageHtml += '<li class="c-pagination__item"><strong class="c-pagination__num is-current">' + page + '</strong ></li > ';
+		} else {
+			pageHtml += '<li class="c-pagination__item" onclick="pageClick(this)"><strong class="c-pagination__num  onclick="pageClick(this)">' + index + '</strong ></li>';
+		}
+	}
+
+	if (page > 1 && total > 1) { // 上一页
+		pageHtml += '<li class="c-pagination__item" onclick="mpPagePrev()"><a class="c-pagination__arrow c-pagination__arrow--prev">前の6件</a></li>';
+	} else {
+		pageHtml += '<li class="c-pagination__item""><a class="c-pagination__arrow c-pagination__arrow--prev">前の6件</a></li>';
+	}
+
+	if (total <= 6) { //总页数小于10
+		for (let i = 1; i <= total; i++) {
+			//正常生成排列
+			createPage(i);
+		}
+	} else {
+		if (page <= 4) { //总页数大于10且当前页远离总页数(小于4)
+			for (let i = 1; i <= 4 + 1; i++) { //显示1-5
+				createPage(i);
+			}
+			//三个点...
+			pageHtml += ddd;
+			//三个点后面 生成最后一个页数
+			createPage(total);
+
+		} else if (page > total - 4) { //总页数大于10且当前页接近总页数(大于总页数-4)
+			//第一页
+			createPage(1);
+			//三个点...
+			pageHtml += ddd;
+			//生成最后5个页数
+			for (let i = total - 4; i <= total; i++) {
+				createPage(i);
+			}
+		} else { //除开上面两个情况 当前页在中间
+			//页数1
+			createPage(1);
+			//三个点...
+			pageHtml += ddd;
+			//生成当前页和 前跟后一个页数
+			for (let i = page - 1; i <= page + 1; i++) {
+				createPage(i);
+			}
+			//三个点...
+			pageHtml += ddd;
+			//最后一个页数
+			createPage(total);
+		}
+	}
+
+
+	if (page < total && total > 1) { // 下一页
+		pageHtml += '<li class="c-pagination__item" onclick="mpPageNext()"><a class="c-pagination__arrow c-pagination__arrow--next">次の6件</a></li>';
+	} else {
+		pageHtml += '<li class="c-pagination__item"><a class="c-pagination__arrow c-pagination__arrow--next">次の6件</a></li>';
+	}
+	//赋值生成html
+	$('#manuphoto-page-list').html(pageHtml);
+}
+//上一页点击事件
+function mpPagePrev() {
+	//获取当前页
+	//var page = $('#manuphoto-page-list>.is-current').text();
+	let page = $('.c-pagination__num.is-current').text();
+	if (page <= 1) {
+		return;
+	}
+	makePage(total, page - 1);
+	menuPhotoPage();
+}
+//下一页点击事件
+function mpPageNext() {
+	//获取当前页
+	let page = $('.c-pagination__num.is-current').text();
+	if (page >= total) {
+		return;
+	}
+	makePage(total, page * 1 + 1);
+	menuPhotoPage();
+}
+//直接点击页数事件
+function pageClick(that) {
+	let page = parseInt($(that).children().html());
+	//console.log(page);
+	makePage(total, page * 1);
+	menuPhotoPage();
+}
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+function menuPhotoPage() {
+	//let totalPage = parseInt(parseInt($('#mp-total-count').text()));
+	let currPage = parseInt($('#manuphoto-page-list').find('.is-current').text());
+	let restaurantId = parseInt($('#restaurant-id').text());
+	let url = "/menuPhotoList";
+	let data = {
+		'restaurantId': restaurantId,
+		'currentPage': currPage,
+		'limit': 6
+	}
+	$.ajax({
+		type: 'GET',
+		contentType: 'application/json',
+		data: data,
+		url: url,
+
+		success: function(result) {
+			//console.log(result);
+			if (result.resultCode == 200) {
+				if (result.data.list.length > 0) {
+					$("#default-menu-photo").find('.rstdtl-photo-list__item').remove();
+				}
+
+				let el;
+				for (let i = 0; i < result.data.list.length; i++) {
+					el = $("#menu-photo-clone-item").clone();
+					el.find('#mp-a-img-href').attr('href', result.data.list[i].photoUrl);
+					el.find('#mp-img-src').attr('src', result.data.list[i].photoUrl);
+					el.find('#mp-post-date').html(new Date(result.data.list[i].photoPostDate).Format("yy-MM-dd"));
+					el.find('#mp-like-num').html(result.data.list[i].helpNum);
+					el.find('#mp-post-name').html(result.data.list[i].postUserName);
+					el.find('.like-btn__label').click(mpLike);
+					$("#default-menu-photo").append(el);
+				}
+			} else {
+				swal(result.message, {
+					icon: "error",
+				});
+			}
+
+		},
+		error: function() {
+			swal("操作失败", {
+				icon: "error",
+			});
+		}
+	});
+
+}
+
+function mpLike(_this) {
+	console.log(_this);
+}
 
 

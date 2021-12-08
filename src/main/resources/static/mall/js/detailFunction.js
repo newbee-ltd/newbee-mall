@@ -182,7 +182,7 @@ function QAPage(num) {
 		url: url,
 
 		success: function(result) {
-			//console.log(result);
+			console.log(result);
 			if (result.resultCode == 200) {
 				if (result.data.list.length > 0) {
 					$("#ZVCQuestionsArea").find(".qaSecCls").remove();

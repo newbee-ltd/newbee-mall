@@ -14,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ltd.newbee.mall.dao.ResDetailScreenMapper;
+import ltd.newbee.mall.entity.QuestionAndAnswer;
 import ltd.newbee.mall.entity.ResDetailCourse;
 import ltd.newbee.mall.entity.ResDetailFeature;
+import ltd.newbee.mall.entity.ResDetailMenuPhoto;
 import ltd.newbee.mall.entity.ResDetailPhoto;
 import ltd.newbee.mall.entity.ResDetailReserve;
 import ltd.newbee.mall.entity.ResDetailReview;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
+import ltd.newbee.mall.util.PageInquiryResult;
+import ltd.newbee.mall.util.PageInquiryUtil;
 
 @Service
 public class ResDetailScreenServiceImpl implements ResDetailScreenService {
@@ -78,4 +82,15 @@ public class ResDetailScreenServiceImpl implements ResDetailScreenService {
 	public List<ResDetailReserve> getReserveInfo(long restaurantId){
 		return resDetailScreenMapper.getReserveInfo(restaurantId);
 	}
+
+	
+	@Override
+    public PageInquiryResult getMenuPhoto(PageInquiryUtil pageUtil) {
+		List<ResDetailMenuPhoto> menuPhotoList=resDetailScreenMapper.getMenuPhoto(pageUtil);
+        int menuPhotoCount = resDetailScreenMapper.getMenuPhotoCount(pageUtil);
+        PageInquiryResult pageInquiryResult = new PageInquiryResult(menuPhotoList, menuPhotoCount, pageUtil.getLimit(), pageUtil.getCurrentPage());
+        return pageInquiryResult;
+    }
+
+	
 }
