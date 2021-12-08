@@ -23,14 +23,14 @@
         from restaurant_japan_station where station_name like CONCAT('%', #{stationName}, '%')
     </select>
     
-<!-- Detail Page -->
-    <!-- Keyword(Header) -->
+<!-- Detail Page (Header) -->
+    <!-- Keyword -->
     <select id="getKeywordByRestaurantId" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantKeyword">
         select keyword
         from restaurant_keyword where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
     
-    <!-- RestaurantBasicInfo(Header) -->
+    <!-- RestaurantBasicInfo -->
     <select id="getRestaurantBasicInfo" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantBasicInfo">
         select restaurant_id, restaurant_name, genre1, genre2, genre3, genre4, tel, reserve_availability, address,
         	   station1, station2, station3, transportation1, transportation2, transportation3, distance,
@@ -66,6 +66,7 @@
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
     
+<!-- Detail Page (Top) -->    
     <!-- Top Slide Photo -->
     <select id="getSlidePhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantPhoto">
         select photo_url from restaurant_photo
@@ -128,6 +129,73 @@
         with_children, home_page, account_twitter, account_ins, open_date, telephone, remark, first_contributor_id,
         first_contributor_name
         from restaurant_features_info
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+<!-- Detail Page (Table) --> 
+	<!-- Seats Photo -->
+	<select id="getSeatsPhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantSeatsPhoto">
+        select restaurant_id, private_room_img, table_seat_img
+        from restaurant_seats_photo
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+<!-- Detail Page (Menu) --> 
+    <!-- Menu Meal -->
+	<select id="getMenuMeal" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantMenuMeal">
+        select restaurant_id, restaurant_name, genre_id, genre_name, genre_img, dish_id, dish_name, dish_img,
+        dish_price, dish_remark
+        from restaurant_menu_meal
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+
+	<!-- Menu Drink -->
+	<select id="getMenuDrink" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantMenuDrink">
+        select restaurant_id, restaurant_name, drink_genre_id, drink_genre_name, drink_id, drink_name, drink_price,
+        drink_remark
+        from restaurant_menu_drink
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Menu Lunch -->
+	<select id="getMenuLunch" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantMenuLunch">
+        select restaurant_id, restaurant_name, lunch_genre_id, lunch_genre_name, lunch_id, lunch_name, lunch_img,
+        lunch_remark, lunch_price
+        from restaurant_menu_lunch
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Menu Photo -->
+	<select id="getMenuPhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantMenuPhoto">
+        select restaurant_id, restaurant_name, photo_id, photo_name, photo_url, photo_post_date, post_user_id,
+        post_user_name
+        from restaurant_menu_photo
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Count Of Menu Course -->
+    <select id="getCountOfMenuCourse" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(course_id) from restaurant_menu_course
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    <!-- Count Of Menu Meal -->
+    <select id="getCountOfMenuMeal" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(dish_name) from restaurant_menu_meal
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    <!-- Count Of Menu Drink -->
+    <select id="getCountOfMenuDrink" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(drink_name) from restaurant_menu_drink
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    <!-- Count Of Menu Lunch -->
+    <select id="getCountOfMenuLunch" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(lunch_name) from restaurant_menu_lunch
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    <!-- Count Of Menu Photo -->
+    <select id="getCountOfMenuPhoto" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(photo_id) from restaurant_menu_photo
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
 </mapper>

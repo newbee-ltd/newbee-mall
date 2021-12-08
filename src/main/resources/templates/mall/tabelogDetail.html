@@ -88,12 +88,99 @@
 		<!-- Navi -->
 		<div class="navi-wrap">
 			<ul class="navi-list">
-				<li class="navi-item navi-top"><a>トップ</a></li>
-				<li class="navi-item navi-table"><a>座席</a></li>
-				<li class="navi-item navi-menu"><a>メニュー・コース</a></li>
-				<li class="navi-item navi-photo"><a>写真</a></li>
-				<li class="navi-item navi-review"><a>口コミ</a></li>
-				<li class="navi-item navi-map"><a>地図</a></li>
+				<li class="navi-item navi-top" th:style="${flag == 'top' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<a th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/top'">トップ</a>
+				</li>
+				<li class="navi-item navi-table" th:style="${flag == 'table' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<a th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/table'">座席</a>
+				</li>
+				<li class="navi-item navi-menu" th:style="${flag == 'menu' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<div class="navi-item-list">
+						<a class="main-navi" th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu'">メニュー・コース</a>
+						<ol class="navi-item-sublist navi-menu-sublist">
+							<li class="navi-item-sublist-item navi-menu-sublist-item">
+								<a　class="navi-menu-sublist-course"
+									th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu'">コース</a>
+								<span class="navi-item-sublist-item-count" th:text="${'(' + countOfMenuCourse + ')'}"></span>
+							</li>
+							<li class="navi-item-sublist-item navi-menu-sublist-item">
+								<a class="navi-menu-sublist-meal"
+								   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu/meal'">料理</a>
+							    <span class="navi-item-sublist-item-count" th:text="${'(' + countOfMenuMeal + ')'}"></span>
+							</li>
+							<li class="navi-item-sublist-item navi-menu-sublist-item">
+								<a class="navi-menu-sublist-drink"
+								   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu/drink'">ドリンク</a>
+								<span class="navi-item-sublist-item-count" th:text="${'(' + countOfMenuDrink + ')'}"></span>
+							</li>
+							<li class="navi-item-sublist-item navi-menu-sublist-item">
+								<a class="navi-menu-sublist-lunch"
+								   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu/lunch'">ランチ</a>
+								<span class="navi-item-sublist-item-count" th:text="${'(' + countOfMenuLunch + ')'}"></span>
+							</li>
+							<li class="navi-item-sublist-item navi-menu-sublist-item">
+								<a class="navi-menu-sublist-photo"
+								   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/menu/photo'">写真</a>
+								<span class="navi-item-sublist-item-count" th:text="${'(' + countOfMenuPhoto + ')'}"></span>
+							</li>
+						</ol>
+					</div>
+				</li>
+				<li class="navi-item navi-photo" th:style="${flag == 'photo' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<a class="main-navi" th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo'">写真</a>
+					<ol class="navi-item-sublist navi-photo-sublist">
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a　class="navi-photo-sublist-total"
+							    th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo'">すべて</a>
+						</li>
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a class="navi-photo-sublist-meal"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo/meal'">料理</a>
+						</li>
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a class="navi-photo-sublist-drink"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo/drink'">ドリンク</a>
+						</li>
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a class="navi-photo-sublist-innerview"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo/innerview'">内観</a>
+						</li>
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a class="navi-photo-sublist-outterview"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo/outterview'">外観</a>
+						</li>
+						<li class="navi-item-sublist-item navi-photo-sublist-item">
+							<a class="navi-photo-sublist-other"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/photo/other'">その他</a>
+						</li>
+					</ol>
+				</li>
+				<li class="navi-item navi-review" th:style="${flag == 'review' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<a class="main-navi" th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/review'">口コミ</a>
+					<ol class="navi-item-sublist navi-review-sublist">
+						<li class="navi-item-sublist-item navi-review-sublist-item">
+							<a　class="navi-review-sublist-review"
+							    th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/review'">口コミ</a>
+						</li>
+						<li class="navi-item-sublist-item navi-review-sublist-item">
+							<a class="navi-review-sublist-rating"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/review/rating'">評価</a>
+						</li>
+					</ol>
+				</li>
+				<li class="navi-item navi-map" th:style="${flag == 'map' ? 'background: #797152;color: #fff;' : 'background: #fff;'}">
+					<a class="main-navi" th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/map'">地図</a>
+					<ol class="navi-item-sublist navi-map-sublist">
+						<li class="navi-item-sublist-item navi-map-sublist-item">
+							<a　class="navi-map-sublist-review"
+							    th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/map'">地図</a>
+						</li>
+						<li class="navi-item-sublist-item navi-map-sublist-item">
+							<a class="navi-map-sublist-otherrst"
+							   th:href="'http://localhost:8081/tabelog/detail/' + ${restaurantId} + '/map/otherrst'">周辺のお店</a>
+						</li>
+					</ol>
+				</li>
 			</ul>
 		</div>
 		
@@ -101,232 +188,470 @@
 		<div class="contents">
 			<!-- main * start -->
 			<div class="column-main">
-			
-				<div class="extra-info">
-					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
-						<div class="extra-info-title" th:text="${rstInfo.extraInfoTitle}"></div>
-						<div class="extra-info-detail-wrap">
-						    <input id="trigger1" class="extra-info-detail-trigger" type="checkbox">
-						    <div class="extra-info-detail" th:text="${rstInfo.extraInfoDetail}"></div>
-						    <label class="extra-info-detail-btn" for="trigger1"></label>
-						</div>
-					</th:block>
-				</div>
+				<!-- Detail Page (Top) -->
+				<div class="top" th:style="${flag == 'top' ? 'display:block' : 'display:none'}">
 				
-				<div class="main-photo">
-					<th:block th:each="photoList: ${photoList}">
-						<div class="photo-slide">
-					    	<img th:src="${photoList.photoUrl}" style="width:100%">
-						</div>
-					</th:block>
-					<!-- Next and previous buttons -->
-				    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-				    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-				    <!-- Image text -->
-				    <div class="caption-container"></div>
-				    <div class="row">
-					    <th:block th:each="photoList, iter: ${photoList}">
-					    	<div class="column">
-						    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="|currentSlide(${iter.index + 1})|">
-					    	</div>
-					    </th:block>
-				    </div>
-				</div>
-				
-				<div class="comment-wrap">
-					<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
-						<div class="comment-title" th:text="${rstInfo.commentTitle}"></div>
-						<div class="comment-detail-wrap">
-						    <input id="trigger2" class="comment-detail-trigger" type="checkbox">
-						    <div class="comment-detail" th:text="${rstInfo.commentDetail}"></div>
-						    <label class="comment-detail-btn" for="trigger2"></label>
-						</div>
-					</th:block>
-				</div>
-				
-				<div class="top-kodawari">
-					<div class="top-kodawari-heading">お店のこだわり</div>
-					<div class="top-kodawari-content">
-						<th:block th:each="KodawariList, iter: ${KodawariList}">
-							<div class="top-kodawari-item" th:id="'top-kodawari-item_' + (1 + ${iter.index})">
-								<div><img class="top-kodawari-photo" th:src="${KodawariList.photoUrl}"></div>
-								<div class="top-kodawari-photo-title" th:text="${KodawariList.photoTitle}"></div>
-							</div>
-							<!-- Kodawari Modal -->
-							<div class="kodawari-modal-container" th:id="'kodawariModalContainer_' + (1 + ${iter.index})">
-								<div><a class="prev" onclick="nextModal(-1)">&#10094;</a></div>
-								<div class="kodawari-modal-inner">
-									<div class="kodawari-modal-close-btn">
-									    <button type="button" class="close-kodawari-modal" th:id="'closeKodawariModal_' + (1 + ${iter.index})">
-							   					<i class="fas fa-times"></i>
-									    </button>
-									</div>
-								    <div class="kodawari-modal-content">
-										<div class="modal-left">
-											<img class="kodawari-modal-photo" th:src="${KodawariList.photoUrl}">
-										</div>
-										<div class="modal-right">
-							   				<div class="modal-kodawari-title" th:text="${KodawariList.photoTitle}"></div>
-							   				<div class="modal-kodawari-detail" th:text="${KodawariList.photoDetail}"></div>
-										</div>
-									</div>
-								</div>
-								<a class="next" onclick="nextModal(1)">&#10095;</a>
-						 	</div>
-						</th:block>
-					</div>
-				</div>
-				
-				<div class="top-course">
-					<div class="top-course-heading">コース</div>
-					<div class="top-course-content">
-						<th:block th:each="courseList: ${courseList}">
-							<div class="top-course-item">
-								<div><a><img class="top-course-item-img" th:src="${courseList.courseImg}"></a></div>
-								<div class="top-course-item-detail">
-									<div class="top-course-item-summary">
-										<div class="top-course-title" th:text="${courseList.courseName}"></div>
-										<div class="top-course-desc" th:text="${courseList.courseDetail}"></div>
-										<div class="top-course-total-price">
-											<span class="top-course-price" th:text="${courseList.coursePrice}"></span>
-											<span class="top-course-price-unit">円（税込）</span>
-											<span><i class="far fa-user" th:text="${' ' + courseList.availablePeople}"></i></span>
-											<span><i class="far fa-clock" th:text="${' ' + courseList.availableTime}"></i></span>
-										</div>
-									</div>
-									<div class="top-course-reserve-btn">
-										<div><a class="course-reserve-btn">予約する</a></div>
-										<div><a class="course-info-btn">コース詳細</a></div>
-									</div>
-								</div>
+					<div class="extra-info">
+						<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+							<div class="extra-info-title" th:text="${rstInfo.extraInfoTitle}"></div>
+							<div class="extra-info-detail-wrap">
+							    <input id="trigger1" class="extra-info-detail-trigger" type="checkbox">
+							    <div class="extra-info-detail" th:text="${rstInfo.extraInfoDetail}"></div>
+							    <label class="extra-info-detail-btn" for="trigger1"></label>
 							</div>
 						</th:block>
 					</div>
-					<div class="top-course-more-link">
-						<i class="fas fa-play-circle"> コースをもっと見る</i>
+					
+					<div class="main-photo">
+						<th:block th:each="photoList: ${photoList}">
+							<div class="photo-slide">
+						    	<img th:src="${photoList.photoUrl}" style="width:100%">
+							</div>
+						</th:block>
+						<!-- Next and previous buttons -->
+					    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+					    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+					    <!-- Image text -->
+					    <div class="caption-container"></div>
+					    <div class="row">
+						    <th:block th:each="photoList, iter: ${photoList}">
+						    	<div class="column">
+							    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="|currentSlide(${iter.index + 1})|">
+						    	</div>
+						    </th:block>
+					    </div>
 					</div>
-				</div>
-				
-				<div class="top-postphoto">
-					<div class="top-postphoto-heading">
-						<span class="postphoto-title">投稿写真</span>
-						<span><a class="top-postphoto-btn">投稿する</a></span>
-					</div>
-					<div class="top-postphoto-content">
-						<th:block th:each="rvList: ${reviewList}">
-							<div><img class="top-postphoto-item" th:src="${rvList.reviewImg}"></div>
+					
+					<div class="comment-wrap">
+						<th:block th:each="rstInfo: ${restaurantBasicInfoList}">
+							<div class="comment-title" th:text="${rstInfo.commentTitle}"></div>
+							<div class="comment-detail-wrap">
+							    <input id="trigger2" class="comment-detail-trigger" type="checkbox">
+							    <div class="comment-detail" th:text="${rstInfo.commentDetail}"></div>
+							    <label class="comment-detail-btn" for="trigger2"></label>
+							</div>
 						</th:block>
 					</div>
-					<div class="top-postphoto-more-link">
-						<i class="fas fa-play-circle"> 写真をもっと見る</i>
-					</div>
-				</div>
-				
-				<div class="top-reviewlist">
-					<div class="top-reviewlist-heading">
-						<span class="top-reviewlist-title">口コミ</span>
-						<span><a href="http://user-help.tabelog.com/r_about_review" target="_blank"
-								 rel="noopener" class="top-reviewlist-title-help" >?</a></span>
-						<span><a class="top-reviewlist-btn">投稿する</a></span>
-					</div>
-					<div class="encourage-follow-banner">
-						<span class="encourage-follow-wrap">
-							<span class="encourage-follow-banner-icon">
-								<img src="https://tblg.k-img.com/images/restaurant/image/encourage_follow_banner_icons.png" width="106" height="42">
-							</span>
-							<span class="encourage-follow-banner-title">好みのあう人をフォローすると、その人のオススメのお店から探せます。</span>
-						</span>
-					</div>
-					<div class="rv-pickup">
-						<ul>
-							<th:block th:each="rvList: ${reviewList}">
-								<li class="top-review-pickup-item">
-									<div class="top-reviewer-data">
-										<span class="top-reviewer-data-wrap">
-											<span><a><img class="top-reviewer-photo" th:src="${rvList.reviewerPhoto}" width="30" height="30"></a></span>
-											<span><a class="top-reviewer-name" th:text="${rvList.reviewUserName}"></a></span>
-											<span><a href="http://user-help.tabelog.com/authentication_info"><i class="fas fa-mobile-alt">認証済</i></a></span>
-										</span>
-									</div>
-									<div class="review-pickup-content">
-										<div class="review-pickup-owner"></div>
-										<div class="review-pickup-title" th:text="${rvList.reviewTitle}"></div>
-										<div class="review-pickup-detail-wrap">
-											<div class="review-pickup-detail" th:text="${rvList.reviewDetail}"></div>
-											<div><a class="pickup-review-more">詳細を見る</a></div>
+					
+					<div class="top-kodawari">
+						<div class="top-kodawari-heading">お店のこだわり</div>
+						<div class="top-kodawari-content">
+							<th:block th:each="KodawariList, iter: ${KodawariList}">
+								<div class="top-kodawari-item" th:id="'top-kodawari-item_' + (1 + ${iter.index})">
+									<div><img class="top-kodawari-photo" th:src="${KodawariList.photoUrl}"></div>
+									<div class="top-kodawari-photo-title" th:text="${KodawariList.photoTitle}"></div>
+								</div>
+								<!-- Kodawari Modal -->
+								<div class="kodawari-modal-container" th:id="'kodawariModalContainer_' + (1 + ${iter.index})">
+									<div><a class="prev" onclick="nextModal(-1)">&#10094;</a></div>
+									<div class="kodawari-modal-inner">
+										<div class="kodawari-modal-close-btn">
+										    <button type="button" class="close-kodawari-modal" th:id="'closeKodawariModal_' + (1 + ${iter.index})">
+								   					<i class="fas fa-times"></i>
+										    </button>
 										</div>
-										<div class="review-pickup-data">
-											<span class="pickup-rv-like-count"><i class="far fa-heart"></i></span>
-											<span><a target="_blank" rel="noopener" class="pickup-rv-like-count-help"
-													 href="http://user-help.tabelog.com/?p=695">?</a></span>
-											<span class="pickup-rv-rating">★★★★★</span>
-											<span class="pickup-rv-visit-date" th:text="${rvList.visitDate + '&nbsp;訪問'}"></span>
-											<span class="pickup-rv-visit-count"></span>
+									    <div class="kodawari-modal-content">
+											<div class="modal-left">
+												<img class="kodawari-modal-photo" th:src="${KodawariList.photoUrl}">
+											</div>
+											<div class="modal-right">
+								   				<div class="modal-kodawari-title" th:text="${KodawariList.photoTitle}"></div>
+								   				<div class="modal-kodawari-detail" th:text="${KodawariList.photoDetail}"></div>
+											</div>
 										</div>
 									</div>
-								</li>
+									<a class="next" onclick="nextModal(1)">&#10095;</a>
+							 	</div>
 							</th:block>
+						</div>
+					</div>
+					
+					<div class="top-course">
+						<div class="top-course-heading">コース</div>
+						<div class="top-course-content">
+							<th:block th:each="topCourse: ${topCourseList}">
+								<div class="top-course-item">
+									<div><a><img class="top-course-item-img" th:src="${topCourse.courseImg}"></a></div>
+									<div class="top-course-item-detail">
+										<div class="top-course-item-summary">
+											<div class="top-course-title" th:text="${topCourse.courseName}"></div>
+											<div class="top-course-desc" th:text="${topCourse.courseDetail}"></div>
+											<div class="top-course-total-price">
+												<span class="top-course-price" th:text="${topCourse.coursePrice}"></span>
+												<span class="top-course-price-unit">円（税込）</span>
+												<span><i class="far fa-user" th:text="${' ' + topCourse.availablePeople}"></i></span>
+												<span><i class="far fa-clock" th:text="${' ' + topCourse.availableTime}"></i></span>
+											</div>
+										</div>
+										<div class="top-course-reserve-btn">
+											<span class="course-reserve-btn">予約する</span>
+											<a class="course-info-btn">コース詳細</a>
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+						<div class="top-course-more-link">
+							<i class="fas fa-play-circle"> コースをもっと見る</i>
+						</div>
+					</div>
+					
+					<div class="top-postphoto">
+						<div class="top-postphoto-heading">
+							<span class="postphoto-title">投稿写真</span>
+							<span><a class="top-postphoto-btn">投稿する</a></span>
+						</div>
+						<div class="top-postphoto-wrap">
+						    <input id="trigger3" class="top-postphoto-trigger" type="checkbox">
+						    <div class="top-postphoto-content">
+								<th:block th:each="topReviewPhoto: ${topReviewPhotoList}">
+									<div><img class="top-postphoto-item" th:src="${topReviewPhoto.reviewImg}"></div>
+								</th:block>
+							</div>
+						    <label class="top-postphoto-showmore-btn" for="trigger3"></label>
+						</div>
+						<div class="top-postphoto-more-link">
+							<i class="fas fa-play-circle"> 写真をもっと見る</i>
+						</div>
+					</div>
+					
+					<div class="top-reviewlist">
+						<div class="top-reviewlist-heading">
+							<span class="top-reviewlist-title">口コミ</span>
+							<span><a href="http://user-help.tabelog.com/r_about_review" target="_blank"
+									 rel="noopener" class="top-reviewlist-title-help" >?</a></span>
+							<span><a class="top-reviewlist-btn">投稿する</a></span>
+						</div>
+						<div class="encourage-follow-banner">
+							<span class="encourage-follow-wrap">
+								<span class="encourage-follow-banner-icon">
+									<img src="https://tblg.k-img.com/images/restaurant/image/encourage_follow_banner_icons.png" width="106" height="42">
+								</span>
+								<span class="encourage-follow-banner-title">好みのあう人をフォローすると、その人のオススメのお店から探せます。</span>
+							</span>
+						</div>
+						<div class="rv-pickup">
+							<ul>
+								<th:block th:each="topReview: ${topReviewList}">
+									<li class="top-review-pickup-item">
+										<div class="top-reviewer-data">
+											<span class="top-reviewer-data-wrap">
+												<span><a><img class="top-reviewer-photo" th:src="${topReview.reviewerPhoto}" width="30" height="30"></a></span>
+												<span><a class="top-reviewer-name" th:text="${topReview.reviewUserName}"></a></span>
+												<span><a href="http://user-help.tabelog.com/authentication_info"><i class="fas fa-mobile-alt">認証済</i></a></span>
+											</span>
+										</div>
+										<div class="review-pickup-content">
+											<div class="review-pickup-owner"></div>
+											<div class="review-pickup-title" th:text="${topReview.reviewTitle}"></div>
+											<div class="review-pickup-detail-wrap">
+												<div class="review-pickup-detail" th:text="${topReview.reviewDetail}"></div>
+												<div><a class="pickup-review-more">詳細を見る</a></div>
+											</div>
+											<div class="review-pickup-data">
+												<span class="pickup-rv-like-count"><i class="far fa-heart"></i></span>
+												<span><a target="_blank" rel="noopener" class="pickup-rv-like-count-help"
+														 href="http://user-help.tabelog.com/?p=695">?</a></span>
+												<span class="pickup-rv-rating">★★★★★</span>
+												<span class="pickup-rv-visit-date" th:text="${topReview.visitDate + '&nbsp;訪問'}"></span>
+												<span class="pickup-rv-visit-count"></span>
+											</div>
+										</div>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+						<div class="top-reviewlist-more-link">
+							<i class="fas fa-play-circle"> 口コミをもっと見る</i>
+						</div>
+					</div>
+					
+					<div class="disease_control">
+						<div class="disease-control-heading">感染症対策</div>
+						<table class="disease-control-table">
+							<tbody>
+							<th:block th:each="diseaseControl: ${diseaseControlList}">
+								<tr>
+									<th><i class="fas fa-store"></i>&nbsp;店内</th>
+									<td>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.restaurantCountermeasure1}"></span></div>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.restaurantCountermeasure2}"></span></div>
+									</td>
+								</tr>
+								<tr>
+									<th><i class="fas fa-user-check"></i>&nbsp;従業員</th>
+									<td>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure1}"></span></div>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure2}"></span></div>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure3}"></span></div>
+									</td>
+								</tr>
+								<tr>
+									<th><i class="fas fa-user-friends"></i>&nbsp;お客様</th>
+									<td>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.customerCountermeasure1}"></span></div>
+										<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.customerCountermeasure2}"></span></div>
+									</td>
+								</tr>
+							</th:block>
+							</tbody>
+						</table>
+						<div class="rstinfo-edit-navi">
+						<div class="rstinfo-edit-navi-notice">
+							<p>店舗にご登録いただいた情報を掲載しています。感染症対策の実施状況詳細やご不明点については、店舗までご確認ください。</p>
+							<p>Go To Eatキャンペーン参加店舗では、<a href="http://user-help.tabelog.com/sanitations_information">ガイドライン</a>に沿った感染症対策遵守に同意しています。</p>
+						</div>
+						<div class="rstinfo-edit-navi-contact">
+							<a class="rstinfo-edit-navi-contact-icon" href="/support/inquiry?rcd=13054097&type=36">内容に誤りがある場合</a>
+						</div>
+					</div>
+					</div>
+					
+					<div class="takeout-info">
+						<th:block th:each="takeout: ${takeoutList}">
+							<div class="takeout-info-heading">テイクアウト</div>
+							<div class="takeout-info-photo">
+								<img th:src="${takeout.takeoutImg1}" width="214" height="214" style="object-fit: cover;">
+								<img th:src="${takeout.takeoutImg2}" width="214" height="214" style="object-fit: cover;">
+								<img th:src="${takeout.takeoutImg3}" width="214" height="214" style="object-fit: cover;">
+							</div>
+							<div class="takeout-info-time-title">&nbsp;営業時間</div>
+							<div class="takeout-info-time" th:text="${takeout.availableTime}"></div>
+							<div class="takeout-info-menu-title">&nbsp;メニュー</div>
+							<div class="takeout-info-menu" th:text="${takeout.menu}"></div>
+						</th:block>
+					</div>
+					
+				</div>
+				
+				<!-- Detail Page (Table) -->
+				<div class="table" th:style="${flag == 'table' ? 'display:block' : 'display:none'}">
+					<div class="rst-seat-photo-heading">座席一覧</div>
+					<div class="private-room-content">
+						<div class="private-room-title">&nbsp;完全個室</div>
+						<div class="private-room-img">
+							<th:block th:each="seatsPhoto: ${seatsPhotoList}">
+								<span><img th:src="${seatsPhoto.privateRoomImg}" width="320" height="320" style="object-fit: cover;"></span>
+							</th:block>
+						</div>
+						<div class="private-room-booking">
+							<div class="private-room-booking-btn">完全個室を予約する</div>
+						</div>
+					</div>
+					<div class="private-room-content">
+						<div class="table-seat-title">&nbsp;テーブル席</div>
+						<div class="table-seat-img">
+							<th:block th:each="seatsPhoto: ${seatsPhotoList}">
+								<img th:src="${seatsPhoto.tableSeatImg}" width="320" height="320" style="object-fit: cover;">
+							</th:block>
+						</div>
+						<div class="table-seat-booking">
+							<div class="table-seat-booking-btn">テーブル席を予約する</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Detail Page (Menu) -->
+				<div class="menu"><!-- th:style="${flag == 'menu' ? 'display:block' : 'display:none'}" -->
+				
+					<div class="menu-course" th:style="${flag == 'menu' && (subFlag == null || subFlag == '') ? 'display:block' : 'display:none'}">
+						<div class="course-seatonly">
+							<div class="course-seatonly-title">コースを指定せずに予約</div>
+							<div class="course-seatonly-btn">予約する</div>
+						</div>
+						<div class="menu-course-heading">コース</div>
+						<div class="menu-course-content">
+							<th:block th:each="courseList: ${courseList}">
+								<div class="menu-course-item">
+									<div><a><img class="menu-course-item-img" th:src="${courseList.courseImg}"></a></div>
+									<div class="menu-course-item-detail">
+										<div class="menu-course-item-summary">
+											<div class="menu-course-title" th:text="${courseList.courseName}"></div>
+											<div class="menu-course-desc" th:text="${courseList.courseDetail}"></div>
+											<div class="menu-course-total-price">
+												<span class="menu-course-price" th:text="${courseList.coursePrice}"></span>
+												<span class="menu-course-price-unit">円（税込）</span>
+												<span><i class="far fa-user" th:text="${' ' + courseList.availablePeople}"></i></span>
+												<span><i class="far fa-clock" th:text="${' ' + courseList.availableTime}"></i></span>
+											</div>
+										</div>
+										<div class="menu-course-reserve-btn">
+											<span class="course-reserve-btn">予約する</span>
+											<a class="course-info-btn">コース詳細</a>
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					
+					<div class="menu-meal" th:style="${flag == 'menu' && subFlag == 'meal' ? 'display:block' : 'display:none'}">
+						<div class="menu-meal-heading">
+							<span class="menu-meal-title">料理メニュー</span>
+							<span class="menu-meal-heading-option">(税込価格)</span>
+						</div>
+						<div class="menu-meal-list">
+							<th:block th:each="menuMeal: ${menuMealList}">
+								<div class="menu-meal-list-content">
+									<div class="menu-meal-list-img">
+										<a th:href="${menuMeal.dishImg}"><img th:src="${menuMeal.dishImg}" width="120" height="120" style="object-fit: cover;"></a>
+									</div>
+									<div class="menu-meal-list-info">
+										<div class="menu-meal-list-heading">
+											<div class="menu-meal-list-title" th:text="${menuMeal.dishName}"></div>
+											<div class="menu-meal-list-price" th:text="${menuMeal.dishPrice + '円'}"></div>
+										</div>
+										<div class="menu-meal-list-detail" th:text="${menuMeal.dishRemark}"></div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					
+					<div class="menu-drink" th:style="${flag == 'menu' && subFlag == 'drink' ? 'display:block' : 'display:none'}">
+						<div class="menu-drink-heading">
+							<span class="menu-drink-title">ドリンクメニュー</span>
+							<span class="menu-drink-heading-option">(税込価格)</span>
+						</div>
+						<div class="menu-drink-list">
+							<th:block th:each="menuDrink: ${menuDrinkList}">
+								<div class="menu-drink-list-heading" th:text="${'&nbsp;' + menuDrink.drinkGenreName}"></div>
+								<div class="menu-drink-list-content">
+									<div class="menu-drink-list-title" th:text="${menuDrink.drinkName}"></div>
+									<div class="menu-drink-list-detail" th:text="${menuDrink.drinkRemark}"></div>
+									<div class="menu-drink-list-price" th:text="${'¥' + menuDrink.drinkPrice}"></div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					
+					<div class="menu-lunch" th:style="${flag == 'menu' && subFlag == 'lunch' ? 'display:block' : 'display:none'}">
+						<div class="menu-lunch-heading">
+							<span class="menu-lunch-title">ランチメニュー</span>
+							<span class="menu-lunch-heading-option">(税込価格)</span>
+						</div>
+						<div class="menu-lunch-list">
+							<th:block th:each="menuLunch: ${menuLunchList}">
+								<div class="menu-lunch-list-content">
+									<div class="menu-lunch-list-img">
+										<a th:href="${menuLunch.lunchImg}"><img th:src="${menuLunch.lunchImg}" width="120" height="120" style="object-fit: cover;"></a>
+									</div>
+									<div class="menu-lunch-list-info">
+										<div class="menu-lunch-list-heading">
+											<div class="menu-lunch-list-title" th:text="${menuLunch.lunchName}"></div>
+											<div class="menu-lunch-list-price" th:text="${menuLunch.lunchPrice + '円'}"></div>
+										</div>
+										<div class="menu-lunch-list-detail" th:text="${menuLunch.lunchRemark}"></div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					
+					<div class="menu-photo" th:style="${flag == 'menu' && subFlag == 'photo' ? 'display:block' : 'display:none'}">
+						<div class="menu-photo-heading">
+							<span class="menu-photo-title">メニュー写真</span>
+							<span><a class="menu-photo-btn">投稿する</a></span>
+						</div>
+						<div class="menu-photo-notice">これらの写真は、<span>ユーザーの方々が任意で撮影・投稿</span>したものであり、<span>訪問された当時</span>の内容ですので、一つの参考としてご活用ください。また、 最新の情報とは異なる可能性がありますので、訪問の際は必ず事前に電話等でご確認ください。</div>
+						<div class="menu-photo-list">
+							<th:block th:each="menuPhoto: ${menuPhotoList}">
+								<div class="menu-photo-list-item">
+									<div class="menu-photo-list-item-hover">
+										<div class="menu-photo-list-img-container">
+											<a th:href="${menuPhoto.photoUrl}"><img class="menu-photo-list-img" th:src="${menuPhoto.photoUrl}"></a>
+										</div>
+										<div class="menu-photo-list-info">
+											<span class="menu-photo-list-info-date" th:text="${menuPhoto.photoPostDate}"></span>
+											<span　class="menu-photo-list-info-like-text">いいね！<span class="menu-photo-list-info-like" th:text="${menuPhoto.photoId}"></span></span>
+										</div>
+									</div>
+									<div class="menu-photo-list-reviewer">
+										<span>(by </span>
+										<span><a class="menu-photo-list-reviewer-name" th:text="${menuPhoto.postUserName}"></a></span>
+										<span>)</span>
+									</div>
+								</div>
+								<div class="menu-photo-page-move" style="display: none;">
+									<ul class="menu-photo-pagination">
+										<li class="menu-photo-pagination-item">1</li>
+									</ul>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Detail Page (Photo) -->
+				<div class="photo" th:style="${flag == 'photo' ? 'display:block' : 'display:none'}">
+					<div class="photo-tab-wrap">
+						<p class="photo-tab-wrap-notice">お店からの公式写真とユーザーから投稿された写真を切り替えてご覧いただけます。</p>
+						<ul class="photo-tab">
+							<li class="photo-tab-item">
+								<a>
+									<strong>
+										<i class="photo-tab-item-totalphoto">すべての写真
+											<span></span>
+										</i>
+									</strong>
+								</a>
+							</li>
+							<li class="photo-tab-item">
+								<a>
+									<strong>
+										<i class="photo-tab-item-rstphoto">お店からの写真
+											<span></span>
+										</i>
+									</strong>
+								</a>
+							</li>
+							<li class="photo-tab-item">
+								<a>
+									<strong>
+										<i class="photo-tab-item-userphoto">投稿された写真
+											<span></span>
+										</i>
+									</strong>
+								</a>
+							</li>
 						</ul>
 					</div>
-					<div class="top-reviewlist-more-link">
-						<i class="fas fa-play-circle"> 口コミをもっと見る</i>
+					
+					<div class="photo-view-sort">
 					</div>
-				</div>
-				
-				<div class="disease_control">
-					<div class="disease-control-heading">感染症対策</div>
-					<table class="disease-control-table">
-						<tbody>
-						<th:block th:each="diseaseControl: ${diseaseControlList}">
-							<tr>
-								<th><i class="fas fa-store"></i>&nbsp;店内</th>
-								<td>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.restaurantCountermeasure1}"></span></div>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.restaurantCountermeasure2}"></span></div>
-								</td>
-							</tr>
-							<tr>
-								<th><i class="fas fa-user-check"></i>&nbsp;従業員</th>
-								<td>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure1}"></span></div>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure2}"></span></div>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.employeeCountermeasure3}"></span></div>
-								</td>
-							</tr>
-							<tr>
-								<th><i class="fas fa-user-friends"></i>&nbsp;お客様</th>
-								<td>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.customerCountermeasure1}"></span></div>
-									<div><i class="far fa-check-circle"></i><span th:text="${'&nbsp;' + diseaseControl.customerCountermeasure2}"></span></div>
-								</td>
-							</tr>
+					
+					<div class="photo-notice">
+						<p class="photo-notice-text">写真はユーザーが食事をした当時の内容ですので、最新の情報とは異なる可能性があります。必ず事前にご確認の上ご利用ください。</p>
+						<p><a class="photo-notice-btn">投稿する</a></p>
+					</div>
+					<div class="photo-guide">
+						<strong>1〜60 </strong><span>件を表示 / 全</span><strong> 727 </strong><span>件</span>
+					</div>
+					
+					<div class="photo-rstphoto-title">&nbsp;公式写真</div>
+					<div class="photo-rstphoto-content">
+					</div>
+					<div class="photo-userphoto-title">&nbsp;ユーザーからの投稿写真</div>
+					<div class="photo-userphoto-content">
+						<th:block th:each="rvList: ${reviewList}">
+							<div class="photo-userphoto-item">
+								<div><img class="photo-userphoto-img" th:src="${rvList.reviewImg}"></div>
+								<div class="photo-userphoto-user">
+									<span>(by </span>
+									<span class="photo-userphoto-username" th:text="${rvList.reviewUserName}"></span>
+									<span>)</span>
+								</div>
+							</div>
 						</th:block>
-						</tbody>
-					</table>
-					<div class="rstinfo-edit-navi">
-					<div class="rstinfo-edit-navi-notice">
-						<p>店舗にご登録いただいた情報を掲載しています。感染症対策の実施状況詳細やご不明点については、店舗までご確認ください。</p>
-						<p>Go To Eatキャンペーン参加店舗では、<a href="http://user-help.tabelog.com/sanitations_information">ガイドライン</a>に沿った感染症対策遵守に同意しています。</p>
 					</div>
-					<div class="rstinfo-edit-navi-contact">
-						<a class="rstinfo-edit-navi-contact-icon" href="/support/inquiry?rcd=13054097&type=36">内容に誤りがある場合</a>
-					</div>
-				</div>
+					
 				</div>
 				
-				<div class="takeout-info">
-					<th:block th:each="takeout: ${takeoutList}">
-						<div class="takeout-info-heading">テイクアウト</div>
-						<div class="takeout-info-photo">
-							<img th:src="${takeout.takeoutImg1}" width="214" height="214" style="object-fit: cover;">
-							<img th:src="${takeout.takeoutImg2}" width="214" height="214" style="object-fit: cover;">
-							<img th:src="${takeout.takeoutImg3}" width="214" height="214" style="object-fit: cover;">
-						</div>
-						<div class="takeout-info-time-title">&nbsp;営業時間</div>
-						<div class="takeout-info-time" th:text="${takeout.availableTime}"></div>
-						<div class="takeout-info-menu-title">&nbsp;メニュー</div>
-						<div class="takeout-info-menu" th:text="${takeout.menu}"></div>
-					</th:block>
+				<!-- Detail Page (Review) -->
+				<div class="review" th:style="${flag == 'review' ? 'display:block' : 'display:none'}">
+				</div>
+				<!-- Detail Page (Map) -->
+				<div class="map" th:style="${flag == 'map' ? 'display:block' : 'display:none'}">
 				</div>
 				
 				<div class="rst-data">
@@ -502,13 +827,13 @@
 							</tr>
 							<tr>
 								<th>ホームページ</th>
-								<td th:text="${rstFeatures.homePage}"></td>
+								<td><a th:text="${rstFeatures.homePage}" th:href="${rstFeatures.homePage}"></a></td>
 							</tr>
 							<tr>
 								<th>公式アカウント</th>
 								<td>
-									<div th:text="${rstFeatures.accountTwitter}"></div>
-									<div th:text="${rstFeatures.accountIns}"></div>
+									<div><a th:text="${rstFeatures.accountTwitter}" th:href="${rstFeatures.accountTwitter}"></a></div>
+									<div><a th:text="${rstFeatures.accountIns}" th:href="${rstFeatures.accountIns}"></a></div>
 								</td>
 							</tr>
 							<tr>
@@ -548,9 +873,9 @@
 				</div>
 				
 				<div class="rst-keyword">
-					<span>お店のキーワード</span>
+					<span class="rst-keyword-title">お店のキーワード</span>
 					<th:block th:each="keywordList: ${keywordList}">
-						<span th:text="${keywordList.keyword}"></span>
+						<span class="rst-keyword-item" th:text="${keywordList.keyword}"></span>
 					</th:block>
 				</div>
 			</div>
@@ -558,6 +883,7 @@
 			
 			<!-- side * start -->
 			<div class="column-side">
+			<div class="side-sticky-container">
 				<div class="booking-tel">
 					<div class="booking-wrap">
 						<div class="booking-tel-wrap" >
@@ -573,25 +899,168 @@
 						</div>
 					</div>
 					<div class="booking-infosend-wrap">
-						<button><i class="far fa-share-square">送る</i></button>
+						<i class="far fa-share-square"></i>&nbsp;送る
+						<div class="booking-infosend-content" style="display: none;">
+							<div class="booking-infosend-balloon">
+								<textarea class="booking-infosend-textarea"></textarea>
+								<ul class="booking-infosend-btn-wrap">
+									<li class="booking-infosend-btn">
+										<a>アプリに送る</a>
+									</li>
+									<li class="booking-infosend-btn">
+										<a>メールで送る</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 				
 				<div class="booking-internet">
 					<div class="booking-internet-heading">
 						<span class="booking-internet-heading-text">ネット予約</span>
-						<span><img src="http://www.mark-sign.net/download01/data44/tpoint.png" width="13" height="13"></span>
-						<span class="booking-internet-heading-tpoint">貯まる・使える</span>
+						<span><img class="booking-internet-tpoint-icon" src="http://www.mark-sign.net/download01/data44/tpoint.png" width="12" height="12"></span>
+						<span><a class="booking-internet-heading-tpoint" href="https://ssl.tabelog.com/tpoint/guide/">貯まる・使える</a></span>
 						<span><i class="fas fa-window-restore"></i></span>
 					</div>
 					<div class="booking-calendar-wrap">
-						<div class="booking-no-login-info"> ネット予約のご利用には 
-							<strong><a class="booking-no-login-target" href="https://ssl.tabelog.com/account/login/">会員登録/ログイン</a></strong> が必要です 
+						<div class="booking-no-login-info">ネット予約のご利用には 
+							<strong><a class="booking-no-login-target" href="https://ssl.tabelog.com/account/login/">会員登録/ログイン</a></strong> が必要です
 						 </div>
-						<div class="booking-calendar-wrap"></div>
+						<div class="booking-calendar-wrap">
+						<!-- Calendar Flip Animation * start -->
+						<div class="calendar-container">
+					        <div class="visit-date-wrap">
+					            <span class="visit-date-text">来店日</span>
+					            <span class="current-date">12<small>月</small>4<small>日（土）</small></span>
+					        </div>
+					          
+					        <div class="prev-next-month">
+					          	<span><a class="prev-month-btn">&#10094;</a></span>
+					          	<span>2021年12月</span>
+					          	<span><a class="next-month-btn">&#10095;</a></span>
+					        </div>
+					
+					        <div class="current-month">
+					            <ul class="week-days">
+					                <li>日</li>
+						            <li>月</li>
+						            <li>火</li>
+						            <li>水</li>
+						            <li>木</li>
+						            <li>金</li>
+						            <li>土</li>
+					            </ul>
+					
+					            <div class="weeks">
+					                <div class="first">
+						                <span class="last-month">28</span>
+						                <span class="last-month">29</span>
+						                <span class="last-month">30</span>
+						                <span>01</span>
+						                <span>02</span>
+						                <span>03</span>
+						                <span>04</span>
+					                </div>
+					
+					                <div class="second">
+						                <span>05</span>
+						                <span>06</span>
+						                <span class="event">07</span>
+						                <span>08</span>
+						                <span>09</span>
+						                <span>10</span>
+						                <span>11</span>
+					                </div>
+					
+					                <div class="third">
+						                <span>12</span>
+						                <span>13</span>
+						                <span>14</span>
+						                <span>15</span>
+						                <span class="active">16</span>
+						                <span>17</span>
+						                <span>18</span>
+					                </div>
+					
+					                <div class="fourth">
+						                <span>19</span>
+						                <span>20</span>
+						                <span>21</span>
+						                <span>22</span>
+						                <span>23</span>
+						                <span>24</span>
+						                <span>25</span>
+					                </div>
+					
+					                <div class="fifth">
+						                <span>26</span>
+						                <span>27</span>
+						                <span>28</span>
+						                <span>29</span>
+						                <span>30</span>
+						                <span>31</span>
+						                <span class="next-month">01</span>
+					                </div>
+					            </div>
+					        </div>
+					          
+					        <div class="number-of-people-wrap">
+					            <span class="number-of-people-text">人数</span>
+					                <select class="select-number-of-people">
+					                	<option value="1">○ 1名</option>
+					                	<option value="2" selected>○ 2名</option>
+					                	<option value="3">○ 3名</option>
+					                	<option value="4">○ 4名</option>
+					                	<option value="5">○ 5名</option>
+					                	<option value="6">○ 6名</option>
+					                	<option value="7">○ 7名</option>
+					                	<option value="8">○ 8名</option>
+					                	<option value="9">○ 9名</option>
+					                	<option value="10">○ 10名</option>
+					                	<option value="11">○ 11名</option>
+					                	<option value="12">○ 12名</option>
+					                	<option value="13">× 13名</option>
+					                	<option value="14">× 14名</option>
+					                	<option value="15">× 15名</option>
+					                	<option value="16">× 16名</option>
+					                	<option value="17">× 17名</option>
+					                	<option value="18">× 18名</option>
+					                	<option value="19">× 19名</option>
+					                	<option value="20">× 20名</option>
+					                	<option value="21">× 21名</option>
+					                	<option value="22">× 22名</option>
+					                	<option value="23">× 23名</option>
+					                	<option value="24">× 24名</option>
+					                	<option value="25">× 25名</option>
+					                	<option value="26">× 26名</option>
+					                	<option value="27">× 27名</option>
+					                	<option value="28">× 28名</option>
+					                	<option value="29">× 29名</option>
+					                	<option value="30">× 30名</option>
+					                </select>
+					        </div>
+					        <div class="visit-time-wrap">
+					            <span class="visit-time-text">時間</span>
+					            <select class="select-visit-time">
+					            	<option value="1700">○ 17:00</option>
+					            	<option value="1730">○ 17:30</option>
+					            	<option value="1800" selected>○ 18:00</option>
+					            	<option value="1830">○ 18:30</option>
+					            	<option value="1900">○ 19:00</option>
+					            	<option value="1930">○ 19:30</option>
+					            	<option value="2000">○ 20:00</option>
+					            	<option value="2030">○ 20:30</option>
+					            </select>
+					        </div>
+					        <div class="booking-internet-reserve-btn">予約する</div>
+					    </div>
+						<!-- Calendar Flip Animation * end -->
+						</div>
 					</div>
 					
 				</div>
+			</div>
 			</div>
 			<!-- side * end -->
 		</div>

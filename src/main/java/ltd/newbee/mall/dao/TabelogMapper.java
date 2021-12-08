@@ -17,10 +17,15 @@ import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
 import ltd.newbee.mall.entity.RestaurantMenuCourse;
+import ltd.newbee.mall.entity.RestaurantMenuDrink;
+import ltd.newbee.mall.entity.RestaurantMenuLunch;
+import ltd.newbee.mall.entity.RestaurantMenuMeal;
+import ltd.newbee.mall.entity.RestaurantMenuPhoto;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
 
 public interface TabelogMapper {
@@ -64,5 +69,29 @@ public interface TabelogMapper {
 	  public ArrayList<RestaurantSeatsMenu> getSeatsMenu(long restaurantId);
 	  // Restaurant Features Info
 	  public ArrayList<RestaurantFeaturesInfo> getRestaurantFeaturesInfo(long restaurantId);
+	  
+	  /* -------------------------------- Detail Page (Table) -------------------------------- */
+	  // Seats Photo
+	  public ArrayList<RestaurantSeatsPhoto> getSeatsPhoto(long restaurantId);
+	  
+	  /* -------------------------------- Detail Page (Menu) -------------------------------- */
+	  // Menu Meal
+      public ArrayList<RestaurantMenuMeal> getMenuMeal(long restaurantId);
+	  // Menu Drink
+	  public ArrayList<RestaurantMenuDrink> getMenuDrink(long restaurantId);
+	  // Menu Lunch
+      public ArrayList<RestaurantMenuLunch> getMenuLunch(long restaurantId);
+      // Menu Photo
+      public ArrayList<RestaurantMenuPhoto> getMenuPhoto(long restaurantId);
+      // Count Of Menu Course
+   	  long getCountOfMenuCourse(long restaurantId);
+      // Count Of Menu Meal
+   	  long getCountOfMenuMeal(long restaurantId);
+      // Count Of Menu Drink
+   	  long getCountOfMenuDrink(long restaurantId);
+      // Count Of Menu Lunch
+   	  long getCountOfMenuLunch(long restaurantId);
+      // Count Of Menu Photo
+   	  long getCountOfMenuPhoto(long restaurantId);
 	  
 }

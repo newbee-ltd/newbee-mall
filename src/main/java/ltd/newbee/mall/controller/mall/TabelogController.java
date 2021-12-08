@@ -9,16 +9,22 @@
 package ltd.newbee.mall.controller.mall;
 
 import ltd.newbee.mall.controller.vo.RestaurantFeaturesInfoVO;
+import ltd.newbee.mall.controller.vo.RestaurantMenuPhotoVO;
 import ltd.newbee.mall.controller.vo.RestaurantReviewVO;
 import ltd.newbee.mall.entity.RestaurantBasicInfo;
 import ltd.newbee.mall.entity.RestaurantDiseaseControl;
 import ltd.newbee.mall.entity.RestaurantFeaturesInfo;
 import ltd.newbee.mall.entity.RestaurantKeyword;
 import ltd.newbee.mall.entity.RestaurantMenuCourse;
+import ltd.newbee.mall.entity.RestaurantMenuDrink;
+import ltd.newbee.mall.entity.RestaurantMenuLunch;
+import ltd.newbee.mall.entity.RestaurantMenuMeal;
+import ltd.newbee.mall.entity.RestaurantMenuPhoto;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
 import ltd.newbee.mall.util.BeanUtil;
@@ -67,15 +73,19 @@ public class TabelogController {
 //        return "mall/tabelog";
 //    }
     
-    @GetMapping("/tabelog/detail/{restaurantId}")
-    public String detailPage(@PathVariable("restaurantId") Long restaurantId, HttpServletRequest request) throws ParseException {
+    @GetMapping({"/tabelog/detail/{restaurantId}/{area}", "/tabelog/detail/{restaurantId}/{area}/{subArea}"})
+    public String detailPage(@PathVariable("restaurantId") Long restaurantId,
+    						 @PathVariable("area") String area,
+    						 @PathVariable(name="subArea", required = false) String subArea,
+    						 HttpServletRequest request) throws ParseException {
         
-        // KeywordList(Header)
+    	/* -------------------------------- Detail Page (Header) -------------------------------- */
+        // KeywordList
         List<RestaurantKeyword> keywordEntityList = tabelogService.getKeywordByRestaurantId(restaurantId);
         // Copy keywordList
         List<RestaurantKeyword> keywordList = (List<RestaurantKeyword>) BeanUtil.copyList(keywordEntityList, RestaurantKeyword.class);
         
-        // RestaurantBasicInfo(Header)
+        // RestaurantBasicInfo
         List<RestaurantBasicInfo> restaurantBasicInfoEntityList = tabelogService.getRestaurantBasicInfo(restaurantId);
         List<RestaurantBasicInfo> restaurantBasicInfoList = (List<RestaurantBasicInfo>) BeanUtil.copyList(restaurantBasicInfoEntityList, RestaurantBasicInfo.class);
         
@@ -92,6 +102,7 @@ public class TabelogController {
     	// Go To Eat
     	String goToEat = tabelogService.getGoToEat(restaurantId);
     	
+    	/* -------------------------------- Detail Page (Top) -------------------------------- */
     	// Top Slide Photo
     	List<RestaurantPhoto> photoEntityList = tabelogService.getSlidePhoto(restaurantId);
         // Copy PhotoList
@@ -102,10 +113,12 @@ public class TabelogController {
         // Copy KodawariList
         List<RestaurantPhotoCommitment> kodawariList = (List<RestaurantPhotoCommitment>) BeanUtil.copyList(kodawariEntityList, RestaurantPhotoCommitment.class);
         
-        // Top Course
+        // Menu Course
     	List<RestaurantMenuCourse> courseEntityList = tabelogService.getMenuCourse(restaurantId);
         // Copy courseList
         List<RestaurantMenuCourse> courseList = (List<RestaurantMenuCourse>) BeanUtil.copyList(courseEntityList, RestaurantMenuCourse.class);
+        // Top Course (Top Page初始化显示3条)
+        List<RestaurantMenuCourse> topCourseList = courseList.subList(0, 3);
         
         // Review
     	List<RestaurantReview> reviewEntityList = tabelogService.getReview(restaurantId);
@@ -145,6 +158,10 @@ public class TabelogController {
         	r.setReviewerPhoto(rv.getReviewerPhoto());
         	reviewList.add(r);
         }
+        // Top Review (Top Page初始化显示3条)
+        List<RestaurantReviewVO> topReviewList = reviewList.subList(0, 3);
+        // Top Review Photo (Top Page初始化显示20条)
+        List<RestaurantReviewVO> topReviewPhotoList = reviewList.subList(0, 20);
         
         // Disease Control
         List<RestaurantDiseaseControl> diseaseControlEntityList = tabelogService.getDiseaseControlList(restaurantId);
@@ -195,20 +212,98 @@ public class TabelogController {
         	restaurantFeaturesInfoList.add(r);
         }
         
+  	    /* -------------------------------- Detail Page (Table) -------------------------------- */
+  	    // Seats Photo
+        List<RestaurantSeatsPhoto> seatsPhotoEntityList = tabelogService.getSeatsPhoto(restaurantId);
+        // Copy seatsPhotoList
+        List<RestaurantSeatsPhoto> seatsPhotoList = (List<RestaurantSeatsPhoto>) BeanUtil.copyList(seatsPhotoEntityList, RestaurantSeatsPhoto.class);
+        
+        /* -------------------------------- Detail Page (Menu) -------------------------------- */
+        // Menu Meal
+        List<RestaurantMenuMeal> menuMealEntityList = tabelogService.getMenuMeal(restaurantId);
+        // Copy seatsPhotoList
+        List<RestaurantMenuMeal> menuMealList = (List<RestaurantMenuMeal>) BeanUtil.copyList(menuMealEntityList, RestaurantMenuMeal.class);
+        
+  	    // Menu Drink
+        List<RestaurantMenuDrink> menuDrinkEntityList = tabelogService.getMenuDrink(restaurantId);
+        // Copy seatsPhotoList
+        List<RestaurantMenuDrink> menuDrinkList = (List<RestaurantMenuDrink>) BeanUtil.copyList(menuDrinkEntityList, RestaurantMenuDrink.class);
+        
+        // Menu Lunch
+        List<RestaurantMenuLunch> menuLunchEntityList = tabelogService.getMenuLunch(restaurantId);
+        // Copy seatsPhotoList
+        List<RestaurantMenuLunch> menuLunchList = (List<RestaurantMenuLunch>) BeanUtil.copyList(menuLunchEntityList, RestaurantMenuLunch.class);
+        
+        // Menu Photo
+        List<RestaurantMenuPhoto> menuPhotoEntityList = tabelogService.getMenuPhoto(restaurantId);
+        List<RestaurantMenuPhotoVO> menuPhotoList = new ArrayList<RestaurantMenuPhotoVO>();
+        // Set Restaurant Menu Photo Time Format
+        SimpleDateFormat photoPostDateFormat = new SimpleDateFormat("yy/MM/dd");
+        for (int i = 0; i < menuPhotoEntityList.size(); i++) {
+        	RestaurantMenuPhoto mp = menuPhotoEntityList.get(i);
+        	RestaurantMenuPhotoVO m = new RestaurantMenuPhotoVO();
+            
+        	if (mp != null && mp.getPhotoPostDate() != null) {
+                String dateString = photoPostDateFormat.format(mp.getPhotoPostDate());
+                Date date = photoPostDateFormat.parse(dateString);
+                m.setPhotoPostDate(dateString);
+        	}
+        	
+        	m.setRestaurantId(mp.getRestaurantId());
+        	m.setRestaurantName(mp.getRestaurantName());
+        	m.setPhotoId(mp.getPhotoId());
+        	m.setPhotoName(mp.getPhotoName());
+        	m.setPhotoUrl(mp.getPhotoUrl());
+        	m.setPostUserId(mp.getPostUserId());
+        	m.setPostUserName(mp.getPostUserName());
+        	menuPhotoList.add(m);
+        }
+        
+        // Count Of Menu Course
+     	long countOfMenuCourse = tabelogService.getCountOfMenuCourse(restaurantId);
+        // Count Of Menu Meal
+     	long countOfMenuMeal = tabelogService.getCountOfMenuMeal(restaurantId);
+        // Count Of Menu Drink
+     	long countOfMenuDrink = tabelogService.getCountOfMenuDrink(restaurantId);
+        // Count Of Menu Lunch
+     	long countOfMenuLunch = tabelogService.getCountOfMenuLunch(restaurantId);
+        // Count Of Menu Photo
+     	long countOfMenuPhoto = tabelogService.getCountOfMenuPhoto(restaurantId);
+        
         request.setAttribute("keywordList", keywordList);
         request.setAttribute("restaurantBasicInfoList", restaurantBasicInfoList);
         request.setAttribute("avgScore", avgScore);
         request.setAttribute("countOfReview", countOfReview);
         request.setAttribute("countOfFollowed", countOfFollowed);
         request.setAttribute("goToEat", goToEat);
+        
         request.setAttribute("photoList", photoList);
         request.setAttribute("KodawariList", kodawariList);
         request.setAttribute("courseList", courseList);
+        request.setAttribute("topCourseList", topCourseList);
         request.setAttribute("reviewList", reviewList);
+        request.setAttribute("topReviewList", topReviewList);
+        request.setAttribute("topReviewPhotoList", topReviewPhotoList);
         request.setAttribute("diseaseControlList", diseaseControlList);
         request.setAttribute("takeoutList", takeoutList);
         request.setAttribute("seatsMenuList", seatsMenuList);
         request.setAttribute("rstFeaturesInfoList", restaurantFeaturesInfoList);
+        
+        request.setAttribute("seatsPhotoList", seatsPhotoList);
+        
+        request.setAttribute("menuMealList", menuMealList);
+        request.setAttribute("menuDrinkList", menuDrinkList);
+        request.setAttribute("menuLunchList", menuLunchList);
+        request.setAttribute("menuPhotoList", menuPhotoList);
+        request.setAttribute("countOfMenuCourse", countOfMenuCourse);
+        request.setAttribute("countOfMenuMeal", countOfMenuMeal);
+        request.setAttribute("countOfMenuDrink", countOfMenuDrink);
+        request.setAttribute("countOfMenuLunch", countOfMenuLunch);
+        request.setAttribute("countOfMenuPhoto", countOfMenuPhoto);
+        
+        request.setAttribute("restaurantId", restaurantId);
+        request.setAttribute("flag", area);
+        request.setAttribute("subFlag", subArea);
         
         return "mall/tabelogDetail";
     }

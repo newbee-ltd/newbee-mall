@@ -13,10 +13,15 @@ import ltd.newbee.mall.entity.RestaurantJapanRegion;
 import ltd.newbee.mall.entity.RestaurantJapanStation;
 import ltd.newbee.mall.entity.RestaurantKeyword;
 import ltd.newbee.mall.entity.RestaurantMenuCourse;
+import ltd.newbee.mall.entity.RestaurantMenuDrink;
+import ltd.newbee.mall.entity.RestaurantMenuLunch;
+import ltd.newbee.mall.entity.RestaurantMenuMeal;
+import ltd.newbee.mall.entity.RestaurantMenuPhoto;
 import ltd.newbee.mall.entity.RestaurantPhoto;
 import ltd.newbee.mall.entity.RestaurantPhotoCommitment;
 import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.entity.RestaurantSeatsMenu;
+import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
 
@@ -120,5 +125,59 @@ public class TabelogServiceImpl implements TabelogService {
 	public ArrayList<RestaurantFeaturesInfo> getRestaurantFeaturesInfo(long restaurantId) {
 		return tabelogMapper.getRestaurantFeaturesInfo(restaurantId);
 	}
+	
+	/* -------------------------------- Detail Page (Table) -------------------------------- */
+	// Seats Photo
+	@Override
+	public ArrayList<RestaurantSeatsPhoto> getSeatsPhoto(long restaurantId) {
+		return tabelogMapper.getSeatsPhoto(restaurantId);
+	}
+	
+	/* -------------------------------- Detail Page (Menu) -------------------------------- */
+	// Menu Meal
+	@Override
+    public ArrayList<RestaurantMenuMeal> getMenuMeal(long restaurantId) {
+		return tabelogMapper.getMenuMeal(restaurantId);
+    }
+	// Menu Drink
+	@Override
+	public ArrayList<RestaurantMenuDrink> getMenuDrink(long restaurantId) {
+		return tabelogMapper.getMenuDrink(restaurantId);
+	}
+	// Menu Lunch
+	@Override
+    public ArrayList<RestaurantMenuLunch> getMenuLunch(long restaurantId) {
+		return tabelogMapper.getMenuLunch(restaurantId);
+	}
+	// Menu Photo
+	@Override
+    public ArrayList<RestaurantMenuPhoto> getMenuPhoto(long restaurantId) {
+		return tabelogMapper.getMenuPhoto(restaurantId);
+    }
+	// Count Of Menu Course
+	@Override
+ 	public long getCountOfMenuCourse(long restaurantId) {
+ 		return tabelogMapper.getCountOfMenuCourse(restaurantId);
+ 	}
+    // Count Of Menu Meal
+ 	@Override
+ 	public long getCountOfMenuMeal(long restaurantId) {
+ 		return tabelogMapper.getCountOfMenuMeal(restaurantId);
+ 	}
+    // Count Of Menu Drink
+ 	@Override
+ 	public long getCountOfMenuDrink(long restaurantId) {
+ 		return tabelogMapper.getCountOfMenuDrink(restaurantId);
+ 	}
+    // Count Of Menu Lunch
+ 	@Override
+ 	public long getCountOfMenuLunch(long restaurantId) {
+ 		return tabelogMapper.getCountOfMenuLunch(restaurantId);
+ 	}
+    // Count Of Menu Photo
+ 	@Override
+ 	public long getCountOfMenuPhoto(long restaurantId) {
+ 		return tabelogMapper.getCountOfMenuPhoto(restaurantId);
+ 	}
     
 }
