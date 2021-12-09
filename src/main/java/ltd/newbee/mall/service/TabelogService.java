@@ -27,6 +27,8 @@ import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.entity.RestaurantSeatsMenu;
 import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
+import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.PageResult;
 
 public interface TabelogService {
 	
@@ -93,5 +95,11 @@ public interface TabelogService {
  	long getCountOfMenuLunch(long restaurantId);
     // Count Of Menu Photo
  	long getCountOfMenuPhoto(long restaurantId);
+    // Menu Photo Paging
+ 	PageResult getMenuPhotoPerPage(PageQueryUtil pageUtil);
+ 	
+ 	/* -------------------------------- Detail Page (Photo) -------------------------------- */
+ 	// 公式写真
+ 	ArrayList<RestaurantPhoto> getRstPhoto(long restaurantId);
 	
 }

@@ -135,7 +135,7 @@
 <!-- Detail Page (Table) --> 
 	<!-- Seats Photo -->
 	<select id="getSeatsPhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantSeatsPhoto">
-        select restaurant_id, private_room_img, table_seat_img
+        select restaurant_id, private_room_img, table_seat_img, outterview_img
         from restaurant_seats_photo
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
@@ -197,5 +197,46 @@
     <select id="getCountOfMenuPhoto" parameterType="java.lang.Long" resultType="java.lang.Long">
         select count(photo_id) from restaurant_menu_photo
 		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+    <!-- Menu Photo Paging -->
+    <select id="findMenuPhotoList" parameterType="Map" resultType="ltd.newbee.mall.entity.RestaurantMenuPhoto">
+        select restaurant_id, restaurant_name, photo_id, photo_name, photo_url, photo_post_date, post_user_id,
+        post_user_name
+        from restaurant_menu_photo
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		<if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalMenuPhoto" parameterType="Map" resultType="int">
+        select count(photo_id) from restaurant_menu_photo
+		where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+    </select>
+    
+<!-- Detail Page (Photo) --> 
+    <!-- 公式写真 -->
+    <select id="getRstPhoto" parameterType="java.lang.Long" resultType="ltd.newbee.mall.entity.RestaurantPhoto">
+        select restaurant_id, photo_url from restaurant_photo where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, photo_url from restaurant_photo_commitment where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, course_img from restaurant_menu_course where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, lunch_img from restaurant_menu_lunch where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, dish_img from restaurant_menu_meal where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, takeout_img1 from restaurant_takeout where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, takeout_img2 from restaurant_takeout where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, takeout_img3 from restaurant_takeout where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, private_room_img from restaurant_seats_photo where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, table_seat_img from restaurant_seats_photo where restaurant_id = #{restaurantId,jdbcType=BIGINT}
+		union
+		select restaurant_id, outterview_img from restaurant_seats_photo where restaurant_id = #{restaurantId,jdbcType=BIGINT}
     </select>
 </mapper>

@@ -28,10 +28,19 @@ import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
 import ltd.newbee.mall.util.BeanUtil;
+import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.PageResult;
+import ltd.newbee.mall.util.Result;
+import ltd.newbee.mall.util.ResultGenerator;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +49,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TabelogController {
@@ -234,8 +245,21 @@ public class TabelogController {
         // Copy seatsPhotoList
         List<RestaurantMenuLunch> menuLunchList = (List<RestaurantMenuLunch>) BeanUtil.copyList(menuLunchEntityList, RestaurantMenuLunch.class);
         
-        // Menu Photo
-        List<RestaurantMenuPhoto> menuPhotoEntityList = tabelogService.getMenuPhoto(restaurantId);
+        // Menu Photo Paging
+        Map<String, Object> params = new HashMap<String,Object>();
+        int limit = 2;
+        int page = 1;
+        params.put("page", page);
+        params.put("limit", limit);
+        params.put("restaurantId", restaurantId);
+        
+        PageQueryUtil pageUtil = new PageQueryUtil(params);
+        PageResult rs = tabelogService.getMenuPhotoPerPage(pageUtil);
+        
+        int menuPhotoCount = rs.getTotalCount();
+        int menuPhotoTotalPage = rs.getTotalPage();
+        int menuPhotoCurrentPage = rs.getCurrPage();
+        List<RestaurantMenuPhoto> menuPhotoEntityList = (List<RestaurantMenuPhoto>) rs.getList();
         List<RestaurantMenuPhotoVO> menuPhotoList = new ArrayList<RestaurantMenuPhotoVO>();
         // Set Restaurant Menu Photo Time Format
         SimpleDateFormat photoPostDateFormat = new SimpleDateFormat("yy/MM/dd");
@@ -269,7 +293,13 @@ public class TabelogController {
      	long countOfMenuLunch = tabelogService.getCountOfMenuLunch(restaurantId);
         // Count Of Menu Photo
      	long countOfMenuPhoto = tabelogService.getCountOfMenuPhoto(restaurantId);
-        
+     	
+     	/* -------------------------------- Detail Page (Photo) -------------------------------- */
+     	// 公式写真
+     	List<RestaurantPhoto> rstPhotoEntityList = tabelogService.getRstPhoto(restaurantId);
+        // Copy rstPhotoList
+        List<RestaurantPhoto> rstPhotoList = (List<RestaurantPhoto>) BeanUtil.copyList(rstPhotoEntityList, RestaurantPhoto.class);
+     	
         request.setAttribute("keywordList", keywordList);
         request.setAttribute("restaurantBasicInfoList", restaurantBasicInfoList);
         request.setAttribute("avgScore", avgScore);
@@ -295,17 +325,33 @@ public class TabelogController {
         request.setAttribute("menuDrinkList", menuDrinkList);
         request.setAttribute("menuLunchList", menuLunchList);
         request.setAttribute("menuPhotoList", menuPhotoList);
+        request.setAttribute("menuPhotoCount", menuPhotoCount);
+        request.setAttribute("menuPhotoTotalPage", menuPhotoTotalPage);
+        request.setAttribute("menuPhotoCurrentPage", menuPhotoCurrentPage);
         request.setAttribute("countOfMenuCourse", countOfMenuCourse);
         request.setAttribute("countOfMenuMeal", countOfMenuMeal);
         request.setAttribute("countOfMenuDrink", countOfMenuDrink);
         request.setAttribute("countOfMenuLunch", countOfMenuLunch);
         request.setAttribute("countOfMenuPhoto", countOfMenuPhoto);
         
+        request.setAttribute("rstPhotoList", rstPhotoList);
+        
         request.setAttribute("restaurantId", restaurantId);
         request.setAttribute("flag", area);
         request.setAttribute("subFlag", subArea);
         
         return "mall/tabelogDetail";
+    }
+    
+    // Menu Photo Paging
+    @RequestMapping(value = "/menuPhoto", method = RequestMethod.POST)
+    @ResponseBody
+    public Result list(@RequestParam Map<String, Object> params) {
+    	if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+    		return ResultGenerator.genErrorResult(300, "Error!");
+    	}
+    	PageQueryUtil pageUtil = new PageQueryUtil(params);
+    		return ResultGenerator.genSuccessResult(tabelogService.getMenuPhotoPerPage(pageUtil));
     }
     
 }

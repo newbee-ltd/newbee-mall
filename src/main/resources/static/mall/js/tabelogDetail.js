@@ -175,3 +175,97 @@ var app = {
 
 app.init();
 /* Calendar * end */
+
+/* ---------------------------------- Menu Photo Paging ---------------------------------- */
+$(function() {
+
+	var currentPage = 1;
+
+	$("#menuPhotoNextBtn").click(function() {
+		menuPhotoPage(1);
+	});
+
+	$("#menuPhotoPrevBtn").click(function() {
+		menuPhotoPage(-1);
+	});
+
+	function menuPhotoPage(_this) {
+
+		var url = '/menuPhoto';
+		var page = parseInt($("#menu-photo-page-hidden").val());
+		var totalPage = parseInt($("#menu-photo-totalPage-hidden").val());
+		
+		var data = {
+			"restaurantId": 10001,
+			"limit": 2,
+			"page": page,
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: url,
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function(resp) {
+				if (resp.resultCode == 200) {
+					var el;
+					if (resp.data.list.length > 0) {
+						$(".menu-photo").find(".menu-photo-list").remove();
+					}
+					for (let i = 0; i < resp.data.list.length; i++) {
+						el = $(".menu-photo-list-hidden").clone().removeClass("menu-photo-list-hidden");
+						el.find(".menu-photo-list-img").html(resp.data.list[i].photoUrl);
+						el.find(".menu-photo-list-info-date").html(resp.data.list[i].photoPostDate);
+						el.find(".menu-photo-list-info-like").html(resp.data.list[i].photoId);
+						el.find(".menu-photo-list-reviewer-name").html(resp.data.list[i].postUserName);
+						$(".menu-photo-page-move").before(el);
+					}
+				} else {
+					swal(resp.message, {
+						icon: "error",
+					})
+				}
+			},
+			error: function() {
+				swal(resp.message, {
+					icon: "error",
+				})
+			}
+		});
+	}
+});	
+	
+
+//var pageIndex = 1;
+//showPages(pageIndex);
+//
+//// Next/previous controls
+//function plusPages(n) {
+//	showPages(pageIndex += n);
+//}
+//
+//// Thumbnail image controls
+//function currentPage(n) {
+//	showPages(pageIndex = n);
+//}
+//
+//function showPages(n) {
+//	
+//	var i;
+//	var pages = document.getElementsByClassName("menu-photo-list");
+//	console.log(pages);
+//	
+//	if (n > pages.length) {
+//		pageIndex = 1
+//	}
+//	
+//	if (n < 1) {
+//		pageIndex = pages.length
+//	}
+//	
+//	for (i = 0; i < pages.length; i++) {
+//		pages[i].style.display = "none";
+//	}
+//	
+//	pages[pageIndex - 1].style.display = "block";
+//}

@@ -1,6 +1,7 @@
 package ltd.newbee.mall.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import ltd.newbee.mall.entity.RestaurantSeatsMenu;
 import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
 import ltd.newbee.mall.service.TabelogService;
+import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.PageResult;
 
 @Service
 public class TabelogServiceImpl implements TabelogService {
@@ -178,6 +181,21 @@ public class TabelogServiceImpl implements TabelogService {
  	@Override
  	public long getCountOfMenuPhoto(long restaurantId) {
  		return tabelogMapper.getCountOfMenuPhoto(restaurantId);
+ 	}
+    // Menu Photo Paging
+ 	@Override
+ 	public PageResult getMenuPhotoPerPage(PageQueryUtil pageUtil) {
+ 		List<RestaurantMenuPhoto> menuPhoto = tabelogMapper.findMenuPhotoList(pageUtil);
+ 		int total = tabelogMapper.getTotalMenuPhoto(pageUtil);
+ 		PageResult pageResult = new PageResult(menuPhoto, total, pageUtil.getLimit(), pageUtil.getPage());
+ 		return pageResult;
+ 	}
+ 	
+ 	/* -------------------------------- Detail Page (Photo) -------------------------------- */
+ 	// 公式写真
+ 	@Override
+ 	public ArrayList<RestaurantPhoto> getRstPhoto(long restaurantId) {
+ 		return tabelogMapper.getRstPhoto(restaurantId);
  	}
     
 }

@@ -572,15 +572,65 @@
 										<span>)</span>
 									</div>
 								</div>
-								<div class="menu-photo-page-move" style="display: none;">
-									<ul class="menu-photo-pagination">
-										<li class="menu-photo-pagination-item">1</li>
-									</ul>
-								</div>
 							</th:block>
+						</div>
+						<div class="menu-photo-page-move">
+							<div class="menu-photo-page-pagination">
+								<ul class="menu-photo-pagination">
+									<li class="menu-photo-pagination-item">
+										<a class="menu-photo-pagination-prev" id="menuPhotoPrevBtn">前の2件</a>
+									</li>
+									<!-- 総数とページあたりの件数をもとにページ分割 -->
+								    <th:block th:each="i : ${#numbers.sequence(0, menuPhotoTotalPage - 1)}">
+								        <li class="menu-photo-pagination-item">
+								        	<a th:class="(${i} == ${menuPhotoCurrentPage - 1}) ? 'menu-photo-pagination-num is-current' : 'menu-photo-pagination-num'"
+								        	th:id="'menuPhotoPageNo_' + ${i + 1}" th:text="${i + 1}" 
+								        	th:href="@{${path}(menuPhotoCurrentPage=${i + 1})}" href="#"></a>
+								        </li>
+								    </th:block>
+									<li id="menu-photo-page-hidden" th:value="${menuPhotoCurrentPage}" style="display: none;"></li>
+									<li id="menu-photo-totalPage-hidden" th:value="${menuPhotoTotalPage}" style="display: none;"></li>
+									<li class="menu-photo-pagination-item">
+										<a class="menu-photo-pagination-next" id="menuPhotoNextBtn">次の2件</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+				    </div>
+				    
+				    <div class="menu-photo-list-hidden" width="660" style="display: none;">
+						<div class="menu-photo-list-item">
+							<div class="menu-photo-list-item-hover">
+								<div class="menu-photo-list-img-container">
+									<a><img class="menu-photo-list-img"></a>
+								</div>
+								<div class="menu-photo-list-info">
+									<span class="menu-photo-list-info-date"></span>
+									<span　class="menu-photo-list-info-like-text">いいね！<span class="menu-photo-list-info-like"></span></span>
+								</div>
+							</div>
+							<div class="menu-photo-list-reviewer">
+								<span>(by </span>
+								<span><a class="menu-photo-list-reviewer-name"></a></span>
+								<span>)</span>
+							</div>
 						</div>
 					</div>
 				</div>
+				<!--
+					    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+					    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+					    
+					    <div class="caption-container"></div>
+					    <div class="row">
+						    <th:block th:each="photoList, iter: ${photoList}">
+						    	<div class="column">
+							    	<img class="demo cursor" th:src="${photoList.photoUrl}" style="width:100%" th:onclick="|currentSlide(${iter.index + 1})|">
+						    	</div>
+						    </th:block>
+					    </div>
+					</div>
+				-->
 				
 				<!-- Detail Page (Photo) -->
 				<div class="photo" th:style="${flag == 'photo' ? 'display:block' : 'display:none'}">
@@ -630,6 +680,14 @@
 					
 					<div class="photo-rstphoto-title">&nbsp;公式写真</div>
 					<div class="photo-rstphoto-content">
+						<th:block th:each="rstPhoto: ${rstPhotoList}">
+							<div class="photo-rstphoto-item">
+								<div><img class="photo-rstphoto-img" th:src="${rstPhoto.photoUrl}"></div>
+								<div class="photo-rstphoto-user">
+									<span>(by お店 )</span>
+								</div>
+							</div>
+						</th:block>
 					</div>
 					<div class="photo-userphoto-title">&nbsp;ユーザーからの投稿写真</div>
 					<div class="photo-userphoto-content">
@@ -649,7 +707,45 @@
 				
 				<!-- Detail Page (Review) -->
 				<div class="review" th:style="${flag == 'review' ? 'display:block' : 'display:none'}">
+					<div class="top-reviewlist">
+						<div class="top-reviewlist-heading">
+							<span class="top-reviewlist-title">口コミ</span>
+							<span><a class="top-reviewlist-btn">投稿する</a></span>
+						</div>
+						<div class="rv-pickup">
+							<ul>
+								<th:block th:each="rvList: ${reviewList}">
+									<li class="top-review-pickup-item">
+										<div class="top-reviewer-data">
+											<span class="top-reviewer-data-wrap">
+												<span><a><img class="top-reviewer-photo" th:src="${rvList.reviewerPhoto}" width="30" height="30"></a></span>
+												<span><a class="top-reviewer-name" th:text="${rvList.reviewUserName}"></a></span>
+												<span><a href="http://user-help.tabelog.com/authentication_info"><i class="fas fa-mobile-alt">認証済</i></a></span>
+											</span>
+										</div>
+										<div class="review-pickup-content">
+											<div class="review-pickup-owner"></div>
+											<div class="review-pickup-title" th:text="${rvList.reviewTitle}"></div>
+											<div class="review-pickup-detail-wrap">
+												<div class="review-pickup-detail" th:text="${rvList.reviewDetail}"></div>
+												<div><a class="pickup-review-more">詳細を見る</a></div>
+											</div>
+											<div class="review-pickup-data">
+												<span class="pickup-rv-like-count"><i class="far fa-heart"></i></span>
+												<span><a target="_blank" rel="noopener" class="pickup-rv-like-count-help"
+														 href="http://user-help.tabelog.com/?p=695">?</a></span>
+												<span class="pickup-rv-rating">★★★★★</span>
+												<span class="pickup-rv-visit-date" th:text="${rvList.visitDate + '&nbsp;訪問'}"></span>
+												<span class="pickup-rv-visit-count"></span>
+											</div>
+										</div>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
 				</div>
+				
 				<!-- Detail Page (Map) -->
 				<div class="map" th:style="${flag == 'map' ? 'display:block' : 'display:none'}">
 				</div>

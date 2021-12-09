@@ -9,6 +9,7 @@
 package ltd.newbee.mall.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ltd.newbee.mall.entity.RestaurantBasicInfo;
 import ltd.newbee.mall.entity.RestaurantDiseaseControl;
@@ -27,6 +28,7 @@ import ltd.newbee.mall.entity.RestaurantReview;
 import ltd.newbee.mall.entity.RestaurantSeatsMenu;
 import ltd.newbee.mall.entity.RestaurantSeatsPhoto;
 import ltd.newbee.mall.entity.RestaurantTakeout;
+import ltd.newbee.mall.util.PageQueryUtil;
 
 public interface TabelogMapper {
 
@@ -93,5 +95,11 @@ public interface TabelogMapper {
    	  long getCountOfMenuLunch(long restaurantId);
       // Count Of Menu Photo
    	  long getCountOfMenuPhoto(long restaurantId);
-	  
+      // Menu Photo Paging
+      List<RestaurantMenuPhoto> findMenuPhotoList(PageQueryUtil pageUtil);
+	  int getTotalMenuPhoto(PageQueryUtil pageUtil);
+   	  
+   	  /* -------------------------------- Detail Page (Photo) -------------------------------- */
+   	  // 公式写真
+   	  public ArrayList<RestaurantPhoto> getRstPhoto(long restaurantId);
 }
