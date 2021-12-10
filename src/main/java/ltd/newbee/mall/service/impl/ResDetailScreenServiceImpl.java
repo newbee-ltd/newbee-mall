@@ -21,6 +21,7 @@ import ltd.newbee.mall.entity.ResDetailMenuPhoto;
 import ltd.newbee.mall.entity.ResDetailPhoto;
 import ltd.newbee.mall.entity.ResDetailReserve;
 import ltd.newbee.mall.entity.ResDetailReview;
+import ltd.newbee.mall.entity.ResDetailScore;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
@@ -92,5 +93,13 @@ public class ResDetailScreenServiceImpl implements ResDetailScreenService {
         return pageInquiryResult;
     }
 
+	@Override
+    public List<ResDetailScore> getScoreDistribute(long restaurantId){
+		return resDetailScreenMapper.getScoreDistribute(restaurantId);
+	}
+	@Override
+    public List<ResDetailScore> getItemAvgScore(long restaurantId) {
+		return resDetailScreenMapper.getItemAvgScore(restaurantId);
+	}
 	
 }

@@ -142,11 +142,120 @@
 		order by help_num desc
 		<if test="start!=null and limit!=null">
 			limit #{start},#{limit}
-		</if>;
+		</if>
 	</select>
+
 	<select id="getMenuPhotoCount" parameterType="Map"
 		resultType="int">
-		select count(photo_id) as menu_photo_count from restaurant_menu_photo where
+		select count(photo_id) as menu_photo_count from
+		restaurant_menu_photo where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT};
+	</select>
+
+
+	<select id="getScoreDistribute" parameterType="Long"
+		resultType="ltd.newbee.mall.entity.ResDetailScore">
+		SELECT
+		5.0 as star,'5.0' as distribute,COUNT(IF(score_total
+		=5.0,TRUE,NULL)) as
+		score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		4.5 as
+		star,'4.5 - 4.9' as
+		distribute,COUNT(IF(score_total &lt; 5.0 AND
+		score_total
+		&gt;=4.5,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		4.0 as
+		star,'4.0 - 4.4' as
+		distribute,COUNT(IF(score_total &lt; 4.5 AND
+		score_total &gt;=
+		4.0,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		3.5 as
+		star,'3.5 - 3.9' as
+		distribute,COUNT(IF(score_total &lt; 4.0 AND
+		score_total &gt;=
+		3.5,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		3.0 as
+		star,'3.0 - 3.4' as
+		distribute,COUNT(IF(score_total &lt; 3.5 AND
+		score_total &gt;=
+		3.0,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		2.5 as
+		star,'2.5 - 2.9' as
+		distribute,COUNT(IF(score_total &lt; 3.0 AND
+		score_total &gt;=
+		2.5,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		2.0 as
+		star,'2.0 - 2.4' as
+		distribute,COUNT(IF(score_total &lt; 2.5 AND
+		score_total &gt;=
+		2.0,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		1.5 as
+		star,'1.5 - 1.9' as
+		distribute,COUNT(IF(score_total &lt; 2.0 AND
+		score_total &gt;=
+		1.5,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT}
+		union
+		SELECT
+		1.0 as
+		star,'1.0 - 1.4' as
+		distribute,COUNT(IF(score_total &lt; 1.5 AND
+		score_total &gt;=
+		1.0,TRUE,NULL)) as score_num
+		FROM restaurant_review
+		where
+		restaurant_id=#{restaurantId,jdbcType=BIGINT};
+	</select>
+
+	<select id="getItemAvgScore" parameterType="Long"
+		resultType="ltd.newbee.mall.entity.ResDetailScore">
+		SELECT
+		round(AVG(score_taste),2) AS avg_taste,
+		round(AVG(score_service),2) AS avg_service,
+		round(AVG(score_atmosphere),2) AS avg_atmosphere,
+		round(AVG(score_cost),2) AS avg_cost,
+		round(AVG(score_drink),2) AS
+		avg_drink,
+		count(review_id)  as total_review
+		FROM restaurant_review
+		where
 		restaurant_id=#{restaurantId,jdbcType=BIGINT};
 	</select>
 

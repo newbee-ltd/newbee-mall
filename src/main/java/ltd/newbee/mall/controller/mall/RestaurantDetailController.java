@@ -31,6 +31,7 @@ import ltd.newbee.mall.entity.ResDetailFeature;
 import ltd.newbee.mall.entity.ResDetailPhoto;
 import ltd.newbee.mall.entity.ResDetailReserve;
 import ltd.newbee.mall.entity.ResDetailReview;
+import ltd.newbee.mall.entity.ResDetailScore;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.service.ResDetailScreenService;
@@ -94,6 +95,11 @@ public class RestaurantDetailController {
 		PageInquiryUtil pageUtil = new PageInquiryUtil(params);
 		PageInquiryResult pageResult = resDetailScreenService.getMenuPhoto(pageUtil);
 		request.setAttribute("MPpage", pageResult);
+		
+		List<ResDetailScore> scoreDistribute =resDetailScreenService.getScoreDistribute(restaurantId);
+		List<ResDetailScore> itemAvgScore=resDetailScreenService.getItemAvgScore(restaurantId);
+		request.setAttribute("scoreDist", scoreDistribute);
+		request.setAttribute("itemAvg", itemAvgScore);
 
 		request.setAttribute("flag", flag);
 		request.setAttribute("flag1", flag1);

@@ -8,6 +8,7 @@ import ltd.newbee.mall.entity.ResDetailMenuPhoto;
 import ltd.newbee.mall.entity.ResDetailPhoto;
 import ltd.newbee.mall.entity.ResDetailReserve;
 import ltd.newbee.mall.entity.ResDetailReview;
+import ltd.newbee.mall.entity.ResDetailScore;
 import ltd.newbee.mall.entity.ResDetailScreen;
 import ltd.newbee.mall.entity.ResDetailSeat;
 import ltd.newbee.mall.util.PageInquiryUtil;
@@ -38,4 +39,7 @@ public interface ResDetailScreenMapper {
 
 	int getMenuPhotoCount(PageInquiryUtil pageUtil);
 	List<ResDetailMenuPhoto> getMenuPhoto(PageInquiryUtil pageUtil);
+	
+	List<ResDetailScore> getScoreDistribute(long restaurantId);
+	List<ResDetailScore> getItemAvgScore(long restaurantId);
 }

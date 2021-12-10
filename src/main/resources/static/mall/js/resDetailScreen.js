@@ -413,6 +413,27 @@ function reserveSeatOnly() {
 }
 
 $('#menu-navi2').css('display') == 'block' ? $('#menu-navi').css({ 'display': 'none' }) : $('#menu-navi').css({ 'display': 'display' });
+$('#photo-navi2').css('display') == 'block' ? $('#photo-navi').css({ 'display': 'none' }) : $('#photo-navi').css({ 'display': 'display' });
+$('#review-navi2').css('display') == 'block' ? $('#review-navi').css({ 'display': 'none' }) : $('#review-navi').css({ 'display': 'display' });
+$('#map-navi2').css('display') == 'block' ? $('#map-navi').css({ 'display': 'none' }) : $('#map-navi').css({ 'display': 'display' });
+
+
+
+$('.rstdtl-photo__tab-item a').each(function(k, v) {
+	if (v.href == window.location.href) {
+		$(v).find('strong').addClass('rstdtl-photo-status-on');
+
+	} else {
+		$(v).find('strong').addClass('rstdtl-photo-status-off');
+	}
+});
+if (window.location.href == 'http://localhost:8081/restaurant/detail/10001/photo') {
+	$('.rstdtl-photo__tab-item a').eq(0).find('strong').addClass('rstdtl-photo-status-on');
+	$('#pgoto-all-all').css({ 'display': 'block' });
+}
+if (window.location.href == 'http://localhost:8081/restaurant/detail/10001/photo/?mode=all') {
+	$('#pgoto-all-all').css({ 'display': 'block' });
+}
 
 window.onscroll = function() { naviSticky() };
 var navbar = document.getElementById("main-navi");
@@ -532,20 +553,20 @@ function pageClick(that) {
 	menuPhotoPage();
 }
 
-Date.prototype.Format = function (fmt) { //author: meizz 
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
+Date.prototype.Format = function(fmt) { //author: meizz 
+	var o = {
+		"M+": this.getMonth() + 1, //月份 
+		"d+": this.getDate(), //日 
+		"h+": this.getHours(), //小时 
+		"m+": this.getMinutes(), //分 
+		"s+": this.getSeconds(), //秒 
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		"S": this.getMilliseconds() //毫秒 
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o)
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
 }
 
 function menuPhotoPage() {
