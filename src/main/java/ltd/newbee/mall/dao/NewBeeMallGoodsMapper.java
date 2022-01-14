@@ -8,12 +8,17 @@
  */
 package ltd.newbee.mall.dao;
 
+import ltd.newbee.mall.entity.GoodsImageEntity;
+import ltd.newbee.mall.entity.GoodsInfo;
+import ltd.newbee.mall.entity.GoodsPageEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.StockNumDTO;
 import ltd.newbee.mall.util.PageQueryUtil;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface NewBeeMallGoodsMapper {
     int deleteByPrimaryKey(Long goodsId);
@@ -47,5 +52,11 @@ public interface NewBeeMallGoodsMapper {
     int updateStockNum(@Param("stockNumDTOS") List<StockNumDTO> stockNumDTOS);
 
     int batchUpdateSellStatus(@Param("orderIds")Long[] orderIds,@Param("sellStatus") int sellStatus);
+    
+    GoodsInfo getGoodsInfoByPK(Long id);
+    
+    ArrayList<GoodsImageEntity> getGoodsImageByPk();
+    
+    ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>map);
 
 }

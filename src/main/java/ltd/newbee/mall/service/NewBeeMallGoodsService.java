@@ -8,11 +8,16 @@
  */
 package ltd.newbee.mall.service;
 
+import ltd.newbee.mall.entity.GoodsImageEntity;
+import ltd.newbee.mall.entity.GoodsInfo;
+import ltd.newbee.mall.entity.GoodsPageEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface NewBeeMallGoodsService {
     /**
@@ -70,4 +75,11 @@ public interface NewBeeMallGoodsService {
      * @return
      */
     PageResult searchNewBeeMallGoods(PageQueryUtil pageUtil);
+    
+    GoodsInfo getGoodsInfoByPK(Long id);
+    
+    ArrayList<GoodsImageEntity> getGoodsImageByPk(Long id);
+    
+    ArrayList<NewBeeMallGoods>getGoodsPage(String keyword,int pageNo,int categoryId);
+
 }
