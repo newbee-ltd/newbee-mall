@@ -11,6 +11,8 @@ package ltd.newbee.mall.dao;
 import ltd.newbee.mall.entity.GoodsImageEntity;
 import ltd.newbee.mall.entity.GoodsInfo;
 import ltd.newbee.mall.entity.GoodsPageEntity;
+import ltd.newbee.mall.entity.GoodsQa;
+import ltd.newbee.mall.entity.GoodsReview;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.StockNumDTO;
 import ltd.newbee.mall.util.PageQueryUtil;
@@ -57,6 +59,16 @@ public interface NewBeeMallGoodsMapper {
     
     ArrayList<GoodsImageEntity> getGoodsImageByPk();
     
-    ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>map);
+    ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>params2);
+    
+    ArrayList<GoodsQa> getGoodsQa(String orderBy);
+    
+    ArrayList<GoodsReview> getGoodsReview(Map<String,Object>params);
+    
+    Double getRateAvg(Long goodsId);
+    
+    Long getReviewCount(Long goodsId);
+    
+    Long [] getRateCount(Long goodsId);
 
 }
