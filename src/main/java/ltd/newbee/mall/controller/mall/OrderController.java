@@ -44,9 +44,6 @@ public class OrderController {
     public String orderDetailPage(HttpServletRequest request, @PathVariable("orderNo") String orderNo, HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         NewBeeMallOrderDetailVO orderDetailVO = newBeeMallOrderService.getOrderDetailByOrderNo(orderNo, user.getUserId());
-        if (orderDetailVO == null) {
-            return "error/error_5xx";
-        }
         request.setAttribute("orderDetailVO", orderDetailVO);
         return "mall/order-detail";
     }

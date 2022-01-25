@@ -9,10 +9,9 @@
 package ltd.newbee.mall.controller.admin;
 
 import ltd.newbee.mall.common.IndexConfigTypeEnum;
+import ltd.newbee.mall.common.NewBeeMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
-import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.IndexConfig;
-import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
@@ -43,7 +42,7 @@ public class NewBeeMallGoodsIndexConfigController {
     public String indexConfigsPage(HttpServletRequest request, @RequestParam("configType") int configType) {
         IndexConfigTypeEnum indexConfigTypeEnum = IndexConfigTypeEnum.getIndexConfigTypeEnumByType(configType);
         if (indexConfigTypeEnum.equals(IndexConfigTypeEnum.DEFAULT)) {
-            return "error/error_5xx";
+            NewBeeMallException.fail("参数异常");
         }
 
         request.setAttribute("path", indexConfigTypeEnum.getName());

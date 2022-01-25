@@ -73,12 +73,9 @@ public class GoodsController {
     @GetMapping("/goods/detail/{goodsId}")
     public String detailPage(@PathVariable("goodsId") Long goodsId, HttpServletRequest request) {
         if (goodsId < 1) {
-            return "error/error_5xx";
+            NewBeeMallException.fail("参数异常");
         }
         NewBeeMallGoods goods = newBeeMallGoodsService.getNewBeeMallGoodsById(goodsId);
-        if (goods == null) {
-            NewBeeMallException.fail(ServiceResultEnum.GOODS_NOT_EXIST.getResult());
-        }
         if (Constants.SELL_STATUS_UP != goods.getGoodsSellStatus()) {
             NewBeeMallException.fail(ServiceResultEnum.GOODS_PUT_DOWN.getResult());
         }
