@@ -18,6 +18,8 @@ import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.SearchPageParams;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -65,7 +69,10 @@ public class GoodsController {
         //搜索上架状态下的商品
         params.put("goodsSellStatus", Constants.SELL_STATUS_UP);
         //封装商品数据
+        
         PageQueryUtil pageUtil = new PageQueryUtil(params);
+        
+        
         request.setAttribute("pageResult", newBeeMallGoodsService.searchNewBeeMallGoods(pageUtil));
         return "mall/search";
     }
