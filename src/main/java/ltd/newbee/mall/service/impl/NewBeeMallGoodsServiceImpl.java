@@ -17,10 +17,16 @@ import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.GoodsImageEntity;
 import ltd.newbee.mall.entity.GoodsInfo;
+
 import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.entity.GoodsReview;
 import ltd.newbee.mall.entity.InsertGoodsReview;
 import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
+
+import ltd.newbee.mall.entity.GoodsPageEntity;
+import ltd.newbee.mall.entity.GoodsQa;
+import ltd.newbee.mall.entity.GoodsReview;
+
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.RecentChkHistory;
 import ltd.newbee.mall.entity.SearchHistoryEntity;
@@ -28,6 +34,9 @@ import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
+
+import ltd.newbee.mall.util.SearchPageParams;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -155,10 +164,11 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 		}
 
 	@Override
+
 	public ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy) {
 		
 		return goodsMapper.getGoodsQa(goodsId,orderBy);
-	}
+    }
 
 	@Override
 	public GoodsQa getGoodsQaPage(Long count2) {
@@ -190,6 +200,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 		return goodsMapper.getRateCount(goodsId);
 	}
 
+
 	@Override
 	public int insertGoodsReview(InsertGoodsReview review) {
 		
@@ -219,6 +230,8 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 		
 		return goodsMapper.getRecentChkHistory();
 	}
+
+
 
 
 

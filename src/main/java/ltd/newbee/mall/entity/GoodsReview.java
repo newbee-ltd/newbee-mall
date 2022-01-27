@@ -3,6 +3,7 @@ package ltd.newbee.mall.entity;
 public class GoodsReview {
 
 
+
 	private int star;
 
 	private String userId;
@@ -16,6 +17,7 @@ public class GoodsReview {
 	private String review;
 
 	private String image;
+
 
 	public String getImage() {
 		return image;
@@ -79,5 +81,6 @@ public class GoodsReview {
 				+ reviewDate + ", goodsId=" + goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review
 				+ ", image=" + image + "]";
 	}
+
 
 }

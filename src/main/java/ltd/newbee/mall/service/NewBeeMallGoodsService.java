@@ -13,6 +13,7 @@ import ltd.newbee.mall.entity.GoodsInfo;
 import ltd.newbee.mall.entity.GoodsPageEntity;
 import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.entity.GoodsReview;
+
 import ltd.newbee.mall.entity.InsertGoodsReview;
 import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
@@ -89,7 +90,11 @@ public interface NewBeeMallGoodsService {
     
     ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>params2);
     
+
     ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy);
+
+//    ArrayList<GoodsQa> getGoodsQa(String orderBy);
+
     
     GoodsQa getGoodsQaPage(Long count2);
     
@@ -100,6 +105,7 @@ public interface NewBeeMallGoodsService {
     Long getReviewCount(Long goodsId);
     
     Long [] getRateCount(Long goodsId);
+
     
     int insertGoodsReview(InsertGoodsReview review);
     

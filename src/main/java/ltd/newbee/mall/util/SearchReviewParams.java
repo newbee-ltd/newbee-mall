@@ -6,6 +6,7 @@ import java.util.Map;
 public class SearchReviewParams extends LinkedHashMap<String, Object> {
 	private long reviewMore;
 	
+
 	private long goodsId;
 	
 	public long getGoodsId() {
@@ -14,6 +15,7 @@ public class SearchReviewParams extends LinkedHashMap<String, Object> {
 	public void setGoodsId(long goodsId) {
 		this.goodsId = goodsId;
 	}
+
 	private long reviewType;
 	
 	private int reviewRate;
@@ -21,6 +23,7 @@ public class SearchReviewParams extends LinkedHashMap<String, Object> {
         this.put("reviewMore", reviewMore);
         this.put("reviewType", reviewType);
         this.put("reviewRate", reviewRate);
+
         this.put("goodsId", goodsId);
 	}
 	public long getReviewMore() {

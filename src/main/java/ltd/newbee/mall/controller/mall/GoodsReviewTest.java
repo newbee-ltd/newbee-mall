@@ -7,7 +7,9 @@
  * 版权所有，侵权必究！
  */
 package ltd.newbee.mall.controller.mall;
+
 import static org.junit.Assert.assertArrayEquals;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,6 +23,7 @@ import javax.annotation.Resource;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.CollectionUtils;
 
@@ -31,8 +34,12 @@ import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.SearchPageParams;
 
-@SpringBootTest
 
+
+
+
+
+@SpringBootTest
 
 public class GoodsReviewTest {
 	//在controller里导入service
@@ -41,6 +48,7 @@ public class GoodsReviewTest {
 	
 	@Test
 	public void testGoodsReview() {	
+
 		
 		//显示商品10700的五星评价的前三条
 		Map<String,Object>paramsResult1=new HashMap<String,Object>();        		
@@ -184,6 +192,26 @@ public class GoodsReviewTest {
 		Long[] myList=newBeeMallGoodsService.getRateCount(10700l);
 		String arr=Arrays.toString(myList);
 		System.out.println("评分为5，4，3，2，1的人数分别为"+arr);
+
+		Map<String,Object>params2=new HashMap<String,Object>();        		
+        params2.put("reviewMore", 0);
+        params2.put("reviewType", 1);
+        params2.put("reviewRate", 5);
+
+		ArrayList<GoodsReview>list=newBeeMallGoodsService.getGoodsReview(params2);
+		System.out.println(list);
+		
+		
+//		double avg=newBeeMallGoodsService.getRateAvg(10700l);
+//		System.out.println(avg);
+//		
+//		long countReview=newBeeMallGoodsService.getReviewCount(10700l);
+//		assertEquals(6,countReview);
+//		
+//		Long[] myList=newBeeMallGoodsService.getRateCount(10700l);
+//		String arr=Arrays.toString(myList);
+		System.out.println(arr);
+
 
 }
 
