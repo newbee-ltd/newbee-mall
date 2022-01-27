@@ -9,6 +9,7 @@
 package ltd.newbee.mall.service.impl;
 
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
+
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallSearchGoodsVO;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
@@ -16,12 +17,18 @@ import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.GoodsImageEntity;
 import ltd.newbee.mall.entity.GoodsInfo;
-import ltd.newbee.mall.entity.GoodsPageEntity;
+import ltd.newbee.mall.entity.GoodsQa;
+import ltd.newbee.mall.entity.GoodsReview;
+import ltd.newbee.mall.entity.InsertGoodsReview;
+import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.RecentChkHistory;
+import ltd.newbee.mall.entity.SearchHistoryEntity;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -142,15 +149,80 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	}
 
 	@Override
-	public ArrayList<NewBeeMallGoods> getGoodsPage(String keyword, int pageNo, int categoryId) {
-		int start=(pageNo-1)*3;
-			Map<String,Object>paraMap=new HashMap<String,Object>();
-			paraMap.put("keyword",keyword);
-			paraMap.put("start",start);
-			paraMap.put("categoryId",categoryId);
-			return goodsMapper.getGoodsPage(paraMap);
+	public ArrayList<NewBeeMallGoods> getGoodsPage(Map<String,Object>params2) {
+
+			return goodsMapper.getGoodsPage(params2);
 		}
-;
+
+	@Override
+	public ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy) {
+		
+		return goodsMapper.getGoodsQa(goodsId,orderBy);
+	}
+
+	@Override
+	public GoodsQa getGoodsQaPage(Long count2) {
+		
+		return getGoodsQaPage(count2);
+	}
+
+	@Override
+	public ArrayList<GoodsReview> getGoodsReview(Map<String, Object> params) {
+		
+		return goodsMapper.getGoodsReview(params);
+	}
+
+	@Override
+	public Double getRateAvg(Long goodsId) {
+		
+		return goodsMapper.getRateAvg(goodsId);
+	}
+
+	@Override
+	public Long getReviewCount(Long goodsId) {
+	
+		return goodsMapper.getReviewCount(goodsId);
+	}
+
+	@Override
+	public Long[] getRateCount(Long goodsId) {
+		
+		return goodsMapper.getRateCount(goodsId);
+	}
+
+	@Override
+	public int insertGoodsReview(InsertGoodsReview review) {
+		
+		return goodsMapper.insertGoodsReview(review);
+	}
+
+	@Override
+	public ArrayList<String> getSearchHistory() {
+	
+		return goodsMapper.getSearchHistory();
+	}
+
+	@Override
+	public int insertSearchHistory(InsertSearchHistoryEntity history) {
+		
+		return goodsMapper.insertSearchHistory(history);
+	}
+
+	@Override
+	public ArrayList<String> getGoodsName(String keyword) {
+		
+		return goodsMapper.getGoodsName(keyword);
+	}
+
+	@Override
+	public ArrayList<RecentChkHistory> getRecentChkHistory() {
+		
+		return goodsMapper.getRecentChkHistory();
+	}
+
+
+
+
 	}
 	
 

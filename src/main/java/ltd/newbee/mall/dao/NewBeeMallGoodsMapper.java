@@ -11,7 +11,13 @@ package ltd.newbee.mall.dao;
 import ltd.newbee.mall.entity.GoodsImageEntity;
 import ltd.newbee.mall.entity.GoodsInfo;
 import ltd.newbee.mall.entity.GoodsPageEntity;
+import ltd.newbee.mall.entity.GoodsQa;
+import ltd.newbee.mall.entity.GoodsReview;
+import ltd.newbee.mall.entity.InsertGoodsReview;
+import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
+import ltd.newbee.mall.entity.RecentChkHistory;
+import ltd.newbee.mall.entity.SearchHistoryEntity;
 import ltd.newbee.mall.entity.StockNumDTO;
 import ltd.newbee.mall.util.PageQueryUtil;
 import org.apache.ibatis.annotations.Param;
@@ -57,6 +63,26 @@ public interface NewBeeMallGoodsMapper {
     
     ArrayList<GoodsImageEntity> getGoodsImageByPk();
     
-    ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>map);
+    ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>params2);
+    
+    ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy);
+    
+    ArrayList<GoodsReview> getGoodsReview(Map<String,Object>params);
+    
+    Double getRateAvg(Long goodsId);
+    
+    Long getReviewCount(Long goodsId);
+    
+    Long [] getRateCount(Long goodsId);
+    
+    int insertGoodsReview(InsertGoodsReview review);
+    
+    ArrayList<String> getSearchHistory();
+    
+    int insertSearchHistory(InsertSearchHistoryEntity history);
+    
+    ArrayList<String> getGoodsName(String keyword);
+    
+    ArrayList<RecentChkHistory> getRecentChkHistory();
 
 }

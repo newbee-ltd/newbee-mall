@@ -470,14 +470,14 @@
 		#{goodsId,jdbcType=BIGINT}
 	</update>
 	<select id="getGoodsInfoByPK" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsInfo">
-	SELECT id,name,size,pa,weight,housyou,sizeOfPackage
-	FROM GoodsInfo where id=#{id,jdbcType=BIGINT}
+	SELECT goods_id,name,size,pa,weight,housyou,sizeOfPackage
+	FROM GoodsInfo where goods_id=#{goodsId,jdbcType=BIGINT}
 	</select>
 	
 	
 	<select id="getGoodsImageByPk" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsImageEntity">
-	select goodsId,imageUrl
-	FROM goodsImage 
+	select goods_id,image_url
+	FROM goods_image where goods_id=#{goodsId,jdbcType=BIGINT}
 	</select>
 	
 	
@@ -491,14 +491,157 @@
 	from tb_newbee_mall_goods_info
 	<where>
 	<if test="keyword!=null and keyword!=''">
-	 and goods_name like CONCAT('%',#{keyword},'%')
-	 </if>
-	<if test="start!=null and limit!=null">
-	and limit #{start},3
+	and goods_name like CONCAT('%',#{keyword},'%')
 	</if>
-	<if test="cat!=null and cat!=''">
+	<if test="categoryId!=null and categoryId!=''">
 	and goods_category_id=#{cat,jdbcType=INTEGER}
 	</if>
 	</where>
+	<if test="orderBy!=null and orderBy!=''">
+            <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 按照发布时间倒序排列 -->
+                    order by goods_id desc
+                </when>
+                <when test="orderBy == 'price'">
+                    <!-- 按照售价从小到大排列 -->
+                    order by selling_price asc
+                </when>
+                <otherwise>
+                    <!-- 默认按照库存数量从大到小排列 -->
+                    order by stock_num desc
+                </otherwise>
+            </choose>
+        </if>
+	<if test="start!=null and limit!=null">
+	and limit #{start},3
+	</if>
+	</select>
+	
+    <select id="getGoodsQa" parameterType="long" resultType="ltd.newbee.mall.entity.GoodsQa">
+        select  a.goods_id,a.qa_id,question,question_date,answer,answer_date,count(user_id) as count
+            from goods_qa a join qa_user b on a.goods_id= b.goods_id and a.qa_id = b.qa_id
+      <where>
+      and  a.goods_id = #{goodsId,jdbcType=BIGINT}
+      </where>
+               group by goods_id,qa_id 
+
+        <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 按照发布时间倒序排列 -->
+                 order by question_date desc
+                </when>
+                <when test="orderBy == 'like'">
+                    <!-- 按照点赞数从小到大排列 -->
+                 order by count desc;
+                </when>
+                <otherwise>
+                 order by question_date desc
+                </otherwise>
+         </choose>
+    </select>
+	
+	<select id="getGoodsReview" parameterType="Map" resultType="ltd.newbee.mall.entity.GoodsReview">
+	select a.review_title,a.review,star,user_id,review_date,a.goods_id,
+	image,count(user_id2)as count 
+	from goods_review a left join review_user b 
+	on a.review_title=b.review_title 
+	and a.review=b.review and a.goods_id=b.goods_id
+	 <!-- <where>
+        and a.goods_id = #{goodsId,jdbcType=BIGINT}
+     </where>
+	<if test="reviewType == 1">
+      按照星级显示
+  	 <where>
+  	 	and a.star =　#{reviewRate,jdbcType=BIGINT}
+  	 </where>
+     </if> -->
+     <where>
+       <if test="reviewType == 1">
+        star = #{reviewRate}
+       </if>
+       and a.goods_id = #{goodsId}
+      </where>
+       group by review_title,review
+	   order by star desc,count desc 
+     <choose>
+                <when test="reviewMore == 0">
+                    <!-- 先显示前三条 -->
+                    limit 0,3
+                </when>
+                 <when test="reviewMore == 1">
+                    <!-- 交互后显示 -->
+                    limit 3,999999
+                </when>            
+            </choose>           
+            
+     </select>
+
+     <select id="getRateAvg" parameterType="Long" resultType="double">
+     select AVG(star) as rate_avg from goods_review
+                <where>
+                goods_id = #{goodsId,jdbcType=BIGINT}
+                </where>
+     </select>
+     
+     <select id="getReviewCount" parameterType="Long" resultType="Long">
+     select  count(review)as count1 from goods_review
+                <where>
+                goods_id = #{goodsId,jdbcType=BIGINT}
+                </where>
+     </select>
+     <select id="getRateCount" parameterType="Long" resultType="Long">
+     select  count(review) as count2 from goods_review 
+                <where>
+                goods_id = #{goodsId,jdbcType=BIGINT}
+                </where>
+                group by star order by star desc
+     </select>
+     
+     <insert id="insertGoodsReview"
+		parameterType="ltd.newbee.mall.entity.InsertGoodsReview">
+		insert into goods_review (star,
+		user_id,review_date,goods_id,review_title,review,image
+		)
+		values (#{star,jdbcType=BIGINT},
+		#{user_id,jdbcType=VARCHAR},
+		#{review_date,jdbcType=VARCHAR},
+		#{goods_id,jdbcType=BIGINT}, 
+		#{review_title,jdbcType=VARCHAR},
+		#{review,jdbcType=VARCHAR},
+		#{image,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getSearchHistory" resultType="String">
+	select keyword from search_history
+	group by keyword order by count(keyword) desc,date_time desc
+	</select>
+	
+	<insert id="insertSearchHistory"
+		parameterType="ltd.newbee.mall.entity.InsertSearchHistoryEntity">
+		insert into search_history (user_id,date_time,keyword
+		)
+		values (#{userId,jdbcType=BIGINT},
+		#{dateTime,jdbcType=VARCHAR},
+		#{keyword,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getGoodsName" parameterType="String" resultType="String">
+	select goods_name from tb_newbee_mall_goods_info 
+	<where>
+	<if test="keyword!=null and keyword!=''">
+	and goods_name like CONCAT('%',#{keyword},'%')
+	</if>
+	</where>
+	group by goods_name limit 0,5
+	</select>
+	
+	<select id="getRecentChkHistory" resultType="ltd.newbee.mall.entity.RecentChkHistory">
+	select goods_name,goods_cover_img,original_price,selling_price
+	from recent_chk_goods a 
+	join tb_newbee_mall_goods_info b on a.goods_id=b.goods_id
+	group by a.goods_id order by count(a.goods_id) desc,date_time desc
 	</select>
 </mapper>
