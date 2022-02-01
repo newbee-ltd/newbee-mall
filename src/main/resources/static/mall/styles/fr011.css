@@ -1185,7 +1185,7 @@ _:-ms-lang(x)::-ms-backdrop, .swiper-lazy-preloader::after {
     height: 1em;
     display: inline-block;
     vertical-align: middle;
-    background: url('/ec/_ui/responsive/common/images/icon.svg?ts=20200115') no-repeat;
+    background: url('https://www.nitori-net.jp/ec/_ui/responsive/common/images/icon.svg?ts=20200115') no-repeat;
     background-size: 79em 79em;
     line-height: 1;
     letter-spacing: 0;
@@ -1274,7 +1274,8 @@ _:-ms-lang(x)::-ms-backdrop, .swiper-lazy-preloader::after {
 
 #ZVCQA i.zv-cqa-arrow-right:before, #ZVCQA a.zv-cqa-next:before {
     font-size: 14px;
-    content: '\EA05';
+    font-family: 'Material Icons';
+    content: '\e409';
 }
 
 #ZVCQA i.zv-cqa-arrow-left:before, #ZVCQA a.zv-cqa-previous:before {

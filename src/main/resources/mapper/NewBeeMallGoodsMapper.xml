@@ -477,11 +477,9 @@
 	
 	<select id="getGoodsImageByPk" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsImageEntity">
 	select goods_id,image_url
-<<<<<<< HEAD
+
 	FROM goods_image where goods_id=#{goodsId,jdbcType=BIGINT}
-=======
-	FROM goods_image where goods_id=#{id,jdbcType=BIGINT}
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+
 	</select>
 	
 	
@@ -522,7 +520,7 @@
 	</if>
 	</select>
 	
-<<<<<<< HEAD
+
     <select id="getGoodsQa" parameterType="long" resultType="ltd.newbee.mall.entity.GoodsQa">
         select  a.goods_id,a.qa_id,question,question_date,answer,answer_date,count(user_id) as count
             from goods_qa a join qa_user b on a.goods_id= b.goods_id and a.qa_id = b.qa_id
@@ -569,7 +567,7 @@
       </where>
        group by review_title,review
 	   order by star desc,count desc 
-=======
+<!-- =======
 	<select id="getGoodsQa" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsQa">
 	select
 	a.goods_id,b.qa_id,question, question_date,answer,answer_date,count(user_id)as count from goods_qa a
@@ -578,11 +576,11 @@ group by goods_id,qa_id
 	<if test="orderBy!=null and orderBy!=''">
 	<choose>
                 <when test="orderBy == 'like'">
-                    <!-- 按照点赞次数由多到少排列 -->
+                    按照点赞次数由多到少排列
                     order by count desc
                 </when>
                  <otherwise>
-                    <!-- 按照发布时间倒序排列 -->
+                    按照发布时间倒序排列
                     order by question_date desc
                  </otherwise>
             </choose>
@@ -602,7 +600,7 @@ group by goods_id,qa_id
                 <where>
                  a.goods_id = #{goodsId,jdbcType=BIGINT}
                  </where>
-                <!-- 按照星级显示 -->
+                按照星级显示
                 <if test="reviewRate == 5">
                 <where>
                 star=5
@@ -630,7 +628,7 @@ group by goods_id,qa_id
                 </if>
                 </if>
                 group by review_title,review order by star desc,count desc
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+>>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a -->
      <choose>
                 <when test="reviewMore == 0">
                     <!-- 先显示前三条 -->
@@ -644,42 +642,42 @@ group by goods_id,qa_id
             
      </select>
 
-<<<<<<< HEAD
+
      <select id="getRateAvg" parameterType="Long" resultType="double">
      select AVG(star) as rate_avg from goods_review
-=======
+<!-- =======
      <select id="getGoodsReview" parameterType="Long" resultType="double">
      select AVG(star) from goods_review
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+>>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a -->
                 <where>
                 goods_id = #{goodsId,jdbcType=BIGINT}
                 </where>
      </select>
      
-<<<<<<< HEAD
+
      <select id="getReviewCount" parameterType="Long" resultType="Long">
      select  count(review)as count1 from goods_review
-=======
+<!-- =======
      <select id="getGoodsReview" parameterType="Long" resultType="Long">
      select  count(review) from goods_review
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+>>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a -->
                 <where>
                 goods_id = #{goodsId,jdbcType=BIGINT}
                 </where>
      </select>
-<<<<<<< HEAD
+
      <select id="getRateCount" parameterType="Long" resultType="Long">
      select  count(review) as count2 from goods_review 
-=======
+<!-- =======
      <select id="getGoodsReviewCount" parameterType="Long" resultType="Long">
      select  star,count(review) from goods_review 
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+>>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a -->
                 <where>
                 goods_id = #{goodsId,jdbcType=BIGINT}
                 </where>
                 group by star order by star desc
      </select>
-<<<<<<< HEAD
+
      
      <insert id="insertGoodsReview"
 		parameterType="ltd.newbee.mall.entity.InsertGoodsReview">
@@ -728,6 +726,4 @@ group by goods_id,qa_id
 	group by a.goods_id order by count(a.goods_id) desc,date_time desc
 	</select>
 </mapper>
-=======
-</mapper>
->>>>>>> 2df8497344dca5199d56a7063ea99edae0cff42a
+

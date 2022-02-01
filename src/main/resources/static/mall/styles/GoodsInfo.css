@@ -1937,7 +1937,8 @@ button.swiper-pagination-bullet {
 }
 
 .g-i-arrow-d::before {
-    content: '\EA02';
+    font-family: 'Material Icons';
+    content: '\e5cf';
 }
 
 .g-i-arrow-d2::before {
@@ -2078,6 +2079,10 @@ button.swiper-pagination-bullet {
     background-position: -13em -13em;
 }
 
+i.g-s.g-s-comment {
+    background-position: -13em -13em;
+}
+
 .g-s-comment-g {
     background-position: -14em -14em;
 }
@@ -2150,7 +2155,7 @@ button.swiper-pagination-bullet {
     background-position: -31em -31em;
 }
 
-.g-s-like-g {
+i.g-s.g-s-like-g {
     background-position: -32em -32em;
 }
 
@@ -2341,6 +2346,11 @@ button.swiper-pagination-bullet {
 html {
     font-size: 10px;
     height: 100%;
+}
+
+div#n-review-btn {
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 *, *::before, *::after {
