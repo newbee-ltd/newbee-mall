@@ -1,0 +1,283 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="mall/header::head-fragment('NewBee商城-订单详情','order-detail')">
+</head>
+<link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+<body>
+<header th:replace="mall/header::header-fragment"></header>
+<!-- nav -->
+<nav th:replace="mall/header::nav-fragment"></nav>
+
+<!-- personal -->
+<div id="personal">
+    <div class="self-info center">
+
+        <!-- sidebar -->
+        <div th:replace="mall/personal-sidebar::sidebar-fragment"></div>
+
+        <div class="intro fr">
+            <div class="uc-box uc-main-box">
+                <div class="uc-content-box order-view-box">
+                    <div class="box-hd">
+                        <h1 class="title">订单详情
+                            <small>请谨防钓鱼链接或诈骗电话，<a href="##">了解更多&gt;</a>
+                            </small>
+                        </h1>
+                        <div class="more clearfix">
+                            <h2 class="subtitle">订单号：
+                                <th:block th:text="${orderDetailVO.orderNo}"></th:block>
+                                <span class="tag tag-subsidy"></span>
+                            </h2>
+                            <div class="actions">
+                                <input type="hidden" id="orderNoValue" th:value="${orderDetailVO.orderNo}">
+                                <th:block th:if="${orderDetailVO.orderStatus>0 and orderDetailVO.orderStatus<3}">
+                                    <a onclick="cancelOrder()"
+                                       class="btn btn-small btn-line-gray" title="取消订单">取消订单</a>
+                                </th:block>
+                                <th:block th:if="${orderDetailVO.orderStatus==0}">
+                                    <a onclick="payOrder()"
+                                       class="btn btn-small btn-primary" title="去支付">去支付</a>
+                                </th:block>
+                                <th:block th:if="${orderDetailVO.orderStatus==3}">
+                                    <a onclick="finishOrder()"
+                                       class="btn btn-small btn-primary" title="确认收货">确认收货</a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-bd">
+                        <div class="uc-order-item uc-order-item-pay">
+                            <div class="order-detail">
+
+                                <div class="order-summary">
+                                    <div class="order-status" th:text="${orderDetailVO.orderStatusString}">
+                                        newbee
+                                    </div>
+                                    <div class="order-desc">
+                                        <th:block th:if="${orderDetailVO.orderStatus==0}">请尽快完成支付哦~</th:block>
+                                        <th:block th:if="${orderDetailVO.orderStatus==1}">newbee商城订单确认中~</th:block>
+                                        <th:block th:if="${orderDetailVO.orderStatus==2}">newbee仓库正在紧急配货中~</th:block>
+                                        <th:block th:if="${orderDetailVO.orderStatus==3}">订单已出库正在快马加鞭向您奔来~</th:block>
+                                        <th:block th:if="${orderDetailVO.orderStatus==4}">交易成功，感谢您对newbee商城的支持~
+                                        </th:block>
+                                        <th:block th:if="${orderDetailVO.orderStatus<0}">交易已关闭~</th:block>
+
+                                    </div>
+                                    <th:block th:if="${orderDetailVO.orderStatus>=0}">
+                                        <div class="order-progress">
+                                            <ol class="progress-list clearfix progress-list-5">
+                                                <th:block th:if="${orderDetailVO.orderStatus==0}">
+                                                    <li class="step step-active">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus>0}">
+                                                    <li class="step step-first">
+                                                </th:block>
+                                                <div class="progress"><span class="text">下单</span></div>
+                                                <div class="info"
+                                                     th:text="${#dates.format(orderDetailVO.createTime, 'yyyy-MM-dd HH:mm:ss')}">
+                                                    02月07日
+                                                </div>
+                                                </li>
+                                                <th:block th:if="${orderDetailVO.orderStatus<1}">
+                                                    <li class="step">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus==1}">
+                                                    <li class="step step-active">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus>1}">
+                                                    <li class="step step-done">
+                                                </th:block>
+                                                <div class="progress"><span class="text">付款</span></div>
+                                                <div class="info"></div>
+                                                </li>
+                                                <th:block th:if="${orderDetailVO.orderStatus<2}">
+                                                    <li class="step">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus==2}">
+                                                    <li class="step step-active">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus>2}">
+                                                    <li class="step step-done">
+                                                </th:block>
+                                                <div class="progress"><span class="text">配货</span></div>
+                                                <div class="info"></div>
+                                                </li>
+                                                <th:block th:if="${orderDetailVO.orderStatus<3}">
+                                                    <li class="step">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus==3}">
+                                                    <li class="step step-active">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus>3}">
+                                                    <li class="step step-done">
+                                                </th:block>
+                                                <div class="progress"><span class="text">出库</span></div>
+                                                <div class="info"></div>
+                                                </li>
+                                                <th:block th:if="${orderDetailVO.orderStatus<4}">
+                                                    <li class="step">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus==4}">
+                                                    <li class="step step-active">
+                                                </th:block>
+                                                <th:block th:if="${orderDetailVO.orderStatus>4}">
+                                                    <li class="step step-last">
+                                                </th:block>
+                                                <div class="progress"><span class="text">交易成功</span></div>
+                                                <div class="info"></div>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <table class="order-items-table">
+                                    <tbody>
+                                    <th:block th:each="item : ${orderDetailVO.newBeeMallOrderItemVOS}">
+                                        <tr>
+                                            <td class="col col-thumb">
+                                                <div class="figure figure-thumb">
+                                                    <a target="_blank" th:href="@{'/goods/detail/'+${item.goodsId}}">
+                                                        <img th:src="@{${item.goodsCoverImg}}"
+                                                             width="80" height="80" alt="">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="col col-name">
+                                                <p class="name">
+                                                    <a target="_blank" th:href="@{'/goods/detail/'+${item.goodsId}}"
+                                                       th:text="${item.goodsName}">newbee</a>
+                                                </p>
+                                            </td>
+                                            <td class="col col-price"><p class="price"
+                                                                         th:text="${item.sellingPrice+'元 x '+item.goodsCount}">
+                                                1299元 × 1</p></td>
+                                            <td class="col col-actions">
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="editAddr" class="order-detail-info">
+                                <h3>收货信息</h3>
+                                <table class="info-table">
+                                    <tbody>
+                                    <tr>
+                                        <td th:text="${orderDetailVO.userAddress}">newbee</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="actions">
+                                </div>
+                            </div>
+                            <div id="editTime" class="order-detail-info">
+                                <h3>支付方式</h3>
+                                <table class="info-table">
+                                    <tbody>
+                                    <tr>
+                                        <th>支付方式：</th>
+                                        <td th:text="${orderDetailVO.payTypeString==null?'在线支付':orderDetailVO.payTypeString}">
+                                            在线支付
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="actions">
+                                </div>
+                            </div>
+                            <div class="order-detail-total">
+                                <table class="total-table">
+                                    <tbody>
+                                    <tr>
+                                        <th>运费：</th>
+                                        <td><span class="num">0</span>元</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="total">商品总价：</th>
+                                        <td class="total"><span class="num"
+                                                                th:text="${orderDetailVO.totalPrice+'.00'}">1299.00</span>元
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div th:replace="mall/footer::footer-fragment"></div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script type="text/javascript">
+
+    function cancelOrder() {
+        var orderNo = $("#orderNoValue").val();
+        swal({
+            title: "客官请注意",
+            text: "确认要取消订单吗?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((flag) => {
+                if (flag) {
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/orders/' + orderNo + '/cancel',
+                        success: function (result) {
+                            if (result.resultCode == 200) {
+                                window.location.reload();
+                            } else {
+                                swal(result.message, {
+                                    icon: "error",
+                                });
+                            }
+                        },
+                        error: function () {
+                            swal("操作失败", {
+                                icon: "error",
+                            });
+                        }
+                    });
+                }
+            }
+        )
+        ;
+    }
+
+    function payOrder() {
+        var orderNo = $("#orderNoValue").val();
+        window.location.href = '/selectPayType?orderNo=' + orderNo;
+    }
+
+    function finishOrder() {
+        var orderNo = $("#orderNoValue").val();
+        $.ajax({
+            type: 'PUT',
+            url: '/orders/' + orderNo + '/finish',
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    window.location.reload();
+                } else {
+                    swal(result.message, {
+                        icon: "error",
+                    });
+                }
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

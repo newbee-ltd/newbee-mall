@@ -1,0 +1,705 @@
+@charset "UTF-8"; /* 共通部分 */
+#ZVCQA {
+    padding: 10px;
+    color: #111;
+    font-size: 13px;
+}
+
+#ZVCQA .zv-hide {
+    display: none;
+}
+
+#ZVAskPostArea {
+    margin-top: 10px;
+}
+
+#ZVCQA .zv-cqa-step-link {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#ZVCQA .zv-textbox {
+    font-size: 13px;
+    padding: 10px;
+    border: solid 1px #bdc3c7;
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inner 0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 100%;
+}
+
+#ZVCQA .zv-select-wrap {
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    background: #ffffff;
+    width: auto;
+    display: inline-block;
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inner 0 1px 2px rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+}
+
+#ZVCQA .zv-select-wrap::before {
+    position: absolute;
+    top: 0.9em;
+    right: 0.9em;
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #bdc3c7;
+}
+
+#ZVCQA .zv-select {
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    background: transparent;
+    background-image: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 4px 38px 4px 8px;
+    font-size: 13px;
+}
+
+#ZVCQA select::-ms-expand {
+    display: none;
+}
+
+#ZVCQA .zv-btn {
+    border: solid 1px #bdc3c7;
+    padding: 8px 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 13px;
+    background: #fff;
+    display: inline-block;
+}
+
+#ZVCQA p.zv-heading {
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#ZVCQA img.zv-img {
+    height: 90px;
+    cursor: pointer;
+    vertical-align: top;
+    display: unset;
+}
+
+#ZVCQA video.zv-video {
+    height: 180px;
+    vertical-align: top;
+}
+
+.zv-loading {
+    opacity: 0.3;
+}
+
+.zv-cqa-page-btn {
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.zv-cqa-page-btn:hover {
+    text-decoration: underline;
+}
+
+.zv-cqp-q-empty-ul {
+    margin: 0;
+}
+
+.zv-p {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+.zv-cqa {
+    margin: 0 0 15px;
+    border-bottom: 1px dashed #dbdbdb;
+    padding-bottom: 15px;
+}
+
+.zv-cqa-answer {
+    display: hidden;
+    margin: 10px 0 0 10px;
+}
+
+.zv-cqa-expand-answer {
+    margin-bottom: 5px;
+    display: block;
+    cursor: pointer;
+    color: #3E58A4;
+}
+
+.zv-cqa-a-content {
+    display: block;
+    width: calc(100% - 20px);
+    float: none;
+}
+
+.zv-cqa-a-reviewer, .zv-cqa-a-created-at {
+    font-size: 13px;
+    color: #555;
+}
+
+.zv-cqa-a-created-at {
+    margin-left: 10px;
+}
+
+.zv-space {
+    width: 20px;
+    display: block;
+    float: left;
+    font-weight: bold;
+}
+
+.zv-cqa-a-link {
+    cursor: pointer;
+    color: #3E58A4;
+}
+
+#ZVCQA .zv-helpful-num {
+    display: inline-block;
+}
+
+#ZVCQA .zv-helpful-form {
+    display: inline-block;
+    color: #555;
+}
+
+#ZVCQA .zv-helpful-form > span.zv-helpful-col > span.zv-helpful-wrapper > span.zv-helpful {
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #333;
+    padding: 0 8px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+
+#ZVCQA .zv-helpful-form > span.zv-helpful-col > span.zv-helpful-wrapper > span.zv-helpful-num {
+    border-style: none;
+}
+
+#ZVCQA .zv-helpful-form > span.zv-helpful-col > span.zv-helpful-wrapper > span.zv-helpful:hover {
+    cursor: pointer;
+    border: solid 1px #adadad;
+    background-color: #e6e6e6;
+}
+
+#ZVCQA .zv-helpful-form > div > span {
+    margin-left: 3px;
+}
+
+#ZVCQA .zv-helpful-form > p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+#ZVCQA span.zv-separator {
+    width: 14px;
+    display: inline-block;
+    text-align: center;
+    color: #bdc3c7;
+}
+
+#ZVCQA .zv-popupModal1 {
+    display: inline-block;
+}
+
+#ZVCQA .zv-popupModal1 label {
+    color: #767676;
+}
+
+#ZVCQA .zv-popupModal1 > input {
+    /* ラジオボックス非表示 */
+    display: none;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1) + label {
+    cursor: pointer;
+    font-weight: normal;
+}
+
+#ZVCQA .zv-modalPopup2 {
+    /* 初期設定 ポップアップ非表示 */
+    display: none;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label + .zv-modalPopup2 {
+    /* ラジオ１ チェックでポップアップ表示 */
+    display: block;
+    z-index: 1021;
+    position: fixed;
+    width: 90%;
+    height: 80%;
+    border-radius: 20px;
+    left: 50%;
+    top: 50%;
+    margin-top: 30px;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background: #fff;
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    /* PCのときはページの真ん中の600x600領域 */ #ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label + .zv-modalPopup2 {
+        width: 500px;
+        height: 300px;
+        padding: 30px;
+    }
+
+    #ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label {
+        left: 50% !important;
+        top: 50% !important;
+        margin-left: 230px !important;
+        margin-top: -160px !important;
+    }
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label + .zv-modalPopup2 > div {
+    /* */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label + .zv-modalPopup2 > div > iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label + .zv-modalPopup2 > div > img {
+    /* ポップアップの中の要素 */
+    max-width: 100%;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1) + label ~ label {
+    display: none;
+    /* ラジオ１ 以外のラベルを初期は非表示 */
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.70);
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1020;
+    text-indent: -999999px;
+    overflow: hidden;
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1):checked + label + input:nth-child(3) + label + input:nth-child(5) + label {
+    background: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    z-index: 1022;
+    width: 44pt;
+    height: 44pt;
+    font-size: 40px;
+    border-radius: 50%;
+    line-height: 44pt;
+    text-align: center;
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+#ZVCQA .zv-popupModal1 > input:nth-child(1) + label + input:nth-child(3):checked + label + input:nth-child(5) + label + .zv-modalPopup2, .zv-popupModal1 > input:nth-child(1) + label + input:nth-child(3) + label + input:nth-child(5):checked + label + .zv-modalPopup2 {
+    /* ラジオ２と３ どっちかチェックでポップアップ>非表示 */
+    display: none;
+}
+
+#ZVCQA .zv-modalPopup2 {
+    animation: zv-fadeIn 0.5s ease 0s 1 normal;
+    -webkit-animation: zv-fadeIn 0.5s ease 0s 1 normal;
+}
+
+@keyframes zv-fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes zv-fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+#ZVCQA .zv-popupModal1 .zv-modalTitle {
+    padding-bottom: .5em;
+    margin: .5em 0;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+
+#ZVCQA .zv-popupModal1 .zv-modalMain {
+    color: #222;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8em;
+    margin-top: 30px;
+}
+
+#ZVCQA .zv-modalMain .zv-btn {
+    margin-top: 30px;
+}
+
+#zv-modal-root, #zv-modal-image-root {
+    z-index: -1;
+    position: absolute;
+}
+
+#zv-modal, #zv-modal-image {
+    height: 100%;
+    width: 100%;
+    right: 0;
+    top: 0;
+    overflow: auto;
+    position: fixed;
+    visibility: hidden;
+    z-index: 1009;
+}
+
+#zv-lightbox, #zv-lightbox-image {
+    visibility: visible;
+    position: absolute;
+    margin: 0px;
+    top: 5%;
+    left: 5%;
+    opacity: 1;
+    display: block;
+    z-index: 1010;
+    overflow: hidden;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0,0,0,.2);
+    height: 90%;
+    width: 90%;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.13);
+    background-color: #fff;
+}
+
+#zv-lightbox-header, #zv-lightbox-image-header {
+    text-align: left;
+    background: #f2f2f2;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 1px solid #cdcdcd;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 -1px 0 rgba(255,255,255,.4) inset;
+    padding: 0 14px;
+    margin: 0;
+    z-index: 10;
+    position: relative;
+    height: 35px;
+}
+
+#zv-lightbox-body, #zv-lightbox-image-body {
+    height: 94%;
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 10px 18px;
+    text-align: left;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+#zv-lightbox-title-area {
+    margin-bottom: 20px;
+}
+
+#zv-lightbox-title-label, #zv-lightbox-title {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#zv-lightbox-name {
+    margin-bottom: 10px;
+}
+
+#zv-lightbox-info, #zv-lightbox-image-info {
+    width: 40%;
+    height: 100%;
+    background-color: #fff;
+    float: right;
+    padding-left: 18px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+#zv-lightbox-img, #zv-lightbox-image-img {
+    height: 100%;
+    width: 60%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#zv-lightbox-main, #zv-lightbox-image-main {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    min-height: 70%;
+    min-width: 70%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#zv-lightbox-info img.zv-img, #zv-lightbox-image-info img.zv-img {
+    height: 60px;
+    vertical-align: unset;
+}
+
+#zv-modal-wrapper, #zv-modal-image-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    z-index: 1008;
+    opacity: 0.75;
+    display: block;
+}
+
+#zv-close-button, #zv-close-button-image {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    background-color: inherit;
+    padding: 0;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    margin: 0;
+}
+
+#zv-lightbox-header .zv-close-icon, #zv-lightbox-image-header .zv-close-icon {
+    color: #555;
+    left: 6px;
+    position: absolute;
+}
+
+#zv-lightbox-header .zv-close-icon:before, #zv-lightbox-image-header .zv-close-icon:before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background-color: currentColor;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+#zv-lightbox-header .zv-close-icon:after, #zv-lightbox-image-header .zv-close-icon:after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background-color: currentColor;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+#zv-modal-container, #zv-modal-image-container {
+    animation: zv-fadeIn 0.5s ease 0s 1 normal;
+    -webkit-animation: zv-fadeIn 0.5s ease 0s 1 normal;
+}
+
+@media screen and (max-width: 767px) {
+    #zv-lightbox, #zv-lightbox-image {
+        top: 5%;
+        height: 90%;
+        left: 0;
+        width: 100%;
+    }
+
+    #zv-lightbox-img, #zv-lightbox-image-img {
+        height: 50%;
+        width: 100%;
+    }
+
+    #zv-lightbox-info, #zv-lightbox-image-info {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+}
+
+#ZVPostArea {
+    margin-top: 10px;
+}
+
+.zv-textbox, .zv-textarea {
+    font-size: 14px;
+    border: 0;
+    padding: 10px;
+    border: solid 1px #bdc3c7;
+    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inner 0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.zv-cqa-answer-empty {
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.zv-cqa-comment-actions {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.zv-cqa-comment-list-expand-icon svg {
+    width: 10px;
+}
+
+.zv-cqa-comment-list-collapse-icon svg {
+    width: 10px;
+}
+
+.zv-cqa-comment-list-body {
+    color: #555;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.zv-cqa-comment-content {
+    margin-bottom: 10px;
+}
+
+.zv-cqa-comment-text {
+    display: block;
+}
+
+.zv-cqa-comment-list-action {
+    cursor: pointer;
+}
+
+.zv-cqa-comment-register {
+    cursor: pointer;
+    color: #3E58A4;
+}
+
+.zv-thankyou {
+    display: block;
+}
+
+.zv-error-message {
+    color: red;
+    display: none;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.zv-cqa-q-reviewer, .zv-cqa-q-created-at {
+    font-size: 13px;
+    margin-left: 10px;
+    color: #555;
+}
+
+.zv-cqa-q-reviewer {
+    margin-left: 20px;
+}
+
+.zv-cqa-q-created-at {
+    margin-left: 10px;
+}
+
+.zv-cqa-question {
+    padding: 15px 0 0;
+}
+
+.zv-cqa-q-empty-title {
+    margin-bottom: 10px;
+}
+
+.zv-cqp-q-empty-li {
+    list-style: disc inside;
+}
+
+.zv-cqa-q-text {
+    font-weight: bold;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.zv-cqa-answer-empty {
+    margin: 15px 15px 0;
+}
+
+.zv-cqa-posting-rule {
+    border: 1px dotted #bdc3c7;
+    padding: 0 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.zv-cqa-posting-rule-title {
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #eb6157;
+}
+
+#ZVCQAPost li {
+    list-style: disc inside;
+}

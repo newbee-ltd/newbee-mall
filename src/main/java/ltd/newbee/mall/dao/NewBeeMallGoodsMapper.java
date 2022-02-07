@@ -62,12 +62,12 @@ public interface NewBeeMallGoodsMapper {
     
     GoodsInfo getGoodsInfoByPK(Long id);
     
-    ArrayList<GoodsImageEntity> getGoodsImageByPk();
+    ArrayList<GoodsImageEntity> getGoodsImageByPk(Long goodsId);
     
     ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>params2);
     
 
-    ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy);
+    ArrayList<GoodsQa> getGoodsQa(Map<String,Object>params);
 
 //    ArrayList<GoodsQa> getGoodsQa(String orderBy);
 
@@ -89,5 +89,7 @@ public interface NewBeeMallGoodsMapper {
     ArrayList<String> getGoodsName(String keyword);
     
     ArrayList<RecentChkHistory> getRecentChkHistory();
+    
+    Long getGoodsQaCount(Long goodsId);
 
 }

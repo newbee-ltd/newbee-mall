@@ -1,0 +1,91 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>newbee-mall管理系统 | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" th:href="@{/admin/dist/img/favicon.ico}"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/admin/dist/css/font-awesome.min.css}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" th:href="@{/admin/dist/css/ionicons.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/admin/dist/css/adminlte.min.css}">
+    <style>
+        canvas {
+            display: block;
+            vertical-align: bottom;
+        }
+        #particles {
+            background-color: #F7FAFC;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+<div id="particles">
+</div>
+<div class="login-box">
+    <div class="login-logo" style="color: #1baeae;">
+        <img th:src="@{/mall/image/new-bee-logo-3.png}" style="    height: 58px;float: left;margin-left: 10px;">
+        <h1>管理系统登陆</h1>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg"> NewBee MALL , Let's Go !</p>
+            <form th:action="@{/admin/login}" method="post">
+                <div th:if="${not #strings.isEmpty(session.errorMsg)}" class="form-group">
+                    <div class="alert alert-danger" th:text="${session.errorMsg}"></div>
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="fa fa-user form-control-feedback"></span>
+                    <input type="text" id="userName" name="userName" class="form-control" placeholder="请输入账号"
+                           required="true">
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="fa fa-lock form-control-feedback"></span>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码"
+                           required="true">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="verifyCode" placeholder="请输入验证码" required="true">
+                    </div>
+                    <div class="col-6">
+                        <img alt="单击图片刷新！" class="pointer" th:src="@{/common/kaptcha}"
+                             onclick="this.src='/common/kaptcha?d='+new Date()*1">
+                    </div>
+                </div>
+                <div class="form-group has-feedback"></div>
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">登录
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/dist/js/plugins/particles.js}"></script>
+<script th:src="@{/admin/dist/js/plugins/login-bg-particles.js}"></script>
+</body>
+</html>

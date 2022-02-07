@@ -7,10 +7,35 @@ public class GoodsQa {
 	
 	private long count;
 	
+	private long countQa;
+	
+	private String userId;
+	
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "GoodsQa [goodsId=" + goodsId + ", qaId=" + qaId + ", count=" + count + ", question=" + question
-				+ ", questionDate=" + questionDate + ", answer=" + answer + ", answerDate=" + answerDate + "]";
+		return "GoodsQa [goodsId=" + goodsId + ", qaId=" + qaId + ", count=" + count + ", countQa=" + countQa
+				+ ", userId=" + userId + ", question=" + question + ", questionDate=" + questionDate + ", answer="
+				+ answer + ", answerDate=" + answerDate + "]";
+	}
+
+	public long getCountQa() {
+		return countQa;
+	}
+
+	public void setCountQa(long countQa) {
+		this.countQa = countQa;
 	}
 
 	public long getCount() {

@@ -1,0 +1,170 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment"></header>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">商品信息编辑</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="goodsForm" onsubmit="return false;">
+                            <div class="form-group" style="display:flex;">
+                                <label class="control-label">请选择分类:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <select class="form-control col-sm-3" id="levelOne"
+                                        data-placeholder="请选择分类...">
+                                    <th:block th:unless="${null == firstLevelCategories}">
+                                        <th:block th:each="c : ${firstLevelCategories}">
+                                            <option th:value="${c.categoryId}" th:text="${c.categoryName}"
+                                                    th:selected="${null !=firstLevelCategoryId and firstLevelCategoryId==c.categoryId} ?true:false">
+                                                >
+                                            </option>
+                                        </th:block>
+                                    </th:block>
+                                </select>&nbsp;
+                                <select class="form-control col-sm-3"
+                                        id="levelTwo"
+                                        data-placeholder="请选择分类...">
+                                    <th:block th:unless="${null == secondLevelCategories}">
+                                        <th:block th:each="c : ${secondLevelCategories}">
+                                            <option th:value="${c.categoryId}" th:text="${c.categoryName}"
+                                                    th:selected="${null !=secondLevelCategoryId and secondLevelCategoryId==c.categoryId} ?true:false">
+                                                >
+                                            </option>
+                                        </th:block>
+                                    </th:block>
+                                </select>&nbsp;
+                                <select class="form-control col-sm-3"
+                                        id="levelThree"
+                                        data-placeholder="请选择分类...">
+                                    <th:block th:unless="${null == thirdLevelCategories}">
+                                        <th:block th:each="c : ${thirdLevelCategories}">
+                                            <option th:value="${c.categoryId}" th:text="${c.categoryName}"
+                                                    th:selected="${null !=thirdLevelCategoryId and thirdLevelCategoryId==c.categoryId} ?true:false">
+                                                >
+                                            </option>
+                                        </th:block>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="form-group" style="display:flex;">
+                                <input type="hidden" id="goodsId" name="goodsId"
+                                       th:value="${goods!=null and goods.goodsId!=null }?${goods.goodsId}: 0">
+                                <input type="text" class="form-control col-sm-6" id="goodsName" name="goodsName"
+                                       placeholder="*请输入商品名称(必填)"
+                                       th:value="${goods!=null and goods.goodsName!=null }?${goods.goodsName}: ''"
+                                       required="true">
+                                &nbsp;&nbsp;
+                                <input type="text" class="form-control col-sm-6" id="goodsIntro" name="goodsIntro"
+                                       placeholder="*请输入商品简介(100字以内)"
+                                       th:value="${goods!=null and goods.goodsIntro!=null }?${goods.goodsIntro}: ''"
+                                       required="true">
+                            </div>
+                            <div class="form-group" style="display:flex;">
+                                <input type="number" class="form-control col-sm-6" id="originalPrice"
+                                       name="originalPrice"
+                                       placeholder="*请输入商品价格"
+                                       th:value="${goods!=null and goods.originalPrice!=null }?${goods.originalPrice}: 1"
+                                       required="true">
+                                &nbsp;&nbsp;
+                                <input type="number" class="form-control col-sm-6" id="sellingPrice"
+                                       name="sellingPrice"
+                                       placeholder="*请输入商品售卖价"
+                                       th:value="${goods!=null and goods.sellingPrice!=null }?${goods.sellingPrice}: 1"
+                                       required="true">
+                            </div>
+                            <div class="form-group" style="display:flex;">
+                                <input type="number" class="form-control col-sm-6" id="stockNum" name="stockNum"
+                                       placeholder="*请输入商品库存数"
+                                       th:value="${goods!=null and goods.stockNum!=null }?${goods.stockNum}: 0"
+                                       required="true">
+                                &nbsp;&nbsp;
+                                <input type="text" class="form-control col-sm-6" id="tag" name="tag"
+                                       placeholder="*请输入商品小标签"
+                                       th:value="${goods!=null and goods.tag!=null }?${goods.tag}: ''"
+                                       required="true">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">上架状态:&nbsp;</label>
+                                <input name="goodsSellStatus" type="radio" id="goodsSellStatusTrue" checked=true
+                                       th:checked="${null==goods||(null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==0)} ?true:false"
+                                       value="0"/>&nbsp;上架&nbsp;
+                                <input name="goodsSellStatus" type="radio" id="goodsSellStatusFalse" value="1"
+                                       th:checked="${null !=goods and null !=goods.goodsSellStatus and goods.goodsSellStatus==1} ?true:false"/>&nbsp;下架&nbsp;
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <th:block th:if="${null == goods}">
+                                            <img id="goodsCoverImg" src="/admin/dist/img/img-upload.png"
+                                                 style="height: 64px;width: 64px;">
+                                        </th:block>
+                                        <th:block th:unless="${null == goods}">
+                                            <img id="goodsCoverImg" th:src="${goods.goodsCoverImg}"
+                                                 style="width:160px ;height: 160px;display:block;">
+                                        </th:block>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-info" style="margin-bottom: 5px;"
+                                                id="uploadGoodsCoverImg">
+                                            <i class="fa fa-picture-o"></i>&nbsp;上传商品主图
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="wangEditor" th:utext="${goods!=null and goods.goodsDetailContent !=null}?${goods.goodsDetailContent}: ''">
+                            </div>
+                            <div class="form-group">
+                                <!-- 按钮 -->
+                                &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
+                                              id="saveButton">保存商品
+                            </button>&nbsp;
+                                &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
+                                              id="cancelButton">返回商品列表
+                            </button>&nbsp;
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<!-- ajaxupload -->
+<script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
+<!-- wangEditor -->
+<script type="text/javascript" src="//unpkg.com/wangeditor/dist/wangEditor.min.js"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/newbee_mall_goods_edit.js}"></script>
+</body>
+</html>

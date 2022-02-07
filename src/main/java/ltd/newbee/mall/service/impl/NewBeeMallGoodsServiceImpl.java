@@ -154,7 +154,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	@Override
 	public ArrayList<GoodsImageEntity> getGoodsImageByPk(Long id) {
 		
-		return goodsMapper.getGoodsImageByPk();
+		return goodsMapper.getGoodsImageByPk(id);
 	}
 
 	@Override
@@ -165,9 +165,9 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 
 	@Override
 
-	public ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy) {
+	public ArrayList<GoodsQa> getGoodsQa(Map<String,Object>params) {
 		
-		return goodsMapper.getGoodsQa(goodsId,orderBy);
+		return goodsMapper.getGoodsQa(params);
     }
 
 	@Override
@@ -229,6 +229,12 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	public ArrayList<RecentChkHistory> getRecentChkHistory() {
 		
 		return goodsMapper.getRecentChkHistory();
+	}
+
+	@Override
+	public Long getGoodsQaCount(Long goodsId) {
+		
+		return goodsMapper.getGoodsQaCount(goodsId);
 	}
 
 

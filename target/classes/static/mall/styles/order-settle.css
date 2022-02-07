@@ -1,0 +1,345 @@
+.order-header {
+  position: relative;
+}
+.order-header .newbee-mall-logo {
+  width: 100px;
+  height: 85px;
+  margin: 20px 360px;
+}
+.order-header span {
+  font-size: 22px;
+  position: absolute;
+  left: 496px;
+  top: 45px;
+}
+.order-header .order-process {
+  margin-left: -120px;
+  position: absolute;
+  top: 30px;
+}
+.p1 {
+  color: #696969;
+  text-indent: 360px;
+}
+.section {
+  width: 1050px;
+  border: 1px solid #e3e4e5;
+  margin: 10px 360px 160px;
+}
+.section .top-2 {
+  display: flex;
+  justify-content: space-between;
+}
+.section .top-2 span {
+  font-size: 14px;
+  padding: 10px 25px;
+}
+.section .top-2 span:first-child {
+  font-weight: 600;
+}
+.section .top-2 span:last-child {
+  color: #1baeae;
+}
+.section .top-3 {
+  width: 600px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+.section .top-3 p {
+  width: 135px;
+  height: 27px;
+  border: 1px solid #1baeae;
+  line-height: 27px;
+  font-size: 12px;
+  text-align: center;
+  color: #696969;
+}
+.section .top-3 span {
+  font-size: 13px;
+  color: #808080;
+  margin-left: 10px;
+}
+.section .p2 {
+  font-size: 10px;
+  color: #696969;
+  text-indent: 50px;
+  margin-top: 8px;
+}
+.section .hh1 {
+  width: 94%;
+  height: 1px;
+  margin: 12px 30px;
+  background: #e3e4e5;
+  width: 94%;
+  height: 1px;
+  margin: 15px 30px;
+  background: #e3e4e5;
+}
+.section .h4 {
+  font-size: 14px;
+  text-indent: 30px;
+}
+.section .top-6 {
+  display: flex;
+  margin-left: 50px;
+  margin-top: 15px;
+}
+.section .top-6 p {
+  width: 100px;
+  height: 25px;
+  border: 1px solid #e3e4e5;
+  font-size: 13px;
+  line-height: 25px;
+  text-align: center;
+  color: #696969;
+  margin: 5px;
+}
+.section .top-6 p:last-child {
+  border: 1px solid #2de7e7;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.section .top-6 p:last-child span {
+  width: 15px;
+  height: 15px;
+  background: #1baeae;
+  color: #fff;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+}
+.section .order-item {
+  width: 951px;
+  margin-left: 30px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.section .order-item .to_left {
+  width: 350px;
+  height: 300px;
+  background: #f7f7f7;
+  float: left;
+  padding-left: 23px;
+}
+.section .order-item .to_left > * {
+  margin: 2px 0;
+}
+.section .order-item .to_left h5 {
+  margin: 15px 10px 15px 0px;
+  font-size: 14px;
+  color: #666;
+}
+.section .order-item .to_left h5 .peisong {
+  font-size: 12px;
+}
+.section .order-item .to_left h5 .dui {
+  padding-left: 200px;
+  color: #4f9dd0;
+  font-size: 12px;
+}
+.section .order-item .to_left h5 .dui img {
+  width: 15px;
+  height: 15px;
+  margin: 2px 0px 0px 0px;
+}
+.section .order-item .to_left .box {
+  width: 135px;
+  height: 27px;
+  border: 2px solid #1baeae;
+  line-height: 27px;
+  font-size: 12px;
+  text-align: center;
+  color: #696969;
+  margin-bottom: 20px;
+}
+.section .order-item .to_left .til {
+  color: #a9a9a9;
+  font-size: 14px;
+}
+.section .order-item .to_left .con {
+  font-size: 12px;
+  color: #666;
+}
+.section .order-item .to_left hr {
+  color: #f6f6f6;
+  width: 90%;
+  text-align: center;
+  margin-top: 3px;
+}
+.section .order-item .to_left .biao a {
+  font-size: 12px;
+  color: #0081c6;
+}
+.section .order-item .to_left .nul {
+  font-size: 12px;
+  padding-left: 92px;
+}
+.section .order-item .to_left .kg {
+  font-size: 14px;
+  color: #a9a9a9;
+}
+.section .order-item .to_left .kg span {
+  color: #a9a9a9;
+  font-size: 14px;
+}
+.section .order-item .to_left .updata-1 {
+  width: 210px;
+  height: 25px;
+  line-height: 30px;
+  margin-left: 100px;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  border: 1px #edd28b solid;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.section .order-item .to_left .updata-1 span {
+  font-size: 12px;
+  color: #00f;
+}
+.section .order-item .to_left .hh1 {
+  width: 94%;
+  height: 1px;
+  background: #e3e4e5;
+}
+.section .order-item .to_left .updata-2 {
+  width: 300px;
+  height: 38px;
+  line-height: 38px;
+  border: 1px #e3e4e5 solid;
+  margin-bottom: 5px;
+  margin-top: 8px;
+}
+.section .order-item .to_left .updata-2 span {
+  color: #9c64cc;
+  font-size: 14px;
+}
+.section .order-item .to_left .updata-2 img {
+  float: left;
+}
+.section .order-item .to_right {
+  width: 575px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+  border: 1px #c7eaea solid;
+  border-radius: 6px;
+}
+.section .order-item .to_right h5 {
+  margin: 10px;
+  font-size: 12px;
+  color: #666;
+}
+.section .order-item .to_right div {
+  display: flex;
+  margin-left: 10px;
+}
+.section .order-item .to_right div button {
+  color: #fffafa;
+  background: #1baeae;
+  border: none;
+  font-size: 12px;
+  padding: 1px 2.5px;
+}
+.section .order-item .to_right div span {
+  font-size: 12px;
+  color: #666;
+  margin-left: 5px;
+}
+.section .order-item .to_right .yun1 .yun {
+  width: 90px;
+  height: 90px;
+  margin: 10px;
+}
+.section .order-item .to_right .yun1 .mi {
+  display: flex;
+  flex-direction: column;
+}
+.section .order-item .to_right .yun1 .mi p {
+  color: #666;
+  font-size: 12px;
+  margin: 5px;
+}
+.section .order-item .to_right .yun1 .mi .tui-1 {
+  color: #6679b3;
+}
+.section .order-item .to_right .yun1 .mi .tui-1 img {
+  margin-right: 5px;
+}
+.section .order-item .to_right .yun1 .mi span {
+  margin-left: 30px;
+}
+.section .order-item .to_right p {
+  font-size: 12px;
+  margin: 10px;
+}
+.section .order-item .to_right p .money {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 400px;
+  color: #1baeae;
+}
+.section .order-item .to_right img {
+  float: left;
+}
+.section .settle_content {
+  width: 1000px;
+  margin-bottom: 20px;
+  float: right;
+  margin-right: 2px;
+}
+.section .settle_content .qian .qian_y {
+  text-align: right;
+  margin-top: 5px;
+}
+.section .settle_content .qian .qian_y span {
+  font-size: 12px;
+  color: #666;
+}
+.section .settle_content .qian .qian_y .rmb {
+  margin-left: 50px;
+}
+.section .settle_content .yfze {
+  background: #f4f4f4;
+  height: 80px;
+  width: 1000px;
+  margin-top: 20px;
+}
+.section .settle_content .yfze .yfze_a {
+  text-align: right;
+  margin-top: 10px;
+}
+.section .settle_content .yfze .yfze_a .z {
+  font-size: 12px;
+  color: #666;
+}
+.section .settle_content .yfze .yfze_a .hq {
+  font-size: 20px;
+  color: #1baeae;
+  margin-left: 44px;
+}
+.section .settle_content .yfze .yfze_b {
+  text-align: right;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999;
+}
+.section .settle_content .submmit_button {
+  margin-left: 900px;
+  margin-top: 10px;
+  text-align: center;
+  background: #1baeae;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 5px;
+}

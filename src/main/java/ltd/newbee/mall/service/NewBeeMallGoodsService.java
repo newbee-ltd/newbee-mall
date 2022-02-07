@@ -91,7 +91,7 @@ public interface NewBeeMallGoodsService {
     ArrayList<NewBeeMallGoods>getGoodsPage(Map<String,Object>params2);
     
 
-    ArrayList<GoodsQa> getGoodsQa(Long goodsId,String orderBy);
+    ArrayList<GoodsQa> getGoodsQa(Map<String,Object>params);
 
 //    ArrayList<GoodsQa> getGoodsQa(String orderBy);
 
@@ -116,6 +116,8 @@ public interface NewBeeMallGoodsService {
     ArrayList<String> getGoodsName(String keyword);
     
     ArrayList<RecentChkHistory> getRecentChkHistory();
+    
+    Long getGoodsQaCount(Long goodsId);
     
     
  

@@ -1,0 +1,57 @@
+@charset 'UTF-8';
+/**
+ * ================= null font =================
+ */
+@font-face {
+  font-family: 'null';
+  src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ0AAsAAAAAA+gAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgDxELWGNtYXAAAAFoAAAAVAAAAFQAJwDjZ2FzcAAAAbwAAAAIAAAACAAAABBnbHlmAAABxAAAAFAAAABQBATc7GhlYWQAAAIUAAAANgAAADYPtY3PaGhlYQAAAkwAAAAkAAAAJAPCA8ZobXR4AAACcAAAABQAAAAUBgAAAGxvY2EAAAKEAAAADAAAAAwAKAA8bWF4cAAAApAAAAAgAAAAIAAHAAVuYW1lAAACsAAAAWIAAAFielkQCHBvc3QAAAQUAAAAIAAAACAAAwAAAAMCAAGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQAAAAC4DwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEADgAAAAKAAgAAgACAAEAIAAu//3//wAAAAAAIAAu//3//wAB/+P/1gADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAQAA77cLBV8PPPUACwQAAAAAANhLpmkAAAAA2EumaQAAAAAAAAAAAAAACAACAAAAAAAAAAEAAAPA/8AAAAQAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAFBAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAoAFAAeACgAAQAAAAUAAwABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAQAAAABAAAAAAACAAcARQABAAAAAAADAAQALQABAAAAAAAEAAQAWgABAAAAAAAFAAsADAABAAAAAAAGAAQAOQABAAAAAAAKABoAZgADAAEECQABAAgABAADAAEECQACAA4ATAADAAEECQADAAgAMQADAAEECQAEAAgAXgADAAEECQAFABYAFwADAAEECQAGAAgAPQADAAEECQAKADQAgG51bGwAbgB1AGwAbFZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMG51bGwAbgB1AGwAbG51bGwAbgB1AGwAbFJlZ3VsYXIAUgBlAGcAdQBsAGEAcm51bGwAbgB1AGwAbEZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=) format('woff');
+}
+
+@font-face {
+  font-family: 'icon';
+  src: url('/ec/_ui/responsive/common/fonts/icon.woff?ts=1556161408717') format('woff'), url('/ec/_ui/responsive/common/fonts/icon.ttf?ts=1556161408717') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.g-s {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('https://www.nitori-net.jp/ec/_ui/responsive/common/images/icon.svg?ts=20200115') no-repeat;
+  background-size: 79em 79em;
+  line-height: 1;
+  letter-spacing: 0;
+  pointer-events: none;
+  speak: none;
+}
+
+@media (max-width: 720px) {
+  .g-score [data-score]::before,
+  .g-sm-score [data-score]::before {
+    box-sizing: content-box;
+    background-image: url(/ec/_ui/responsive/common/images/parts/star_on.svg);
+  }
+  .g-score [data-score]::after,
+  .g-sm-score [data-score]::after {
+    background-image: url(/ec/_ui/responsive/common/images/parts/star_off.svg);
+    background-position: 100% center;
+    flex: 1 1;
+  }
+}
+
+@media (min-width: 721px) {
+  .g-score [data-score]::before,
+  .g-lg-score [data-score]::before {
+    box-sizing: content-box;
+    background-image: url(/ec/_ui/responsive/common/images/parts/star_on.svg);
+  }
+  .g-score [data-score]::after,
+  .g-lg-score [data-score]::after {
+    background-image: url(/ec/_ui/responsive/common/images/parts/star_off.svg);
+    background-position: 100% center;
+    flex: 1 1;
+  }
+}
