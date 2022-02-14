@@ -20,7 +20,9 @@ import ltd.newbee.mall.entity.GoodsInfo;
 
 import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.entity.GoodsReview;
+import ltd.newbee.mall.entity.InsertGoodsQaLike;
 import ltd.newbee.mall.entity.InsertGoodsReview;
+import ltd.newbee.mall.entity.InsertGoodsReviewLike;
 import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
 
 import ltd.newbee.mall.entity.GoodsPageEntity;
@@ -202,7 +204,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 
 
 	@Override
-	public int insertGoodsReview(InsertGoodsReview review) {
+	public int insertGoodsReview(GoodsReview review) {
 		
 		return goodsMapper.insertGoodsReview(review);
 	}
@@ -235,6 +237,48 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
 	public Long getGoodsQaCount(Long goodsId) {
 		
 		return goodsMapper.getGoodsQaCount(goodsId);
+	}
+
+	@Override
+	public int insertGoodsQa(GoodsQa goodsQa) {
+		
+		return goodsMapper.insertGoodsQa(goodsQa);
+	}
+
+	@Override
+	public Long getMaxQaId(Long goodsId) {
+		
+		return goodsMapper.getMaxQaId(goodsId);
+	}
+
+	@Override
+	public int getQaLikeUserId(Map<String, Object> params) {
+		
+		return goodsMapper.getQaLikeUserId(params);
+	}
+
+	@Override
+	public int insertGoodsQaLike(InsertGoodsQaLike qa) {
+		
+		return goodsMapper.insertGoodsQaLike(qa);
+	}
+
+	@Override
+	public int insertGoodsReviewLike(InsertGoodsReviewLike reviewLike) {
+		
+		return goodsMapper.insertGoodsReviewLike(reviewLike);
+	}
+
+	@Override
+	public int getReviewLikeUserId(Map<String, Object> params) {
+		
+		return goodsMapper.getReviewLikeUserId(params);
+	}
+
+	@Override
+	public Long getMaxReviewId(Long goodsId) {
+		
+		return goodsMapper.getMaxReviewId(goodsId);
 	}
 
 

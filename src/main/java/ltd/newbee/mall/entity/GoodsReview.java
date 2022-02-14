@@ -9,6 +9,16 @@ public class GoodsReview {
 	private String userId;
 
 	private String reviewDate;
+	
+	private long reviewId;
+
+	public long getReviewId() {
+		return reviewId;
+	}
+
+	public void setReviewId(long reviewId) {
+		this.reviewId = reviewId;
+	}
 
 	private long goodsId;
 
@@ -77,10 +87,12 @@ public class GoodsReview {
 
 	@Override
 	public String toString() {
-		return "GoodsReview [ star=" + star + ", userId=" + userId + ", reviewDate="
-				+ reviewDate + ", goodsId=" + goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review
-				+ ", image=" + image + "]";
+		return "GoodsReview [star=" + star + ", userId=" + userId + ", reviewDate=" + reviewDate + ", reviewId="
+				+ reviewId + ", goodsId=" + goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review + ", image="
+				+ image + "]";
 	}
+
+
 
 
 }

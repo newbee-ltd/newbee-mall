@@ -538,18 +538,30 @@
 		group by goods_id,qa_id
 
 		<choose>
-			<when test="orderBy == 'new'">
+			<when test="sort == 'new'">
 				<!-- 按照发布时间倒序排列 -->
 				order by question_date desc
 			</when>
-			<when test="orderBy == 'like'">
+			<when test="sort == 'like'">
 				<!-- 按照点赞数从小到大排列 -->
-				order by count desc;
+				order by count desc
 			</when>
 			<otherwise>
 				order by question_date desc
 			</otherwise>
 		</choose>
+		<if test="start!=null and limit!=null">
+			limit #{start},#{limit}
+		</if>
+	</select>
+	
+	<select id="getQaLikeUserId" parameterType="Map" resultType="int">
+		select count(*) FROM qa_user
+		<where>
+			goods_id = #{goodsId,jdbcType=BIGINT}
+			and qa_id = #{qaId,jdbcType=BIGINT}
+			and user_id = #{userId,jdbcType=VARCHAR}
+		</where>
 	</select>
 	
 	<select id="getGoodsQaCount" parameterType="Long" resultType="Long">
@@ -563,7 +575,7 @@
 	<select id="getGoodsReview" parameterType="Map"
 		resultType="ltd.newbee.mall.entity.GoodsReview">
 		select a.review_title,a.review,star,user_id,review_date,a.goods_id,
-		image,count(user_id2)as count
+		image,count(user_id2)as count,a.review_id
 		from goods_review a left join review_user
 		b
 		on a.review_title=b.review_title
@@ -644,18 +656,19 @@
 
 
 	<insert id="insertGoodsReview"
-		parameterType="ltd.newbee.mall.entity.InsertGoodsReview">
+		parameterType="ltd.newbee.mall.entity.GoodsReview">
 		insert into goods_review (star,
-		user_id,review_date,goods_id,review_title,review,image
+		user_id,review_date,goods_id,review_title,review,image,review_id
 		)
 		values
 		(#{star,jdbcType=BIGINT},
-		#{user_id,jdbcType=VARCHAR},
-		#{review_date,jdbcType=VARCHAR},
-		#{goods_id,jdbcType=BIGINT},
-		#{review_title,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{reviewDate,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=BIGINT},
+		#{reviewTitle,jdbcType=VARCHAR},
 		#{review,jdbcType=VARCHAR},
-		#{image,jdbcType=VARCHAR}
+		#{image,jdbcType=VARCHAR},
+		#{reviewId,jdbcType=BIGINT}
 		)
 	</insert>
 
@@ -697,6 +710,68 @@
 		a.goods_id=b.goods_id
 		group by a.goods_id order by count(a.goods_id)
 		desc,date_time desc
+	</select>
+	
+	<insert id="insertGoodsQa"
+		parameterType="ltd.newbee.mall.entity.GoodsQa">
+		insert into goods_qa (goods_id,
+		qa_id,question,question_date,answer,answer_date
+		)
+		values
+		(#{goodsId,jdbcType=BIGINT},
+		#{qaId,jdbcType=BIGINT},
+		#{question,jdbcType=VARCHAR},
+		#{questionDate,jdbcType=VARCHAR},
+		#{answer,jdbcType=VARCHAR},
+		#{answerDate,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="getMaxQaId" parameterType="Long" resultType="Long">
+		select max(qa_id) from goods_qa
+		<where>
+			goods_id = #{goodsId,jdbcType=BIGINT}
+		</where>
+	</select>
+	
+	<insert id="insertGoodsQaLike"
+		parameterType="ltd.newbee.mall.entity.InsertGoodsQaLike">
+		insert into qa_user (goods_id,
+		qa_id,user_id
+		)
+		values
+		(#{goodsId,jdbcType=BIGINT},
+		#{qaId,jdbcType=BIGINT},
+		#{userId,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertGoodsReviewLike"
+		parameterType="ltd.newbee.mall.entity.InsertGoodsReviewLike">
+		insert into review_user (goods_id,
+		review_id,user_id2
+		)
+		values
+		(#{goodsId,jdbcType=BIGINT},
+		#{reviewId,jdbcType=BIGINT},
+		#{userId,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+		<select id="getReviewLikeUserId" parameterType="Map" resultType="int">
+		select count(*) FROM review_user
+		<where>
+			goods_id = #{goodsId,jdbcType=BIGINT}
+			and review_id = #{reviewId,jdbcType=BIGINT}
+			and user_id2 = #{userId,jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	<select id="getMaxReviewId" parameterType="Long" resultType="Long">
+		select max(review_id) from goods_review
+		<where>
+			goods_id = #{goodsId,jdbcType=BIGINT}
+		</where>
 	</select>
 </mapper>
 

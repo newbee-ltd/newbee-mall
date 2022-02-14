@@ -3,6 +3,10 @@
     touch-action: none;
 }
 
+div#orderInfoModal {
+    display: none;
+}
+
 .ui-helper-hidden {
     display: none;
 }
@@ -1942,7 +1946,8 @@ button.swiper-pagination-bullet {
 }
 
 .g-i-arrow-d2::before {
-    content: '\EA03';
+    font-family: 'Material Icons';
+    content: '\e5d8';
 }
 
 .g-i-arrow-l::before {
@@ -13415,6 +13420,10 @@ h6 {
 .g-reviewList_item {
     padding: 15px 0;
     border-bottom: 1px dashed #dbdbdb;
+}
+
+li.g-reviewList_item.hiddenReviewLi {
+    display: none;
 }
 
 .g-reviewList_item:last-child {

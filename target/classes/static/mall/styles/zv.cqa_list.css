@@ -225,7 +225,7 @@
 
 #ZVCQA span.zv-separator {
     width: 14px;
-    display: inline-block;
+    /*display: inline-block;*/
     text-align: center;
     color: #bdc3c7;
 }

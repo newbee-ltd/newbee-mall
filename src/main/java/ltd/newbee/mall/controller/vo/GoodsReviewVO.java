@@ -16,6 +16,16 @@ public class GoodsReviewVO {
 	private String review;
 
 	private String image;
+	
+	private long reviewId;
+
+	public long getReviewId() {
+		return reviewId;
+	}
+
+	public void setReviewId(long reviewId) {
+		this.reviewId = reviewId;
+	}
 
 	public String getImage() {
 		return image;
@@ -75,9 +85,10 @@ public class GoodsReviewVO {
 
 	@Override
 	public String toString() {
-		return "GoodsReview [ star=" + star + ", userId=" + userId + ", reviewDate="
-				+ reviewDate + ", goodsId=" + goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review
-				+ ", image=" + image + "]";
+		return "GoodsReviewVO [star=" + star + ", userId=" + userId + ", reviewDate=" + reviewDate + ", goodsId="
+				+ goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review + ", image=" + image + ", reviewId="
+				+ reviewId + "]";
 	}
+
 
 }

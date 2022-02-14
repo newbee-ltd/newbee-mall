@@ -33,6 +33,10 @@ public class GoodsQaTest {
 //		List<GoodsQa> list = newBeeMallGoodsService.getGoodsQa("like");
 //			assertEquals(3,list.size());
 //		System.out.println(list.get(0));
+		GoodsQa qa = new GoodsQa();
+		qa.setGoodsId(10702);
+		int row = newBeeMallGoodsService.insertGoodsQa(qa);
+		System.out.println(row);
 	}
 	
 	

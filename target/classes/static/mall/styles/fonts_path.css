@@ -32,11 +32,11 @@
   .g-score [data-score]::before,
   .g-sm-score [data-score]::before {
     box-sizing: content-box;
-    background-image: url(/ec/_ui/responsive/common/images/parts/star_on.svg);
+    background-image: url(https://www.nitori-net.jp/ec/_ui/responsive/common/images/parts/star_on.svg);
   }
   .g-score [data-score]::after,
   .g-sm-score [data-score]::after {
-    background-image: url(/ec/_ui/responsive/common/images/parts/star_off.svg);
+    background-image: url(https://www.nitori-net.jp/ec/_ui/responsive/common/images/parts/star_off.svg);
     background-position: 100% center;
     flex: 1 1;
   }
@@ -46,11 +46,11 @@
   .g-score [data-score]::before,
   .g-lg-score [data-score]::before {
     box-sizing: content-box;
-    background-image: url(/ec/_ui/responsive/common/images/parts/star_on.svg);
+    background-image: url(https://www.nitori-net.jp/ec/_ui/responsive/common/images/parts/star_on.svg);
   }
   .g-score [data-score]::after,
   .g-lg-score [data-score]::after {
-    background-image: url(/ec/_ui/responsive/common/images/parts/star_off.svg);
+    background-image: url(https://www.nitori-net.jp/ec/_ui/responsive/common/images/parts/star_off.svg);
     background-position: 100% center;
     flex: 1 1;
   }

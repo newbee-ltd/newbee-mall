@@ -4,6 +4,9 @@
     text-align: right;
     margin-bottom: 0;
 }
+/*img#carouselImg {
+    display: none;
+}*/
 
 #p-specMore .p-sku-manuals li {
     display: inline-block;

@@ -13,8 +13,9 @@ import ltd.newbee.mall.entity.GoodsInfo;
 import ltd.newbee.mall.entity.GoodsPageEntity;
 import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.entity.GoodsReview;
-
+import ltd.newbee.mall.entity.InsertGoodsQaLike;
 import ltd.newbee.mall.entity.InsertGoodsReview;
+import ltd.newbee.mall.entity.InsertGoodsReviewLike;
 import ltd.newbee.mall.entity.InsertSearchHistoryEntity;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.entity.RecentChkHistory;
@@ -94,7 +95,7 @@ public interface NewBeeMallGoodsService {
     ArrayList<GoodsQa> getGoodsQa(Map<String,Object>params);
 
 //    ArrayList<GoodsQa> getGoodsQa(String orderBy);
-
+    int insertGoodsQa(GoodsQa goodsQa);
     
     GoodsQa getGoodsQaPage(Long count2);
     
@@ -107,7 +108,7 @@ public interface NewBeeMallGoodsService {
     Long [] getRateCount(Long goodsId);
 
     
-    int insertGoodsReview(InsertGoodsReview review);
+    int insertGoodsReview(GoodsReview review);
     
     ArrayList<String> getSearchHistory();
     
@@ -119,7 +120,16 @@ public interface NewBeeMallGoodsService {
     
     Long getGoodsQaCount(Long goodsId);
     
+    Long getMaxQaId(Long goodsId);
     
- 
+    int getQaLikeUserId(Map<String,Object>params);
+    
+    int insertGoodsQaLike(InsertGoodsQaLike qa);
+    
+    int insertGoodsReviewLike(InsertGoodsReviewLike reviewLike);
+    
+    int getReviewLikeUserId(Map<String,Object>params);
+    
+    Long getMaxReviewId(Long goodsId);
 
 }

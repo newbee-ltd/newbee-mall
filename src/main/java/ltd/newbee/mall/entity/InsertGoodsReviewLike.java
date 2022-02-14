@@ -1,12 +1,9 @@
 package ltd.newbee.mall.entity;
 
-public class InsertGoodsReview {
+public class InsertGoodsReviewLike {
 
-	private int star;
 
 	private String userId;
-
-	private String reviewDate;
 
 	private long goodsId;
 
@@ -14,15 +11,7 @@ public class InsertGoodsReview {
 
 	private String review;
 
-	private String image;
-
-	public int getStar() {
-		return star;
-	}
-
-	public void setStar(int star) {
-		this.star = star;
-	}
+	private long reviewId;
 
 	public String getUserId() {
 		return userId;
@@ -30,14 +19,6 @@ public class InsertGoodsReview {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getReviewDate() {
-		return reviewDate;
-	}
-
-	public void setReviewDate(String reviewDate) {
-		this.reviewDate = reviewDate;
 	}
 
 	public long getGoodsId() {
@@ -64,21 +45,19 @@ public class InsertGoodsReview {
 		this.review = review;
 	}
 
-	public String getImage() {
-		return image;
+	public long getReviewId() {
+		return reviewId;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setReviewId(long reviewId) {
+		this.reviewId = reviewId;
 	}
 
 	@Override
 	public String toString() {
-		return "InsertGoodsReview [star=" + star + ", userId=" + userId + ", reviewDate=" + reviewDate + ", goodsId="
-				+ goodsId + ", reviewTitle=" + reviewTitle + ", review=" + review + ", image=" + image + "]";
+		return "InsertGoodsReviewLike [userId=" + userId + ", goodsId=" + goodsId + ", reviewTitle=" + reviewTitle
+				+ ", review=" + review + ", reviewId=" + reviewId + "]";
 	}
-
-	
 
 	
 
