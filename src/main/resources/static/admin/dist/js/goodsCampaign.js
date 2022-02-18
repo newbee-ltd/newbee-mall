@@ -1,7 +1,6 @@
 
 function searchResult(){
 	var keyword = $("#searchByKeyWord").val();
-	jQuery("#jqGrid").jqGrid("clearGridData");
 	
 	$("#jqGrid").jqGrid({
 		
@@ -9,9 +8,9 @@ function searchResult(){
         url: '/admin/goodsCampaign/list?keyword=' + keyword,
         datatype: "json",
         colModel: [
-            {label: '商品单号', name: 'goodsId', index: 'goodsId', width: 120},
+            {label: '商品单号', name: 'goodsId', index: 'goodsId', width: 120,key: true},
             {label: '商品名称', name: 'goodsName', index: 'goodsName', width: 120},
-            {label: 'campaignId', name: 'camId', index: 'camId', width: 120,key: true},
+            {label: 'campaignId', name: 'camId', index: 'camId', width: 120},
             {label: '促销内容', name: 'cal1', index: 'cal1', width: 120}
         ],
         height: 560,
@@ -43,7 +42,40 @@ function searchResult(){
 } 
 
 function selectCam(){
-	var cam = $('#cars :selected').text();
+	var cal1 = $('#cars :selected').text();
 	var camId = $('#cars :selected').val();
-}
+	var goodsId =getSelectedRow();
+	var data = {
+            "cal1": cal1,
+            "camId": camId,
+            "goodsId": goodsId
+        };
+        $.ajax({
+            type: 'POST',//方法类型
+            url: '/admin/goodsCampaign/update',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (result) {
+                if (result.resultCode == 200) {
+					$(".btn-info").click();
+                    swal("更新成功", {
+                        icon: "success",
+                    });
+                } else {
+                    swal(result.message, {
+                        icon: "error",
+                    });
+                }
+                ;
+            },
+            error: function () {
+                swal("操作失败", {
+                    icon: "error",
+                });
+            }
+        });
+    }
+
+	
+
 

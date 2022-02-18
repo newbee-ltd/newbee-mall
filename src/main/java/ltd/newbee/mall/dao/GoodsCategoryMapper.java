@@ -66,5 +66,9 @@ public interface GoodsCategoryMapper {
     int getTotalGoodsCampaign(PageQueryUtil pageUtil);
     
     List<GoodsCampaign>getGoodsCampaignContent();
+    
+    int setNewGoodsCam(GoodsCampaign goodsCampaign);
+    
+    GoodsCampaign getGoodsCampaignByGoodsId(Long goodsId);
 
 }

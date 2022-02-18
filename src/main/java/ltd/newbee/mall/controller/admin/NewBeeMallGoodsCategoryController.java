@@ -294,6 +294,26 @@ public class NewBeeMallGoodsCategoryController {
         return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getGoodsCampaignPage(pageUtil));
     }
     
+    @RequestMapping(value = "/goodsCampaign/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Result updateGoodsCam(@RequestBody Map<String,Object>params) {
+        Long newCamId = Long.parseLong(params.get("camId").toString());
+        Long goodId = Long.parseLong(params.get("goodsId").toString());
+        Date starDate = new Date();
+        Date endDate = new Date();
+        GoodsCampaign goodsCam = newBeeMallCategoryService.getGoodsCampaignByGoodsId(goodId);
+        goodsCam.setCamId(newCamId);
+        goodsCam.setStartDate(starDate);
+        goodsCam.setEndDate(endDate);
+        int row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
+        
+        if (row>0) { 
+        	return ResultGenerator.genSuccessResult("更新成功");
+            
+        } else {
+        	return ResultGenerator.genFailResult("更新失败"); 
+        }
+    }
 
     	
     

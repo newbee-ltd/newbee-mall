@@ -334,4 +334,23 @@
          select * from cam_table order by priority
     </select>
     
+    <update id="setNewGoodsCam" parameterType="ltd.newbee.mall.entity.GoodsCampaign">
+    update goods_cam 
+    set cam_id = #{camId,jdbcType=BIGINT},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP}
+    <where>
+      goods_id = #{goodsId,jdbcType=BIGINT}
+    </where>
+    </update>
+  
+    <select id="getGoodsCampaignByGoodsId" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsCampaign">
+        select a.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+			on a.goods_id = c.goods_id
+	  <where>
+      a.goods_id = #{goodsId,jdbcType=BIGINT}
+      </where>
+    </select>
+    
 </mapper>

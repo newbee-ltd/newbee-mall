@@ -81,4 +81,8 @@ public interface NewBeeMallCategoryService {
     
     List<GoodsCampaign>getGoodsCampaignContent();
     
+    int setNewGoodsCam(GoodsCampaign goodsCampaign);
+    
+    GoodsCampaign getGoodsCampaignByGoodsId(Long goodsId);
+    
 }
