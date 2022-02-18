@@ -39,4 +39,5 @@ public interface NewBeeMallCarouselService {
      * @return
      */
     List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number);
+    
 }

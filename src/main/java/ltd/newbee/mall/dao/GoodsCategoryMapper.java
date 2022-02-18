@@ -8,8 +8,12 @@
  */
 package ltd.newbee.mall.dao;
 
+import ltd.newbee.mall.entity.Campaign;
+import ltd.newbee.mall.entity.GoodsCampaign;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.util.PageQueryUtil;
+import ltd.newbee.mall.util.PageResult;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,4 +40,31 @@ public interface GoodsCategoryMapper {
     int deleteBatch(Integer[] ids);
 
     List<GoodsCategory> selectByLevelAndParentIdsAndNumber(@Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
+
+    List<Campaign> findGoodsCampaignList(PageQueryUtil pageUtil);
+    
+    PageResult getCampaignPage(PageQueryUtil pageUtil);
+    
+    int getTotalCampaign(PageQueryUtil pageUtil);
+    
+    int insertNewCampaign(Campaign campaign);
+    
+    Long getMaxCampaignId();
+    
+    Campaign getCampaignInfo(String camName);
+    
+    Campaign getCampaignById(Long camId);
+    
+    List<Long>getCampaignId();
+    
+    int updateByCamId(Campaign campaign);
+    
+    int deleteCampaign(Integer[] ids);
+    
+    List<GoodsCampaign> findCampaignList(PageQueryUtil pageUtil);
+    
+    int getTotalGoodsCampaign(PageQueryUtil pageUtil);
+    
+    List<GoodsCampaign>getGoodsCampaignContent();
+
 }

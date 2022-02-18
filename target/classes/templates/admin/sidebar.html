@@ -105,6 +105,22 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/campaign}" th:class="${path}=='campaign'?'nav-link active':'nav-link'">
+                        <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+                        <p>
+                            促销管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/goodsCampaign}" th:class="${path}=='goodsCampaign'?'nav-link active':'nav-link'">
+                        <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+                        <p>
+                            促销应用
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">系统管理</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/profile}"

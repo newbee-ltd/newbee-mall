@@ -16,6 +16,8 @@ import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
 import ltd.newbee.mall.controller.vo.SecondLevelCategoryVO;
 import ltd.newbee.mall.controller.vo.ThirdLevelCategoryVO;
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
+import ltd.newbee.mall.entity.Campaign;
+import ltd.newbee.mall.entity.GoodsCampaign;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.util.BeanUtil;
@@ -164,4 +166,79 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
     public List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel) {
         return goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(parentIds, categoryLevel, 0);//0代表查询所有
     }
+
+	@Override
+	public PageResult getCampaignPage(PageQueryUtil pageUtil) {
+		List<Campaign> campaignList = goodsCategoryMapper.findGoodsCampaignList(pageUtil);
+		int total = goodsCategoryMapper.getTotalCampaign(pageUtil);
+		PageResult pageResult = new PageResult(campaignList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+	}
+
+	@Override
+	public int getTotalCampaign(PageQueryUtil pageUtil) {
+		
+		return goodsCategoryMapper.getTotalCampaign(pageUtil);
+	}
+
+	@Override
+	public int insertNewCampaign(Campaign campaign) {
+		
+		return goodsCategoryMapper.insertNewCampaign(campaign);
+	}
+
+	@Override
+	public Long getMaxCampaignId() {
+		
+		return goodsCategoryMapper.getMaxCampaignId();
+	}
+
+	@Override
+	public Campaign getCampaignInfo(String camName) {
+		
+		return goodsCategoryMapper.getCampaignInfo(camName);
+	}
+
+	@Override
+	public Campaign getCampaignById(Long camId) {
+		
+		return goodsCategoryMapper.getCampaignById(camId);
+	}
+
+	@Override
+	public List<Long> getCampaignId() {
+		
+		return goodsCategoryMapper.getCampaignId();
+	}
+
+	@Override
+	public int updateByCamId(Campaign campaign) {
+		
+		return goodsCategoryMapper.updateByCamId(campaign);
+	}
+
+	@Override
+	public Boolean deleteCampaign(Integer[] ids) {
+		
+		
+		if (ids.length < 1) {
+            return false;
+        }
+        //删除分类数据
+        return goodsCategoryMapper.deleteCampaign(ids) > 0;
+	}
+
+	@Override
+	public PageResult getGoodsCampaignPage(PageQueryUtil pageUtil) {
+		List<GoodsCampaign> goodsCampaignList = goodsCategoryMapper.findCampaignList(pageUtil);
+        int total = goodsCategoryMapper.getTotalGoodsCampaign(pageUtil);
+        PageResult pageResult = new PageResult(goodsCampaignList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+	}
+
+	@Override
+	public List<GoodsCampaign> getGoodsCampaignContent() {
+		
+		return goodsCategoryMapper.getGoodsCampaignContent();
+	}
 }

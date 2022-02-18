@@ -86,12 +86,13 @@
 							<th:block th:each="goodsImage,iter : ${outerList}">
 								<div class="swiper-slide"
 									th:classappend="${iter.index == 0} ? 'swiper-slide-active' : 'swiper-slide-next'"
-									style="width: 380px;">
+									style="width: 380px;" >
 									<th:block th:each="element,iter: ${goodsImage}">
 										<div class="p-gallery_thumbs_item"
 											th:classappend="${iter.index == 0} ? 'p-gallery_thumbs_item-active' : ''"
 											role="button" tabindex="0" data-index="0"
-											th:style="'background-image:url(' + ${element.imageUrl} + ');'">
+											th:style="'background-image:url(' + ${element.imageUrl} + ');'"
+											th:onclick="'selectImage('+${iter.index}+')'">
 										</div>
 									</th:block>
 								</div>
@@ -107,9 +108,11 @@
 							<i class="g-i g-i-arrow-l" aria-hidden="true"></i>
 						</div>
 						<div class="p-gallery_pagination swiper-pagination-clickable swiper-pagination-bullets">
-							<span class="swiper-pagination-bullet swiper-pagination-bullet-active" id="page1"
-								onclick="showImages('left')"></span>
-							<span class="swiper-pagination-bullet" id="page2" onclick="showImages('right')"></span>
+						<th:block th:each="element,iter: ${outerList}">
+							<span class="swiper-pagination-bullet" id="page1"
+							th:classappend="${iter.index == 0} ? 'swiper-pagination-bullet-active' : ''"
+								th:onclick="'common('+${iter.index}+')'"></span>
+						</th:block>
 						</div>
 						<div class="p-gallery_btn p-gallery_next" id="right" onclick="showImages('right')">
 							<i class="g-i g-i-arrow-r" aria-hidden="true"></i>

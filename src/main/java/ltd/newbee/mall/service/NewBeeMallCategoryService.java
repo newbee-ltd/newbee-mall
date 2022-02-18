@@ -10,6 +10,8 @@ package ltd.newbee.mall.service;
 
 import ltd.newbee.mall.controller.vo.NewBeeMallIndexCategoryVO;
 import ltd.newbee.mall.controller.vo.SearchPageCategoryVO;
+import ltd.newbee.mall.entity.Campaign;
+import ltd.newbee.mall.entity.GoodsCampaign;
 import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
@@ -56,4 +58,27 @@ public interface NewBeeMallCategoryService {
      * @return
      */
     List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
+    
+    PageResult getCampaignPage(PageQueryUtil pageUtil);
+    
+    int getTotalCampaign(PageQueryUtil pageUtil);
+    
+    int insertNewCampaign(Campaign campaign);
+    
+    Long getMaxCampaignId();
+    
+    Campaign getCampaignInfo(String camName);
+    
+    Campaign getCampaignById(Long camId);
+    
+    List<Long>getCampaignId();
+    
+    int updateByCamId(Campaign campaign);
+    
+    Boolean deleteCampaign(Integer[] ids);
+    
+    PageResult getGoodsCampaignPage(PageQueryUtil pageUtil);
+    
+    List<GoodsCampaign>getGoodsCampaignContent();
+    
 }

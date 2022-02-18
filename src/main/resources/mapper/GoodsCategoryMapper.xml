@@ -209,4 +209,129 @@
       update_user = #{updateUser,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=BIGINT}
   </update>
+  
+  <resultMap id="CampaignResultMap" type="ltd.newbee.mall.entity.Campaign">
+        <result column="cam_id" jdbcType="BIGINT" property="camId"/>
+        <result column="cam_kind" jdbcType="VARCHAR" property="camKind"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="time_stamp" jdbcType="TIMESTAMP" property="timeStamp"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="cam_name" jdbcType="VARCHAR" property="camName"/>
+        <result column="cal1" jdbcType="VARCHAR" property="cal1"/>
+        <result column="cal2" jdbcType="VARCHAR" property="cal2"/>
+        <result column="cal3" jdbcType="VARCHAR" property="cal3"/>
+        <result column="is_deleted" jdbcType="INTEGER" property="isDeleted"/>
+    </resultMap>
+    <sql id="Campaign_Column_List">
+    cam_id,cam_kind,create_user,time_stamp,priority,cam_name,cal1,cal2,cal3,is_deleted
+    </sql>
+    <select id="findGoodsCampaignList" parameterType="Map" resultMap="CampaignResultMap">
+    	select
+    <include refid="Campaign_Column_List"/>
+    	from newbee_mall_db.cam_table
+    <where>
+    	is_deleted = 0
+    </where>
+    <if test="start!=null and limit!=null">
+        limit #{start},#{limit}
+    </if>
+    	
+    </select>
+    
+    <select id="getTotalCampaign" parameterType="Map" resultType="int">
+        select count(*) from newbee_mall_db.cam_table
+    </select>
+    
+    <insert id="insertNewCampaign" parameterType="ltd.newbee.mall.entity.Campaign">
+    insert into newbee_mall_db.cam_table (cam_id,cam_kind,create_user,time_stamp,priority,
+    	cam_name,cal1,cal2,cal3)
+    values (#{camId,jdbcType=BIGINT}, #{camKind,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{timeStamp,jdbcType=TIMESTAMP}, #{priority,jdbcType=INTEGER}, #{camName,jdbcType=VARCHAR}, 
+      #{cal1,jdbcType=VARCHAR}, #{cal2,jdbcType=VARCHAR}, #{cal3,jdbcType=VARCHAR})
+   </insert>
+  
+    <select id="getMaxCampaignId" resultType="Long">
+        select max(cam_id) from newbee_mall_db.cam_table
+    </select>
+   <select id="getCampaignInfo" parameterType="String" resultType="ltd.newbee.mall.entity.Campaign">
+        select cam_kind,priority from cam_table 
+        <where>
+        cam_name = #{camName,jdbcType=VARCHAR}
+        </where>
+        
+        group by cam_name
+        
+   </select> 
+   <select id="getCampaignById" parameterType="Long" resultType="ltd.newbee.mall.entity.Campaign">
+   		select cam_kind,create_user,time_stamp/priority,cam_name,cal1,cal2,cal3 from newbee_mall_db.cam_table
+ 		<where>cam_id = #{camId,jdbcType=BIGINT}
+ 		</where>
+   </select>
+   
+   <select id="getCampaignId" resultType="Long">
+        select cam_id from newbee_mall_db.cam_table
+   </select>
+   
+   <update id="updateByCamId" parameterType="ltd.newbee.mall.entity.Campaign">
+    update newbee_mall_db.cam_table
+    set cam_kind = #{camKind,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      time_stamp = #{timeStamp,jdbcType=TIMESTAMP},
+      priority = #{priority,jdbcType=INTEGER},
+      cam_name = #{camName,jdbcType=VARCHAR},
+      cal1 = #{cal1,jdbcType=VARCHAR},
+      cal2 = #{cal2,jdbcType=VARCHAR},
+      cal3 = #{cal3,jdbcType=VARCHAR}
+    <where>
+      cam_id = #{camId,jdbcType=BIGINT}
+    </where>
+  </update>
+  
+  <update id="deleteCampaign">
+        update newbee_mall_db.cam_table
+        set is_deleted=1 where cam_id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    
+    
+      <resultMap id="GoodsCampaignResultMap" type="ltd.newbee.mall.entity.GoodsCampaign">
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="cam_id" jdbcType="BIGINT" property="camId"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="cam_kind" jdbcType="VARCHAR" property="camKind"/>
+        <result column="cal1" jdbcType="VARCHAR" property="cal1"/>
+        <result column="cam_name" jdbcType="VARCHAR" property="camName"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="is_deleted" jdbcType="INTEGER" property="isDeleted"/>
+    </resultMap>
+    
+    <select id="findCampaignList" parameterType="Map" resultMap="GoodsCampaignResultMap">
+    SELECT a.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+			on a.goods_id = c.goods_id
+    <where>
+    	is_deleted = 0
+    </where>
+    <if test="keyword!=null and keyword!=''">
+		and c.goods_name like CONCAT('%',#{keyword},'%')
+	</if>
+    <if test="start!=null and limit!=null">
+        limit #{start},#{limit}
+    </if>
+    	
+    </select>
+    
+    <select id="getTotalGoodsCampaign" parameterType="Map" resultType="int">
+        select count(*) from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+			on a.goods_id = c.goods_id
+    </select>
+    
+    <select id="getGoodsCampaignContent" resultType="ltd.newbee.mall.entity.GoodsCampaign">
+         select * from cam_table order by priority
+    </select>
+    
 </mapper>

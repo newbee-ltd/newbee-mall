@@ -8,10 +8,20 @@
  */
 package ltd.newbee.mall.controller.admin;
 
+import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
+import ltd.newbee.mall.controller.vo.GoodsCampaignVO;
+import ltd.newbee.mall.controller.vo.GoodsInfoVO;
+import ltd.newbee.mall.controller.vo.GoodsReviewVO;
+import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
+import ltd.newbee.mall.entity.AdminUser;
+import ltd.newbee.mall.entity.Campaign;
+import ltd.newbee.mall.entity.GoodsCampaign;
 import ltd.newbee.mall.entity.GoodsCategory;
+import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
+import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -20,8 +30,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.util.*;
 
 /**
@@ -167,5 +180,121 @@ public class NewBeeMallGoodsCategoryController {
         }
     }
 
+    @GetMapping("/campaign")
+    public String campaignPage(HttpServletRequest request) {
+        
+        request.setAttribute("path", "campaign");
+        return "admin/campaign";
+    }
+    
+    @RequestMapping(value = "/campaign/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Result campaignList(@RequestParam Map<String, Object> params) {
+        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        PageQueryUtil pageUtil = new PageQueryUtil(params);
+        return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getCampaignPage(pageUtil));
+    }
+    
+    
+	@RequestMapping(value = "/campaign/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Result insertCampaign(@RequestBody Campaign campaign,HttpServletRequest request) {
+		
+		String loginUserId =  request.getSession().getAttribute("loginUserId").toString();
+		 
+		Long camId = newBeeMallCategoryService.getMaxCampaignId();
+		Long newCamId = camId+1;
+		Date insertDate = new Date();
+		String camName = campaign.getCamName();
+		Campaign camInfo = newBeeMallCategoryService.getCampaignInfo(camName);
+		
+		
+		campaign.setCreateUser(loginUserId); 
+		campaign.setCamId(newCamId);
+		campaign.setTimeStamp(insertDate);
+		campaign.setCamKind(camInfo.getCamKind());
+		campaign.setPriority(camInfo.getPriority());
+		
+		int row = newBeeMallCategoryService.insertNewCampaign(campaign);
+		if(row>0) {
+			 return ResultGenerator.genSuccessResult("添加成功");
+			 }
+		else {
+			 return ResultGenerator.genErrorResult(404,"添加失败");
+		 }
+		
+	}
+	
+	@RequestMapping(value = "/campaign/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Result editCampaign(@RequestBody Map<String,Object>params,HttpServletRequest request) {
+		
+		String loginUserId =  request.getSession().getAttribute("loginUserId").toString();
+		Long camId = Long.parseLong(params.get("camId").toString());
+		String camName = params.get("camName").toString();
+		Campaign camInfo = newBeeMallCategoryService.getCampaignInfo(camName);
+		String camKind = camInfo.getCamKind();
+		int priority = camInfo.getPriority();
+		Date editDate = new Date();
+	
+		
+		Campaign newCam = newBeeMallCategoryService.getCampaignById(camId);
+		newCam.setCamId(camId);
+		newCam.setCal1(params.get("cal1").toString());
+		newCam.setCamKind(camKind);
+		newCam.setPriority(priority);
+		newCam.setTimeStamp(editDate);
+		newCam.setCamName(camName);
+		
+		int row = newBeeMallCategoryService.updateByCamId(newCam);
+		
+		if(row>0) {
+			 return ResultGenerator.genSuccessResult("修改成功");
+			 }
+		else {
+			 return ResultGenerator.genErrorResult(404,"修改失败");
+		 
+		
+		}
+		}
+	
+    @RequestMapping(value = "/campaign/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Result deleteCampaign(@RequestBody Integer[] ids) {
+        if (ids.length < 1) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        if (newBeeMallCategoryService.deleteCampaign(ids)) { 
+        	return ResultGenerator.genSuccessResult();
+            
+        } else {
+        	return ResultGenerator.genFailResult("删除失败");
+        }
+    }
+    
+    @GetMapping("/goodsCampaign")
+    public String goodsCampaignPage(HttpServletRequest request) {
+    	List<GoodsCampaign>goodsCampaignList = newBeeMallCategoryService.getGoodsCampaignContent();
+    	GoodsCampaignVO goodsCampaignVO = new GoodsCampaignVO();
+    	List<GoodsCampaignVO> goodsCampaignVOList = BeanUtil.copyList(goodsCampaignList, GoodsCampaignVO.class);
+    	request.setAttribute("path", "goodsCampaign");
+		request.setAttribute("goodsCampaign", goodsCampaignVOList);
+		return "admin/goodsCampaign";
+    }
+    
+    @RequestMapping(value = "/goodsCampaign/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Result goodsCampaignList(@RequestParam Map<String, Object> params) {
+        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+            return ResultGenerator.genFailResult("参数异常！");
+        }
+        PageQueryUtil pageUtil = new PageQueryUtil(params);
+        return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getGoodsCampaignPage(pageUtil));
+    }
+    
 
-}
+    	
+    
+	}
