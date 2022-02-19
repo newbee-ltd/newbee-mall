@@ -310,12 +310,12 @@
     </resultMap>
     
     <select id="findCampaignList" parameterType="Map" resultMap="GoodsCampaignResultMap">
-    SELECT a.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
-			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+    select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id right join tb_newbee_mall_goods_info c
 			on a.goods_id = c.goods_id
-    <where>
+    <!-- <where>
     	is_deleted = 0
-    </where>
+    </where> -->
     <if test="keyword!=null and keyword!=''">
 		and c.goods_name like CONCAT('%',#{keyword},'%')
 	</if>
@@ -326,7 +326,7 @@
     </select>
     
     <select id="getTotalGoodsCampaign" parameterType="Map" resultType="int">
-        select count(*) from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+        select count(*) from goods_cam a join cam_table b on a.cam_id = b.cam_id right join tb_newbee_mall_goods_info c
 			on a.goods_id = c.goods_id
     </select>
     
@@ -345,8 +345,8 @@
     </update>
   
     <select id="getGoodsCampaignByGoodsId" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsCampaign">
-        select a.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
-			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id join tb_newbee_mall_goods_info c
+        select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id right join tb_newbee_mall_goods_info c
 			on a.goods_id = c.goods_id
 	  <where>
       a.goods_id = #{goodsId,jdbcType=BIGINT}

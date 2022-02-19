@@ -38,13 +38,13 @@
 							<button class="btn btn-info" onclick="searchResult()">
 							<i class="fa fa-plus"></i>&nbsp;search</button>
 							</div>
-							<div>
+							<!--<div>
 							  <label for="cars">请选择促销内容:</label>
-							  <select name="cars" id="cars">
+							  <select name="selectCam" id="selectCam">
 							    <option class="selections" th:each="campaign : *{goodsCampaign}" 
 							    th:text="${campaign.cal1}" th:value="${campaign.camId}" th:id="${campaign.camId}"></option>				 
 							  </select>
-							</div>
+							</div>-->
 							
 							<br>
 							<table id="jqGrid" class="table table-bordered">

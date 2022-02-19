@@ -247,6 +247,7 @@ public class NewBeeMallGoodsCategoryController {
 		newCam.setPriority(priority);
 		newCam.setTimeStamp(editDate);
 		newCam.setCamName(camName);
+		newCam.setCreateUser(loginUserId);
 		
 		int row = newBeeMallCategoryService.updateByCamId(newCam);
 		
@@ -277,7 +278,6 @@ public class NewBeeMallGoodsCategoryController {
     @GetMapping("/goodsCampaign")
     public String goodsCampaignPage(HttpServletRequest request) {
     	List<GoodsCampaign>goodsCampaignList = newBeeMallCategoryService.getGoodsCampaignContent();
-    	GoodsCampaignVO goodsCampaignVO = new GoodsCampaignVO();
     	List<GoodsCampaignVO> goodsCampaignVOList = BeanUtil.copyList(goodsCampaignList, GoodsCampaignVO.class);
     	request.setAttribute("path", "goodsCampaign");
 		request.setAttribute("goodsCampaign", goodsCampaignVOList);
@@ -314,7 +314,15 @@ public class NewBeeMallGoodsCategoryController {
         	return ResultGenerator.genFailResult("更新失败"); 
         }
     }
-
-    	
     
-	}
+    @RequestMapping(value = "/goodsCampaign/campaignList", method = RequestMethod.POST)
+    @ResponseBody
+    public Result camList(@RequestBody Map<String,Object>params) {
+    	List<GoodsCampaign>goodsCampaignList = newBeeMallCategoryService.getGoodsCampaignContent();
+    	List<GoodsCampaignVO> goodsCampaignVOList = BeanUtil.copyList(goodsCampaignList, GoodsCampaignVO.class);
+    	
+        return ResultGenerator.genSuccessResult(goodsCampaignVOList); 
+        
+    }
+
+}
