@@ -316,13 +316,14 @@
     <!-- <where>
     	is_deleted = 0
     </where> -->
+    <where>
     <if test="keyword!=null and keyword!=''">
 		and c.goods_name like CONCAT('%',#{keyword},'%')
 	</if>
     <if test="start!=null and limit!=null">
         limit #{start},#{limit}
     </if>
-    	
+    </where>
     </select>
     
     <select id="getTotalGoodsCampaign" parameterType="Map" resultType="int">

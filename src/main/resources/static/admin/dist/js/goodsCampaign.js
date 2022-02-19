@@ -1,23 +1,24 @@
 function customSelectboxRenderer(){
-	
+	var rs = "<select name='selections' id='selections'>";
 	$.ajax({
             type: 'POST',//方法类型
             url: '/admin/goodsCampaign/campaignList',
             contentType: 'application/json',
-            data: JSON.stringify(data),
+            /*data: JSON.stringify(data),*/
+            async: false,
             success: function (result) {
                 if (result.resultCode == 200) {
-					var data = result.data.goodsCampaignVOList;
-					var rs = "<select name='cars' id='cars'>";
+					var data = result.data;
+					
 					for(var i=0;i<data.length;i++){
-						rs = rs + "option value='" + data[i].calId + "'>"+data[i].cal1+"</option>";
+						rs = rs + "<option value='" + data[i].camId + "'>"+data[i].cal1+"</option>";
 					}
-					rs = rs + "</select>";
-					return rs;	
-                } 
-                
+				rs = rs + "</select>";
+				
+                }    
             },
         });
+    return rs;	
 }
 
 function searchResult(){
@@ -31,7 +32,7 @@ function searchResult(){
             {label: '商品单号', name: 'goodsId', index: 'goodsId', width: 120,key: true},
             {label: '商品名称', name: 'goodsName', index: 'goodsName', width: 120},
             {label: 'campaignId', name: 'camId', index: 'camId', width: 120},
-            {label: '促销内容', name: 'cal1', index: 'cal1', width: 120,formatter: customSelectboxRenderer}
+            {label: '当前促销', name: 'cal1', index: 'cal1', width: 120, formatter: customSelectboxRenderer}
         ],
         height: 560,
         rowNum: 10,
@@ -58,9 +59,14 @@ function searchResult(){
         var dataArr = $("#jqGrid").jqGrid('getRowData');
         var dataIDs = jQuery("#jqGrid").getDataIDs();
         for(var i = 0;i<dataArr.length;i++){
-			var camId = dataArr[i]['camId'];
+			var camId = dataArr[i].camId;
+			/*var dropdown = jQuery('#' + dataIDs[i] + 'pdInstanceType')[0];
+			var selectedOption = dropdown.options[dropdown.selectedIndex];
+			var selectedText = selectedOption.text;
+			var selectedVal =*/ 
 			if(camId!=0){
 				$("#jqGrid").jqGrid('setSelection',dataIDs[i],true);
+				$("#"+dataArr[i].goodsId).find("#selections").val(dataArr[i].camId);
 			}
 			}      
         },
@@ -80,13 +86,13 @@ function searchResult(){
 } */
 
 function selectCam(){
-	var cal1 = $('#selectCam :selected').text();
-	var camId = $('#selectCam :selected').val();
-	var goodsId =getSelectedRow();
+	var dataArr = $("#jqGrid").jqGrid('getRowData');
+
+	
+	var goodsIds =getSelectedRows();
 	var data = {
-            "cal1": cal1,
             "camId": camId,
-            "goodsId": goodsId
+            "goodsId": goodsIds
         };
         $.ajax({
             type: 'POST',//方法类型
