@@ -317,7 +317,7 @@ public class NewBeeMallGoodsCategoryController {
     
     @RequestMapping(value = "/goodsCampaign/campaignList", method = RequestMethod.POST)
     @ResponseBody
-    public Result camList(@RequestBody Map<String,Object>params) {
+    public Result camList() {
     	List<GoodsCampaign>goodsCampaignList = newBeeMallCategoryService.getGoodsCampaignContent();
     	List<GoodsCampaignVO> goodsCampaignVOList = BeanUtil.copyList(goodsCampaignList, GoodsCampaignVO.class);
     	

@@ -7,9 +7,15 @@ function customSelectboxRenderer(){
             data: JSON.stringify(data),
             success: function (result) {
                 if (result.resultCode == 200) {
-					return "<select>...</select>";
+					var data = result.data.goodsCampaignVOList;
+					var rs = "<select name='cars' id='cars'>";
+					for(var i=0;i<data.length;i++){
+						rs = rs + "option value='" + data[i].calId + "'>"+data[i].cal1+"</option>";
+					}
+					rs = rs + "</select>";
+					return rs;	
                 } 
-                ;
+                
             },
         });
 }
