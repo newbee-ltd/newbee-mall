@@ -356,10 +356,6 @@
     insert into newbee_mall_db.goods_cam (goods_id,cam_id,start_date,end_date)
     values (#{goodsId,jdbcType=BIGINT}, #{camId,jdbcType=BIGINT}, #{startDate,jdbcType=TIMESTAMP}, 
       #{endDate,jdbcType=TIMESTAMP})
-      <where>
-      goods_id = #{goodsId,jdbcType=BIGINT}
-      and cam_id = #{camId,jdbcType=BIGINT}
-      </where>
    </insert>
    
     <delete id="deleteGoodsCam" parameterType="ltd.newbee.mall.entity.GoodsCampaign">

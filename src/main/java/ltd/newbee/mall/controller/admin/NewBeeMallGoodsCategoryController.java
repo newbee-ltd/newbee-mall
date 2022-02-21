@@ -304,7 +304,7 @@ public class NewBeeMallGoodsCategoryController {
     @RequestMapping(value = "/goodsCampaign/update", method = RequestMethod.POST)
     @ResponseBody
     public Result updateGoodsCam(@RequestBody List<GoodsCampaign> cams) {
-    	int row = 0;
+    	boolean errorflg = false;
     	for(int i = 0;i<cams.size();i++) {
     		GoodsCampaign goodsCam = new GoodsCampaign();
     		goodsCam = cams.get(i);
@@ -318,17 +318,25 @@ public class NewBeeMallGoodsCategoryController {
     		goodsCam.setCamId(newCamId);
     		goodsCam.setStartDate(starDate);
     		goodsCam.setEndDate(endDate);
+    		int row = 0;
     		if(flag == 0) {
     			row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
     		}
     		if(flag == 1) {
     			row = newBeeMallCategoryService.insertNewGoodsCampaign(goodsCam);
     		}
-    		if(flag == 2) {
-    			row = newBeeMallCategoryService.deleteGoodsCam(goodsCam);
+			
+			if(flag == 2) { 
+				row = newBeeMallCategoryService.deleteGoodsCam(goodsCam); }
+			 
+    		if(row>=0) {
+    			errorflg = false;
+    		}else {
+    			errorflg = true;
+    			break;
     		}
-    		}
-        if (row>0) { 
+    	}
+        if (!errorflg) { 
         	return ResultGenerator.genSuccessResult("更新成功");
             
         } else {
