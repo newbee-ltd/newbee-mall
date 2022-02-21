@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class GoodsCampaign {
+	private int flag;
+	
     private long goodsId;
     
     private long camId;
@@ -32,6 +34,14 @@ public class GoodsCampaign {
     private String cal1;
     
     private int isDeleted;
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 
 	public long getGoodsId() {
 		return goodsId;
@@ -115,10 +125,12 @@ public class GoodsCampaign {
 
 	@Override
 	public String toString() {
-		return "GoodsCampaign [goodsId=" + goodsId + ", camId=" + camId + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", priority=" + priority + ", camKind=" + camKind + ", camName=" + camName + ", goodsName="
-				+ goodsName + ", cal1=" + cal1 + ", isDeleted=" + isDeleted + "]";
+		return "GoodsCampaign [flag=" + flag + ", goodsId=" + goodsId + ", camId=" + camId + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", priority=" + priority + ", camKind=" + camKind + ", camName=" + camName
+				+ ", goodsName=" + goodsName + ", cal1=" + cal1 + ", isDeleted=" + isDeleted + "]";
 	}
+
+	
     
 
 	

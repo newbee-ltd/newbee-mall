@@ -303,29 +303,31 @@ public class NewBeeMallGoodsCategoryController {
     
     @RequestMapping(value = "/goodsCampaign/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result updateGoodsCam(@RequestBody Object[] values) {
-    	ObjectMapper oMapper = new ObjectMapper();
-    	Object obj = Array.get(values, 0);
-    	Map<String, Object> map = oMapper.convertValue(obj, Map.class);
-    	Long newCamId = Long.parseLong(map.get("camId").toString());
-    	int flag = Integer.parseInt(map.get("flag").toString());
-        Long goodsId = Long.parseLong(map.get("goodsId").toString());
-        Date starDate = new Date();
-        Date endDate = new Date();
-        GoodsCampaign goodsCam = newBeeMallCategoryService.getGoodsCampaignByGoodsId(goodsId);
-        goodsCam.setCamId(newCamId);
-        goodsCam.setStartDate(starDate);
-        goodsCam.setEndDate(endDate);
-        int row = 0;
-        if(flag == 0) {
-        	row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
-        }
-        if(flag == 1) {
-        	row = newBeeMallCategoryService.insertNewGoodsCampaign(goodsCam);
-        }
-        if(flag == 2) {
-        	row = newBeeMallCategoryService.deleteGoodsCam(goodsCam);
-        }
+    public Result updateGoodsCam(@RequestBody List<GoodsCampaign> cams) {
+    	int row = 0;
+    	for(int i = 0;i<cams.size();i++) {
+    		GoodsCampaign goodsCam = new GoodsCampaign();
+    		goodsCam = cams.get(i);
+    		Long newCamId = goodsCam.getCamId();
+    		int flag = goodsCam.getFlag();
+    		Long goodsId = goodsCam.getGoodsId();
+    		Date starDate = new Date();
+    		Date endDate = new Date();
+        
+    		goodsCam.setGoodsId(goodsId);
+    		goodsCam.setCamId(newCamId);
+    		goodsCam.setStartDate(starDate);
+    		goodsCam.setEndDate(endDate);
+    		if(flag == 0) {
+    			row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
+    		}
+    		if(flag == 1) {
+    			row = newBeeMallCategoryService.insertNewGoodsCampaign(goodsCam);
+    		}
+    		if(flag == 2) {
+    			row = newBeeMallCategoryService.deleteGoodsCam(goodsCam);
+    		}
+    		}
         if (row>0) { 
         	return ResultGenerator.genSuccessResult("更新成功");
             

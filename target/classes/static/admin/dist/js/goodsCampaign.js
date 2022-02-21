@@ -56,12 +56,13 @@ function searchResult(){
             order: "order",
         },
         loadComplete: function() {
+	    $('#jqGrid').find('input[type="checkbox"]').hide();
         var dataArr = $("#jqGrid").jqGrid('getRowData');
         var dataIDs = jQuery("#jqGrid").getDataIDs();
         for(var i = 0;i<dataArr.length;i++){
 			var camId = dataArr[i].camId;
 			if(camId!=0){
-				$("#jqGrid").jqGrid('setSelection',dataIDs[i],true);
+				/*$("#jqGrid").jqGrid('setSelection',dataIDs[i],true);*/
 				$("#"+dataArr[i].goodsId).find("#selections").val(dataArr[i].camId);
 			}
 			}      
@@ -72,48 +73,44 @@ function searchResult(){
         }
     });
 }
-/*function getAllSelectOptions(){
- var campaigns = { '1': '30%割引', '2': '满3000减100', '3': '返回20%积分', 
-               '4': '满200减10元', '5': '满2000免运费', '6': '10%割引', '7': '20%割引', '8': '满1000减10', 
-               '9': '返还5%积分', '10': '满3000减50', '11': '满500减15', '12': '满550免运费', '13': '满1500减50'};
-
-  return campaigns;
-
-} */
 
 function selectCam(){
 	var dataArr = $("#jqGrid").jqGrid('getRowData');
-	/*var goodsIds =getSelectedRows();*/
 	var flag = null;
 	var dataIDs = jQuery("#jqGrid").getDataIDs();
+	var data =[];
 	for(var i = 0;i<dataArr.length;i++){
+		    flag = null;
 			var camId = dataArr[i].camId;
 			var selectedVal = $("#"+dataArr[i].goodsId).find("#selections").val();
-			var selRowIds = $("#jqGrid").jqGrid("getGridParam", "selarrrow");
 			var goodsId = dataIDs[i];
-			if ($.inArray(dataIDs[i], selRowIds) >= 0&&camId!=selectedVal) {
+			if (camId !=0&&camId!=selectedVal&&selectedVal!=0) {
 				flag = 0;
 				camId = selectedVal;
 			}
-			if($.inArray(dataIDs[i], selRowIds) >= 0&&camId ==0&&selectedVal!=0){
+			if(camId ==0&&selectedVal!=0){
 				flag = 1;
 				camId = selectedVal;
 			}
-			if($.inArray(dataIDs[i], selRowIds) < 0&&camId!=0){
+			if(camId!=0&&selectedVal==0){
 				flag = 2;
 				camId = 0;
 			}
-			var data = [{
+			
+			data.push({
 			"flag":flag,
 			"camId":camId,
 			"goodsId":goodsId
-	        }];
+	        })
+	        
+			}
+			var _data = data;
 			
 	        $.ajax({
             type: 'POST',//方法类型
             url: '/admin/goodsCampaign/update',
             contentType: 'application/json',
-            data: JSON.stringify(data),
+            data: JSON.stringify(_data),
             success: function (result) {
                 if (result.resultCode == 200) {
 					$(".btn-info").click();
@@ -133,7 +130,6 @@ function selectCam(){
                 });
             }
         });
-			}
 			
 
 
