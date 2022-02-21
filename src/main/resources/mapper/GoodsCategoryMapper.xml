@@ -310,13 +310,11 @@
     </resultMap>
     
     <select id="findCampaignList" parameterType="Map" resultMap="GoodsCampaignResultMap">
-    select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+    select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,a.is_deleted 
 			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id right join tb_newbee_mall_goods_info c
 			on a.goods_id = c.goods_id
-    <!-- <where>
-    	is_deleted = 0
-    </where> -->
     <where>
+    	<!-- a.is_deleted = 0 -->
     <if test="keyword!=null and keyword!=''">
 		and c.goods_name like CONCAT('%',#{keyword},'%')
 	</if>
@@ -346,12 +344,30 @@
     </update>
   
     <select id="getGoodsCampaignByGoodsId" parameterType="Long" resultType="ltd.newbee.mall.entity.GoodsCampaign">
-        select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,b.is_deleted 
+        select c.goods_id,a.cam_id,a.start_date,a.end_date,b.cam_kind,b.priority,b.cam_name,b.cal1,a.is_deleted 
 			,c.goods_name from goods_cam a join cam_table b on a.cam_id = b.cam_id right join tb_newbee_mall_goods_info c
 			on a.goods_id = c.goods_id
 	  <where>
       a.goods_id = #{goodsId,jdbcType=BIGINT}
       </where>
     </select>
+    
+    <insert id="insertNewGoodsCampaign" parameterType="ltd.newbee.mall.entity.GoodsCampaign">
+    insert into newbee_mall_db.goods_cam (goods_id,cam_id,start_date,end_date)
+    values (#{goodsId,jdbcType=BIGINT}, #{camId,jdbcType=BIGINT}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP})
+      <where>
+      goods_id = #{goodsId,jdbcType=BIGINT}
+      and cam_id = #{camId,jdbcType=BIGINT}
+      </where>
+   </insert>
+   
+    <delete id="deleteGoodsCam" parameterType="ltd.newbee.mall.entity.GoodsCampaign">
+    delete from goods_cam
+    <where>
+      goods_id = #{goodsId,jdbcType=BIGINT}
+      and cam_id = #{camId,jdbcType=BIGINT}
+    </where>
+    </delete>
     
 </mapper>

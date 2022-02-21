@@ -8,34 +8,41 @@
  */
 package ltd.newbee.mall.controller.admin;
 
-import ltd.newbee.mall.common.Constants;
+import java.lang.reflect.Array;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.GoodsCampaignVO;
-import ltd.newbee.mall.controller.vo.GoodsInfoVO;
-import ltd.newbee.mall.controller.vo.GoodsReviewVO;
-import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
-import ltd.newbee.mall.entity.AdminUser;
 import ltd.newbee.mall.entity.Campaign;
 import ltd.newbee.mall.entity.GoodsCampaign;
 import ltd.newbee.mall.entity.GoodsCategory;
-import ltd.newbee.mall.entity.GoodsQa;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import java.util.*;
 
 /**
  * @author 13
@@ -296,17 +303,29 @@ public class NewBeeMallGoodsCategoryController {
     
     @RequestMapping(value = "/goodsCampaign/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result updateGoodsCam(@RequestBody Map<String,Object>params) {
-        Long newCamId = Long.parseLong(params.get("camId").toString());
-        Long goodId = Long.parseLong(params.get("goodsId").toString());
+    public Result updateGoodsCam(@RequestBody Object[] values) {
+    	ObjectMapper oMapper = new ObjectMapper();
+    	Object obj = Array.get(values, 0);
+    	Map<String, Object> map = oMapper.convertValue(obj, Map.class);
+    	Long newCamId = Long.parseLong(map.get("camId").toString());
+    	int flag = Integer.parseInt(map.get("flag").toString());
+        Long goodsId = Long.parseLong(map.get("goodsId").toString());
         Date starDate = new Date();
         Date endDate = new Date();
-        GoodsCampaign goodsCam = newBeeMallCategoryService.getGoodsCampaignByGoodsId(goodId);
+        GoodsCampaign goodsCam = newBeeMallCategoryService.getGoodsCampaignByGoodsId(goodsId);
         goodsCam.setCamId(newCamId);
         goodsCam.setStartDate(starDate);
         goodsCam.setEndDate(endDate);
-        int row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
-        
+        int row = 0;
+        if(flag == 0) {
+        	row = newBeeMallCategoryService.setNewGoodsCam(goodsCam);
+        }
+        if(flag == 1) {
+        	row = newBeeMallCategoryService.insertNewGoodsCampaign(goodsCam);
+        }
+        if(flag == 2) {
+        	row = newBeeMallCategoryService.deleteGoodsCam(goodsCam);
+        }
         if (row>0) { 
         	return ResultGenerator.genSuccessResult("更新成功");
             

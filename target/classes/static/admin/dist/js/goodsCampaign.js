@@ -60,10 +60,6 @@ function searchResult(){
         var dataIDs = jQuery("#jqGrid").getDataIDs();
         for(var i = 0;i<dataArr.length;i++){
 			var camId = dataArr[i].camId;
-			/*var dropdown = jQuery('#' + dataIDs[i] + 'pdInstanceType')[0];
-			var selectedOption = dropdown.options[dropdown.selectedIndex];
-			var selectedText = selectedOption.text;
-			var selectedVal =*/ 
 			if(camId!=0){
 				$("#jqGrid").jqGrid('setSelection',dataIDs[i],true);
 				$("#"+dataArr[i].goodsId).find("#selections").val(dataArr[i].camId);
@@ -87,14 +83,33 @@ function searchResult(){
 
 function selectCam(){
 	var dataArr = $("#jqGrid").jqGrid('getRowData');
-
-	
-	var goodsIds =getSelectedRows();
-	var data = {
-            "camId": camId,
-            "goodsId": goodsIds
-        };
-        $.ajax({
+	/*var goodsIds =getSelectedRows();*/
+	var flag = null;
+	var dataIDs = jQuery("#jqGrid").getDataIDs();
+	for(var i = 0;i<dataArr.length;i++){
+			var camId = dataArr[i].camId;
+			var selectedVal = $("#"+dataArr[i].goodsId).find("#selections").val();
+			var selRowIds = $("#jqGrid").jqGrid("getGridParam", "selarrrow");
+			var goodsId = dataIDs[i];
+			if ($.inArray(dataIDs[i], selRowIds) >= 0&&camId!=selectedVal) {
+				flag = 0;
+				camId = selectedVal;
+			}
+			if($.inArray(dataIDs[i], selRowIds) >= 0&&camId ==0&&selectedVal!=0){
+				flag = 1;
+				camId = selectedVal;
+			}
+			if($.inArray(dataIDs[i], selRowIds) < 0&&camId!=0){
+				flag = 2;
+				camId = 0;
+			}
+			var data = [{
+			"flag":flag,
+			"camId":camId,
+			"goodsId":goodsId
+	        }];
+			
+	        $.ajax({
             type: 'POST',//方法类型
             url: '/admin/goodsCampaign/update',
             contentType: 'application/json',
@@ -118,6 +133,10 @@ function selectCam(){
                 });
             }
         });
+			}
+			
+
+
     }
 
 	

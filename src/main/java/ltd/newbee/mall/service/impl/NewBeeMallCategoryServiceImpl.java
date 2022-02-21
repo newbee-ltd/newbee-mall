@@ -253,4 +253,16 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
 		
 		return goodsCategoryMapper.getGoodsCampaignByGoodsId(goodsId);
 	}
+
+	@Override
+	public int insertNewGoodsCampaign(GoodsCampaign goodsCampaign) {
+		
+		return goodsCategoryMapper.insertNewGoodsCampaign(goodsCampaign);
+	}
+
+	@Override
+	public int deleteGoodsCam(GoodsCampaign goodsCampaign) {
+		
+		return goodsCategoryMapper.deleteGoodsCam(goodsCampaign);
+	}
 }
