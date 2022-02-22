@@ -102,6 +102,7 @@ public class GoodsController {
 		params.put("goodsSellStatus", Constants.SELL_STATUS_UP);
 		// 封装商品数据
 
+
 		PageQueryUtil pageUtil = new PageQueryUtil(params);
 
 		request.setAttribute("pageResult", newBeeMallGoodsService.searchNewBeeMallGoods(pageUtil));
@@ -304,7 +305,7 @@ public class GoodsController {
             	return ResultGenerator.genSuccessResult("点赞成功");
     		}
             
-        }
+
 	
 	
 	@RequestMapping(value = "/goods/insertGoodsQa", method = RequestMethod.POST)

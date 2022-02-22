@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ltd.newbee.mall.common.NewBeeMallCategoryLevelEnum;
+import ltd.newbee.mall.common.NewBeeMallException;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.GoodsCampaignVO;
 import ltd.newbee.mall.entity.Campaign;
@@ -60,7 +61,7 @@ public class NewBeeMallGoodsCategoryController {
     @GetMapping("/categories")
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel, @RequestParam("parentId") Long parentId, @RequestParam("backParentId") Long backParentId) {
         if (categoryLevel == null || categoryLevel < 1 || categoryLevel > 3) {
-            return "error/error_5xx";
+            NewBeeMallException.fail("参数异常");
         }
         request.setAttribute("path", "newbee_mall_category");
         request.setAttribute("parentId", parentId);
