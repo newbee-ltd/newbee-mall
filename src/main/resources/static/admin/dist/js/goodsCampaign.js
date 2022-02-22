@@ -80,55 +80,54 @@ function selectCam(){
 	var dataIDs = jQuery("#jqGrid").getDataIDs();
 	var data =[];
 	for(var i = 0;i<dataArr.length;i++){
-		    flag = null;
-			var camId = dataArr[i].camId;
-			var selectedVal = $("#"+dataArr[i].goodsId).find("#selections").val();
-			var goodsId = dataIDs[i];
-			if (camId !=0&&camId!=selectedVal&&selectedVal!=0) {
-				flag = 0;
-				camId = selectedVal;
-			}
-			if(camId ==0&&selectedVal!=0){
-				flag = 1;
-				camId = selectedVal;
-			}
-			if(camId!=0&&selectedVal==0){
-				flag = 2;
-				camId = 0;
-			}
+		flag = null;
+		var camId = dataArr[i].camId;
+		var selectedVal = $("#"+dataArr[i].goodsId).find("#selections").val();
+		var goodsId = dataIDs[i];
+		if (camId !=0&&camId!=selectedVal&&selectedVal!=0) {
+			flag = 0;
+			camId = selectedVal;
+		}
+		if(camId ==0&&selectedVal!=0){
+			flag = 1;
+			camId = selectedVal;
+		}
+		if(camId!=0&&selectedVal==0){
+			flag = 2;
+			camId = 0;
+		}
 			
-			data.push({
-			"flag":flag,
-			"camId":camId,
-			"goodsId":goodsId
-	        })
+		data.push({
+		"flag":flag,
+		"camId":camId,
+		"goodsId":goodsId
+	    })
 	        
-			}
-			var _data = data;
+	}
 			
-	        $.ajax({
-            type: 'POST',//方法类型
-            url: '/admin/goodsCampaign/update',
-            contentType: 'application/json',
-            data: JSON.stringify(_data),
-            success: function (result) {
-                if (result.resultCode == 200) {
-					$(".btn-info").click();
-                    swal("更新成功", {
-                        icon: "success",
-                    });
-                } else {
-                    swal(result.message, {
-                        icon: "error",
-                    });
-                }
-                ;
+			
+	$.ajax({
+	type: 'POST',//方法类型
+	url: '/admin/goodsCampaign/update',
+	contentType: 'application/json',
+	data: JSON.stringify(data),
+	success: function (result) {
+		if (result.resultCode == 200) {
+			$(".btn-info").click();
+            swal("更新成功", {
+            	icon: "success",
+               });
+        } else {
+            swal(result.message, {
+                icon: "error",
+               });
+            };
             },
-            error: function () {
-                swal("操作失败", {
-                    icon: "error",
-                });
-            }
+     error: function () {
+            swal("操作失败", {
+                icon: "error",
+             });
+         }
         });
 			
 
