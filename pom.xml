@@ -46,9 +46,9 @@
         </dependency>
         <!-- 验证码 -->
         <dependency>
-            <groupId>com.github.whvcse</groupId>
-            <artifactId>easy-captcha</artifactId>
-            <version>1.6.2</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+            <version>5.7.22</version>
         </dependency>
 
         <dependency>

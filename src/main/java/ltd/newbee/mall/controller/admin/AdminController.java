@@ -8,6 +8,7 @@
  */
 package ltd.newbee.mall.controller.admin;
 
+import cn.hutool.captcha.ShearCaptcha;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.AdminUser;
 import ltd.newbee.mall.service.AdminUserService;
@@ -63,8 +64,8 @@ public class AdminController {
             session.setAttribute("errorMsg", "用户名或密码不能为空");
             return "admin/login";
         }
-        String kaptchaCode = session.getAttribute("verifyCode") + "";
-        if (StringUtils.isEmpty(kaptchaCode) || !verifyCode.toLowerCase().equals(kaptchaCode)) {
+        ShearCaptcha shearCaptcha = (ShearCaptcha) session.getAttribute("verifyCode");
+        if (shearCaptcha == null || !shearCaptcha.verify(verifyCode)) {
             session.setAttribute("errorMsg", "验证码错误");
             return "admin/login";
         }
