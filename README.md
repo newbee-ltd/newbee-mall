@@ -16,6 +16,8 @@
 
 newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot 2.X 及相关技术栈开发。 前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。 后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。
 
+当前分支的 Spring Boot 版本为2.6.3，如果想学习 Spring Boot 2.3.7.RELEASE 版本的话可以查看[spring-boot-2.3.7分支](https://github.com/newbee-ltd/newbee-mall/tree/spring-boot-2.3.7)。
+
 新蜂商城线上预览地址：[http://mall.newbee.ltd](http://mall.newbee.ltd?from=github)，账号可自行注册。
 
 **坚持不易，如果觉得项目还不错的话可以给项目一个 Star 吧，也是对我自 2019 年开始一直更新这个项目的一种鼓励啦，谢谢各位的支持。**
@@ -197,7 +199,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [tonytomov](https://github.com/tonytomov/jqGrid)
 - [t4t5](https://github.com/t4t5/sweetalert)
 - [skytotwo](https://github.com/skytotwo/Alipay-WeChat-HTML)
-- [EasyCaptcha](https://github.com/whvcse/EasyCaptcha)
+- [hutool](https://github.com/dromara/hutool)
 - [wangeditor-team](https://github.com/wangeditor-team/wangEditor)
 - [Vue](https://github.com/vuejs/vue)
 - [Vant](https://github.com/youzan/vant)
