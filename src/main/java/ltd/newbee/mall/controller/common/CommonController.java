@@ -8,8 +8,8 @@
  */
 package ltd.newbee.mall.controller.common;
 
-import com.wf.captcha.SpecCaptcha;
-import com.wf.captcha.base.Captcha;
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.ShearCaptcha;
 import ltd.newbee.mall.common.Constants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,20 +33,13 @@ public class CommonController {
         httpServletResponse.setDateHeader("Expires", 0);
         httpServletResponse.setContentType("image/png");
 
-        // 三个参数分别为宽、高、位数
-        SpecCaptcha captcha = new SpecCaptcha(150, 40, 4);
-
-        // 设置类型 数字和字母混合
-        captcha.setCharType(Captcha.TYPE_DEFAULT);
-
-        //设置字体
-        captcha.setCharType(Captcha.FONT_9);
+        ShearCaptcha shearCaptcha= CaptchaUtil.createShearCaptcha(150, 30, 4, 2);
 
         // 验证码存入session
-        httpServletRequest.getSession().setAttribute("verifyCode", captcha.text().toLowerCase());
+        httpServletRequest.getSession().setAttribute("verifyCode", shearCaptcha);
 
         // 输出图片流
-        captcha.out(httpServletResponse.getOutputStream());
+        shearCaptcha.write(httpServletResponse.getOutputStream());
     }
 
     @GetMapping("/common/mall/kaptcha")
@@ -56,19 +49,12 @@ public class CommonController {
         httpServletResponse.setDateHeader("Expires", 0);
         httpServletResponse.setContentType("image/png");
 
-        // 三个参数分别为宽、高、位数
-        SpecCaptcha captcha = new SpecCaptcha(110, 40, 4);
-
-        // 设置类型 数字和字母混合
-        captcha.setCharType(Captcha.TYPE_DEFAULT);
-
-        //设置字体
-        captcha.setCharType(Captcha.FONT_9);
+        ShearCaptcha shearCaptcha= CaptchaUtil.createShearCaptcha(110, 40, 4, 2);
 
         // 验证码存入session
-        httpServletRequest.getSession().setAttribute(Constants.MALL_VERIFY_CODE_KEY, captcha.text().toLowerCase());
+        httpServletRequest.getSession().setAttribute(Constants.MALL_VERIFY_CODE_KEY, shearCaptcha);
 
         // 输出图片流
-        captcha.out(httpServletResponse.getOutputStream());
+        shearCaptcha.write(httpServletResponse.getOutputStream());
     }
 }
