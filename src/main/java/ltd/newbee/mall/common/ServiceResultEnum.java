@@ -67,6 +67,8 @@ public enum ServiceResultEnum {
 
     ORDER_STATUS_ERROR("订单状态异常！"),
 
+    CLOSE_ORDER_ERROR("关闭订单失败！"),
+
     OPERATE_ERROR("操作失败！"),
 
     NO_PERMISSION_ERROR("无权限！"),
