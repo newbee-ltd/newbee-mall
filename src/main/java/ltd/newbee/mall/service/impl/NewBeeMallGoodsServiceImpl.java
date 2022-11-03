@@ -18,6 +18,7 @@ import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallGoodsService;
 import ltd.newbee.mall.util.BeanUtil;
+import ltd.newbee.mall.util.NewBeeMallUtils;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
         if (goodsMapper.selectByCategoryIdAndName(goods.getGoodsName(), goods.getGoodsCategoryId()) != null) {
             return ServiceResultEnum.SAME_GOODS_EXIST.getResult();
         }
+        goods.setGoodsName(NewBeeMallUtils.cleanString(goods.getGoodsName()));
+        goods.setGoodsIntro(NewBeeMallUtils.cleanString(goods.getGoodsIntro()));
+        goods.setTag(NewBeeMallUtils.cleanString(goods.getTag()));
         if (goodsMapper.insertSelective(goods) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
@@ -83,6 +87,9 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
             //name和分类id相同且不同id 不能继续修改
             return ServiceResultEnum.SAME_GOODS_EXIST.getResult();
         }
+        goods.setGoodsName(NewBeeMallUtils.cleanString(goods.getGoodsName()));
+        goods.setGoodsIntro(NewBeeMallUtils.cleanString(goods.getGoodsIntro()));
+        goods.setTag(NewBeeMallUtils.cleanString(goods.getTag()));
         goods.setUpdateTime(new Date());
         if (goodsMapper.updateByPrimaryKeySelective(goods) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
