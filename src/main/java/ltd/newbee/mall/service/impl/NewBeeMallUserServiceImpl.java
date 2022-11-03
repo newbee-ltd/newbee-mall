@@ -89,7 +89,6 @@ public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
             }
             if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
                 NewBeeMallUserVO newBeeMallUserVO = new NewBeeMallUserVO();
-                userFromDB = mallUserMapper.selectByPrimaryKey(mallUser.getUserId());
                 BeanUtil.copyProperties(userFromDB, newBeeMallUserVO);
                 httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, newBeeMallUserVO);
                 return newBeeMallUserVO;
