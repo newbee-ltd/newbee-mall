@@ -39,6 +39,8 @@ $(function () {
                 result.data.forEach(img => {
                     insertImgFn(img)
                 });
+            } else if (result != null && result.resultCode != 200) {
+                alert(result.message);
             } else {
                 alert("error");
             }
@@ -63,7 +65,11 @@ $(function () {
                 $("#goodsCoverImg").attr("src", r.data);
                 $("#goodsCoverImg").attr("style", "width: 128px;height: 128px;display:block;");
                 return false;
-            } else {
+            } else if (r != null && r.resultCode != 200) {
+                alert(r.message);
+                return false;
+            }
+            else {
                 alert("error");
             }
         }
