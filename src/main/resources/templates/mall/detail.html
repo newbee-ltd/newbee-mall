@@ -68,7 +68,7 @@
 
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
 <script type="text/javascript">
     /**
@@ -87,25 +87,30 @@
             data: JSON.stringify(data),
             success: function (result) {
                 if (result.resultCode == 200) {
-                    swal({
-                        title: "添加成功",
-                        text: "确认框",
-                        icon: "success",
-                        buttons: true,
-                        dangerMode: true,
+                    Swal.fire({
+                        title: "确认框",
+                        text: "添加成功",
+                        icon: "success",iconColor:"#1d953f",
+                        showCancelButton: true,
+                        confirmButtonText: '确认',
+                        cancelButtonText: '取消'
                     }).then((flag) => {
-                            window.location.reload();
+                           if (flag.value) {
+                                window.location.reload();
+                            }
                         }
                     );
                 } else {
-                    swal(result.message, {
-                        icon: "error",
+                    Swal.fire({
+                        text: result.message,
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
             },
             error: function () {
-                swal("操作失败", {
-                    icon: "error",
+                Swal.fire({
+                    text: "操作失败",
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });
@@ -127,29 +132,30 @@
             data: JSON.stringify(data),
             success: function (result) {
                 if (result.resultCode == 200) {
-                    swal({
-                        title: "已将商品加入购物车",
-                        icon: "success",
-                        buttons: {
-                            cancel: "留在当前页",
-                            confirm: "去购物车结算"
-                        },
-                        dangerMode: false,
+                    Swal.fire({
+                        title: "确认框",
+                        text: "已将商品加入购物车",
+                        icon: "success",iconColor:"#1d953f",
+                        showCancelButton: true,
+                        confirmButtonText: '去购物车结算',
+                        cancelButtonText: '留在当前页'
                     }).then((flag) => {
-                            if (flag) {
+                            if (flag.value) {
                                 window.location.href = '/shop-cart';
                             }
                         }
                     );
                 } else {
-                    swal(result.message, {
-                        icon: "error",
+                    Swal.fire({
+                        text: result.message,
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
             },
             error: function () {
-                swal("操作失败", {
-                    icon: "error",
+                Swal.fire({
+                    text: "操作失败",
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });

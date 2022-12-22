@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="mall/header::head-fragment('NewBee商城-订单详情','order-detail')">
 </head>
-<link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+<link rel="stylesheet" th:href="@{/admin/plugins/sweetalert2/sweetalert2.min.css}"/>
 <body>
 <header th:replace="mall/header::header-fragment"></header>
 <!-- nav -->
@@ -214,19 +214,20 @@
 <div th:replace="mall/footer::footer-fragment"></div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script type="text/javascript">
 
     function cancelOrder() {
         var orderNo = $("#orderNoValue").val();
-        swal({
+        Swal.fire({
             title: "客官请注意",
             text: "确认要取消订单吗?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+            icon: "warning",iconColor:"#dea32c",
+            showCancelButton: true,
+            confirmButtonText: '确认',
+            cancelButtonText: '取消'
         }).then((flag) => {
-                if (flag) {
+                if (flag.value) {
                     $.ajax({
                         type: 'PUT',
                         url: '/orders/' + orderNo + '/cancel',
@@ -234,14 +235,16 @@
                             if (result.resultCode == 200) {
                                 window.location.reload();
                             } else {
-                                swal(result.message, {
-                                    icon: "error",
+                                Swal.fire({
+                                    text: result.message,
+                                    icon: "error",iconColor:"#f05b72",
                                 });
                             }
                         },
                         error: function () {
-                            swal("操作失败", {
-                                icon: "error",
+                            Swal.fire({
+                                text: "操作失败",
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     });
@@ -265,14 +268,16 @@
                 if (result.resultCode == 200) {
                     window.location.reload();
                 } else {
-                    swal(result.message, {
-                        icon: "error",
+                    Swal.fire({
+                        text: result.message,
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
             },
             error: function () {
-                swal("操作失败", {
-                    icon: "error",
+                Swal.fire({
+                    text: "操作失败",
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });

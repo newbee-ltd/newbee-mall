@@ -90,7 +90,7 @@
 <!-- Bootstrap 3 -->
 <script th:src="@{/mall/js/bootstrap3.js}"></script>
 <script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script type="text/javascript">
     function openUpdateModal() {
         $('#personalInfoModal').modal('show');
@@ -100,22 +100,25 @@
     $('#saveButton').click(function () {
         var address = $("#address").val();
         if (address.trim().length < 10) {
-            swal("请输入正确的收货信息", {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的收货信息",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         var introduceSign = $("#introduceSign").val();
         if (introduceSign.trim().length < 4) {
-            swal("请输入正确的个性签名", {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的个性签名",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         var nickName = $("#nickName").val();
         if (nickName.trim().length < 2) {
-            swal("请输入正确的昵称", {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的昵称",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
@@ -142,7 +145,10 @@
                 ;
             },
             error: function () {
-                alert('操作失败');
+                Swal.fire({
+                    text: '操作失败',
+                    icon: "error",iconColor:"#f05b72",
+                });
             }
         });
     });

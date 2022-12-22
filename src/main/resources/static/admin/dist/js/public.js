@@ -131,15 +131,17 @@ function getSelectedRow() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
-        swal("请选择一条记录", {
-            icon: "warning",
+        Swal.fire({
+            text: "请选择一条记录",
+            icon: "warning",iconColor:"#dea32c",
         });
         return;
     }
     var selectedIDs = grid.getGridParam("selarrrow");
     if (selectedIDs.length > 1) {
-        swal("只能选择一条记录", {
-            icon: "warning",
+        Swal.fire({
+            text: "只能选择一条记录",
+            icon: "warning",iconColor:"#dea32c",
         });
         return;
     }
@@ -171,8 +173,9 @@ function getSelectedRows() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
-        swal("请选择一条记录", {
-            icon: "warning",
+        Swal.fire({
+            text: "请选择一条记录",
+            icon: "warning",iconColor:"#dea32c",
         });
         return;
     }

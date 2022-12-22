@@ -108,7 +108,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 > 大家有任何问题或者建议都可以在 [issues](https://github.com/newbee-ltd/newbee-mall/issues) 中反馈给我，我会慢慢完善这个项目。
 
 - 我的邮箱：2449207463@qq.com
-- QQ技术交流群：791509631 719099151
+- QQ技术交流群：791509631 784785001
 
 > newbee-mall 在 GitHub 和国内的码云都创建了代码仓库，如果有人访问 GitHub 比较慢的话，建议在 Gitee 上查看该项目，两个仓库会保持同步更新。
 
@@ -130,27 +130,27 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 商城首页 1
 
-	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01-2020.gif)
+	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-01-2023.gif)
 
 - 商城首页 2
 
-	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-02.png)
+	![index](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/index-02-2023.png)
 
 - 商品搜索
 
-	![search](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/search.png)
+	![search](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/search-2023.png)
 
 - 购物车
 
-	![cart](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/cart.png)
+	![cart](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/cart-2023.png)
 	
 - 订单结算
 
-	![settle](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/settle.png)
+	![settle](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/settle-2023.png)
 			
 - 订单列表
 
-	![orders](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/orders.png)	
+	![orders](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/orders-2023.png)	
 	
 - 支付页面
 
@@ -165,11 +165,11 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 轮播图管理
 
-	![carousel](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-carousel.png)
+	![carousel](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-carousel-2023.png)
 	
 - 新品上线
 
-    ![config](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-index-config.png)
+    ![config](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-index-config-2023.png)
 
 - 分类管理
 
@@ -177,15 +177,15 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 - 商品管理
 
-	![goods](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-goods.png)
+	![goods](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-goods-2023.png)
 
 - 商品编辑
 
-	![edit](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-goods-edit-new.png)
+	![edit](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/goods-edit-2023.png)
 
 - 订单管理
 
-	![order](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-order.png)
+	![order](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/product/manage-order-2023.png)
 
 ![newbee-mall-info](https://newbee-mall.oss-cn-beijing.aliyuncs.com/poster/store/newbee-mall-info-3.png)
 
@@ -196,7 +196,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [mybatis](https://github.com/mybatis/mybatis-3)
 - [ColorlibHQ](https://github.com/ColorlibHQ/AdminLTE)
 - [tonytomov](https://github.com/tonytomov/jqGrid)
-- [t4t5](https://github.com/t4t5/sweetalert)
+- [sweetalert2](https://github.com/sweetalert2/sweetalert2)
 - [skytotwo](https://github.com/skytotwo/Alipay-WeChat-HTML)
 - [hutool](https://github.com/dromara/hutool)
 - [wangeditor-team](https://github.com/wangeditor-team/wangEditor)

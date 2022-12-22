@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{mall/css/common.css}">
     <link rel="stylesheet" th:href="@{mall/styles/login.css}">
     <link rel="stylesheet" th:href="@{mall/styles/header.css}">
-    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert2/sweetalert2.min.css}"/>
 </head>
 <body>
 <div class="top center">
@@ -55,29 +55,32 @@
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/admin/dist/js/public.js}"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script type="text/javascript">
 
     //注册按钮onclick事件改为register()即可
     function register() {
         var loginName = $("#loginName").val();
         if (!validPhoneNumber(loginName)) {
-            swal('请输入正确的登录名(即手机号)', {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的登录名(即手机号)",
+                icon: "error",iconColor:"#f05b72",
             });
             return false;
         }
         var password = $("#password").val();
         if (!validPassword(password)) {
-            swal('请输入正确的密码格式(6-20位字符和数字组合)', {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的密码格式(6-20位字符和数字组合)",
+                icon: "error",iconColor:"#f05b72",
             });
             return false;
         }
         var verifyCode = $("#verifyCode").val();
         if (!validLength(verifyCode, 5)) {
-            swal('请输入正确的验证码', {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的验证码",
+                icon: "error",iconColor:"#f05b72",
             });
             return false;
         }
@@ -90,29 +93,32 @@
             data: params,
             success: function (result) {
                 if (result.resultCode == 200) {
-                    swal({
+                    Swal.fire({
                         title: "注册成功",
                         text: "是否跳转至登录页?",
-                        icon: "success",
-                        buttons: true,
-                        dangerMode: true,
+                        icon: "success",iconColor:"#1d953f",
+                        showCancelButton: true,
+                        confirmButtonText: '确认',
+                        cancelButtonText: '取消'
                     }).then((flag) => {
-                            if (flag) {
+                            if (flag.value) {
                                 window.location.href = '/login';
                             }
                         }
                     )
                     ;
                 } else {
-                    swal(result.message, {
-                        icon: "error",
+                    Swal.fire({
+                        text: result.message,
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
                 ;
             },
             error: function () {
-                swal("操作失败", {
-                    icon: "error",
+                Swal.fire({
+                    text: '操作失败',
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });

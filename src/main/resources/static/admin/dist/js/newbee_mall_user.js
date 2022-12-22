@@ -75,18 +75,20 @@ function lockUser(lockStatus) {
         return;
     }
     if (lockStatus != 0 && lockStatus != 1) {
-        swal('非法操作', {
-            icon: "error",
+        Swal.fire({
+            text: '非法操作',
+            icon: "error",iconColor:"#f05b72",
         });
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要修改账号状态吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/users/lock/" + lockStatus,
@@ -94,13 +96,15 @@ function lockUser(lockStatus) {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("操作成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "操作成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }

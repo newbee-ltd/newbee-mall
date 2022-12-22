@@ -126,15 +126,17 @@ function openOrderItems(orderId) {
                 }
                 $("#orderItemString").html(itemString);
             } else {
-                swal(result.message, {
-                    icon: "error",
+                Swal.fire({
+                    text: result.message,
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
             ;
         },
         error: function () {
-            swal("操作失败", {
-                icon: "error",
+            Swal.fire({
+                text: "操作失败",
+                icon: "error",iconColor:"#f05b72",
             });
         }
     });
@@ -192,21 +194,24 @@ $('#saveButton').click(function () {
         success: function (result) {
             if (result.resultCode == 200) {
                 $('#orderInfoModal').modal('hide');
-                swal("保存成功", {
-                    icon: "success",
+                Swal.fire({
+                    text: "保存成功",
+                    icon: "success",iconColor:"#1d953f",
                 });
                 reload();
             } else {
                 $('#orderInfoModal').modal('hide');
-                swal(result.message, {
-                    icon: "error",
+                Swal.fire({
+                    text: result.message,
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
             ;
         },
         error: function () {
-            swal("操作失败", {
-                icon: "error",
+            Swal.fire({
+                text: "操作失败",
+                icon: "error",iconColor:"#f05b72",
             });
         }
     });
@@ -228,25 +233,28 @@ function orderCheckDone() {
         }
     }
     if (orderNos.length > 0 & orderNos.length < 100) {
-        swal(orderNos + "订单的状态不是支付成功无法执行配货完成操作", {
-            icon: "error",
+        Swal.fire({
+            text: orderNos + "订单的状态不是支付成功无法执行配货完成操作",
+            icon: "error",iconColor:"#f05b72",
         });
         return;
     }
     if (orderNos.length >= 100) {
-        swal("你选择了太多状态不是支付成功的订单，无法执行配货完成操作", {
-            icon: "error",
+        Swal.fire({
+            text: "你选择了太多状态不是支付成功的订单，无法执行配货完成操作",
+            icon: "error",iconColor:"#f05b72",
         });
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要执行配货完成操作吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/orders/checkDone",
@@ -254,13 +262,15 @@ function orderCheckDone() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("配货完成", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "配货完成",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }
@@ -287,25 +297,28 @@ function orderCheckOut() {
         }
     }
     if (orderNos.length > 0 & orderNos.length < 100) {
-        swal(orderNos + "订单的状态不是支付成功或配货完成无法执行出库操作", {
-            icon: "error",
+        Swal.fire({
+            text: orderNos + "订单的状态不是支付成功或配货完成无法执行出库操作",
+            icon: "error",iconColor:"#f05b72",
         });
         return;
     }
     if (orderNos.length >= 100) {
-        swal("你选择了太多状态不是支付成功或配货完成的订单，无法执行出库操作", {
-            icon: "error",
+        Swal.fire({
+            text: "你选择了太多状态不是支付成功或配货完成的订单，无法执行出库操作",
+            icon: "error",iconColor:"#f05b72",
         });
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要执行出库操作吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/orders/checkOut",
@@ -313,13 +326,15 @@ function orderCheckOut() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("出库成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "出库成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }
@@ -335,14 +350,15 @@ function closeOrder() {
     if (ids == null) {
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要关闭订单吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/orders/close",
@@ -350,13 +366,15 @@ function closeOrder() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("关闭成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "关闭成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }

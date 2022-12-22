@@ -102,14 +102,15 @@ function putUpGoods() {
     if (ids == null) {
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要执行上架操作吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "PUT",
                     url: "/admin/goods/status/0",
@@ -117,13 +118,15 @@ function putUpGoods() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("上架成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "上架成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }
@@ -142,14 +145,15 @@ function putDownGoods() {
     if (ids == null) {
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要执行下架操作吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "PUT",
                     url: "/admin/goods/status/1",
@@ -157,13 +161,15 @@ function putDownGoods() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("下架成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "下架成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }

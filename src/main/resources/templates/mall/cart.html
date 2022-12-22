@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{mall/css/common.css}">
     <link rel="stylesheet" th:href="@{mall/styles/header.css}">
     <link rel="stylesheet" th:href="@{mall/styles/cart.css}">
-    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>
+    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert2/sweetalert2.min.css}"/>
 </head>
 <body>
 
@@ -98,15 +98,16 @@
 </body>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script type="text/javascript">
 
     /**
      * 购物车中数量为0时提示
      */
     function tip() {
-        swal("购物车中无数据，无法结算", {
-            icon: "error",
+        Swal.fire({
+            text: "购物车中无数据，无法结算",
+            icon: "error",iconColor:"#f05b72",
         });
     }
 
@@ -124,14 +125,16 @@
         var domId = 'goodsCount' + id;
         var goodsCount = $("#" + domId).val();
         if (goodsCount > 5) {
-            swal("单个商品最多可购买5个", {
-                icon: "error",
+            Swal.fire({
+                text: "单个商品最多可购买5个",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         if (goodsCount < 1) {
-            swal("数量异常", {
-                icon: "error",
+            Swal.fire({
+                text: "数量异常",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
@@ -148,14 +151,16 @@
                 if (result.resultCode == 200) {
                     window.location.reload();
                 } else {
-                    swal("操作失败", {
-                        icon: "error",
+                    Swal.fire({
+                        text: "操作失败",
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
             },
             error: function () {
-                swal("操作失败", {
-                    icon: "error",
+                Swal.fire({
+                    text: "操作失败",
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });
@@ -166,14 +171,15 @@
      * @param id
      */
     function deleteItem(id) {
-        swal({
+        Swal.fire({
             title: "确认弹框",
             text: "确认要删除数据吗?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+            icon: "warning",iconColor:"#dea32c",
+            showCancelButton: true,
+            confirmButtonText: '确认',
+            cancelButtonText: '取消'
         }).then((flag) => {
-                if (flag) {
+                if (flag.value) {
                     $.ajax({
                         type: 'DELETE',
                         url: '/shop-cart/' + id,
@@ -181,14 +187,16 @@
                             if (result.resultCode == 200) {
                                 window.location.reload();
                             } else {
-                                swal("操作失败", {
-                                    icon: "error",
+                                Swal.fire({
+                                    text: "操作失败",
+                                    icon: "error",iconColor:"#f05b72",
                                 });
                             }
                         },
                         error: function () {
-                            swal("操作失败", {
-                                icon: "error",
+                            Swal.fire({
+                                text: "操作失败",
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     });

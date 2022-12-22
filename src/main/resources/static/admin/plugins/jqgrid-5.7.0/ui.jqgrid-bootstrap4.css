@@ -5,6 +5,7 @@
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	line-height:  normal; /*calc(2px + 1rem + 2px); */        
 }
 .ui-jqgrid .ui-jqgrid-view {
 	position: relative;
@@ -151,7 +152,7 @@
 {
 	font-size: inherit;
 }
-.ui-jqgrid tr.ui-search-toolbar td > input { 
+.ui-jqgrid tr.ui-search-toolbar td input { 
 	font-size: inherit;
 	padding: 3px 0;
 }
@@ -167,7 +168,7 @@
 }
 
 .ui-jqgrid .ui-icon-left .ui-grid-ico-sort {
-	margin-left: -14px;
+	margin-left: -9px;
 }
 
 /* Body */ 
@@ -870,7 +871,7 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 .ui-resizable-handle {
 	position: absolute;
 	display: block;
-	left :97%;
+	left : auto;
 }
 .ui-jqdialog .ui-resizable-se {
 	width: 12px;
@@ -880,6 +881,10 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 	left : auto;
 	top: auto;
 	background-position: 16px 16px;
+}
+.ui-resizable-icon {
+	resize: both;
+	overflow: auto;
 }
 .ui-resizable-se {
 	cursor: se-resize;
@@ -975,7 +980,7 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
 	padding-left: 5px;
 }
 
-.frozen-div, .frozen-bdiv {
+.frozen-div, .frozen-bdiv, .frozen-sdiv, .frozen-hrdiv, .frozen-rdiv {
 	background-color: #fff;
 }
 .frozen-div .ui-jqgrid-htable {
@@ -1051,6 +1056,13 @@ td.menu_text {
 	width:50%;
 	padding: 3px 3px;
 }
+#search_menu  #bs_close {
+	position: absolute;
+	padding:  0px 0px;
+	top: 0px;
+	right: 0px;
+}
+
 .search_buttons .btn-default:hover {
 	padding-bottom: 6px;
 	padding-top: 6px;
@@ -1191,4 +1203,23 @@ div[id^='searchcnt'] .fm-button .octicon
 .ui-jqgrid-btable tbody tr.table-success.table-active > td 
 {
 	background-color: rgba(0, 0, 0, 0.075)  !important;
+}
+.ui-jqgrid .search-col-input
+{
+	padding: 1px 1px !important;
+}
+.ui-jqgrid .jqgrid-searchcol {
+	padding:  1px 1px;
+}
+
+.jqgrid-searchcol > .form-control {
+	padding:  1px 1px;
+}
+a.colmenu .colmenuspan 
+{
+	cursor: pointer;
+}
+.ui-jqgrid td.jqgrid-searchcol  input {
+	width: 100%;
+	overflow: auto;
 }

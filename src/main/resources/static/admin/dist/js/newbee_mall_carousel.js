@@ -51,7 +51,10 @@ $(function () {
         responseType: "json",
         onSubmit: function (file, extension) {
             if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
-                alert('只支持jpg、png、gif格式的文件！');
+                Swal.fire({
+                    text: "只支持jpg、png、gif格式的文件！",
+                    icon: "error",iconColor:"#f05b72",
+                });
                 return false;
             }
         },
@@ -61,7 +64,10 @@ $(function () {
                 $("#carouselImg").attr("style", "width: 128px;height: 128px;display:block;");
                 return false;
             } else {
-                alert("error");
+                Swal.fire({
+                    text: r.message,
+                    icon: "error",iconColor:"#f05b72",
+                });
             }
         }
     });
@@ -112,21 +118,24 @@ $('#saveButton').click(function () {
         success: function (result) {
             if (result.resultCode == 200) {
                 $('#carouselModal').modal('hide');
-                swal("保存成功", {
-                    icon: "success",
+                Swal.fire({
+                    text: "保存成功",
+                    icon: "success",iconColor:"#1d953f",
                 });
                 reload();
             } else {
                 $('#carouselModal').modal('hide');
-                swal(result.message, {
-                    icon: "error",
+                Swal.fire({
+                    text: result.message,
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
             ;
         },
         error: function () {
-            swal("操作失败", {
-                icon: "error",
+            Swal.fire({
+                text: "操作失败",
+                icon: "error",iconColor:"#f05b72",
             });
         }
     });
@@ -157,14 +166,15 @@ function deleteCarousel() {
     if (ids == null) {
         return;
     }
-    swal({
+    Swal.fire({
         title: "确认弹框",
         text: "确认要删除数据吗?",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        icon: "warning",iconColor:"#dea32c",
+        showCancelButton: true,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }).then((flag) => {
-            if (flag) {
+            if (flag.value) {
                 $.ajax({
                     type: "POST",
                     url: "/admin/carousels/delete",
@@ -172,13 +182,15 @@ function deleteCarousel() {
                     data: JSON.stringify(ids),
                     success: function (r) {
                         if (r.resultCode == 200) {
-                            swal("删除成功", {
-                                icon: "success",
+                            Swal.fire({
+                                text: "删除成功",
+                                icon: "success",iconColor:"#1d953f",
                             });
                             $("#jqGrid").trigger("reloadGrid");
                         } else {
-                            swal(r.message, {
-                                icon: "error",
+                            Swal.fire({
+                                text: r.message,
+                                icon: "error",iconColor:"#f05b72",
                             });
                         }
                     }

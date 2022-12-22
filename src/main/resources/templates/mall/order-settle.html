@@ -178,20 +178,22 @@
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
-<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script th:src="@{/mall/js/bootstrap3.js}"></script>
 <script type="text/javascript">
     $('#saveOrder').click(function () {
         var userAddress = $(".user_address_label").html();
         if (userAddress == '' || userAddress == '无') {
-            swal("请填写收货信息", {
-                icon: "error",
+            Swal.fire({
+                text: "请填写收货信息",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
         if (userAddress.trim().length < 10) {
-            swal("请输入正确的收货信息", {
-                icon: "error",
+            Swal.fire({
+                text: "请输入正确的收货信息",
+                icon: "error",iconColor:"#f05b72",
             });
             return;
         }
@@ -221,15 +223,17 @@
                     window.location.reload();
                 } else {
                     $('#personalInfoModal').modal('hide');
-                    swal(result.message, {
-                        icon: "error",
+                    Swal.fire({
+                        text: result.message,
+                        icon: "error",iconColor:"#f05b72",
                     });
                 }
                 ;
             },
             error: function () {
-                swal('操作失败', {
-                    icon: "error",
+                Swal.fire({
+                    text: '操作失败',
+                    icon: "error",iconColor:"#f05b72",
                 });
             }
         });
