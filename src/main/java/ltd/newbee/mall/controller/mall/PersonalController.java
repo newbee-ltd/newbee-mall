@@ -65,13 +65,13 @@ public class PersonalController {
                         @RequestParam("verifyCode") String verifyCode,
                         @RequestParam("password") String password,
                         HttpSession httpSession) {
-        if (StringUtils.isEmpty(loginName)) {
+        if (!StringUtils.hasText(loginName)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
         }
-        if (StringUtils.isEmpty(password)) {
+        if (!StringUtils.hasText(password)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_PASSWORD_NULL.getResult());
         }
-        if (StringUtils.isEmpty(verifyCode)) {
+        if (!StringUtils.hasText(verifyCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_NULL.getResult());
         }
         ShearCaptcha shearCaptcha = (ShearCaptcha) httpSession.getAttribute(Constants.MALL_VERIFY_CODE_KEY);
@@ -96,13 +96,13 @@ public class PersonalController {
                            @RequestParam("verifyCode") String verifyCode,
                            @RequestParam("password") String password,
                            HttpSession httpSession) {
-        if (StringUtils.isEmpty(loginName)) {
+        if (!StringUtils.hasText(loginName)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_NAME_NULL.getResult());
         }
-        if (StringUtils.isEmpty(password)) {
+        if (!StringUtils.hasText(password)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_PASSWORD_NULL.getResult());
         }
-        if (StringUtils.isEmpty(verifyCode)) {
+        if (!StringUtils.hasText(verifyCode)) {
             return ResultGenerator.genFailResult(ServiceResultEnum.LOGIN_VERIFY_CODE_NULL.getResult());
         }
         ShearCaptcha shearCaptcha = (ShearCaptcha) httpSession.getAttribute(Constants.MALL_VERIFY_CODE_KEY);

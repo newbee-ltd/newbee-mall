@@ -17,6 +17,7 @@ import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +57,7 @@ public class NewBeeMallGoodsIndexConfigController {
     @RequestMapping(value = "/indexConfigs/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+        if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
@@ -70,7 +71,7 @@ public class NewBeeMallGoodsIndexConfigController {
     @ResponseBody
     public Result save(@RequestBody IndexConfig indexConfig) {
         if (Objects.isNull(indexConfig.getConfigType())
-                || StringUtils.isEmpty(indexConfig.getConfigName())
+                || !StringUtils.hasText(indexConfig.getConfigName())
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
@@ -91,7 +92,7 @@ public class NewBeeMallGoodsIndexConfigController {
     public Result update(@RequestBody IndexConfig indexConfig) {
         if (Objects.isNull(indexConfig.getConfigType())
                 || Objects.isNull(indexConfig.getConfigId())
-                || StringUtils.isEmpty(indexConfig.getConfigName())
+                || !StringUtils.hasText(indexConfig.getConfigName())
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }

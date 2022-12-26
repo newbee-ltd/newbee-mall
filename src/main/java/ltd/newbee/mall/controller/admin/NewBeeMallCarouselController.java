@@ -10,13 +10,12 @@ package ltd.newbee.mall.controller.admin;
 
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.entity.Carousel;
-import ltd.newbee.mall.entity.IndexConfig;
 import ltd.newbee.mall.service.NewBeeMallCarouselService;
-import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +49,7 @@ public class NewBeeMallCarouselController {
     @RequestMapping(value = "/carousels/list", method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+        if (ObjectUtils.isEmpty(params.get("page")) || ObjectUtils.isEmpty(params.get("limit"))) {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
@@ -63,7 +62,7 @@ public class NewBeeMallCarouselController {
     @RequestMapping(value = "/carousels/save", method = RequestMethod.POST)
     @ResponseBody
     public Result save(@RequestBody Carousel carousel) {
-        if (StringUtils.isEmpty(carousel.getCarouselUrl())
+        if (!StringUtils.hasText(carousel.getCarouselUrl())
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
@@ -83,7 +82,7 @@ public class NewBeeMallCarouselController {
     @ResponseBody
     public Result update(@RequestBody Carousel carousel) {
         if (Objects.isNull(carousel.getCarouselId())
-                || StringUtils.isEmpty(carousel.getCarouselUrl())
+                || !StringUtils.hasText(carousel.getCarouselUrl())
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }

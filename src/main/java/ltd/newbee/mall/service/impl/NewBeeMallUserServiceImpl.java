@@ -17,7 +17,7 @@ import ltd.newbee.mall.service.NewBeeMallUserService;
 import ltd.newbee.mall.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -78,13 +78,13 @@ public class NewBeeMallUserServiceImpl implements NewBeeMallUserService {
         NewBeeMallUserVO userTemp = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         MallUser userFromDB = mallUserMapper.selectByPrimaryKey(userTemp.getUserId());
         if (userFromDB != null) {
-            if (!StringUtils.isEmpty(mallUser.getNickName())) {
+            if (StringUtils.hasText(mallUser.getNickName())) {
                 userFromDB.setNickName(NewBeeMallUtils.cleanString(mallUser.getNickName()));
             }
-            if (!StringUtils.isEmpty(mallUser.getAddress())) {
+            if (StringUtils.hasText(mallUser.getAddress())) {
                 userFromDB.setAddress(NewBeeMallUtils.cleanString(mallUser.getAddress()));
             }
-            if (!StringUtils.isEmpty(mallUser.getIntroduceSign())) {
+            if (StringUtils.hasText(mallUser.getIntroduceSign())) {
                 userFromDB.setIntroduceSign(NewBeeMallUtils.cleanString(mallUser.getIntroduceSign()));
             }
             if (mallUserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {

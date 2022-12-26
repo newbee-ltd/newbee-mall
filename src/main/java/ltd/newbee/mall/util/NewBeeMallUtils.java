@@ -20,7 +20,7 @@ public class NewBeeMallUtils {
     }
 
     public static String cleanString(String value) {
-        if (StringUtils.isEmpty(value)) {
+        if (!StringUtils.hasText(value)) {
             return "";
         }
         value = value.toLowerCase();

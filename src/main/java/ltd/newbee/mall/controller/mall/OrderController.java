@@ -23,6 +23,7 @@ import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +53,7 @@ public class OrderController {
     public String orderListPage(@RequestParam Map<String, Object> params, HttpServletRequest request, HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         params.put("userId", user.getUserId());
-        if (StringUtils.isEmpty(params.get("page"))) {
+        if (ObjectUtils.isEmpty(params.get("page"))) {
             params.put("page", 1);
         }
         params.put("limit", Constants.ORDER_SEARCH_PAGE_LIMIT);
@@ -67,7 +68,7 @@ public class OrderController {
     public String saveOrder(HttpSession httpSession) {
         NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         List<NewBeeMallShoppingCartItemVO> myShoppingCartItems = newBeeMallShoppingCartService.getMyShoppingCartItems(user.getUserId());
-        if (StringUtils.isEmpty(user.getAddress().trim())) {
+        if (!StringUtils.hasText(user.getAddress().trim())) {
             //无收货地址
             NewBeeMallException.fail(ServiceResultEnum.NULL_ADDRESS_ERROR.getResult());
         }
