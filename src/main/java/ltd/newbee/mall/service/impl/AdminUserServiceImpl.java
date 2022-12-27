@@ -14,7 +14,7 @@ import ltd.newbee.mall.service.AdminUserService;
 import ltd.newbee.mall.util.MD5Util;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
