@@ -1,12 +1,12 @@
 <!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="mall/header::head-fragment('NewBee商城-首页','index')">
+<head th:replace="~{mall/header::head-fragment('NewBee商城-首页','index')}">
 </head>
 <body>
-<header th:replace="mall/header::header-fragment"></header>
+<header th:replace="~{mall/header::header-fragment}"></header>
 <content id="content">
-    <nav th:replace="mall/header::nav-fragment"></nav>
+    <nav th:replace="~{mall/header::nav-fragment}"></nav>
     <div id="banner">
         <div class="all-sort-list">
             <th:block th:each="category : ${categories}">
@@ -340,7 +340,7 @@
         </ul>
     </div>
 </content>
-<div th:replace="mall/footer::footer-fragment"></div>
+<div th:replace="~{mall/footer::footer-fragment}"></div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->

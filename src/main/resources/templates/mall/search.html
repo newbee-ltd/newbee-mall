@@ -1,12 +1,12 @@
 <!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="mall/header::head-fragment('NewBee商城-搜索','search')">
+<head th:replace="~{mall/header::head-fragment('NewBee商城-搜索','search')}">
 </head>
 <body>
-<header th:replace="mall/header::header-fragment"></header>
+<header th:replace="~{mall/header::header-fragment}"></header>
 <!-- nav -->
-<nav th:replace="mall/header::nav-fragment"></nav>
+<nav th:replace="~{mall/header::nav-fragment}"></nav>
 
 <!--分类筛选-->
 <div class="classify">
@@ -103,7 +103,7 @@
     </div>
 </div>
 
-<div th:replace="mall/footer::footer-fragment"></div>
+<div th:replace="~{mall/footer::footer-fragment}"></div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/mall/js/search.js}" type="text/javascript"></script>

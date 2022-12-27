@@ -1,14 +1,14 @@
 <!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="mall/header::head-fragment('NewBee商城-商品详情','detail')">
+<head th:replace="~{mall/header::head-fragment('NewBee商城-商品详情','detail')}">
 </head>
 <body>
-<header th:replace="mall/header::header-fragment"></header>
+<header th:replace="~{mall/header::header-fragment}"></header>
 
 <div id="detail">
     <!-- nav -->
-    <nav th:replace="mall/header::nav-fragment"></nav>
+    <nav th:replace="~{mall/header::nav-fragment}"></nav>
 
     <div class="dc">
         <div class="content w">
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div th:replace="mall/footer::footer-fragment"></div>
+<div th:replace="~{mall/footer::footer-fragment}"></div>
 
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>

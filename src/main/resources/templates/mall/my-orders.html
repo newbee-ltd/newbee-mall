@@ -1,19 +1,19 @@
 <!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="mall/header::head-fragment('NewBee商城-订单列表','my-orders')">
+<head th:replace="~{mall/header::head-fragment('NewBee商城-订单列表','my-orders')}">
 </head>
 <body>
-<header th:replace="mall/header::header-fragment"></header>
+<header th:replace="~{mall/header::header-fragment}"></header>
 <!-- nav -->
-<nav th:replace="mall/header::nav-fragment"></nav>
+<nav th:replace="~{mall/header::nav-fragment}"></nav>
 
 <!-- personal -->
 <div id="personal">
     <div class="self-info center">
 
         <!-- sidebar -->
-        <div th:replace="mall/personal-sidebar::sidebar-fragment"></div>
+        <div th:replace="~{mall/personal-sidebar::sidebar-fragment}"></div>
 
         <div class="intro fr">
             <div class="uc-box uc-main-box">
@@ -136,7 +136,7 @@
 </div>
 </div>
 
-<div th:replace="mall/footer::footer-fragment"></div>
+<div th:replace="~{mall/footer::footer-fragment}"></div>
 
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
