@@ -13,7 +13,7 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 | [spring-boot-2.3.7](https://github.com/newbee-ltd/newbee-mall/tree/spring-boot-2.3.7) | 2.3.7-RELEASE       |
 | [spring-boot-2.6.x](https://github.com/newbee-ltd/newbee-mall/tree/spring-boot-2.6.x) | 2.6.3               |
 | [main](https://github.com/newbee-ltd/newbee-mall)            | 2.7.5               |
-| [spring-boot-3.x](https://github.com/newbee-ltd/newbee-mall/tree/spring-boot-3.x) | 3.0.1               |
+| [spring-boot-3.x](https://github.com/newbee-ltd/newbee-mall/tree/spring-boot-3.x) | 3.1.0               |
 
 新蜂商城线上预览地址：[http://mall.newbee.ltd](http://mall.newbee.ltd?from=github)，账号可自行注册。
 
