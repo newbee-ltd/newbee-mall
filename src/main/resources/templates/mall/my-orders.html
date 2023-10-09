@@ -54,13 +54,11 @@
                                             <table class="order-detail-table">
                                                 <thead>
                                                 <tr>
-                                                    <th class="col-main"><p class="caption-info"
-                                                                            th:text="${#dates.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}">
-                                                        02月07日<span
-                                                            class="sep">|</span>订单号：<a
-                                                            href="##"
-                                                            th:text="${order.orderNo}">201908121807</a><span
-                                                            class="sep">|</span>在线支付</p></th>
+                                                    <th class="col-main"><p class="caption-info">
+                                                        下单时间：<th:block th:text="${#dates.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}">02月07日</th:block>
+                                                        <span class="sep">|</span>订单号：<a
+                                                            th:href="@{${'/orders/'+order.orderNo}}"
+                                                            th:text="${order.orderNo}">201908121807</a></p></th>
                                                     <th class="col-sub"><p class="caption-price">应付金额：<span
                                                             class="num"
                                                             th:text="${order.totalPrice+'.00'}">1299.00</span>元
