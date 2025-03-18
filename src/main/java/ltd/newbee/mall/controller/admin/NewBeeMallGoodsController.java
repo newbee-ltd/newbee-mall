@@ -95,13 +95,13 @@ public class NewBeeMallGoodsController {
                         //根据parentId查询当前parentId下所有的二级分类
                         List<GoodsCategory> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondCategory.getParentId()), NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel());
                         //查询当前二级分类的父级一级分类
-                        GoodsCategory firestCategory = newBeeMallCategoryService.getGoodsCategoryById(secondCategory.getParentId());
-                        if (firestCategory != null) {
+                        GoodsCategory firstCategory = newBeeMallCategoryService.getGoodsCategoryById(secondCategory.getParentId());
+                        if (firstCategory != null) {
                             //所有分类数据都得到之后放到request对象中供前端读取
                             request.setAttribute("firstLevelCategories", firstLevelCategories);
                             request.setAttribute("secondLevelCategories", secondLevelCategories);
                             request.setAttribute("thirdLevelCategories", thirdLevelCategories);
-                            request.setAttribute("firstLevelCategoryId", firestCategory.getCategoryId());
+                            request.setAttribute("firstLevelCategoryId", firstCategory.getCategoryId());
                             request.setAttribute("secondLevelCategoryId", secondCategory.getCategoryId());
                             request.setAttribute("thirdLevelCategoryId", currentGoodsCategory.getCategoryId());
                         }
