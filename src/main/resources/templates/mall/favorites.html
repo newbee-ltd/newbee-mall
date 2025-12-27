@@ -1,0 +1,113 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="mall/header::head-fragment('NewBee商城-我的收藏','favorites')">
+</head>
+<body>
+<header th:replace="mall/header::header-fragment"></header>
+<!-- nav -->
+<nav th:replace="mall/header::nav-fragment"></nav>
+
+<!-- personal -->
+<div id="personal">
+    <div class="self-info center">
+
+        <!-- sidebar -->
+        <div th:replace="mall/personal-sidebar::sidebar-fragment"></div>
+
+        <div class="intro fr">
+            <div class="grzlbt ml40">我的收藏</div>
+            <div class="order-list">
+                <div class="order-item" th:each="goods : ${favorites}">
+                    <div class="order-item-img fl">
+                        <img th:src="@{${goods.goodsCoverImg}}" th:alt="${goods.goodsName}" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="order-item-info fl">
+                        <div class="order-item-title">
+                            <a th:href="@{'/goods/detail/'+${goods.goodsId}}" th:text="${goods.goodsName}">商品名称</a>
+                        </div>
+                        <div class="order-item-price">
+                            <span th:text="${goods.sellingPrice}+'.00 元'">价格</span>
+                        </div>
+                        <div class="order-item-time">
+                            收藏时间：<span th:text="${#dates.format(goods.createTime, 'yyyy-MM-dd HH:mm:ss')}">收藏时间</span>
+                        </div>
+                    </div>
+                    <div class="order-item-action fr">
+                        <button class="btn btn-danger" th:attr="data-goods-id=${goods.goodsId}" onclick="removeFavorite(this)">取消收藏</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div th:if="${#lists.isEmpty(favorites)}" class="empty-favorites">
+                    <p>您还没有收藏任何商品</p>
+                    <a href="/" class="btn btn-primary">去逛逛</a>
+                </div>
+            </div>
+            
+            <!-- 分页 -->
+            <div class="page-num" th:if="${totalPage > 1}">
+                <ul>
+                    <li th:if="${currentPage > 1}">
+                        <a th:href="@{'/favorites?page=' + ${currentPage - 1}}">上一页</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPage)}" th:class="${i == currentPage ? 'active' : ''}">
+                        <a th:href="@{'/favorites?page=' + ${i}}" th:text="${i}">1</a>
+                    </li>
+                    <li th:if="${currentPage < totalPage}">
+                        <a th:href="@{'/favorites?page=' + ${currentPage + 1}}">下一页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div th:replace="mall/footer::footer-fragment"></div>
+
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<script type="text/javascript">
+    /**
+     * 取消收藏
+     */
+    function removeFavorite(btn) {
+        var goodsId = $(btn).attr('data-goods-id');
+        Swal.fire({
+            title: '确认框',
+            text: '确定要取消收藏该商品吗？',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '确认',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/favorites',
+                    data: { goodsId: goodsId },
+                    success: function (result) {
+                        if (result.resultCode == 200) {
+                            window.location.reload();
+                        } else {
+                            Swal.fire({
+                                text: result.message,
+                                icon: "error",iconColor:"#f05b72",
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            text: "操作失败",
+                            icon: "error",iconColor:"#f05b72",
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -13,7 +13,9 @@ import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.entity.MallUser;
+import ltd.newbee.mall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.service.NewBeeMallUserService;
+import ltd.newbee.mall.service.UserFavoriteService;
 import ltd.newbee.mall.util.MD5Util;
 import ltd.newbee.mall.util.Result;
 import ltd.newbee.mall.util.ResultGenerator;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class PersonalController {
@@ -31,11 +34,37 @@ public class PersonalController {
     @Resource
     private NewBeeMallUserService newBeeMallUserService;
 
+    @Resource
+    private UserFavoriteService userFavoriteService;
+
     @GetMapping("/personal")
     public String personalPage(HttpServletRequest request,
                                HttpSession httpSession) {
         request.setAttribute("path", "personal");
         return "mall/personal";
+    }
+
+    @GetMapping("/favorites")
+    public String favoritesPage(@RequestParam(defaultValue = "1") Integer pageNumber,
+                              HttpServletRequest request,
+                              HttpSession httpSession) {
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        if (user == null) {
+            return "mall/login";
+        }
+        request.setAttribute("path", "favorites");
+        
+        int limit = 10;
+        int start = (pageNumber - 1) * limit;
+        List<NewBeeMallGoods> favorites = userFavoriteService.getUserFavorites(user.getUserId(), start, limit);
+        int total = userFavoriteService.getUserFavoriteCount(user.getUserId());
+        int totalPage = (int) Math.ceil((double) total / limit);
+        
+        request.setAttribute("favorites", favorites);
+        request.setAttribute("currentPage", pageNumber);
+        request.setAttribute("totalPage", totalPage);
+        
+        return "mall/favorites";
     }
 
     @GetMapping("/logout")

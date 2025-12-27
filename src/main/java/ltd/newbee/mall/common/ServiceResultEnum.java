@@ -73,6 +73,8 @@ public enum ServiceResultEnum {
 
     NO_PERMISSION_ERROR("无权限！"),
 
+    FAVORITE_REPEAT("商品已收藏！"),
+
     DB_ERROR("database error");
 
     private String result;

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.UserFavoriteMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.UserFavorite">
+        <id column="favorite_id" jdbcType="BIGINT" property="favoriteId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    favorite_id, user_id, goods_id, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_favorite
+        where favorite_id = #{favoriteId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByUserIdAndGoodsId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_favorite
+        where user_id = #{userId,jdbcType=BIGINT} and goods_id=#{goodsId,jdbcType=BIGINT}
+        limit 1
+    </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_newbee_mall_user_favorite
+        where user_id = #{userId,jdbcType=BIGINT}
+        order by create_time desc
+        limit #{limit}
+    </select>
+    <select id="selectCountByUserId" resultType="int">
+    select
+    count(*)
+    from tb_newbee_mall_user_favorite
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_newbee_mall_user_favorite
+    where favorite_id = #{favoriteId,jdbcType=BIGINT}
+  </delete>
+    <delete id="deleteByUserIdAndGoodsId">
+    delete from tb_newbee_mall_user_favorite
+    where user_id = #{userId,jdbcType=BIGINT} and goods_id = #{goodsId,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.UserFavorite">
+    insert into tb_newbee_mall_user_favorite (favorite_id, user_id, goods_id, 
+      create_time)
+    values (#{favoriteId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.UserFavorite">
+        insert into tb_newbee_mall_user_favorite
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="favoriteId != null">
+                favorite_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="favoriteId != null">
+                #{favoriteId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.UserFavorite">
+        update tb_newbee_mall_user_favorite
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where favorite_id = #{favoriteId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.UserFavorite">
+    update tb_newbee_mall_user_favorite
+    set user_id = #{userId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where favorite_id = #{favoriteId,jdbcType=BIGINT}
+  </update>
+    <!-- 查询用户收藏的商品信息 -->
+    <select id="selectFavoriteGoodsByUserId" resultType="ltd.newbee.mall.entity.NewBeeMallGoods">
+        select g.*
+        from tb_newbee_mall_goods g
+        inner join tb_newbee_mall_user_favorite f on g.goods_id = f.goods_id
+        where f.user_id = #{userId,jdbcType=BIGINT} and g.goods_sell_status = 1
+        order by f.create_time desc
+        limit #{start}, #{limit}
+    </select>
+
+    <!-- 查询所有收藏记录 -->
+    <select id="selectAllFavorites" parameterType="ltd.newbee.mall.util.PageQueryUtil" resultMap="BaseResultMap">
+        select f.*, u.login_name, g.goods_name
+        from tb_newbee_mall_user_favorite f
+        left join tb_newbee_mall_user u on f.user_id = u.user_id
+        left join tb_newbee_mall_goods g on f.goods_id = g.goods_id
+        order by f.create_time desc
+        <if test="start != null and limit != null">
+            limit #{start}, #{limit}
+        </if>
+    </select>
+
+    <!-- 查询所有收藏记录总数 -->
+    <select id="selectAllFavoritesCount" resultType="int">
+        select count(*)
+        from tb_newbee_mall_user_favorite
+    </select>
+
+    <!-- 商品收藏统计 -->
+    <select id="selectGoodsFavoriteStats" parameterType="ltd.newbee.mall.util.PageQueryUtil" resultType="map">
+        select 
+            g.goods_id,
+            g.goods_name,
+            count(f.favorite_id) as favorite_count,
+            max(f.create_time) as latest_favorite_time
+        from tb_newbee_mall_goods g
+        left join tb_newbee_mall_user_favorite f on g.goods_id = f.goods_id
+        where g.goods_sell_status = 1
+        group by g.goods_id, g.goods_name
+        having count(f.favorite_id) > 0
+        order by favorite_count desc
+        <if test="start != null and limit != null">
+            limit #{start}, #{limit}
+        </if>
+    </select>
+
+    <!-- 商品收藏统计总数 -->
+    <select id="selectGoodsFavoriteStatsCount" resultType="int">
+        select count(distinct g.goods_id)
+        from tb_newbee_mall_goods g
+        left join tb_newbee_mall_user_favorite f on g.goods_id = f.goods_id
+        where g.goods_sell_status = 1 and f.favorite_id is not null
+    </select>
+
+    <!-- 用户收藏统计 -->
+    <select id="selectUserFavoriteStats" parameterType="ltd.newbee.mall.util.PageQueryUtil" resultType="map">
+        select 
+            u.user_id,
+            u.login_name,
+            u.nick_name,
+            count(f.favorite_id) as favorite_count,
+            max(f.create_time) as latest_favorite_time
+        from tb_newbee_mall_user u
+        left join tb_newbee_mall_user_favorite f on u.user_id = f.user_id
+        group by u.user_id, u.login_name, u.nick_name
+        having count(f.favorite_id) > 0
+        order by favorite_count desc
+        <if test="start != null and limit != null">
+            limit #{start}, #{limit}
+        </if>
+    </select>
+
+    <!-- 用户收藏统计总数 -->
+    <select id="selectUserFavoriteStatsCount" resultType="int">
+        select count(distinct u.user_id)
+        from tb_newbee_mall_user u
+        left join tb_newbee_mall_user_favorite f on u.user_id = f.user_id
+        where f.favorite_id is not null
+    </select>
+
+    <!-- 收藏用户数统计 -->
+    <select id="selectFavoriteUsersCount" resultType="int">
+        select count(distinct user_id)
+        from tb_newbee_mall_user_favorite
+    </select>
+
+    <!-- 被收藏商品数统计 -->
+    <select id="selectFavoriteGoodsCount" resultType="int">
+        select count(distinct goods_id)
+        from tb_newbee_mall_user_favorite
+    </select>
+</mapper>

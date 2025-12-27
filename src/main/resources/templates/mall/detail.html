@@ -36,6 +36,7 @@
             <div class="order">
                 <input class="car" type="button" th:onclick="'saveAndGoCart('+${goodsDetail.goodsId}+')'" value="立即选购"/>
                 <input class="car" type="button" th:onclick="'saveToCart('+${goodsDetail.goodsId}+')'" value="加入购物车"/>
+                <input class="car" type="button" id="favoriteBtn" th:attr="data-goods-id=${goodsDetail.goodsId}" value="收藏" onclick="toggleFavorite(this)"/>
             </div>
             <div class="tb-extra ml20" id="J_tbExtra">
                 <dl>
@@ -160,6 +161,105 @@
             }
         });
     }
+
+    /**
+     * 检查收藏状态
+     */
+    function checkFavoriteStatus() {
+        var goodsId = $('#favoriteBtn').attr('data-goods-id');
+        $.ajax({
+            type: 'GET',
+            url: '/favorites/check',
+            data: { goodsId: goodsId },
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    if (result.data) {
+                        $('#favoriteBtn').val('已收藏');
+                        $('#favoriteBtn').addClass('favorited');
+                    } else {
+                        $('#favoriteBtn').val('收藏');
+                        $('#favoriteBtn').removeClass('favorited');
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 切换收藏状态
+     */
+    function toggleFavorite(btn) {
+        var goodsId = $(btn).attr('data-goods-id');
+        var isFavorited = $(btn).hasClass('favorited');
+        
+        if (isFavorited) {
+            // 取消收藏
+            $.ajax({
+                type: 'DELETE',
+                url: '/favorites',
+                data: { goodsId: goodsId },
+                success: function (result) {
+                    if (result.resultCode == 200) {
+                        $(btn).val('收藏');
+                        $(btn).removeClass('favorited');
+                        Swal.fire({
+                            text: "已取消收藏",
+                            icon: "success",iconColor:"#1d953f",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            text: result.message,
+                            icon: "error",iconColor:"#f05b72",
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        text: "操作失败",
+                        icon: "error",iconColor:"#f05b72",
+                    });
+                }
+            });
+        } else {
+            // 添加收藏
+            $.ajax({
+                type: 'POST',
+                url: '/favorites',
+                contentType: 'application/json',
+                data: JSON.stringify(goodsId),
+                success: function (result) {
+                    if (result.resultCode == 200) {
+                        $(btn).val('已收藏');
+                        $(btn).addClass('favorited');
+                        Swal.fire({
+                            text: "收藏成功",
+                            icon: "success",iconColor:"#1d953f",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            text: result.message,
+                            icon: "error",iconColor:"#f05b72",
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        text: "操作失败",
+                        icon: "error",iconColor:"#f05b72",
+                    });
+                }
+            });
+        }
+    }
+
+    // 页面加载时检查收藏状态
+    $(document).ready(function() {
+        checkFavoriteStatus();
+    });
 </script>
 </body>
 </html>

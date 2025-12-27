@@ -1,0 +1,139 @@
+<!-- Copyright (c) 2019-2020 十三 all rights reserved. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment">
+</header>
+<style>
+    .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height: auto;
+        vertical-align: text-top;
+        padding-top: 2px;
+    }
+</style>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains 图标content -->
+    <div class="content-wrapper">
+        <!-- Content Header (图标header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">收藏统计管理</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3 id="totalFavorites">0</h3>
+                                        <p>总收藏数</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-heart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3 id="totalUsers">0</h3>
+                                        <p>收藏用户数</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3 id="totalGoods">0</h3>
+                                        <p>被收藏商品数</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- 自定义标签页 -->
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item"><a class="nav-link active" href="#allFavorites" data-toggle="tab">所有收藏</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#goodsStats" data-toggle="tab">商品收藏统计</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#userStats" data-toggle="tab">用户收藏统计</a></li>
+                                        </ul>
+                                    </div><!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <!-- 所有收藏标签页 -->
+                                            <div class="active tab-pane" id="allFavorites">
+                                                <table id="allFavoritesGrid" class="table table-bordered">
+                                                </table>
+                                                <div id="allFavoritesPager"></div>
+                                            </div>
+                                            <!-- 商品收藏统计标签页 -->
+                                            <div class="tab-pane" id="goodsStats">
+                                                <table id="goodsStatsGrid" class="table table-bordered">
+                                                </table>
+                                                <div id="goodsStatsPager"></div>
+                                            </div>
+                                            <!-- 用户收藏统计标签页 -->
+                                            <div class="tab-pane" id="userStats">
+                                                <table id="userStatsGrid" class="table table-bordered">
+                                                </table>
+                                                <div id="userStatsPager"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tab-content -->
+                                    </div><!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.card-body -->
+                </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/admin/plugins/jqgrid-5.7.0/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.7.0/grid.locale-cn.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/newbee_mall_favorite.js}"></script>
+</body>
+</html>
