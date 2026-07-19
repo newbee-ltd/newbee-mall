@@ -372,9 +372,13 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
     }
 
     @Override
-    public String paySuccess(String orderNo, int payType) {
+    public String paySuccess(String orderNo, int payType, Long userId) {
         NewBeeMallOrder newBeeMallOrder = newBeeMallOrderMapper.selectByOrderNo(orderNo);
         if (newBeeMallOrder != null) {
+            //验证是否是当前userId下的订单，否则报错
+            if (!userId.equals(newBeeMallOrder.getUserId())) {
+                return ServiceResultEnum.NO_PERMISSION_ERROR.getResult();
+            }
             //订单状态判断 非待支付状态下不进行修改操作
             if (newBeeMallOrder.getOrderStatus().intValue() != NewBeeMallOrderStatusEnum.ORDER_PRE_PAY.getOrderStatus()) {
                 return ServiceResultEnum.ORDER_STATUS_ERROR.getResult();

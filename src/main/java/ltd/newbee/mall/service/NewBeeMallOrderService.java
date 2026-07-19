@@ -111,7 +111,7 @@ public interface NewBeeMallOrderService {
      */
     String finishOrder(String orderNo, Long userId);
 
-    String paySuccess(String orderNo, int payType);
+    String paySuccess(String orderNo, int payType,Long userId);
 
     List<NewBeeMallOrderItemVO> getOrderItems(Long id);
 }
