@@ -56,7 +56,9 @@ public class NeeBeeMallWebMvcConfigurer implements WebMvcConfigurer {
                 .addPathPatterns("/personal")
                 .addPathPatterns("/personal/updateInfo")
                 .addPathPatterns("/selectPayType")
-                .addPathPatterns("/payPage");
+                .addPathPatterns("/payPage")
+                .addPathPatterns("/paySuccess");
+
     }
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

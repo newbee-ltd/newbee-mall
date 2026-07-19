@@ -146,8 +146,9 @@ public class OrderController {
 
     @GetMapping("/paySuccess")
     @ResponseBody
-    public Result paySuccess(@RequestParam("orderNo") String orderNo, @RequestParam("payType") int payType) {
-        String payResult = newBeeMallOrderService.paySuccess(orderNo, payType);
+    public Result paySuccess(@RequestParam("orderNo") String orderNo, @RequestParam("payType") int payType, HttpSession httpSession) {
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        String payResult = newBeeMallOrderService.paySuccess(orderNo, payType, user.getUserId());
         if (ServiceResultEnum.SUCCESS.getResult().equals(payResult)) {
             return ResultGenerator.genSuccessResult();
         } else {
