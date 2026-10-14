@@ -104,6 +104,25 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 - [新蜂商城错误页面制作](https://juejin.cn/book/6844733814074245133?suid=1996368849416216&source=android)
 - [常见问题汇总讲解](https://juejin.cn/book/6844733814074245133?suid=1996368849416216&source=android)
 
+## 🐳 Docker 快速运行 / Quick Start with Docker
+
+本项目支持使用 Docker & Docker Compose 一键构建和运行，无需在本地配置 Java 和 MySQL 环境：
+
+```bash
+# 启动 MySQL 与 newbee-mall 应用
+docker compose up -d --build
+
+# 查看运行日志
+docker compose logs -f app
+
+# 停止并移除容器
+docker compose down
+```
+
+服务启动后即可访问：
+- 前台商城：[http://localhost:28089](http://localhost:28089)
+- 后台管理：[http://localhost:28089/admin](http://localhost:28089/admin) (默认管理员账号: `admin` / 密码: `123456`)
+
 ## 联系作者
 
 > 大家有任何问题或者建议都可以在 [issues](https://github.com/newbee-ltd/newbee-mall/issues) 中反馈给我，我会慢慢完善这个项目。
