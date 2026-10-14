@@ -796,6 +796,23 @@ server {
 
 使用 Let's Encrypt 获取免费 SSL 证书。
 
+### 6. Docker 容器化部署
+
+本项目提供了 Dockerfile 与 docker-compose.yml，可一键完成数据库初始化与系统构建：
+
+```bash
+# 一键构建镜像并启动（包含 MySQL 与 newbee-mall 应用）
+docker compose up -d --build
+
+# 查看运行状态
+docker compose ps
+
+# 查看实时日志
+docker compose logs -f app
+```
+
+启动完成后，直接访问 `http://localhost:28089` 即可体验。
+
 ---
 
 ## 常见问题
